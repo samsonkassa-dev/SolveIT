@@ -1,0 +1,24 @@
+#registration-form {
+  width: 40%;
+  padding: 6em;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-color: white;
+  margin: 10% auto 10%;
+}
+
+form {
+  width: 80%;
+  margin: auto;
+}
+
+input {
+  margin-bottom: 3em;
+}
+
+.login-link {
+  margin-top: 2em;
+}
+
+.login-link p {
+  text-align: center;
+}
