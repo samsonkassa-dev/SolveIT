@@ -1,18 +1,18 @@
-import { Component } from "@angular/core";
-import { ProjectService } from "../project.service";
+import { Component } from '@angular/core';
+import { ProjectService } from '../project.service';
 
 @Component({
-    selector: "app-project-list",
-    templateUrl: "projectList.component.html",
-    styleUrls: ["projectList.component.css"]
+    selector: 'app-project-list',
+    templateUrl: 'projectList.component.html',
+    styleUrls: ['projectList.component.css']
 })
 
-export class ProjectList {
+export class ProjectListComponent {
 
     private projects = [];
 
     constructor(private service: ProjectService) {
-        
+
     }
 
     getProjectList() {
@@ -20,7 +20,7 @@ export class ProjectList {
             res => {
                 this.projects = res;
             }
-        )
+        );
     }
-    
+
 }

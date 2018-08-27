@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
-import { SolveitTeamService } from "../solveitTeam.service";
+import { Component } from '@angular/core';
+import { SolveitTeamService } from '../solveitTeam.service';
 
 @Component({
-    selector: "app-newsfeed",
-    templateUrl: "./newsfeed.component.html",
-    styleUrls: ["./newsfeed.component.css"]
+    selector: 'app-newsfeed',
+    templateUrl: './newsfeed.component.html',
+    styleUrls: ['./newsfeed.component.css']
 })
 
-export class Newsfeed {
+export class NewsfeedComponent {
 
     private news = [];
 
@@ -18,5 +18,5 @@ export class Newsfeed {
     fetchNews() {
         this.service.fetchNews();
     }
-    
+
 }

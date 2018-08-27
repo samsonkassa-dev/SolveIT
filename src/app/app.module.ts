@@ -12,6 +12,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from './shared/shared.module';
 import {ResourcesModule} from './resources/resources.module';
 import {NgCircleProgressModule} from 'ng-circle-progress';
+import {ForumModule} from './forum/forum.module';
+import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
+import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,7 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
       innerStrokeColor: '#C7E596',
       animationDuration: 200,
       maxPercent: 100
-    })
+    }),
     ForumModule,
     SolveitMgmtModule,
     SolveitTeamModule

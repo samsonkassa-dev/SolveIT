@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 
 import { ProjectService } from './project.service';
 
-import { Project } from './project.component';
 import { CreateProject } from './createProject/createProject.component';
-import { ProjectList } from './projectList/projectList.component';
-import { ProjectView } from './projectView/projectView.component';
+import { ProjectListComponent } from './projectList/projectList.component';
+import { ProjectViewComponent } from './projectView/projectView.component';
+import {ProjectComponent} from './project/project.component';
 
 @NgModule({
     declarations: [
-        Project,
+        ProjectComponent,
         CreateProject,
-        ProjectList,
-        ProjectView
+        ProjectListComponent,
+        ProjectViewComponent
     ],
     imports: [
-        
+
     ],
     providers: [ProjectService],
     exports: []

@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { SolveitTeamService } from "../../solveitTeam.service";
+import { Component, OnInit } from '@angular/core';
+import { SolveitTeamService } from '../../solveitTeam.service';
 
 @Component({
-    selector: "app-event-view",
-    templateUrl: "./viewEvent.component.html",
-    styleUrls: ["./viewEvent.component.css"]
+    selector: 'app-event-view',
+    templateUrl: './viewEvent.component.html',
+    styleUrls: ['./viewEvent.component.css']
 })
 
-export class EventView implements OnInit{
+export class EventViewComponent implements OnInit {
 
     private event = {};
 
@@ -26,5 +26,5 @@ export class EventView implements OnInit{
             }
         );
     }
-    
+
 }
