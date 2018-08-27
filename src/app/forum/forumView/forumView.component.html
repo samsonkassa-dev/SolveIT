@@ -1,0 +1,52 @@
+<div class="container">
+    <div *ngIf = "selected == 'discussion-list'" class="row">
+        <div class="col-10">
+            <div class="row">
+                Pinned
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Discussion Name</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Goto Discussion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <app-discussion></app-discussion>
+                        <app-discussion></app-discussion>
+                        <app-discussion></app-discussion>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                Discussions
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Discussion Name</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Goto Discussion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <app-discussion></app-discussion>
+                        <app-discussion></app-discussion>
+                        <app-discussion></app-discussion>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-2">
+            <button (click) = "toggleView('discussion-create')" type="button" class="btn btn-secondary">Create Discussion</button>
+        </div>
+    </div>
+    <div *ngIf = "selected == 'discussion-create'" class="row">
+        <app-discussion-create></app-discussion-create>
+        <button (click) = "toggleView('discussion-list')"></button>   
+    </div>
+</div>
+    

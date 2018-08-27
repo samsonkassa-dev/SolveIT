@@ -24,7 +24,10 @@ import { ApiService } from './shared/services/api.service';
     RouterModule.forRoot(APP_ROUTES, {
       enableTracing: true
     }),
-    AuthModule
+    AuthModule,
+    ForumModule,
+    SolveitMgmtModule,
+    SolveitTeamModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

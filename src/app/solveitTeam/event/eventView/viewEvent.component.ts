@@ -16,11 +16,15 @@ export class EventView implements OnInit{
     }
 
     ngOnInit() {
-        this.getEvent();
+        this.getEvent(1);
     }
 
-    getEvent() {
-        this.service.getEvent();
+    getEvent(eventId) {
+        this.service.getEvent(eventId).subscribe(
+            res => {
+                this.event = res;
+            }
+        );
     }
     
 }
