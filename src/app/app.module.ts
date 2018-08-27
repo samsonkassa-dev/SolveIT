@@ -1,32 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ForumModule } from "./forum/forum.module";
-import { SolveitMgmtModule } from "./solveitMgmt/solveitMgmt.module";
-import { SolveitTeamModule } from "./solveitTeam/solveitTeam.module";
-
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { HeaderComponent } from './header/header.component';
 import {RouterModule} from '@angular/router';
 import { APP_ROUTES } from './app.routes';
 import { AuthModule } from './Auth/auth.module';
 import { ApiService } from './shared/services/api.service';
+import {HttpModule} from '@angular/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from './shared/shared.module';
+import {ResourcesModule} from './resources/resources.module';
+import {NgCircleProgressModule} from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    HeaderComponent,
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot(APP_ROUTES, {
       enableTracing: true
     }),
-    AuthModule
+    FormsModule,
+    ReactiveFormsModule,
+    AuthModule,
+    SharedModule,
+    ResourcesModule,
+    NgCircleProgressModule.forRoot({
+      radius: 20,
+      outerStrokeWidth: 8,
+      innerStrokeWidth: 4,
+      outerStrokeColor: '#78C000',
+      innerStrokeColor: '#C7E596',
+      animationDuration: 200,
+      maxPercent: 100
+    })
   ],
   providers: [ApiService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

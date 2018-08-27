@@ -3,7 +3,7 @@
   padding: 6em;
   border: 1px solid rgba(0,0,0,0.2);
   background-color: white;
-  margin: 10% auto 10%;
+  margin: 7% auto 10%;
 }
 
 form {
@@ -12,7 +12,12 @@ form {
 }
 
 input {
-  margin-bottom: 3em;
+  background: #ffffff;
+  border-bottom: 2px solid #EEE;
+}
+
+.input-field {
+  margin-bottom: 1em;
 }
 
 .login-link {
@@ -21,4 +26,14 @@ input {
 
 .login-link p {
   text-align: center;
+}
+
+.error-message p {
+  font-size: 0.7em;
+  text-align: center;
+  color: #EC4643;
+}
+
+.err {
+  border-color: #EC4643
 }

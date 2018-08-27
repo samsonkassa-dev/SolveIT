@@ -1,12 +1,61 @@
-<!--<app-header></app-header>-->
+<app-header></app-header>
+
 <div id="registration-form">
-  <form>
-    <input class="input" type="text" placeholder="First Name">
-    <input class="input" type="text" placeholder="Middle Name">
-    <input class="input" type="text" placeholder="Last Name">
-    <input class="input" type="email" placeholder="Email">
-    <input class="input" type="text" placeholder="Phone Number">
-    <button type="submit" class="main-btn">Done</button>
+  <form [formGroup]="registerForm">
+    <div class="input-field">
+      <input class="input " type="text" name="firstName" formControlName="firstName" placeholder="First Name" [(ngModel)]="user.firstName"
+              [class.err]="registerForm.controls.firstName.invalid && registerForm.controls.firstName.touched">
+      <div class="error-message" *ngIf="registerForm.controls.firstName.invalid && registerForm.controls.firstName.touched">
+        <p>* First Name is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="text" name="middleName" formControlName="middleName" placeholder="Middle Name" [(ngModel)]="user.middleName"
+              [class.err]="registerForm.controls.middleName.invalid && registerForm.controls.middleName.touched">
+      <div class="error-message" *ngIf="registerForm.controls.middleName.invalid && registerForm.controls.middleName.touched">
+        <p>* Middle Name is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="text" name="lastName" formControlName="lastName" placeholder="Last Name"
+             [(ngModel)]="user.lastName"
+              [class.err]="registerForm.controls.lastName.invalid && registerForm.controls.lastName.touched">
+      <div class="error-message" *ngIf="registerForm.controls.lastName.invalid && registerForm.controls.lastName.touched">
+        <p> * Last Name is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email"
+              [class.err]="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+      <div class="error-message" *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+        <p> * Email is required. </p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="tel" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number"
+             [(ngModel)]="user.phoneNumber"
+              [class.err]="registerForm.controls.phoneNumber.invalid && registerForm.controls.phoneNumber.touched">
+      <div class="error-message" *ngIf="registerForm.controls.phoneNumber.invalid && registerForm.controls.phoneNumber.touched">
+        <p> * Phone Number is required. </p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="password" name="password" formControlName="password" placeholder="Password"
+             [(ngModel)]="user.password"
+              [class.err]="registerForm.controls.password.invalid && registerForm.controls.password.touched">
+      <div class="error-message" *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">
+        <p> * Password is required </p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password"
+             [(ngModel)]="user.rePassword"
+              [class.err]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
+      <div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
+        <p> * Password didn't match. </p>
+      </div>
+    </div>
+    <button [disabled]="!registerForm.valid" (click)="onRegister()" type="button" class="main-btn">Done</button>
   </form>
   <div class="login-link">
     <p>If you already have account <a routerLink="/login">login here.</a></p>

@@ -27,17 +27,18 @@
 
       <!--  Main navigation  -->
       <ul class="main-nav nav navbar-nav navbar-right">
-        <li><a href="#home">Home</a></li>
+        <li><a routerLink="">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#service">Events</a></li>
-        <li><a href="#pricing">Resources</a></li>
+        <li><a routerLink="/resources">Resources</a></li>
         <li class="has-dropdown"><a href="#blog">Blog</a>
           <ul class="dropdown">
             <li><a href="blog-single.html">blog post</a></li>
           </ul>
         </li>
-        <li><a href="#team">SignIn/SignUp</a></li>
+        <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
+        <li *ngIf="authService.isAuthenticated()"><a (click)="authService.signOut()">Logout</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <!-- /Main navigation -->
@@ -821,13 +822,13 @@
 
       <!-- contact form -->
       <div class="col-md-8 col-md-offset-2">
-        <form class="contact-form">
-          <input type="text" class="input" placeholder="Name">
-          <input type="email" class="input" placeholder="Email">
-          <input type="text" class="input" placeholder="Subject">
-          <textarea class="input" placeholder="Message"></textarea>
-          <button class="main-btn">Send message</button>
-        </form>
+        <!--<form class="contact-form">-->
+          <!--<input type="text" class="input" placeholder="Name">-->
+          <!--<input type="email" class="input" placeholder="Email">-->
+          <!--<input type="text" class="input" placeholder="Subject">-->
+          <!--<textarea class="input" placeholder="Message"></textarea>-->
+          <!--<button class="main-btn">Send message</button>-->
+        <!--</form>-->
       </div>
       <!-- /contact form -->
 
@@ -839,63 +840,3 @@
 
 </div>
 <!-- /Contact -->
-
-<!-- Footer -->
-<footer id="footer" class="sm-padding bg-dark">
-
-  <!-- Container -->
-  <div class="container">
-
-    <!-- Row -->
-    <div class="row">
-
-      <div class="col-md-12">
-
-        <!-- footer logo -->
-        <div class="footer-logo">
-          <a href="index.html"><img src="../../assets/img/logo-alt.png" alt="logo"></a>
-        </div>
-        <!-- /footer logo -->
-
-        <!-- footer follow -->
-        <ul class="footer-follow">
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-        </ul>
-        <!-- /footer follow -->
-
-        <!-- footer copyright -->
-        <div class="footer-copyright">
-          <p>Copyright © 2017. All Rights Reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-        </div>
-        <!-- /footer copyright -->
-
-      </div>
-
-    </div>
-    <!-- /Row -->
-
-  </div>
-  <!-- /Container -->
-
-</footer>
-<!-- /Footer -->
-
-<!-- Back to top -->
-<div id="back-to-top"></div>
-<!-- /Back to top -->
-
-<!-- Preloader -->
-<div id="preloader">
-  <div class="preloader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<!-- /Preloader -->

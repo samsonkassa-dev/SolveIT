@@ -1,11 +1,26 @@
-<!--<app-header></app-header>-->
+<app-header></app-header>
+
 <div id="registration-form">
-  <form>
-    <input class="input" type="email" placeholder="Email">
-    <input class="input" type="password" placeholder="Password">
-    <button type="submit" class="main-btn">Login</button>
+  <form [formGroup]="loginForm">
+    <div class="input-field">
+      <input class="input" type="email" placeholder="Email" formControlName="email" [(ngModel)]="user.email"
+              [class.err]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+      <div class="error-message" *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+        <p> Email is required! </p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input class="input" type="password" placeholder="Password" formControlName="password" [(ngModel)]="user.password"
+              [class.err]="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+      <div class="error-message" *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+        <p> Password is required! </p>
+      </div>
+    </div>
+    <button (click)="onLogin()" [disabled]="!loginForm.valid" type="submit" class="main-btn">Login</button>
   </form>
   <div class="login-link">
     <p>If you haven't registered yet, <a routerLink="/register">SignUp here.</a></p>
   </div>
 </div>
+
+
