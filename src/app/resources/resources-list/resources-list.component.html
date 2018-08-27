@@ -1,0 +1,104 @@
+<app-header></app-header>
+
+
+<!-- Search bar and filters -->
+<div class="container" *ngIf="resources.length>0">
+  <div id="searchbar" class="row">
+    <div class="col-md-offset-2 col-md-4">
+      <input type="text" class="input" placeholder="Search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+    </div>
+    <div class="col-md-1">
+      <select name="category" class="in" id="category" [(ngModel)]="filterCategory" (change)="filterResource($event)">
+        <option value="" selected>All</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="web">Web</option>
+      </select>
+    </div>
+    <div class="col-md-offset-1 col-md-2">
+      <button id="upload-btn" class="outline-btn" (click)="uploadResource()"> <i class="fa fa-upload"></i> Upload</button>
+    </div>
+  </div>
+</div>
+<!-- About -->
+
+<div id="about" class="section md-padding">
+
+  <!-- Container -->
+  <div class="container">
+
+    <!-- Row -->
+    <div class="row">
+
+      <!-- Section header -->
+      <div>
+        <p id="resource-list-title" class="title">Documents</p>
+      </div>
+      <!-- /Section header -->
+
+      <div class="no-resource-found" *ngIf="doc_resources.length === 0">
+        <p>
+          <i class="fa  fa-frown-o"></i>
+          Nothing Found.
+        </p>
+      </div>
+      <!-- Documents list -->
+      <div class="col-md-4" *ngFor="let resource of doc_resources">
+        <div class="about">
+          <i class="fa fa-file-pdf-o"></i>
+          <h3>Resource Title</h3>
+          <p>Description .....</p>
+          <a href="#"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-download fa-xsm"></i></span>Download</a>
+        </div>
+      </div>
+      <!-- /Documents list -->
+    </div>
+    <!-- /Row -->
+
+  </div>
+  <!-- /Container -->
+
+</div>
+<!-- /About -->
+
+<!-- About -->
+<div id="videos" class="section md-padding">
+
+  <!-- Container -->
+  <div class="container">
+
+    <!-- Row -->
+    <div class="row">
+
+      <!-- Section header -->
+      <div>
+        <p id="resource-list-title" class="title">Videos</p>
+      </div>
+      <!-- /Section header -->
+
+      <div class="no-resource-found" *ngIf="vid_resources.length === 0">
+        <p>
+          <i class="fa  fa-frown-o"></i>
+          Nothing Found.
+        </p>
+      </div>
+
+
+      <!-- Documents list -->
+      <div class="col-md-4" *ngFor="let resource of vid_resources">
+        <div class="about">
+          <i class="fa fa-file-video-o"></i>
+          <h3>Resource Title</h3>
+          <p>Description .....</p>
+          <a href="#"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-eye"></i></span>View</a>
+        </div>
+      </div>
+      <!-- /Documents list -->
+    </div>
+    <!-- /Row -->
+
+  </div>
+  <!-- /Container -->
+
+</div>
+<!-- /About -->
