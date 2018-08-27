@@ -18,7 +18,11 @@ export class CreateEvent {
     }
 
     createEvent() {
-        this.service.createEvent(this.event);
+        this.service.createEvent(this.event).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
     }
     
 }

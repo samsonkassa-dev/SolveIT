@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Events } from "./event/event.component";
 import { Newsfeed } from "./newsFeed/newsfeed.component";
 
-export const SolveitMgmtRoutes: Routes = [
+export const SolveitTeamRoutes: Routes = [
 	{
 
 		path: "team",
@@ -12,4 +12,4 @@ export const SolveitMgmtRoutes: Routes = [
 		]
 		
 	}
-]
+];

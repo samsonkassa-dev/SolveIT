@@ -38,6 +38,9 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
       animationDuration: 200,
       maxPercent: 100
     })
+    ForumModule,
+    SolveitMgmtModule,
+    SolveitTeamModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

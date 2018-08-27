@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, Response} from '@angular/http';
 import {configs} from '../../app.config';
-import {Observable} from '../../../../node_modules/rxjs';
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map'
+import {Observable} from '../../../../node_modules/rxjs/Observable';
 
 @Injectable()
 export class ApiService {

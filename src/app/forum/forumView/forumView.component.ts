@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { ForumService } from "../forum.service";
 
 @Component({
@@ -9,23 +11,47 @@ import { ForumService } from "../forum.service";
 
 export class ForumView implements OnInit{
     
+    private selected = "discussion-list";
+    private discussions = [];
     private forum = {};
-    private comment = {};
 
-    constructor(private service: ForumService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
 
     }
 
     ngOnInit() {
-        this.getForum();
+        console.log(this.route.snapshot.paramMap.get("name"));
     }
 
-    getForum() {
-        this.service.getForum();
+    toggleView(view) {
+        this.selected = view;
     }
 
-    addComment() {
-        this.service.addComment(this.comment);
+    getForum(forumId) {
+        this.service.getForum(forumId).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
     }
-    
+
+    getDiscussions(forumId) {
+        this.service.getDiscussions(forumId).subscribe(
+            res => {
+                this.discussions = res;
+            }
+        );
+    }
+
+    addToFavourites() {
+        let content = {
+            "discussionId": 0,
+            "userId": 0
+        };
+        this.service.addToFavourites(content).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
+    }
 }

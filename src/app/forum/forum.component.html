@@ -1,0 +1,48 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="../../assets/img/favicon/apple-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Forums
+  </a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search Forum" aria-label="Search">
+    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+      <option selected>Category</option>
+      <option value="1">Python</option>
+      <option value="2">Javascript</option>
+      <option value="3">IT</option>
+    </select>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-6">SolveIT Forums</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">SolveIT</a></li>
+        <li class="breadcrumb-item"><a href="#">Forums</a></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+      <ul class="nav nav-tabs" role="tablist">
+          <li (click) = "toggleView('forum-list')" class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Forums</a>
+          </li>
+          <li (click) = "toggleView('forum-create')" class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Forum</a>
+          </li>
+      </ul>
+  </div>
+  <div class="row">
+    <br>
+  </div>
+  <app-forum-create *ngIf="selected == 'forum-create'"></app-forum-create>
+  <app-forum-list *ngIf="selected == 'forum-list'"></app-forum-list>
+</div>
+
+

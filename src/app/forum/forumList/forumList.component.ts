@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { ForumService } from "../forum.service";
 
 @Component({
@@ -12,7 +13,7 @@ export class ForumList implements OnInit {
     private forums = [];
     private selected = "forums-list";
 
-    constructor(private service: ForumService) {
+    constructor(private service: ForumService, private router: Router) {
         
     }
 
@@ -25,7 +26,7 @@ export class ForumList implements OnInit {
     }
 
     viewForum() {
-        this.selected = "view-forum";
+        this.router.navigate(['/forums', "dis"]);
     }
 
 }

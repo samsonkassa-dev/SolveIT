@@ -18,6 +18,10 @@ export class CreateForum {
     }
 
     createForum() {
-        this.service.createForum(this.forum);
+        this.service.createForum(this.forum).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
     }
 }

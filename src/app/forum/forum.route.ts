@@ -1,8 +1,15 @@
 import { Routes } from '@angular/router';
 import { Forum } from "./forum.component";
+import { ForumView } from './forumView/forumView.component';
+import { DiscussionView } from "./discussionView/discussionView.component";
 
 export const ForumRoutes: Routes = [
 	{
-		path: "forum", component: Forum
+		path: "forums",
+		children: [
+			{path: '', component: Forum},
+			{path: ':name', component: ForumView},
+			{path: 'discussion/:name', component: DiscussionView}
+		]
 	}
-]
+];

@@ -17,7 +17,11 @@ export class EventList {
     }
 
     getEventsList() {
-        this.service.getEventsList();
+        this.service.getEventsList().subscribe(
+            res => {
+                this.events = res;
+            }
+        );
     }
 
     viewEvent() {
