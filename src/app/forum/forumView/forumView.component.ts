@@ -57,11 +57,13 @@ export class ForumView implements OnInit{
     }
 
     countComments(discussion) {
+        let count = 0;
         this.service.countComments(discussion.id).subscribe(
             res => {
-                console.log(res)
+                count = res.count;
             }
         );
+        return count;
     }
 
     addToFavourites() {

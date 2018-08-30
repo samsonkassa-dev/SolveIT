@@ -22,7 +22,7 @@ export class ForumList implements OnInit {
     }
 
     fetchForumsList() {
-        this.service.getForumList();
+        
     }
 
     viewForum() {

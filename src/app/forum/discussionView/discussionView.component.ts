@@ -39,7 +39,7 @@ export class DiscussionView implements OnInit {
     countComments() {
         this.service.countComments(this.discussion.id).subscribe(
             res => {
-                this.numberOfComments = res;
+                this.numberOfComments = res.count;
             }
         )
     }

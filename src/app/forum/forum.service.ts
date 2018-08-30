@@ -31,8 +31,8 @@ export class ForumService {
         return this.apiService.post(`/SolveIT-Forums`, forum);
     }
 
-    getForumList() {
-
+    getForumList(categories) {
+        
     }
 
     getForum(forumId) {
