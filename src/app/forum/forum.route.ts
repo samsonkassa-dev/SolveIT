@@ -9,7 +9,7 @@ export const ForumRoutes: Routes = [
 		children: [
 			{path: '', component: Forum},
 			{path: ':name', component: ForumView},
-			{path: 'discussion/:name', component: DiscussionView}
+			{path: 'discussion/:slung', component: DiscussionView}
 		]
 	}
 ];

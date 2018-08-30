@@ -1,6 +1,11 @@
-<nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <img src="../../assets/img/favicon/apple-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Events
-    </a>
-</nav>
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <ul class=" main-nav nav nav-justified">
+            <li><a (click) = "toggleView('events-list')">Upcoming Events</a></li>
+            <li><a (click) = "toggleView('create-event')">Create Event</a></li>
+        </ul>
+    </div>
+</div>
+<app-event-list *ngIf = "selected == 'events-list'"></app-event-list>
+<app-event-create *ngIf = "selected == 'create-event'"></app-event-create>

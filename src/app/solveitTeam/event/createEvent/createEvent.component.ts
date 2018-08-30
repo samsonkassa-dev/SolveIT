@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { SolveitTeamService } from "../../solveitTeam.service";
 
 @Component({
@@ -14,7 +14,10 @@ export class CreateEvent {
     private eventForm: FormGroup;
 
     constructor(private service: SolveitTeamService) {
-
+        this.eventForm = new FormGroup({
+            title: new FormControl('', Validators.required),
+            description: new FormControl('', Validators.required)
+        });
     }
 
     createEvent() {

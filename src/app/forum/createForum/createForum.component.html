@@ -1,24 +1,29 @@
-<div class="col-4">
-    <form>
+<form [formGroup]="forumForm">
+    <div id="resource-form">
         <div class="form-group">
-            <label for="exampleInputEmail1">Forum Name</label>
-            <input class="form-control mr-sm-2" type="search" placeholder="Forum Name" aria-label="Search">
+            <input type="text" class="inpu" name="name" placeholder="Name"
+                formControlName="name" [(ngModel)]="forum.name">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Category</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>Python</option>
-                <option>Javascript</option>
-                <option>IT</option>
+            <input type="text" class="inpu" name="slung" placeholder="slung"
+                formControlName="slung" [(ngModel)]="forum.slung">
+        </div>
+        <div class="form-group">
+            <select  style="width: 100%" name="category" id="type" formControlName="category" class="" [(ngModel)]="forum.categoryId">
+              <option value="" selected>Select Category</option>
+              <option value="{{category.id}}" *ngFor = "let category of categories">{{ category.category }}</option>
+            </select>
+        </div> 
+        <div class="form-group">
+            <select  style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
+              <option value="" selected>Select Forum Type</option>
+              <option value=0>Public</option>
+              <option value=1>Private</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect2">Forum Type</label>
-            <select class="form-control" id="exampleFormControlSelect2">
-                <option>Private</option>
-                <option>Public</option>
-            </select>
+        <div class="form-group" id="resource-upload-btn">
+            <input type="button" [disabled]="!forumForm.valid" (click)="createForum()" class="main-btn" value="Submit">
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-</div>
+    </div>
+</form>
+        

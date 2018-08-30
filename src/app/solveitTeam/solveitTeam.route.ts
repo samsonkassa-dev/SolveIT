@@ -5,7 +5,7 @@ import { Newsfeed } from "./newsFeed/newsfeed.component";
 export const SolveitTeamRoutes: Routes = [
 	{
 
-		path: "team",
+		path: "",
 		children: [
 			{path: "events", component: Events},
 			{path: "newsfeed", component: Newsfeed}

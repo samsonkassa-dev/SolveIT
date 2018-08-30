@@ -10,15 +10,15 @@ export class ProjectService {
     }
 
     createProject(project) {
-        return this.apiService.post(``, project);
+        return this.apiService.post(`/solveit-projects`, project);
     }
 
     getProject(projectId) {
-        return this.apiService.get(``);
+        return this.apiService.get(`/solveit-projects/${projectId}`);
     }
 
     getMyProjects(userId) {
-        return this.apiService.get(``);
+        return this.apiService.get(`/solveit-projects`);
     }
 
     addProjectMember(member) {

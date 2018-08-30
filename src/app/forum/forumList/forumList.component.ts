@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Router } from '@angular/router';
 import { ForumService } from "../forum.service";
 
@@ -10,8 +10,8 @@ import { ForumService } from "../forum.service";
 
 export class ForumList implements OnInit {
     
+    @Input() selected;
     private forums = [];
-    private selected = "forums-list";
 
     constructor(private service: ForumService, private router: Router) {
         

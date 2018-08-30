@@ -13,6 +13,7 @@ export class ForumView implements OnInit{
     
     private selected = "discussion-list";
     private discussions = [];
+    private pinnedDiscussions = [];
     private forum = {};
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
@@ -20,25 +21,45 @@ export class ForumView implements OnInit{
     }
 
     ngOnInit() {
-        console.log(this.route.snapshot.paramMap.get("name"));
+        let slung = this.route.snapshot.paramMap.get("slung");
+        this.getForum(slung);
+        this.getDiscussions(this.forum);
     }
 
     toggleView(view) {
         this.selected = view;
     }
 
-    getForum(forumId) {
-        this.service.getForum(forumId).subscribe(
+    getForum(slung) {
+        this.service.getForum(slung).subscribe(
             res => {
-                console.log(res);
+                this.forum = res.Result[0];
             }
         );
     }
 
-    getDiscussions(forumId) {
-        this.service.getDiscussions(forumId).subscribe(
+    viewDiscussion(discussion) {
+        this.router.navigate(['/forums/discussion', "sl"]);
+    }
+
+    getDiscussions(forum) {
+        this.service.getDiscussions(forum.id).subscribe(
             res => {
-                this.discussions = res;
+                res.filter(item => {
+                    if (item.pinned) {
+                      this.pinnedDiscussions.push(item);
+                    } else if (!item.pinned) {
+                      this.discussions.push(item);
+                    }
+                });
+            }
+        );
+    }
+
+    countComments(discussion) {
+        this.service.countComments(discussion.id).subscribe(
+            res => {
+                console.log(res)
             }
         );
     }

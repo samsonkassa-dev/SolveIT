@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { ForumService } from "../forum.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -11,40 +11,43 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 export class DiscussionView implements OnInit {
 
-    private discussion = {};
-    private comments = [];
-    private comment = {};
+    private numberOfComments: any;
+    private discussion = {id:0};
+    private comment = {"solveIT-DiscussionId": 0};
     private commentForm: FormGroup;
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
-        
+        this.commentForm = new FormGroup({
+            content: new FormControl('', Validators.required)
+        });
     }
 
     ngOnInit() {
-        console.log(this.route.snapshot.paramMap.get("name"));
-        this.getDiscussion(1);
+        let slung = this.route.snapshot.paramMap.get("slung");
+        this.getDiscussion(slung);
+        this.countComments();
     }
 
-    getDiscussion(discussionId) {
-        this.service.getDiscussion(discussionId).subscribe(
+    getDiscussion(slung) {
+        this.service.getDiscussion(slung).subscribe(
             res => {
-                this.discussion = res;
+                this.discussion = res.Result[0];
             }
         );
     }
 
-    addComment(discussionId) {
-        this.service.addComment(this.comment, discussionId).subscribe(
+    countComments() {
+        this.service.countComments(this.discussion.id).subscribe(
+            res => {
+                this.numberOfComments = res;
+            }
+        )
+    }
+
+    addComment() {
+        this.service.addComment(this.comment).subscribe(
             res => {
                 console.log(res);
-            }
-        );
-    }
-
-    getComments(discussionId) {
-        this.service.getComments(discussionId).subscribe(
-            res => {
-                this.comments = res;
             }
         );
     }

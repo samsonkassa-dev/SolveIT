@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ForumService } from "./forum.service";
 
 @Component({
@@ -7,12 +7,16 @@ import { ForumService } from "./forum.service";
     styleUrls: ["./forum.component.css"]
 })
 
-export class Forum {
+export class Forum implements OnInit{
     
-    private selected = "forum-list";
+    private selected = "forum-list-public";
     private categories = [];
 
     constructor(private service: ForumService) {}
+
+    ngOnInit() {
+        this.getCategories();
+    }
 
     toggleView(view) {
         this.selected = view;

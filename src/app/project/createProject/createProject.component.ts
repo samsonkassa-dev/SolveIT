@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from "../project.service";
 
 @Component({
@@ -10,9 +11,13 @@ import { ProjectService } from "../project.service";
 export class CreateProject {
 
     private project = {};
+    public projectForm: FormGroup;
 
     constructor(private service: ProjectService) {
-        
+        this.projectForm = new FormGroup({
+            title: new FormControl('', Validators.required),
+            description: new FormControl('', Validators.required)
+        });
     }
 
     createProject() {

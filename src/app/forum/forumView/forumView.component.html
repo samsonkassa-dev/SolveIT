@@ -1,47 +1,44 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="row">
+      <ul class=" main-nav nav nav-justified">
+        <li><a (click) = "toggleView('discussion-list')">Discussions</a></li>
+        <li><a (click) = "toggleView('discussion-create')">Create Discussion</a></li>
+      </ul>
+  </div>
+</div>
 <div class="container">
     <div *ngIf = "selected == 'discussion-list'" class="row">
-        <div class="col-10">
-            <div class="row">
-                Pinned
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Discussion Name</th>
-                            <th scope="col">Comments</th>
-                            <th scope="col">Likes</th>
-                            <th scope="col">Date Created</th>
-                            <th scope="col">Goto Discussion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <app-discussion></app-discussion>
-                        <app-discussion></app-discussion>
-                        <app-discussion></app-discussion>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                Discussions
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Discussion Name</th>
-                            <th scope="col">Comments</th>
-                            <th scope="col">Likes</th>
-                            <th scope="col">Date Created</th>
-                            <th scope="col">Goto Discussion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <app-discussion></app-discussion>
-                        <app-discussion></app-discussion>
-                        <app-discussion></app-discussion>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Pinned</h3>
+                </div>
+                <div class="panel-body">
+                    <div *ngIf = "pinnedDiscussions.length > 0" class="list-group">
+                        <a *ngFor = "let discussion of pinnedDiscussions" (click) = "viewDiscussion()" class="list-group-item">
+                            {{ discussion.slung }}
+                            <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-2">
-            <button (click) = "toggleView('discussion-create')" type="button" class="btn btn-secondary">Create Discussion</button>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Discussions</h3>
+                </div>
+                <div class="panel-body">
+                    <div *ngIf = "discussions.length > 0" class="list-group">
+                        <a *ngFor = "let discussion of discussions" (click) = "viewDiscussion()" class="list-group-item">
+                            {{ discussion.slung }}
+                            <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div *ngIf = "selected == 'discussion-create'" class="row">

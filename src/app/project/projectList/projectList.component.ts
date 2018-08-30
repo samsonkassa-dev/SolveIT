@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ProjectService } from "../project.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-project-list",
@@ -7,12 +8,16 @@ import { ProjectService } from "../project.service";
     styleUrls: ["projectList.component.css"]
 })
 
-export class ProjectList {
+export class ProjectList implements OnInit{
 
     private projects = [];
 
-    constructor(private service: ProjectService) {
+    constructor(private service: ProjectService, private router: Router) {
         
+    }
+
+    ngOnInit() {
+        this.getProjectList();
     }
 
     getProjectList() {
@@ -22,5 +27,8 @@ export class ProjectList {
             }
         )
     }
-    
+
+    viewProject(project) {
+        this.router.navigate(['/projects/', project.id]);
+    }
 }

@@ -11,8 +11,12 @@ export class ForumService {
         return this.apiService.post(`/SolveIT-Discussions`, discussion);
     }
 
-    getDiscussion(discussionId) {
-        return this.apiService.get(`/SolveIT-Discussions/${discussionId}`);
+    getDiscussion(slung) {
+        return this.apiService.get(`/SolveIT-Discussions/${slung}/discussion`);
+    }
+
+    countComments(discussionId) {
+        return this.apiService.get(`/SolveIT-Discussions/${discussionId}/comments/count`);
     }
 
     getDiscussions(forumId) {
@@ -35,8 +39,8 @@ export class ForumService {
         return this.apiService.get(`/SolveIT-Forums/${forumId}`);
     }
 
-    addComment(comment, discussionId) {
-        return this.apiService.post(`/SolveIT-Discussions/${discussionId}/comments`, comment);
+    addComment(comment) {
+        return this.apiService.post(`SolveIT-Discussion-Comments`, comment);
     }
 
     addMember(member) {
