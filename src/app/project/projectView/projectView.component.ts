@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ProjectService } from "../project.service";
+import { ProjectService } from '../project.service';
 
 @Component({
-    selector: "app-project-view",
-    templateUrl: "projectView.component.html",
-    styleUrls: ["projectView.component.css"]
+    selector: 'app-project-view',
+    templateUrl: 'projectView.component.html',
+    styleUrls: ['projectView.component.css']
 })
 
-export class ProjectView implements OnInit{
+export class ProjectViewComponent implements OnInit {
 
     private selected = 'project';
     private project = {};
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ProjectService) {
-        
+
     }
 
     ngOnInit() {
@@ -31,11 +31,11 @@ export class ProjectView implements OnInit{
             res => {
                 this.project = res;
             }
-        )
+        );
     }
 
     addProjectMember() {
-        let member = {
+        const member = {
             projectId: 0,
             userId: 0
         };
@@ -43,7 +43,7 @@ export class ProjectView implements OnInit{
             res => {
                 console.log(res);
             }
-        )
+        );
     }
-    
+
 }

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ForumService } from './forum.service';
-import { Forum } from './forum.component';
+import { ForumComponent } from './forum.component';
 import { CreateForum } from './createForum/createForum.component';
 import { ForumList } from './forumList/forumList.component';
 import { ForumView } from "./forumView/forumView.component";
@@ -14,7 +14,7 @@ import { CommentList } from './commentList/commentList.component';
 
 @NgModule({
     declarations: [
-        Forum,
+        ForumComponent,
         CreateForum,
         ForumList,
         ForumView,

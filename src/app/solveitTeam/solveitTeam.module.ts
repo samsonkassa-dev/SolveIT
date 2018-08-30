@@ -12,9 +12,10 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
     declarations: [
         Events,
-        CreateEvent,
-        EventList,
-        Newsfeed
+        CreateEventComponent,
+        EventListComponent,
+        NewsfeedComponent,
+      EventViewComponent
     ],
     imports: [
         CommonModule,

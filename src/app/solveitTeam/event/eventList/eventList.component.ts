@@ -2,15 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { SolveitTeamService } from "../../solveitTeam.service";
 
 @Component({
-    selector: "app-event-list",
-    templateUrl: "./eventList.component.html",
-    styleUrls: ["./eventList.component.css"]
+    selector: 'app-event-list',
+    templateUrl: './eventList.component.html',
+    styleUrls: ['./eventList.component.css']
 })
 
 export class EventList implements OnInit{
 
     private events = [];
-    private selected = "events-list";
+    private selected = 'events-list';
 
     constructor(private service: SolveitTeamService) {
 
@@ -29,7 +29,7 @@ export class EventList implements OnInit{
     }
 
     viewEvent() {
-        this.selected = "view-event";
+        this.selected = 'view-event';
     }
-    
+
 }

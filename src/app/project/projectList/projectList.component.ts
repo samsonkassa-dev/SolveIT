@@ -3,9 +3,9 @@ import { ProjectService } from "../project.service";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: "app-project-list",
-    templateUrl: "projectList.component.html",
-    styleUrls: ["projectList.component.css"]
+    selector: 'app-project-list',
+    templateUrl: 'projectList.component.html',
+    styleUrls: ['projectList.component.css']
 })
 
 export class ProjectList implements OnInit{
@@ -25,7 +25,7 @@ export class ProjectList implements OnInit{
             res => {
                 this.projects = res;
             }
-        )
+        );
     }
 
     viewProject(project) {

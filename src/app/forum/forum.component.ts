@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ForumService } from "./forum.service";
 
 @Component({
-    selector: "app-forum",
-    templateUrl: "./forum.component.html",
-    styleUrls: ["./forum.component.css"]
+    selector: 'app-forum',
+    templateUrl: './forum.component.html',
+    styleUrls: ['./forum.component.css']
 })
 
 export class Forum implements OnInit{
