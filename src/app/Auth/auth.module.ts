@@ -8,12 +8,16 @@ import { AuthService } from './services/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
+import { AdressComponent } from './adress/adress.component';
+import { QuestionariesComponent } from './questionaries/questionaries.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
     LoginComponent,
+    AdressComponent,
+    QuestionariesComponent,
   ],
   imports: [
     FormsModule,

@@ -29,4 +29,8 @@ export class ResourcesService {
   createResource(resource: Resource) {
     return this.apiService.post(`${this.resources_path}`, resource);
   }
+
+  downloadResource(file) {
+    return this.apiService.download(`storages/resources/download/${file}`, file);
+  }
 }

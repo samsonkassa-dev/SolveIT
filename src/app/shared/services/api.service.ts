@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http, Response, ResponseContentType} from '@angular/http';
 import {configs} from '../../app.config';
 import 'rxjs/add/operator/map'
 import {Observable} from '../../../../node_modules/rxjs/Observable';
@@ -52,6 +52,19 @@ export class ApiService {
     if (token != null) {
       this.headers.set('Authorization', 'Bearer ' + token);
     }
+  }
+
+  public download(path: string, fileName: string) {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+        responseType: ResponseContentType.Blob
+      });
+    return this.http.get(`${this.ROOT_PATH}${path}`, {
+      responseType: ResponseContentType.Blob
+    })
+      .map(res => {
+        return {data: res.blob(), fileName: fileName};
+      });
   }
 
 }

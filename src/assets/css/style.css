@@ -203,7 +203,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     width: 100%;
     border: none;
 	  background: #ffffff;
-    border-bottom: 2px solid #EEE;
+    border-bottom: 2px solid #a29a9a;
     color: #354052;
     padding: 0px 10px;
     opacity: 0.5;
@@ -627,7 +627,7 @@ header {
     position: relative;
     text-align: center;
     padding: 40px 20px;
-    border: 1px solid #EEE;
+    border: 1px solid #ccc;
     margin: 15px 0px;
 }
 

@@ -1,7 +1,7 @@
-#registration-form {
-  width: 40%;
-  padding: 6em;
-  border: 1px solid rgba(0,0,0,0.2);
+.questionariesForm {
+  width: 70%;
+  padding: 3em;
+  border: 1px solid rgba(0,0,0,0.1);
   background-color: white;
   margin: 7% auto 10%;
 }
@@ -13,15 +13,11 @@ form {
 
 input {
   background: #ffffff;
-  border-bottom: 2px solid #ccc;
-}
-
-input:focus {
-  background: #fff;
+  border-bottom: 2px solid #EEE;
 }
 
 .input-field {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 
 .login-link {
@@ -42,23 +38,24 @@ input:focus {
   border-color: #EC4643
 }
 
-.login-btn {
+.input-field select {
+  padding: .5em;
+  background: white;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #eeee;
+}
+
+.register-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-content: center;
 }
 
-.login-btn button {
-  width: 50%;
-}
-.login-error {
-  margin-bottom: 2em;
-  background: #e4b1b1;
-  color: white;
-  padding: 1em;
+.register-btn button {
+  width: 60%;
 }
 
-.login-error p {
-  text-align: center;
+.disabled-btn {
+  background: #EEEEEE;
 }

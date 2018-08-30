@@ -4,9 +4,9 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AUTH_ROUTES } from './Auth/auth.routes';
 import {RESOURCES_ROUTES} from './resources/resources.routes';
 
-import { ForumRoutes } from "./forum/forum.route";
+import { ForumRoutes } from './forum/forum.route';
 import { SolveitMgmtRoutes } from './solveitMgmt/solveitMgmt.route';
-import { SolveitTeamRoutes } from "./solveitTeam/solveitTeam.route";
+import { SolveitTeamRoutes } from './solveitTeam/solveitTeam.route';
 
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },

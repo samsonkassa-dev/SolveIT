@@ -1,15 +1,21 @@
 <app-header></app-header>
+
 <form [formGroup]="resourceForm">
   <div id="resource-form">
+    <!-- Section-header -->
+    <div class="section-header text-center">
+      <h2 class="title">Upload Resource</h2>
+    </div>
+    <!-- /Section-header -->
     <div class="form-group">
       <input type="text" class="inpu" name="title" placeholder="Name"
              formControlName="title" [(ngModel)]="resource.title"
-             [(ngModel)]="resource.url" [class.err]="resourceForm.controls.title.invalid && resourceForm.controls.title.touched">
+             [(ngModel)]="resource.title" [class.err]="resourceForm.controls.title.invalid && resourceForm.controls.title.touched">
       <p *ngIf="resourceForm.controls.title.invalid && resourceForm.controls.title.touched" class="error-message">* Name is required.</p>
     </div>
     <div class="form-group">
       <input *ngIf="resource.type==='video'" type="text" class="input " name="url" placeholder="Video Url"
-             formControlName="url" >
+             formControlName="url" [(ngModel)]="resource.url">
     </div>
     <div class="form-group">
       <textarea placeholder="Description" class="input " [class.err]="resourceForm.controls.description.invalid && resourceForm.controls.description.touched"

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {RouterModule} from '@angular/router';
@@ -15,6 +14,7 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
 import {ForumModule} from './forum/forum.module';
 import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
+import {BsModalModule} from 'ng2-bs3-modal';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
     }),
     ForumModule,
     SolveitMgmtModule,
-    SolveitTeamModule
+    SolveitTeamModule,
+    BsModalModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

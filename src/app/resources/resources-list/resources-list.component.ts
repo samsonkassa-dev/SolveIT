@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ResourcesService} from '../service/resources.service';
 import {Resource} from '../models/resource';
 import {Router} from '@angular/router';
+import {configs} from '../../app.config';
+import {SolveitTeamGuardService} from '../../Auth/services/solveit-team-guard.service';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
   selector: 'app-resources-list',
@@ -15,12 +18,19 @@ export class ResourcesListComponent implements OnInit {
   public vid_resources: Resource[] = [];
   public filterCategory = '';
   public keyword = '';
+  public downloadLink = configs.rootUrl + 'storages/resources/download/';
+  public choosenResource: Resource = null;
+  docResourcePage = 1;
+  vidResourcePage = 1;
+  p =1;
+  collections = [1,2];
 
-  constructor(public resourceService: ResourcesService, public router: Router) { }
+  constructor(public resourceService: ResourcesService, public router: Router, public authService: AuthService) { }
 
   ngOnInit() {
     this.resourceService.getResources()
       .subscribe(res => {
+        console.log('resoruce list ', res);
         this.resources = res;
         res.filter(item => {
           if (item.type === 'document') {
@@ -59,4 +69,40 @@ export class ResourcesListComponent implements OnInit {
       this.doc_resources = this.resources.filter(item => item.type === 'document');
     }
   }
+
+  downloadResource(content) {
+    // console.log('Downloading Resource', content);
+    // this.resourceService.downloadResource(content.name)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     const blob = new Blob([res], { type: 'application/' + content.name.slice(content.name.lastIndexOf('.') + 1, content.name.length) });
+    //     console.log('blob', blob);
+    //     const url = window.URL.createObjectURL(blob);
+    //     console.log('url', url);
+    //     window.open(url, '_blank');
+    //   }, err => {
+    //     console.log('error', err);
+    //   });
+
+    this.resourceService.downloadResource(content.name)
+      .subscribe(res => {
+        console.log(res);
+        const url = window.URL.createObjectURL(res.data);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = res.fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+      }, error => {
+        console.log('error', error);
+      });
+  }
+
+  onChoosingVideoResource(resource: Resource) {
+    this.choosenResource = resource;
+  }
+
 }
