@@ -8,7 +8,7 @@ import { ProjectService } from '../project.service';
     styleUrls: ['projectView.component.css']
 })
 
-export class ProjectViewComponent implements OnInit {
+export class ProjectView implements OnInit {
 
     private selected = 'project';
     private project = {};

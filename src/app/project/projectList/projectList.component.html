@@ -9,7 +9,7 @@
         </div>
         <!-- Documents list -->
         <ng-container *ngIf="projects.length > 0">
-            <div class="col-md-4" *ngFor = "let project of projects">
+            <div class="col-md-4" *ngFor = "let project of projects | paginate: { itemsPerPage: 10, currentPage: p }">
                 <div class="about">
                 <i class="fa fa-file-pdf-o"></i>
                 <h3>{{ project.title }}</h3>
@@ -19,5 +19,8 @@
             </div>
         </ng-container>
         <!-- /Documents list -->
+    </div>
+    <div *ngIf="projects.length > 0" class="row">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>

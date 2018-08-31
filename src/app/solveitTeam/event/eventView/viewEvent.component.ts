@@ -7,7 +7,7 @@ import { SolveitTeamService } from '../../solveitTeam.service';
     styleUrls: ['./viewEvent.component.css']
 })
 
-export class EventViewComponent implements OnInit {
+export class EventView implements OnInit {
 
     private event = {};
 

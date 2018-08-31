@@ -11,6 +11,7 @@ export class CommentList implements OnInit{
 
     @Input() discussionId;
     private comments = [];
+    private page: number = 1;
 
     constructor(private service: ForumService) {
         

@@ -8,17 +8,20 @@ import { CreateEvent } from "./event/createEvent/createEvent.component";
 import { EventList } from "./event/eventList/eventList.component";
 import { Newsfeed } from "./newsFeed/newsfeed.component";
 import { SharedModule } from '../shared/shared.module';
+import { EventView } from './event/eventView/viewEvent.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [
         Events,
-        CreateEventComponent,
-        EventListComponent,
-        NewsfeedComponent,
-      EventViewComponent
+        CreateEvent,
+        EventList,
+        EventView,
+        Newsfeed
     ],
     imports: [
         CommonModule,
+        NgxPaginationModule,
         FormsModule,
         ReactiveFormsModule,
         SharedModule

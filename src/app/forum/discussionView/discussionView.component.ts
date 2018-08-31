@@ -20,18 +20,20 @@ export class DiscussionView implements OnInit {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
+        let slung = this.route.snapshot.paramMap.get("slung");
+        this.getDiscussion(slung);
+
     }
 
     ngOnInit() {
-        let slung = this.route.snapshot.paramMap.get("slung");
-        this.getDiscussion(slung);
-        this.countComments();
+        
     }
 
     getDiscussion(slung) {
         this.service.getDiscussion(slung).subscribe(
             res => {
                 this.discussion = res.Result[0];
+                this.countComments();
             }
         );
     }
@@ -62,6 +64,14 @@ export class DiscussionView implements OnInit {
                 console.log(res);
             }
         );
+    }
+
+    pinDiscussion() {
+        this.service.pinDiscussion(this.discussion).subscribe(
+            res => {
+                console.log(res);
+            }
+        )
     }
 
 }

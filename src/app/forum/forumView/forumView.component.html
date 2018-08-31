@@ -9,6 +9,21 @@
   </div>
 </div>
 <div class="container">
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div id="aside" class="col-md-offset-4 col-md-4">
+            <div class="widget">
+                <div class="widget-search">
+                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
     <div *ngIf = "selected == 'discussion-list'" class="row">
         <div class="row">
             <div class="panel panel-default">
@@ -17,11 +32,12 @@
                 </div>
                 <div class="panel-body">
                     <div *ngIf = "pinnedDiscussions.length > 0" class="list-group">
-                        <a *ngFor = "let discussion of pinnedDiscussions" (click) = "viewDiscussion()" class="list-group-item">
+                        <a *ngFor = "let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
                             {{ discussion.slung }}
                             <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
                         </a>
                     </div>
+                    <pagination-controls *ngIf = "pinnedDiscussions.length > 5" (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -32,17 +48,18 @@
                 </div>
                 <div class="panel-body">
                     <div *ngIf = "discussions.length > 0" class="list-group">
-                        <a *ngFor = "let discussion of discussions" (click) = "viewDiscussion()" class="list-group-item">
+                        <a *ngFor = "let discussion of discussions | paginate: { itemsPerPage: 20, currentPage: discussionPage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
                             {{ discussion.slung }}
                             <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
                         </a>
                     </div>
+                    <pagination-controls *ngIf = "discussions.length > 20" (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf = "selected == 'discussion-create'" class="row">
-        <app-discussion-create></app-discussion-create>
+        <app-discussion-create [forum] = "forum"></app-discussion-create>
         <button (click) = "toggleView('discussion-list')"></button>   
     </div>
 </div>

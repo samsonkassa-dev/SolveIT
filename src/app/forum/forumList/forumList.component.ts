@@ -11,7 +11,11 @@ import { ForumService } from "../forum.service";
 export class ForumList implements OnInit {
     
     @Input() selected;
+    @Input() categories;
+    private popularforums = [];
+    private popularforumsBackup = [];
     private forums = [];
+    private keyword = '';
 
     constructor(private service: ForumService, private router: Router) {
         
@@ -19,14 +23,36 @@ export class ForumList implements OnInit {
 
     ngOnInit() {
         this.fetchForumsList();
+        this.getAllForums();
     }
 
     fetchForumsList() {
-        
+        this.service.getForumList().subscribe(
+            res => {
+                this.popularforums = res.Result;
+                this.popularforumsBackup = res.Result;
+            }
+        );
     }
 
-    viewForum() {
-        this.router.navigate(['/forums', "dis"]);
+    getAllForums() {
+        this.service.getAllForumList().subscribe(
+            res => {
+                this.forums = res;
+            }
+        )
+    }
+
+    viewForum(slung) {
+        this.router.navigate(['/forums', slung]);
+    }
+
+    onSearch($event) {
+        if (this.keyword !== '') {
+          this.popularforums = this.forums.filter(item => item.slung.includes(this.keyword));
+        } else {
+          this.popularforums = this.popularforumsBackup;
+        }
     }
 
 }

@@ -14,7 +14,11 @@ export class ForumView implements OnInit{
     private selected = "discussion-list";
     private discussions = [];
     private pinnedDiscussions = [];
+    private allDiscussions = [];
     private forum = {};
+    private discussionPage: number = 1;
+    private pinnedPage: number = 1;
+    private keyword = '';
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
 
@@ -23,7 +27,6 @@ export class ForumView implements OnInit{
     ngOnInit() {
         let slung = this.route.snapshot.paramMap.get("slung");
         this.getForum(slung);
-        this.getDiscussions(this.forum);
     }
 
     toggleView(view) {
@@ -34,17 +37,19 @@ export class ForumView implements OnInit{
         this.service.getForum(slung).subscribe(
             res => {
                 this.forum = res.Result[0];
+                this.getDiscussions(this.forum);
             }
         );
     }
 
     viewDiscussion(discussion) {
-        this.router.navigate(['/forums/discussion', "sl"]);
+        this.router.navigate(['/forums/discussion', discussion.slung]);
     }
 
     getDiscussions(forum) {
         this.service.getDiscussions(forum.id).subscribe(
             res => {
+                this.allDiscussions = res;
                 res.filter(item => {
                     if (item.pinned) {
                       this.pinnedDiscussions.push(item);
@@ -76,5 +81,15 @@ export class ForumView implements OnInit{
                 console.log(res);
             }
         );
+    }
+
+    onSearch($event) {
+        if (this.keyword !== '') {
+          this.pinnedDiscussions = this.pinnedDiscussions.filter(item => item.content.includes(this.keyword));
+          this.discussions = this.discussions.filter(item => item.content.includes(this.keyword));
+        } else {
+          this.pinnedDiscussions = this.allDiscussions.filter(item => item.pinned);
+          this.discussions = this.allDiscussions.filter(item => !item.pinned);
+        }
     }
 }

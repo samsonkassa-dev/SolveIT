@@ -9,6 +9,7 @@ import { ProjectList } from './projectList/projectList.component';
 import { ProjectView } from './projectView/projectView.component';
 import { ProjectContainer } from './projectContainer.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
         ProjectContainer
     ],
     imports: [
+        NgxPaginationModule,
         SharedModule,
         CommonModule,
         FormsModule,

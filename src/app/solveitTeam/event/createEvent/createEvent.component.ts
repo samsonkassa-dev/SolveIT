@@ -8,7 +8,7 @@ import { SolveitTeamService } from "../../solveitTeam.service";
     styleUrls: ['./createEvent.component.css']
 })
 
-export class CreateEventComponent {
+export class CreateEvent {
 
     private event = {};
     private eventForm: FormGroup;

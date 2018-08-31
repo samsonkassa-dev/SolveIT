@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -25,6 +26,7 @@ import { ProjectModule } from './project/project.module';
   imports: [
     BrowserModule,
     HttpModule,
+    NgxPaginationModule,
     RouterModule.forRoot(APP_ROUTES, {
       enableTracing: true
     }),

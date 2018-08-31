@@ -7,7 +7,7 @@ import { SolveitTeamService } from '../solveitTeam.service';
     styleUrls: ['./newsfeed.component.css']
 })
 
-export class NewsfeedComponent {
+export class Newsfeed {
 
     private news = [];
 

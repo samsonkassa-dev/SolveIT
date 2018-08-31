@@ -5,7 +5,7 @@
       <ul class=" main-nav nav nav-justified">
         <li><a (click) = "toggleView('forum-list-public')">Public Forums</a></li>
         <li><a (click) = "toggleView('forum-list-private')">Private Forums</a></li>
-        <li><a (click) = "toggleView('favourite-discussions')">Favourite Discussions</a></li>
+        <li><a (click) = "getFavouriteDiscussions()">Favourite Discussions</a></li>
         <li><a (click) = "toggleView('forum-create')">Create Forum</a></li>
       </ul>
   </div>
@@ -13,8 +13,8 @@
 <div class="container">
   <div class="row">
       <app-forum-create *ngIf="selected == 'forum-create'" [categories] = "categories"></app-forum-create>
-      <app-forum-list *ngIf="selected == 'forum-list-public'" [selected] = "selected"></app-forum-list>
-      <app-forum-list *ngIf="selected == 'forum-list-private'" [selected] = "selected"></app-forum-list>
+      <app-forum-list *ngIf="selected == 'forum-list-public'" [categories] = "categories" [selected] = "selected"></app-forum-list>
+      <app-forum-list *ngIf="selected == 'forum-list-private'" [categories] = "categories" [selected] = "selected"></app-forum-list>
       <div *ngIf="selected == 'favourite-discussions'" class="container">
             <div class="row">
                 <br>
@@ -23,7 +23,7 @@
                 <div id="aside" class="col-md-offset-4 col-md-4">
                     <div class="widget">
                         <div class="widget-search">
-                            <input class="search-input" type="text" placeholder="search">
+                            <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
                             <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
@@ -35,20 +35,13 @@
                         <h3 class="panel-title">Favourite Discussions</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="list-group">
-                            <a (click) = "viewForum()" class="list-group-item">
-                                Cras justo odio
-                                <span class="badge badge-primary badge-pill">14 Comments</span>
-                            </a>
-                            <a (click) = "viewForum()" class="list-group-item">
-                                Dapibus ac facilisis in
-                                <span class="badge badge-primary badge-pill">2 Comments</span>
-                            </a>
-                            <a (click) = "viewForum()" class="list-group-item">
-                                Morbi leo risus
-                                <span class="badge badge-primary badge-pill">1 Comments</span>
+                        <div *ngIf = "favouriteDiscussions.length > 0" class="list-group">
+                            <a *ngFor = "let discussion of favouriteDiscussions | paginate: { itemsPerPage: 20, currentPage: favouritePage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
+                                {{ discussion.slung }}
+                                <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
                             </a>
                         </div>
+                        <pagination-controls *ngIf = "favouriteDiscussions.length > 5" (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
             </div>

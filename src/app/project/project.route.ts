@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProjectContainer } from './projectContainer.component';
-import { ProjectViewComponent } from './projectView/projectView.component';
+import { ProjectView } from './projectView/projectView.component';
 
 export const ProjectRoutes: Routes = [
 	{

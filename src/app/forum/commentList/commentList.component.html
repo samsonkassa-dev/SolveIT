@@ -3,7 +3,7 @@
     <h3 class="title">{{ comments.length }} Comments</h3>
 
     <!-- comment -->
-    <div class="media" *ngFor = "let comment of comments">
+    <div class="media" *ngFor = "let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">
         <div class="media-left">
             <img class="media-object" src="../../../assets/img/perso2.jpg" alt="">
         </div>
@@ -13,5 +13,7 @@
         </div>
     </div>
     <!-- /comment -->
+
+    <pagination-controls *ngIf = "comments.length > 20" (pageChange)="p = $event"></pagination-controls>
 </div>
 <!-- /blog comments -->
