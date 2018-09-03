@@ -1,0 +1,17 @@
+<form [formGroup]="projectForm">
+  <div id="resource-form">
+    <div class="form-group">
+      <input type="text" class="inpu" name="title" placeholder="Name"
+             formControlName="title" [(ngModel)]="project.title">
+    </div>
+    <div class="form-group">
+      <textarea placeholder="Description" class="input "
+        formControlName="description" [(ngModel)]="project.description">
+      </textarea>
+    </div>
+    
+    <div class="form-group" id="resource-upload-btn">
+      <input type="button" [disabled]="!projectForm.valid" (click)="createProject()" class="main-btn" value="Submit">
+    </div>
+  </div>
+</form>

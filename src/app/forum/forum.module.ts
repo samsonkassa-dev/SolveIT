@@ -1,29 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ForumService } from './forum.service';
-import { ForumComponent } from './forum.component';
+import { Forum } from './forum.component';
 import { CreateForum } from './createForum/createForum.component';
 import { ForumList } from './forumList/forumList.component';
 import { ForumView } from "./forumView/forumView.component";
-import { Discussion } from "./discussion/discussion.component";
 import { DiscussionView } from './discussionView/discussionView.component';
 import { CreateDiscussion } from './createDiscussion/createDiscussion.component';
-import { DiscussionComment } from './comment/comment.component';
+import { SharedModule } from '../shared/shared.module';
+import { CommentList } from './commentList/commentList.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [
-        ForumComponent,
+        Forum,
         CreateForum,
         ForumList,
         ForumView,
-        Discussion,
         DiscussionView,
         CreateDiscussion,
-        DiscussionComment
+        CommentList
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        NgxPaginationModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule
     ],
     providers: [ForumService],
     exports: []

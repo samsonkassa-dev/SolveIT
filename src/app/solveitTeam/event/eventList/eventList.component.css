@@ -1,0 +1,52 @@
+#searchbar {
+    margin-bottom: 2em;
+    margin-top: 3em;
+  }
+  
+  #searchbar input {
+    padding: 1em;
+    font-size: 1.5em;
+  }
+  
+  .resource-list-title {
+    color: red;
+  }
+  
+  #resource-list-title {
+    font-weight: bold;
+    color: black;
+    text-transform: capitalize;
+  }
+  
+  .resource-list-icons {
+  
+  }
+  
+  #videos {
+    margin-top: -10em;
+  }
+  
+  #category {
+    padding: .8em;
+    background: #ffffff;
+    border: none;
+    border-bottom: 1px solid #EEEEEE;
+  }
+  
+  .no-resource-found {
+    padding: 2em;
+    border: 1px solid #EEEEEE;
+    width: 60%;
+    margin: auto;
+  }
+  
+  .no-resource-found p {
+    font-size: 2em;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  
+  #upload-btn:focus {
+    border-color: #EEEEEE;
+  }
+  

@@ -8,7 +8,7 @@ import { Component } from "@angular/core";
 
 export class Events {
 
-    private selected = "add-event";
+    private selected = "events-list";
 
     toggleView(view) {
         this.selected = view;

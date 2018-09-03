@@ -1,59 +1,33 @@
-<div class="row">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-            <th scope="col">Forum Name</th>
-            <th scope="col">Discussions</th>
-            <th scope="col">Category</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Goto Forum</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td>Python Guru</td>
-            <td>350</td>
-            <td>Python</td>
-            <td>10/7/2017</td>
-            <td>
-                <button (click) = "viewForum()" class='btn btn-outline-success '>
-                    <i class="fa fa-pencil"></i> Enter
-                </button>
-            </td>
-            </tr>
-            <tr>
-            <td>Javascript Ninja</td>
-            <td>234</td>
-            <td>Javascript</td>
-            <td>1/8/2017</td>
-            <td>
-                <button class='btn btn-outline-success '>
-                    <i class="fa fa-pencil"></i> Enter
-                </button>
-            </td>
-            </tr>
-            <tr>
-            <td>IT Elite`s</td>
-            <td>222</td>
-            <td>IT</td>
-            <td>17/5/2017</td>
-            <td>
-                <button class='btn btn-outline-success '>
-                    <i class="fa fa-pencil"></i> Enter
-                </button>
-            </td>
-            </tr>
-            <tr>
-            <td>Hardware Club</td>
-            <td>145</td>
-            <td>Hardware</td>
-            <td>2/12/2017</td>
-            <td>
-                <button class='btn btn-outline-success '>
-                    <i class="fa fa-pencil"></i> Enter
-                </button>
-            </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div id="aside" class="col-md-offset-4 col-md-4">
+            <div class="widget">
+                <div class="widget-search">
+                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngFor = "let category of categories" class="col-md-6">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ category.category }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <ng-container *ngFor = "let forum of popularforums | paginate: { itemsPerPage: 7, currentPage: 1 }">
+                    <a *ngIf = "forum.categoryId == category.id" (click) = "viewForum(forum.slung)" class="list-group-item">
+                        {{ forum.slung }}
+                        <span class="badge badge-primary badge-pill">{{ forum.discussionCount }} Discussions</span>
+                    </a>
+                </ng-container>
+            </div>
+            <pagination-controls *ngIf = "popularforums.length > 7" (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
 </div>

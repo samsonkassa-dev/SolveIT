@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="row">
+        <ul class=" main-nav nav nav-justified">
+            <li><a (click) = "toggleView('project')">Project</a></li>
+            <li><a (click) = "toggleView('report')">Upload Report</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Project - Title: {{ project.title }}</h3>
+            </div>
+            <div class="panel-body">
+                <p>{{ project.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Progress reports</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-diamond"></i>
+                        <h3>Report 1</h3>
+                        <p>Report short Description</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-diamond"></i>
+                        <h3>Report 2</h3>
+                        <p>Report short Description</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-diamond"></i>
+                        <h3>Report 3</h3>
+                        <p>Report short Description</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="service">
+                        <i class="fa fa-diamond"></i>
+                        <h3>Report 4</h3>
+                        <p>Report short Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

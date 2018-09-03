@@ -1,48 +1,52 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="../../assets/img/favicon/apple-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    Forums
-  </a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search Forum" aria-label="Search">
-    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-      <option selected>Category</option>
-      <option value="1">Python</option>
-      <option value="2">Javascript</option>
-      <option value="3">IT</option>
-    </select>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</nav>
-
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-6">SolveIT Forums</h1>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">SolveIT</a></li>
-        <li class="breadcrumb-item"><a href="#">Forums</a></li>
-      </ol>
-    </nav>
-  </div>
-</div>
+<app-header></app-header>
 
 <div class="container">
   <div class="row">
-      <ul class="nav nav-tabs" role="tablist">
-          <li (click) = "toggleView('forum-list')" class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Forums</a>
-          </li>
-          <li (click) = "toggleView('forum-create')" class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Forum</a>
-          </li>
+      <ul class=" main-nav nav nav-justified">
+        <li><a (click) = "toggleView('forum-list-public')">Public Forums</a></li>
+        <li><a (click) = "toggleView('forum-list-private')">Private Forums</a></li>
+        <li><a (click) = "getFavouriteDiscussions()">Favourite Discussions</a></li>
+        <li><a (click) = "toggleView('forum-create')">Create Forum</a></li>
       </ul>
   </div>
+</div>
+<div class="container">
   <div class="row">
-    <br>
+      <app-forum-create *ngIf="selected == 'forum-create'" [categories] = "categories"></app-forum-create>
+      <app-forum-list *ngIf="selected == 'forum-list-public'" [categories] = "categories" [selected] = "selected"></app-forum-list>
+      <app-forum-list *ngIf="selected == 'forum-list-private'" [categories] = "categories" [selected] = "selected"></app-forum-list>
+      <div *ngIf="selected == 'favourite-discussions'" class="container">
+            <div class="row">
+                <br>
+            </div>
+            <div class="row">
+                <div id="aside" class="col-md-offset-4 col-md-4">
+                    <div class="widget">
+                        <div class="widget-search">
+                            <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+                            <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Favourite Discussions</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div *ngIf = "favouriteDiscussions.length > 0" class="list-group">
+                            <a *ngFor = "let discussion of favouriteDiscussions | paginate: { itemsPerPage: 20, currentPage: favouritePage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
+                                {{ discussion.slung }}
+                                <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
+                            </a>
+                        </div>
+                        <pagination-controls *ngIf = "favouriteDiscussions.length > 5" (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+      </div>
   </div>
-  <app-forum-create *ngIf="selected == 'forum-create'"></app-forum-create>
-  <app-forum-list *ngIf="selected == 'forum-list'"></app-forum-list>
 </div>
 
 

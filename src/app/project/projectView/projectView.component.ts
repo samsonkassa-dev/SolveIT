@@ -8,8 +8,9 @@ import { ProjectService } from '../project.service';
     styleUrls: ['projectView.component.css']
 })
 
-export class ProjectViewComponent implements OnInit {
+export class ProjectView implements OnInit {
 
+    private selected = 'project';
     private project = {};
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ProjectService) {
@@ -17,11 +18,16 @@ export class ProjectViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.route.snapshot.paramMap.get('name'));
+        let id = this.route.snapshot.paramMap.get("id")
+        this.getProject(id);
     }
 
-    getProject() {
-        this.service.getProject(0).subscribe(
+    toggleView(view) {
+        this.selected = view;
+    }
+
+    getProject(projectId) {
+        this.service.getProject(projectId).subscribe(
             res => {
                 this.project = res;
             }

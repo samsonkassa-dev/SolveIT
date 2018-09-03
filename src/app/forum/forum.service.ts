@@ -8,46 +8,64 @@ export class ForumService {
     constructor(private apiService: ApiService) {}
 
     createDiscussion(discussion) {
-        return this.apiService.post(`/SolveIT-Discussions`, discussion);
+        return this.apiService.post(`SolveIT-Discussions`, discussion);
     }
 
-    getDiscussion(discussionId) {
-        return this.apiService.get(`/SolveIT-Discussions/${discussionId}`);
+    pinDiscussion(discussion) {
+        let update = discussion;
+        update.pinned = true;
+        return this.apiService.put(`SolveIT-Discussions/${discussion.id}`, update);
+    }
+
+    getFavouriteDiscussions(){
+        return null;
+    }
+
+    getDiscussion(slung) {
+        return this.apiService.get(`SolveIT-Discussions/${slung}/discussion`);
+    }
+
+    countComments(discussionId) {
+        return this.apiService.get(`SolveIT-Discussions/${discussionId}/comments/count`);
     }
 
     getDiscussions(forumId) {
-        return this.apiService.get(`/SolveIT-Forums/${forumId}/discussions`);
+        return this.apiService.get(`SolveITForums/${forumId}/discussions`);
     }
 
     getComments(discussionId) {
-        return this.apiService.get(`/SolveIT-Discussions/${discussionId}/comments`);
+        return this.apiService.get(`SolveIT-Discussions/${discussionId}/comments`);
     }
 
     createForum(forum) {
-        return this.apiService.post(`/SolveIT-Forums`, forum);
+        return this.apiService.post(`SolveITForums`, forum);
     }
 
     getForumList() {
-
+        return this.apiService.get(`SolveITForums/forumList`);
     }
 
-    getForum(forumId) {
-        return this.apiService.get(`/SolveIT-Forums/${forumId}`);
+    getAllForumList(){
+        return this.apiService.get(`SolveITForums`);
     }
 
-    addComment(comment, discussionId) {
-        return this.apiService.post(`/SolveIT-Discussions/${discussionId}/comments`, comment);
+    getForum(slung) {
+        return this.apiService.get(`SolveITForums/${slung}/forum`);
+    }
+
+    addComment(comment) {
+        return this.apiService.post(`SolveIT-Discussion-Comments`, comment);
     }
 
     addMember(member) {
-        return this.apiService.post(`/forum-members`, member);
+        return this.apiService.post(`forum-members`, member);
     }
 
     addToFavourites(favourite) {
-        return this.apiService.post(`/favourite-discussions`, favourite)
+        return this.apiService.post(`favourite-discussions`, favourite)
     }
 
     getCategories() {
-        return this.apiService.get(`/forum-categories`);
+        return this.apiService.get(`forumCategories`);
     }
 }

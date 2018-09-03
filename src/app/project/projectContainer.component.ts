@@ -10,7 +10,7 @@ export class ProjectContainer {
 
     private selected = "project-list";
 
-    toggeleView(view) {
+    toggleView(view) {
         this.selected = view;
     }
 }

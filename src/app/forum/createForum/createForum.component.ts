@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { ForumService } from "../forum.service";
 
 @Component({
@@ -10,11 +10,17 @@ import { ForumService } from "../forum.service";
 
 export class CreateForum {
 
-    private forum = {};
+    @Input() categories;
+    private forum = { userAccountId:0 };
     private forumForm: FormGroup;
 
     constructor(private service: ForumService) {
-
+        this.forumForm = new FormGroup({
+            name: new FormControl('', Validators.required),
+            slung: new FormControl('', Validators.required),
+            category: new FormControl('', Validators.required),
+            type: new FormControl('', Validators.required),
+        });
     }
 
     createForum() {

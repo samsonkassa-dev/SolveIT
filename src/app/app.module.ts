@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {RouterModule} from '@angular/router';
@@ -11,10 +13,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from './shared/shared.module';
 import {ResourcesModule} from './resources/resources.module';
 import {NgCircleProgressModule} from 'ng-circle-progress';
+import {BsModalModule} from 'ng2-bs3-modal';
+import { ProjectModule } from './project/project.module';
 import {ForumModule} from './forum/forum.module';
 import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
-import {BsModalModule} from 'ng2-bs3-modal';
 
 @NgModule({
   declarations: [
@@ -24,10 +27,12 @@ import {BsModalModule} from 'ng2-bs3-modal';
   imports: [
     BrowserModule,
     HttpModule,
+    NgxPaginationModule,
     RouterModule.forRoot(APP_ROUTES, {
       enableTracing: true
     }),
     FormsModule,
+    ProjectModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,

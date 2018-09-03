@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { SolveitTeamService } from '../../solveitTeam.service';
+import { Component, OnInit } from "@angular/core";
+import { SolveitTeamService } from "../../solveitTeam.service";
 
 @Component({
     selector: 'app-event-list',
@@ -7,13 +7,17 @@ import { SolveitTeamService } from '../../solveitTeam.service';
     styleUrls: ['./eventList.component.css']
 })
 
-export class EventListComponent {
+export class EventList implements OnInit{
 
     private events = [];
     private selected = 'events-list';
 
     constructor(private service: SolveitTeamService) {
 
+    }
+
+    ngOnInit() {
+        this.getEventsList();
     }
 
     getEventsList() {
