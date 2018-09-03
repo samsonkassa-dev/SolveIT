@@ -53,6 +53,14 @@ export class AuthService {
     return this.apiService.get(`${this.user_Path}/${id}/role`);
   }
 
+  getUserInfo() {
+    const temp = window.localStorage.getItem(this.TOKEN);
+    if (temp != null) {
+      const session = JSON.parse(temp);
+      return this.apiService.get(`UserAccounts/${session.userId}`);
+    }
+  }
+
   signOut() {
     if (this.isAuthenticated()) {
       // remove token from the server

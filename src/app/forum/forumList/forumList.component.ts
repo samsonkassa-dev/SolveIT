@@ -13,9 +13,11 @@ export class ForumList implements OnInit {
     @Input() selected;
     @Input() categories;
     private popularforums = [];
-    private popularforumsBackup = [];
+    private forumsBackup = [];
     private forums = [];
     private keyword = '';
+    private forumType = '';
+    private page: number = 1;
 
     constructor(private service: ForumService, private router: Router) {
         
@@ -30,17 +32,28 @@ export class ForumList implements OnInit {
         this.service.getForumList().subscribe(
             res => {
                 this.popularforums = res.Result;
-                this.popularforumsBackup = res.Result;
             }
         );
     }
 
     getAllForums() {
-        this.service.getAllForumList().subscribe(
-            res => {
-                this.forums = res;
-            }
-        )
+        if (this.selected == 'forums-list-public') {
+            this.forumType = 'Public Forums';
+            this.service.getAllForumList().subscribe(
+                res => {
+                    this.forums = res;
+                    this.forumsBackup = res;
+                }
+            );
+        } else if (this.selected == 'forums-list-private') {
+            this.forumType = 'My Forums';
+            this.service.getMyForumList(0).subscribe(
+                res => {
+                    this.forums = res;
+                    this.forumsBackup = res;
+                }
+            );
+        }
     }
 
     viewForum(slung) {
@@ -49,9 +62,9 @@ export class ForumList implements OnInit {
 
     onSearch($event) {
         if (this.keyword !== '') {
-          this.popularforums = this.forums.filter(item => item.slung.includes(this.keyword));
+          this.forums = this.forums.filter(item => item.slung.includes(this.keyword));
         } else {
-          this.popularforums = this.popularforumsBackup;
+          this.forums = this.forumsBackup;
         }
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ProjectService } from "../project.service";
 import { Router } from "@angular/router";
 
@@ -10,8 +10,11 @@ import { Router } from "@angular/router";
 
 export class ProjectList implements OnInit{
 
+    @Input() selected;
     private projects = [];
+    private projectsBackup = [];
     private p: number = 1;
+    private keyword = '';
 
     constructor(private service: ProjectService, private router: Router) {
         
@@ -22,11 +25,29 @@ export class ProjectList implements OnInit{
     }
 
     getProjectList() {
-        this.service.getMyProjects(0).subscribe(
-            res => {
-                this.projects = res;
-            }
-        );
+        if (this.selected == "project-list-user") {
+            this.service.getMyProjects(0).subscribe(
+                res => {
+                    this.projects = res;
+                    this.projectsBackup = res;
+                }
+            );   
+        }else if (this.selected == "project-list-all") {
+            this.service.getAllProjects().subscribe(
+                res => {
+                    this.projects = res;
+                    this.projectsBackup = res;
+                }
+            );
+        }
+    }
+
+    searchPoject() {
+        if (this.keyword !== '') {
+            this.projects = this.projectsBackup.filter(item => item.title.includes(this.keyword));
+        } else {
+            this.projects = this.projectsBackup.filter(item => item.pinned);
+        }
     }
 
     viewProject(project) {

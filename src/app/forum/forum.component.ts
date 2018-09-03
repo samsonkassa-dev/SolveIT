@@ -9,7 +9,7 @@ import { ForumService } from "./forum.service";
 
 export class Forum implements OnInit{
     
-    private selected = "forum-list-public";
+    private selected = "popular-forums";
     private categories = [];
     private favouritePage: number = 1;
     private favouriteDiscussions = [];

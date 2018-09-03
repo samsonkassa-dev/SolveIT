@@ -5,6 +5,8 @@
         <ul class=" main-nav nav nav-justified">
             <li><a (click) = "toggleView('project')">Project</a></li>
             <li><a (click) = "toggleView('report')">Upload Report</a></li>
+            <li><a (click) = "toggleView('members')">Members</a></li>
+            <li><a (click) = "toggleView('add-member')">Add Member</a></li>
         </ul>
     </div>
 </div>
@@ -58,3 +60,5 @@
         </div>
     </div>
 </div>
+<add-project-member *ngIf = "selected == 'add-member'" [project] = "project"></add-project-member>
+<project-member-list *ngIf = "selected == 'members'" [project] = "project"></project-member-list>

@@ -17,6 +17,10 @@ export class ForumService {
         return this.apiService.put(`SolveIT-Discussions/${discussion.id}`, update);
     }
 
+    getMembers(forumId){
+        return this.apiService.get(`SolveITForums/${forumId}/members`);
+    }
+
     getFavouriteDiscussions(){
         return null;
     }
@@ -49,6 +53,10 @@ export class ForumService {
         return this.apiService.get(`SolveITForums`);
     }
 
+    getMyForumList(userId) {
+        return this.apiService.get(`UserAccounts/${userId}/forums`);
+    }
+
     getForum(slung) {
         return this.apiService.get(`SolveITForums/${slung}/forum`);
     }
@@ -67,5 +75,9 @@ export class ForumService {
 
     getCategories() {
         return this.apiService.get(`forumCategories`);
+    }
+
+    searchUser(keyword) {
+        return this.apiService.get(`UserAccounts/search/${keyword}`);
     }
 }

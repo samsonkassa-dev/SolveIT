@@ -3,11 +3,13 @@
 <div class="container">
     <div class="row">
         <ul class=" main-nav nav nav-justified">
-            <li><a (click) = "toggleView('project-list')">My Projects</a></li>
+            <li><a (click) = "toggleView('project-list-user')">My Projects</a></li>
+            <li><a (click) = "toggleView('project-list-all')">Solve-IT Projects</a></li>
             <li><a (click) = "toggleView('project-create')">Create Project</a></li>
         </ul>
     </div>
 </div>
 
-<app-project-list *ngIf = "selected == 'project-list'"></app-project-list>
+<app-project-list *ngIf = "selected == 'project-list-user'" [selected] = "selected"></app-project-list>
+<app-project-list *ngIf = "selected == 'project-list-all'" [selected] = "selected"></app-project-list>
 <app-project-create *ngIf = "selected == 'project-create'"></app-project-create>

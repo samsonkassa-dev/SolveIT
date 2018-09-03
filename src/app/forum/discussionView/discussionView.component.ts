@@ -20,13 +20,12 @@ export class DiscussionView implements OnInit {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
-        let slung = this.route.snapshot.paramMap.get("slung");
-        this.getDiscussion(slung);
 
     }
 
     ngOnInit() {
-        
+        let slung = this.route.snapshot.paramMap.get("slung");
+        this.getDiscussion(slung);
     }
 
     getDiscussion(slung) {
@@ -56,8 +55,8 @@ export class DiscussionView implements OnInit {
 
     addToFavourites() {
         let content = {
-            "discussionId": 0,
-            "userId": 0
+            discussionId: this.discussion.id,
+            userId: 0
         };
         this.service.addToFavourites(content).subscribe(
             res => {

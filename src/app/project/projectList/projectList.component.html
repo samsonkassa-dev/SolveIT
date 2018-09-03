@@ -1,5 +1,20 @@
 <div class="container">
     <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div id="aside" class="col-md-offset-4 col-md-4">
+            <div class="widget">
+                <div class="widget-search">
+                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="searchPoject($event)">
+                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
     
         <div class="no-resource-found" *ngIf="projects.length === 0">
             <p>

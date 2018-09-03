@@ -10,13 +10,17 @@ import { ProjectView } from './projectView/projectView.component';
 import { ProjectContainer } from './projectContainer.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProjectMemberList } from './memberList/memberList.component';
+import { AddProjectMember } from './addMember/addMember.component';
 
 @NgModule({
     declarations: [
         CreateProject,
         ProjectList,
         ProjectView,
-        ProjectContainer
+        ProjectContainer,
+        ProjectMemberList,
+        AddProjectMember
     ],
     imports: [
         NgxPaginationModule,
