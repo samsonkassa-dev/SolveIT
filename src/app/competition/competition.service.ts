@@ -20,4 +20,8 @@ export class CompetitionService {
     createCompetition(competition) {
         return this.apiService.post(`solvieITCompetitions/`, competition);
     }
+
+    getActiveCompetition() {
+        return this.apiService.get(`solvieITCompetitions/active`);
+    }
 }

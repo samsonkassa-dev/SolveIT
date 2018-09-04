@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { ToastOptions } from "ng2-toasty";
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -57,7 +58,7 @@ import { CompetitionModule } from './competition/competition.module';
     SolveitTeamModule,
     BsModalModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, ToastOptions],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

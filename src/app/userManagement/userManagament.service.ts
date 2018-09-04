@@ -14,10 +14,10 @@ export class UserManagementService {
     }
 
     activateUser(user) {
-        return this.apiService.put(`UserAccounts`, user);
+        return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
 
     deactivateUser(user) {
-        return this.apiService.put(`UserAccounts`, user);
+        return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
 }

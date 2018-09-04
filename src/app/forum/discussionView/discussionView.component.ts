@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms"
 import { ForumService } from "../forum.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
     selector: "app-discussion-view",
@@ -17,7 +18,7 @@ export class DiscussionView implements OnInit {
     private comment = {"solveIT-DiscussionId": this.discussion.id, userId:0};
     private commentForm: FormGroup;
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
@@ -55,17 +56,27 @@ export class DiscussionView implements OnInit {
                     this.comment.userId = userId;
 
                     this.service.addComment(this.comment).subscribe(
-                        res => {
-                            console.log(res);
+                        res1 => {
+                            this.sharedService.addToast("Success", "Comment Added!.", 'success');
+                        },
+                        err => {
+                            if (err.status = 422) {
+                                this.sharedService.addToast("", "Error occured!", 'error');
+                            }
                         }
                     );
                 }
-            )
+            );
         } else {
             this.comment.userId = 0;
             this.service.addComment(this.comment).subscribe(
                 res => {
-                    console.log(res);
+                    this.sharedService.addToast("Success", "Comment Added!.", 'success');
+                },
+                err => {
+                    if (err.status = 422) {
+                        this.sharedService.addToast("", "Error occured!", 'error');
+                    }
                 }
             );
         }
@@ -80,8 +91,13 @@ export class DiscussionView implements OnInit {
                     userId: userId
                 };
                 this.service.addToFavourites(content).subscribe(
-                    res => {
-                        console.log(res);
+                    res1 => {
+                        this.sharedService.addToast("Success", "Added To Favourites!.", 'success');
+                    },
+                    err => {
+                        if (err.status = 422) {
+                            this.sharedService.addToast("", "Error occured!", 'error');
+                        }
                     }
                 );
             }
@@ -91,7 +107,12 @@ export class DiscussionView implements OnInit {
     pinDiscussion() {
         this.service.pinDiscussion(this.discussion).subscribe(
             res => {
-                console.log(res);
+                this.sharedService.addToast("Success", "Discussion Pinned!.", 'success');
+            },
+            err => {
+                if (err.status = 422) {
+                    this.sharedService.addToast("", "Error occured!", 'error');
+                }
             }
         )
     }

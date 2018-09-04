@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../project.service';
 import {configs} from '../../app.config';
 import {Router} from '@angular/router';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-project-create',
@@ -23,7 +24,7 @@ export class CreateProjectComponent {
   public error = false;
   @Output() created = new EventEmitter();
 
-  constructor(private service: ProjectService, public router: Router) {
+  constructor(private service: ProjectService, public router: Router, private sharedService: SharedService) {
       this.projectForm = new FormGroup({
           title: new FormControl('', Validators.required),
           description: new FormControl('', Validators.required)
@@ -39,9 +40,14 @@ export class CreateProjectComponent {
       this.project.proposal = JSON.parse(response).result.files.file[0];
       this.service.createProject(this.project).subscribe(
         res => {
-          console.log(res);
+          this.sharedService.addToast("Success", "Project Created!.", 'success');
           this.isUploading = false;
           this.toggleProjectsList()
+        },
+        err => {
+          if (err.status = 422) {
+            this.sharedService.addToast("", "Error occured!", 'error');
+          }
         }
       );
       this.uploader.queue.pop();

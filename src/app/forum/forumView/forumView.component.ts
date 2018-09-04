@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ForumService } from "../forum.service";
 import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-forum-view',
@@ -21,7 +22,7 @@ export class ForumView implements OnInit {
     private pinnedPage = 1;
     private keyword = '';
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
 
     }
 
@@ -81,8 +82,13 @@ export class ForumView implements OnInit {
                     userId: userId
                 };
                 this.service.addToFavourites(content).subscribe(
-                    res => {
-                        console.log(res);
+                    res1 => {
+                        this.sharedService.addToast("Success", "Added To Favourites!.", 'success');
+                    },
+                    err => {
+                        if (err.status = 422) {
+                            this.sharedService.addToast("", "Error occured!", 'error');
+                        }
                     }
                 );
             }
