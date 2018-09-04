@@ -55,8 +55,15 @@ export class AuthService {
 
   signOut() {
     if (this.isAuthenticated()) {
-      // remove token from the server
+     // this.apiService.post(`${this.logout_path}`, {})
+     //   .subscribe(res => {
+     //     this.router.navigate(['']);
+     //   }, err => {
+     //     console.log('Error while loging out', err);
+     //  });
       window.localStorage.removeItem(this.TOKEN);
+      this.router.navigate(['']);
+
     }
   }
 
@@ -96,6 +103,14 @@ export class AuthService {
       return data.role === this.ICOG_ROLE[2];
     } catch (e) {
       return false;
+    }
+  }
+
+  getUserInfo() {
+    const temp = window.localStorage.getItem(this.TOKEN);
+    if (temp != null) {
+      const session = JSON.parse(temp);
+      return this.apiService.get(`UserAccounts/${session.userId}`);
     }
   }
 }

@@ -13,7 +13,7 @@ form {
 
 input {
   background: #ffffff;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #a29a9a;
 }
 
 .input-field {
@@ -43,7 +43,7 @@ input {
   background: white;
   width: 100%;
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 .register-btn {

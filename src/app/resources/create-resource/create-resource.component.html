@@ -14,10 +14,6 @@
       <p *ngIf="resourceForm.controls.title.invalid && resourceForm.controls.title.touched" class="error-message">* Name is required.</p>
     </div>
     <div class="form-group">
-      <input *ngIf="resource.type==='video'" type="text" class="input " name="url" placeholder="Video Url"
-             formControlName="url" [(ngModel)]="resource.url">
-    </div>
-    <div class="form-group">
       <textarea placeholder="Description" class="input " [class.err]="resourceForm.controls.description.invalid && resourceForm.controls.description.touched"
                 formControlName="description" [(ngModel)]="resource.description">
             </textarea>
@@ -31,6 +27,10 @@
         <option value="document">Document</option>
       </select>
       <p class="error-message" *ngIf="resourceForm.controls.type.invalid && resourceForm.controls.type.touched">* Type is required.</p>
+    </div>
+    <div class="form-group">
+      <input *ngIf="resource.type==='video'" type="text" class="input " name="url" placeholder="Video Url"
+             formControlName="url" [(ngModel)]="resource.url">
     </div>
     <div class="form-group">
       <input ng2FileSelect  [uploader]="uploader" type="file" (change)="handleFileSelection($event)" *ngIf="resource.type==='document'" class="">

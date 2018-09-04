@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { ProjectService } from "../project.service";
-import { Router } from "@angular/router";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ProjectService } from '../project.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-project-list',
@@ -8,28 +8,33 @@ import { Router } from "@angular/router";
     styleUrls: ['projectList.component.css']
 })
 
-export class ProjectList implements OnInit{
+export class ProjectListComponent implements OnInit {
 
-    private projects = [];
-    private p: number = 1;
+  @Output() create = new EventEmitter();
 
-    constructor(private service: ProjectService, private router: Router) {
-        
-    }
+  private projects = [];
+  private p = 1;
 
-    ngOnInit() {
-        this.getProjectList();
-    }
+  constructor(private service: ProjectService, private router: Router) {
+  }
 
-    getProjectList() {
-        this.service.getMyProjects(0).subscribe(
-            res => {
-                this.projects = res;
-            }
-        );
-    }
+  ngOnInit() {
+      this.getProjectList();
+  }
 
-    viewProject(project) {
-        this.router.navigate(['/projects/', project.id]);
-    }
+  getProjectList() {
+      this.service.getMyProjects(0).subscribe(
+          res => {
+              this.projects = res;
+          }
+      );
+  }
+
+  viewProject(project) {
+      this.router.navigate(['/projects/', project.id]);
+  }
+
+  onCreateProject() {
+    this.create.emit();
+  }
 }

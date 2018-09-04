@@ -1,13 +1,14 @@
 <app-header></app-header>
 
-<div class="container">
-    <div class="row">
-        <ul class=" main-nav nav nav-justified">
-            <li><a (click) = "toggleView('project-list')">My Projects</a></li>
-            <li><a (click) = "toggleView('project-create')">Create Project</a></li>
-        </ul>
-    </div>
+<div class="container" id="project-list-header">
+  <div class="events-list-header">
+   <div class="header">
+      <h4 (click)="toggleView('project-list')" class="title">Projects</h4>
+     <button type="button" (click)="toggleView('project-create')" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
+     </button>
+   </div>
+  </div>
 </div>
 
-<app-project-list *ngIf = "selected == 'project-list'"></app-project-list>
-<app-project-create *ngIf = "selected == 'project-create'"></app-project-create>
+<app-project-list (create)="toggleView('project-create')" *ngIf = "selected == 'project-list'"></app-project-list>
+<app-project-create (created)="toggleView('project-list')" *ngIf = "selected == 'project-create'"></app-project-create>

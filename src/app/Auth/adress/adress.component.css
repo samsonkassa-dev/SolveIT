@@ -1,7 +1,7 @@
 .address-form {
   width: 40%;
   padding: 3em;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.2);
   background-color: white;
   margin: 7% auto 10%;
 }
@@ -12,7 +12,7 @@ form {
 
 input {
   background: #ffffff;
-  border-bottom: 2px solid #EEE;
+  border-bottom: 1px solid #a29a9a;
   padding: 1em;
 }
 
@@ -43,7 +43,7 @@ input {
   background: white;
   width: 100%;
   border: none;
-  border-bottom: 2px solid #eeee;
+  border-bottom: 1px solid #ccc;
 }
 
 .register-btn {

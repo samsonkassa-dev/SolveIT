@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
-import { SolveitTeamService } from "../../solveitTeam.service";
+import {Component, EventEmitter, Output} from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { SolveitTeamService } from '../../solveitTeam.service';
 
 @Component({
     selector: 'app-event-create',
@@ -8,24 +8,35 @@ import { SolveitTeamService } from "../../solveitTeam.service";
     styleUrls: ['./createEvent.component.css']
 })
 
-export class CreateEvent {
+export class CreateEventComponent {
 
-    private event = {};
-    private eventForm: FormGroup;
+    public event = {
+      title: '',
+      description: '',
+      date: new Date()
+    };
+    public eventForm: FormGroup;
+    @Output() created = new EventEmitter();
 
-    constructor(private service: SolveitTeamService) {
+    constructor(public service: SolveitTeamService) {
         this.eventForm = new FormGroup({
             title: new FormControl('', Validators.required),
-            description: new FormControl('', Validators.required)
+            description: new FormControl('', Validators.required),
+            date: new FormControl(new Date(), Validators.required)
         });
     }
 
-    createEvent() {
-        this.service.createEvent(this.event).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
-    }
+  createEvent() {
+    this.service.createEvent(this.event).subscribe(
+    res => {
+        console.log(res);
+        this.toggleCreated();
+      }
+    );
+  }
+
+  toggleCreated() {
+      this.created.emit();
+  }
 
 }

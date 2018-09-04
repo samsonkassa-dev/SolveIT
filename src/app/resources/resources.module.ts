@@ -12,6 +12,7 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
 import { ModalComponent } from './modal/modal.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {SolveitTeamGuardService} from '../Auth/services/solveit-team-guard.service';
+import {AuthGuardService} from '../Auth/services/auth-guard.service';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import {SolveitTeamGuardService} from '../Auth/services/solveit-team-guard.servi
     }),
     NgxPaginationModule
   ],
-  providers: [ResourcesService, SolveitTeamGuardService],
+  providers: [ResourcesService, SolveitTeamGuardService, AuthGuardService],
   exports: [],
 })
 export class ResourcesModule { }

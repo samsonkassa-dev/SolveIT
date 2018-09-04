@@ -1,23 +1,23 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { ForumService } from "../forum.service";
+import { ForumService } from '../forum.service';
 
 @Component({
-    selector: "app-forum-view",
-    templateUrl: "./forumView.component.html",
-    styleUrls: ["./forumView.component.css"]
+    selector: 'app-forum-view',
+    templateUrl: './forumView.component.html',
+    styleUrls: ['./forumView.component.css']
 })
 
-export class ForumView implements OnInit{
-    
-    private selected = "discussion-list";
+export class ForumView implements OnInit {
+
+    private selected = 'discussion-list';
     private discussions = [];
     private pinnedDiscussions = [];
     private allDiscussions = [];
     private forum = {};
-    private discussionPage: number = 1;
-    private pinnedPage: number = 1;
+    private discussionPage = 1;
+    private pinnedPage = 1;
     private keyword = '';
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
@@ -25,7 +25,7 @@ export class ForumView implements OnInit{
     }
 
     ngOnInit() {
-        let slung = this.route.snapshot.paramMap.get("slung");
+        const slung = this.route.snapshot.paramMap.get('slung');
         this.getForum(slung);
     }
 
@@ -72,9 +72,9 @@ export class ForumView implements OnInit{
     }
 
     addToFavourites() {
-        let content = {
-            "discussionId": 0,
-            "userId": 0
+        const content = {
+            'discussionId': 0,
+            'userId': 0
         };
         this.service.addToFavourites(content).subscribe(
             res => {

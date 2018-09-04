@@ -1,31 +1,74 @@
-import { Component } from "@angular/core";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from "../project.service";
+import { ProjectService } from '../project.service';
+import {configs} from '../../app.config';
+import {Router} from '@angular/router';
 
 @Component({
-    selector: "app-project-create",
-    templateUrl: "createProject.component.html",
-    styleUrls: ["createProject.component.css"]
+    selector: 'app-project-create',
+    templateUrl: 'createProject.component.html',
+    styleUrls: ['createProject.component.css']
 })
 
-export class CreateProject {
+export class CreateProjectComponent {
 
-    private project = {};
-    public projectForm: FormGroup;
+  private project: any = {};
+  public projectForm: FormGroup;
+  public URL =  `${configs.rootUrl}storages/proposals/upload`;
+  public uploader: FileUploader = new FileUploader({url: this.URL});
+  public progress = 0;
+  public isUploading = false;
+  public isFileSelected = false;
+  public error = false;
+  @Output() created = new EventEmitter();
 
-    constructor(private service: ProjectService) {
-        this.projectForm = new FormGroup({
-            title: new FormControl('', Validators.required),
-            description: new FormControl('', Validators.required)
-        });
-    }
+  constructor(private service: ProjectService, public router: Router) {
+      this.projectForm = new FormGroup({
+          title: new FormControl('', Validators.required),
+          description: new FormControl('', Validators.required)
+      });
+  }
 
-    createProject() {
-        this.service.createProject(this.project).subscribe(
-            res => {
-                console.log(res);
-            }
-        )
-    }
-    
+  createProject() {
+    this.error = false;
+    this.isUploading = true;
+    this.uploader.queue[0].upload();
+    this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+      console.log(JSON.parse(response).result.files.file[0]);
+      this.project.proposal = JSON.parse(response).result.files.file[0];
+      this.service.createProject(this.project).subscribe(
+        res => {
+          console.log(res);
+          this.isUploading = false;
+          this.toggleProjectsList()
+        }
+      );
+      this.uploader.queue.pop();
+    };
+    this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+      console.log('progress => ', progress);
+      this.progress = progress;
+    };
+    this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+      console.log('Canceled');
+      this.isUploading = false;
+      this.uploader.queue.pop();
+    };
+    this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+      console.log('error');
+      this.error = true;
+      this.isUploading = false;
+      this.uploader.queue.pop();
+    };
+  }
+
+  handleFileSelection($event) {
+    this.isFileSelected = true;
+  }
+
+  toggleProjectsList() {
+    this.created.emit();
+  }
+
 }

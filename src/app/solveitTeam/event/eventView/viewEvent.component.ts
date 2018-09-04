@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { SolveitTeamService } from '../../solveitTeam.service';
 
 @Component({
@@ -7,23 +7,28 @@ import { SolveitTeamService } from '../../solveitTeam.service';
     styleUrls: ['./viewEvent.component.css']
 })
 
-export class EventView implements OnInit {
+export class EventViewComponent implements OnInit {
 
-    private event = {};
+    @Input() event = null;
 
     constructor(private service: SolveitTeamService) {
 
     }
 
     ngOnInit() {
-        this.getEvent(1);
+        console.log('event detail');
     }
 
     getEvent(eventId) {
         this.service.getEvent(eventId).subscribe(
-            res => {
-                this.event = res;
-            }
+      res => {
+          this.event = {
+           title: res.title,
+           description: res.description,
+           date: new Date(res.date).getDate() + ' - ' + new Date(res.date).getMonth() + ' - ' + new Date(res.date).getFullYear() ,
+            clock: new Date(res.date).getHours() + ' - ' + new Date(res.date).getMinutes()
+          };
+      }
         );
     }
 

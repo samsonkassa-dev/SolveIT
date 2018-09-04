@@ -18,7 +18,7 @@ form {
 #resource-form select {
   background: white;
   border: none;
-  border-bottom: 2px solid #eeeeee;
+  border-bottom: 1px solid #ccc;
   padding: 1em;
 }
 

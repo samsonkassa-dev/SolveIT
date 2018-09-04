@@ -1,26 +1,31 @@
-<div class="container">
+<div class="container" id="projects-list-content">
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="projects.length === 0">
+      <p>
+        <i class="fa  fa-frown-o"></i>
+        You haven't created any project, yet.
+      </p>
+
+      <button class="outline-btn" (click)="onCreateProject()">create Here</button>
+    </div>
+  </div>
     <div class="row">
-    
-        <div class="no-resource-found" *ngIf="projects.length === 0">
-            <p>
-            <i class="fa  fa-frown-o"></i>
-            Nothing Found.
-            </p>
-        </div>
-        <!-- Documents list -->
+        <!-- Projects list -->
         <ng-container *ngIf="projects.length > 0">
-            <div class="col-md-4" *ngFor = "let project of projects | paginate: { itemsPerPage: 10, currentPage: p }">
+            <div class="col-md-3" *ngFor = "let project of projects | paginate: { itemsPerPage: 10, currentPage: p }">
                 <div class="about">
-                <i class="fa fa-file-pdf-o"></i>
+                <i class="fa fa-briefcase"></i>`
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.description }}</p>
-                <a (click) ="viewProject(project)"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-download fa-xsm"></i></span>View Project</a>
+                <a  style="cursor: pointer" (click) ="viewProject(project)"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-eye"></i></span>View Project</a>
                 </div>
             </div>
         </ng-container>
-        <!-- /Documents list -->
+        <!--  Projects list -->
     </div>
     <div *ngIf="projects.length > 0" class="row">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       <div class="projects-pagination">
+         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       </div>
     </div>
 </div>

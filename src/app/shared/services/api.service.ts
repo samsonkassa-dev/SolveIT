@@ -18,39 +18,41 @@ export class ApiService {
   }
 
   public get(path: string): Observable<any> {
-    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    this.setHeaders(this.TOKEN_KEY);
     return this.http.get(`${this.ROOT_PATH}${path}`, {headers: this.headers})
       .map((res: Response) => res.json());
 
   }
 
   public post(path: string, body): Observable<any> {
-    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    this.setHeaders(this.TOKEN_KEY);
     return this.http.post(`${this.ROOT_PATH}${path}`, body, {headers: this.headers})
       .map((res: Response) => res.json());
   }
 
   public put(path: string, body): Observable<any> {
-    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    this.setHeaders(this.TOKEN_KEY);
     return this.http.put(`${this.ROOT_PATH}${path}`, body, {headers: this.headers})
       .map((res: Response) => res.json());
   }
 
   public delete(path: string): Observable<any> {
-    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    this.setHeaders(this.TOKEN_KEY);
     return this.http.delete(`${this.ROOT_PATH}${path}`, {headers: this.headers})
       .map((res: Response) => res.json());
   }
 
   public patch(path: string, body: any): Observable<any> {
-    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    this.setHeaders(this.TOKEN_KEY);
     return this.http.patch(`${this.ROOT_PATH}${path}`, body, {headers: this.headers})
       .map((res: Response) => res.json());
   }
 
   public setHeaders(token) {
-    if (token != null) {
-      this.headers.set('Authorization', 'Bearer ' + token);
+    const temp = window.localStorage.getItem(token);
+    if (temp != null) {
+      const session = JSON.parse(temp);
+      this.headers.set('Authorization', 'Bearer ' + session.id);
     }
   }
 

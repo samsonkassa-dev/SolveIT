@@ -3,30 +3,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ProjectService } from './project.service';
-
-import { CreateProject } from './createProject/createProject.component';
-import { ProjectList } from './projectList/projectList.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { CreateProjectComponent } from './createProject/createProject.component';
+import { ProjectListComponent } from './projectList/projectList.component';
 import { ProjectView } from './projectView/projectView.component';
-import { ProjectContainer } from './projectContainer.component';
+import { ProjectContainerComponent } from './projectContainer.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {NgCircleProgressModule} from 'ng-circle-progress';
 
 @NgModule({
-    declarations: [
-        CreateProject,
-        ProjectList,
-        ProjectView,
-        ProjectContainer
-    ],
-    imports: [
-        NgxPaginationModule,
-        SharedModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-    providers: [ProjectService],
-    exports: []
+  declarations: [
+    CreateProjectComponent,
+    ProjectListComponent,
+    ProjectView,
+    ProjectContainerComponent
+  ],
+  imports: [
+    NgxPaginationModule,
+    SharedModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FileUploadModule,
+    NgCircleProgressModule
+  ],
+  providers: [ProjectService],
+  exports: []
 })
 
 export class ProjectModule {

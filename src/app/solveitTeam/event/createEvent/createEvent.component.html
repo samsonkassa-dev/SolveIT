@@ -9,10 +9,11 @@
             formControlName="description" [(ngModel)]="event.description">
         </textarea>
         </div>
-        
+      <input [owlDateTime]="dt2" formControlName="date" [(ngModel)]="event.date" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
+      <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+      <owl-date-time [pickerMode]="'dialog'" #dt2></owl-date-time>
         <div class="form-group" id="resource-upload-btn">
         <input type="button" [disabled]="!eventForm.valid" (click)="createEvent()" class="main-btn" value="Submit">
         </div>
     </div>
 </form>
-      
