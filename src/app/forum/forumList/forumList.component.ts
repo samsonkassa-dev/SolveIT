@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Router } from '@angular/router';
 import { ForumService } from "../forum.service";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
     selector: "app-forum-list",
@@ -19,7 +20,7 @@ export class ForumList implements OnInit {
     private forumType = '';
     private page: number = 1;
 
-    constructor(private service: ForumService, private router: Router) {
+    constructor(private service: ForumService, private router: Router, private _authService: AuthService) {
         
     }
 
@@ -47,10 +48,15 @@ export class ForumList implements OnInit {
             );
         } else if (this.selected == 'forums-list-private') {
             this.forumType = 'My Forums';
-            this.service.getMyForumList(0).subscribe(
+            this._authService.getUserInfo().subscribe(
                 res => {
-                    this.forums = res;
-                    this.forumsBackup = res;
+                    let userId = res.id;
+                    this.service.getMyForumList(userId).subscribe(
+                        res => {
+                            this.forums = res;
+                            this.forumsBackup = res;
+                        }
+                    );
                 }
             );
         }

@@ -32,18 +32,20 @@ export class CreateForum {
         this.service.createForum(this.forum).subscribe(
             res => {
                 let forumId = res.id;
-                let userId = 0;
-
-                let member = {
-                    forumId: forumId,
-                    userId: userId
-                }
-
-                this.service.addMember(member).subscribe(
-                    res2 => {
-                        console.log(res2);
+                this._authService.getUserInfo().subscribe(
+                    res => {
+                        let userId = res.id;
+                        let member = {
+                            forumId: forumId,
+                            userId: userId
+                        }
+                        this.service.addMember(member).subscribe(
+                            res2 => {
+                                console.log(res2);
+                            }
+                        );
                     }
-                )
+                );
             }
         );
     }

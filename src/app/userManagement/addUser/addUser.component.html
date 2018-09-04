@@ -1,0 +1,66 @@
+
+  <div class="row">
+      <ul class=" main-nav nav nav-justified">
+        <li><a (click) = "toggleView('solveitteam')">SolveIT-Team</a></li>
+        <li><a (click) = "toggleView('solveitmgmt')">SolveIT-Mgmt</a></li>
+        <li><a (click) = "toggleView('participant')">Participant</a></li>
+      </ul>
+  </div>
+<div id="registration-form">
+    <form [formGroup]="userForm">
+      <div class="input-field">
+        <input class="input " type="text" name="firstName" formControlName="firstName" placeholder="First Name" [(ngModel)]="user.firstName"
+                [class.err]="userForm.controls.firstName.invalid && userForm.controls.firstName.touched">
+        <div class="error-message" *ngIf="userForm.controls.firstName.invalid && userForm.controls.firstName.touched">
+          <p>* First Name is required.</p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="text" name="middleName" formControlName="middleName" placeholder="Middle Name" [(ngModel)]="user.middleName"
+                [class.err]="userForm.controls.middleName.invalid && userForm.controls.middleName.touched">
+        <div class="error-message" *ngIf="userForm.controls.middleName.invalid && userForm.controls.middleName.touched">
+          <p>* Middle Name is required.</p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="text" name="lastName" formControlName="lastName" placeholder="Last Name"
+               [(ngModel)]="user.lastName"
+                [class.err]="userForm.controls.lastName.invalid && userForm.controls.lastName.touched">
+        <div class="error-message" *ngIf="userForm.controls.lastName.invalid && userForm.controls.lastName.touched">
+          <p> * Last Name is required.</p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email"
+                [class.err]="userForm.controls.email.invalid && userForm.controls.email.touched">
+        <div class="error-message" *ngIf="userForm.controls.email.invalid && userForm.controls.email.touched">
+          <p> * Email is required. </p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="tel" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number"
+               [(ngModel)]="user.phoneNumber"
+                [class.err]="userForm.controls.phoneNumber.invalid && userForm.controls.phoneNumber.touched">
+        <div class="error-message" *ngIf="userForm.controls.phoneNumber.invalid && userForm.controls.phoneNumber.touched">
+          <p> * Phone Number is required. </p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="password" name="password" formControlName="password" placeholder="Password"
+               [(ngModel)]="user.password"
+                [class.err]="userForm.controls.password.invalid && userForm.controls.password.touched">
+        <div class="error-message" *ngIf="userForm.controls.password.invalid && userForm.controls.password.touched">
+          <p> * Password is required </p>
+        </div>
+      </div>
+      <div class="input-field">
+        <input class="input" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password"
+               [(ngModel)]="user.rePassword"
+                [class.err]="userForm.controls.rePassword.invalid && userForm.controls.rePassword.touched">
+        <div class="error-message" *ngIf="userForm.controls.rePassword.invalid && userForm.controls.rePassword.touched">
+          <p> * Password didn't match. </p>
+        </div>
+      </div>
+      <button [disabled]="!userForm.valid" (click)="addUser()" type="button" class="main-btn">Submit</button>
+    </form>
+  </div>

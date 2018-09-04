@@ -8,12 +8,14 @@ import { ForumRoutes } from "./forum/forum.route";
 import { SolveitMgmtRoutes } from './solveitMgmt/solveitMgmt.route';
 import { SolveitTeamRoutes } from "./solveitTeam/solveitTeam.route";
 import { ProjectRoutes } from './project/project.route';
+import { UserManagementRoutes } from './userManagement/userManagament.route';
 
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },
   ...AUTH_ROUTES,
   ...ForumRoutes,
   ...ProjectRoutes,
+  ...UserManagementRoutes,
   ...SolveitMgmtRoutes,
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES
