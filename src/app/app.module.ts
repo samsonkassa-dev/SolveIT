@@ -19,6 +19,7 @@ import { SolveitMgmtModule } from './solveitMgmt/solveitMgmt.module';
 import { SolveitTeamModule } from './solveitTeam/solveitTeam.module';
 import { ProjectModule } from './project/project.module';
 import { UserManagementModule } from './userManagement/userManagement.module';
+import { CompetitionModule } from './competition/competition.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { UserManagementModule } from './userManagement/userManagement.module';
     FormsModule,
     ProjectModule,
     UserManagementModule,
+    CompetitionModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
