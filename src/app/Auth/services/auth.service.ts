@@ -113,12 +113,4 @@ export class AuthService {
       return false;
     }
   }
-
-  getUserInfo() {
-    const temp = window.localStorage.getItem(this.TOKEN);
-    if (temp != null) {
-      const session = JSON.parse(temp);
-      return this.apiService.get(`UserAccounts/${session.userId}`);
-    }
-  }
 }
