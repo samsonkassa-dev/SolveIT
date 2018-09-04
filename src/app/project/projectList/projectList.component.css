@@ -1,52 +1,22 @@
-#searchbar {
-    margin-bottom: 2em;
-    margin-top: 3em;
-  }
-  
-  #searchbar input {
-    padding: 1em;
-    font-size: 1.5em;
-  }
-  
-  .resource-list-title {
-    color: red;
-  }
-  
-  #resource-list-title {
-    font-weight: bold;
-    color: black;
-    text-transform: capitalize;
-  }
-  
-  .resource-list-icons {
-  
-  }
-  
-  #videos {
-    margin-top: -10em;
-  }
-  
-  #category {
-    padding: .8em;
-    background: #ffffff;
-    border: none;
-    border-bottom: 1px solid #EEEEEE;
-  }
-  
-  .no-resource-found {
-    padding: 2em;
-    border: 1px solid #EEEEEE;
-    width: 60%;
-    margin: auto;
-  }
-  
-  .no-resource-found p {
-    font-size: 2em;
-    text-transform: capitalize;
-    text-align: center;
-  }
-  
-  #upload-btn:focus {
-    border-color: #EEEEEE;
-  }
-  
+#projects-list-content {
+  margin: 3em auto 3em;
+}
+
+.projects-pagination {
+  margin: 4em auto 2em;
+}
+
+.no-resource-found {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 50%;
+  margin: 10em auto;
+  padding: 3em;
+}
+
+#projects-list-content > div:nth-child(2) > div:nth-child(1) > div > a{
+  cursor: pointer;
+}

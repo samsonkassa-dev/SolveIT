@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
-import { Events } from './event/event.component';
+import { EventsComponent } from './event/event.component';
 import { Newsfeed } from './newsFeed/newsfeed.component';
+import {EventViewComponent} from './event/eventView/viewEvent.component';
 
 export const SolveitTeamRoutes: Routes = [
-	{
-
-		path: "",
-		children: [
-			{path: "events", component: Events},
-			{path: "newsfeed", component: Newsfeed}
-		]
-		
-	}
+  {
+    path: '',
+    children: [
+      {path: 'events', component: EventsComponent},
+      {path: 'newsfeed', component: Newsfeed}
+    ]
+  }
 ];

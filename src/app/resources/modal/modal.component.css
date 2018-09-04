@@ -1,0 +1,19 @@
+#myModal {
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*align-content: center;*/
+}
+
+#myModal .modal-dialog {
+  width: 70%;
+  height: 50%;
+}
+
+#myModal .modal-content {
+  width: 100%;
+  height: 150%;
+}
+
+#myModal .modal-body {
+  height: 80%;
+}

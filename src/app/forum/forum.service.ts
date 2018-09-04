@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "../shared/services/api.service";
+import { Injectable } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
 
 @Injectable()
 
@@ -12,7 +12,7 @@ export class ForumService {
     }
 
     pinDiscussion(discussion) {
-        let update = discussion;
+        const update = discussion;
         update.pinned = true;
         return this.apiService.put(`SolveIT-Discussions/${discussion.id}`, update);
     }
@@ -49,7 +49,7 @@ export class ForumService {
         return this.apiService.get(`SolveITForums/forumList`);
     }
 
-    getAllForumList(){
+    getAllForumList() {
         return this.apiService.get(`SolveITForums`);
     }
 
@@ -70,7 +70,7 @@ export class ForumService {
     }
 
     addToFavourites(favourite) {
-        return this.apiService.post(`favourite-discussions`, favourite)
+        return this.apiService.post(`favourite-discussions`, favourite);
     }
 
     getCategories() {

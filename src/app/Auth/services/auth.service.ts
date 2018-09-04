@@ -63,8 +63,15 @@ export class AuthService {
 
   signOut() {
     if (this.isAuthenticated()) {
-      // remove token from the server
+     // this.apiService.post(`${this.logout_path}`, {})
+     //   .subscribe(res => {
+     //     this.router.navigate(['']);
+     //   }, err => {
+     //     console.log('Error while loging out', err);
+     //  });
       window.localStorage.removeItem(this.TOKEN);
+      this.router.navigate(['']);
+
     }
   }
 

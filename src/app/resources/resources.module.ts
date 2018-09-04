@@ -9,12 +9,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ResourcesService} from './service/resources.service';
 import { CreateResourceComponent } from './create-resource/create-resource.component';
 import {NgCircleProgressModule} from 'ng-circle-progress';
+import { ModalComponent } from './modal/modal.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {SolveitTeamGuardService} from '../Auth/services/solveit-team-guard.service';
+import {AuthGuardService} from '../Auth/services/auth-guard.service';
 
 
 @NgModule({
   declarations: [
     ResourcesListComponent,
     CreateResourceComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -30,9 +35,10 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
       innerStrokeColor: '#C7E596',
       animationDuration: 200,
       maxPercent: 100
-    })
+    }),
+    NgxPaginationModule
   ],
-  providers: [ResourcesService],
+  providers: [ResourcesService, SolveitTeamGuardService, AuthGuardService],
   exports: [],
 })
 export class ResourcesModule { }

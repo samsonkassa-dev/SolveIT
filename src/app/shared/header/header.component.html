@@ -27,19 +27,20 @@
         <li><a routerLink="">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#service">Events</a></li>
-        <li><a routerLink="/resources">Resources</a></li>
-        <li class="has-dropdown"><a href="#blog">Blog</a>
+        <li><a routerLink="/events">Events</a></li>
+        <li><a routerLink="/forums">Forum</a></li>
+        <li><a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a></li>
+
+        <li><a href="#contact">Contact</a></li>
+        <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
+        <li *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{ '' }}</a>
           <ul class="dropdown">
-            <li><a href="blog-single.html">blog post</a></li>
+            <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Project</a></li>
+            <li><a (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
           </ul>
         </li>
-        <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
-        <li *ngIf="authService.isAuthenticated()"><a (click)="authService.signOut()">Logout</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
       <!-- /Main navigation -->
-
     </div>
   </nav>
   <!-- /Nav -->

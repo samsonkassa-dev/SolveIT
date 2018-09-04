@@ -1,7 +1,7 @@
-#registration-form {
+.questionariesForm {
   width: 70%;
   padding: 3em;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.1);
   background-color: white;
   margin: 7% auto 10%;
 }
@@ -13,7 +13,7 @@ form {
 
 input {
   background: #ffffff;
-  border-bottom: 1px solid #a29a9a;
+  border-bottom: 2px solid #EEE;
 }
 
 .input-field {
@@ -43,7 +43,7 @@ input {
   background: white;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #eeee;
 }
 
 .register-btn {
@@ -57,5 +57,5 @@ input {
 }
 
 .disabled-btn {
-  background: #ccc;
+  background: #EEEEEE;
 }

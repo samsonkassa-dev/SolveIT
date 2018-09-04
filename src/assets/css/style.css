@@ -203,7 +203,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     width: 100%;
     border: none;
 	  background: #ffffff;
-    border-bottom: 2px solid #EEE;
+    border-bottom: 1px solid #a29a9a;
     color: #354052;
     padding: 0px 10px;
     opacity: 0.5;
@@ -627,7 +627,7 @@ header {
     position: relative;
     text-align: center;
     padding: 40px 20px;
-    border: 1px solid #EEE;
+    border: 1px solid #ccc;
     margin: 15px 0px;
 }
 
@@ -787,7 +787,7 @@ header {
     position: relative;
     padding: 40px 20px 40px 70px;
     margin: 15px 0px;
-    border: 1px solid #EEE;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .service i {
@@ -1749,4 +1749,24 @@ header {
     -webkit-transform:scale(0);
             transform:scale(0);
   }
+}
+
+/* circle buttons */
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
 }

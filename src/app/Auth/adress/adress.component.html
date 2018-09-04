@@ -1,0 +1,61 @@
+<div class="address-form">
+  <form [formGroup]="addressForm">
+    <h3 class="title">Personal Address</h3>
+    <div class="input-field">
+      <select name="region" id="region" formControlName="region" [(ngModel)]="address.region"
+              [class.err]="addressForm.controls.region.invalid && addressForm.controls.region.touched">
+        <option value="">Select Your Region</option>
+        <option *ngFor="let region of regions" value="{{region}}">{{region.toUpperCase()}}</option>
+      </select>
+      <div class="error-message" *ngIf="addressForm.controls.region.invalid && addressForm.controls.region.touched">
+        <p>* Region is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="text" class="input" name="city" placeholder="City" formControlName="city" [(ngModel)]="address.city"
+              [class.err]="addressForm.controls.city.invalid && addressForm.controls.city.touched">
+      <div class="error-message" *ngIf="addressForm.controls.city.invalid && addressForm.controls.city.touched">
+        <p>* City is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="text" class="input" name="Woreda" placeholder="Woreda/Kebele" formControlName="wereda"
+             [(ngModel)]="address.wereda" [class.err]="addressForm.controls.wereda.invalid && addressForm.controls.wereda.touched">
+      <div class="error-message" *ngIf="addressForm.controls.wereda.invalid && addressForm.controls.wereda.touched">
+        <p> * Woreda/Kebele is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="text" class="input" name="houseNo" placeholder="House Number" formControlName="houseNo"
+             [(ngModel)]="address.houseNo" [class.err]="addressForm.controls.houseNo.invalid && addressForm.controls.houseNo.touched">
+      <div class="error-message" *ngIf="addressForm.controls.houseNo.invalid && addressForm.controls.houseNo.touched">
+        <p> * House Number is required. </p>
+      </div>
+    </div>
+    <h3 class="title">Emergecy Address</h3>
+    <div class="input-field">
+      <input type="text" name="emergency-fullname" placeholder="Contact Full Name" formControlName="fullName"
+             [(ngModel)]="address.emergencyContact.fullName" [class]="addressForm.controls.fullName.invalid && addressForm.controls.fullName.touched">
+      <div class="error-message" *ngIf="addressForm.controls.fullName.invalid && addressForm.controls.fullName.touched">
+        <p> * Emergency Name is required. </p>
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" formControlName="phoneNumber"
+             [(ngModel)]="address.emergencyContact.phoneNumber" [class]="addressForm.controls.phoneNumber.invalid && addressForm.controls.phoneNumber.touched">
+      <div class="error-message" *ngIf="addressForm.controls.phoneNumber.invalid && addressForm.controls.phoneNumber.touched">
+        <p> * Emergency Phone Number is required </p>
+      </div>
+    </div>
+    <div class="register-btn">
+      <div class="row">
+        <div class="col-md-6">
+          <button (click)="onBack()" type="button" id="" class="main-btn">Back</button>
+        </div>
+        <div class="col-md-6">
+          <button [disabled]="addressForm.invalid" (click)="onDone()" type="button" id="" class="main-btn">Done</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

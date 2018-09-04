@@ -2,35 +2,37 @@
     <div class="row">
         <br>
     </div>
-    <div class="row">
-        <div id="aside" class="col-md-offset-4 col-md-4">
-            <div class="widget">
-                <div class="widget-search">
-                    <input class="search-input" type="text" placeholder="search">
-                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
-<div class="container">
+<div class="container" id="event-list-container">
     <div class="row">
         <div class="no-resource-found" *ngIf="events.length === 0">
             <p>
             <i class="fa  fa-frown-o"></i>
-            Nothing Found.
+            No event is created, yet.
             </p>
+          <button *ngIf="authService.isSolveitManager()"  class="outline-btn">create Here</button>
         </div>
         <!-- Event list -->
         <ng-container *ngIf = "events.length > 0">
-            <div class="col-md-4 col-sm-6" *ngFor = "let event of events">
-                <div class="service">
-                    <i class="fa fa-diamond"></i>
-                    <h3>{{ event.title }}</h3>
-                    <p>{{ event.description }}</p>
-                </div>
-            </div>
+
+          <div class="col-md-4 col-sm-6" *ngFor = "let event of events | paginate: { itemsPerPage: 10, currentPage: p }">
+              <div class="service" id="event">
+                <i class="fa fa-calendar"></i>
+                <h3>{{ event.title }}</h3>
+                <p>{{ getDate(event.date).date }}</p>
+                <p><i id="event-time-icon" class="fa fa-clock-o"></i>{{ getDate(event.date).clock }}</p>
+                <button class="outline-btn" (click)="viewEventDetail(event)" data-toggle="modal" data-target="#myModal">Detail</button>
+              </div>
+          </div>
         </ng-container>
         <!-- /Event list -->
+        <div *ngIf="events.length > 8" class="row" style="clear: both">
+          <div class="events-pagination">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
     </div>
 </div>
+
+<app-event-view [event]="selectedEvent"></app-event-view>

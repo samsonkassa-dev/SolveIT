@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ProjectService } from "../project.service";
-import { Router } from "@angular/router";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ProjectService } from '../project.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-project-list',
@@ -8,49 +8,33 @@ import { Router } from "@angular/router";
     styleUrls: ['projectList.component.css']
 })
 
-export class ProjectList implements OnInit{
+export class ProjectListComponent implements OnInit {
 
-    @Input() selected;
-    private projects = [];
-    private projectsBackup = [];
-    private p: number = 1;
-    private keyword = '';
+  @Output() create = new EventEmitter();
 
-    constructor(private service: ProjectService, private router: Router) {
-        
-    }
+  private projects = [];
+  private p = 1;
 
-    ngOnInit() {
-        this.getProjectList();
-    }
+  constructor(private service: ProjectService, private router: Router) {
+  }
 
-    getProjectList() {
-        if (this.selected == "project-list-user") {
-            this.service.getMyProjects(0).subscribe(
-                res => {
-                    this.projects = res;
-                    this.projectsBackup = res;
-                }
-            );   
-        }else if (this.selected == "project-list-all") {
-            this.service.getAllProjects().subscribe(
-                res => {
-                    this.projects = res;
-                    this.projectsBackup = res;
-                }
-            );
-        }
-    }
+  ngOnInit() {
+      this.getProjectList();
+  }
 
-    searchPoject() {
-        if (this.keyword !== '') {
-            this.projects = this.projectsBackup.filter(item => item.title.includes(this.keyword));
-        } else {
-            this.projects = this.projectsBackup.filter(item => item.pinned);
-        }
-    }
+  getProjectList() {
+      this.service.getMyProjects(0).subscribe(
+          res => {
+              this.projects = res;
+          }
+      );
+  }
 
-    viewProject(project) {
-        this.router.navigate(['/projects/', project.id]);
-    }
+  viewProject(project) {
+      this.router.navigate(['/projects/', project.id]);
+  }
+
+  onCreateProject() {
+    this.create.emit();
+  }
 }

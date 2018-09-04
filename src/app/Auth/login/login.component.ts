@@ -11,6 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public loginError = false;
   public user = {
     email: '',
     password: ''
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.authService.setSession(res);
         this.router.navigate(['']);
       }, error1 => {
+        this.loginError = true;
         console.log(error1);
       });
 

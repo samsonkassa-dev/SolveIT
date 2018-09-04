@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ForumService } from "./forum.service";
+import { Component, OnInit } from '@angular/core';
+import { ForumService } from './forum.service';
 
 @Component({
     selector: 'app-forum',
@@ -7,11 +7,11 @@ import { ForumService } from "./forum.service";
     styleUrls: ['./forum.component.css']
 })
 
-export class Forum implements OnInit{
-    
-    private selected = "popular-forums";
+export class Forum implements OnInit {
+
+    private selected = 'forum-list-public';
     private categories = [];
-    private favouritePage: number = 1;
+    private favouritePage = 1;
     private favouriteDiscussions = [];
     private favouriteDiscussionsBackup = [];
     private keyword = '';
@@ -41,7 +41,7 @@ export class Forum implements OnInit{
                 this.favouriteDiscussions = res;
                 this.favouriteDiscussionsBackup = res;
             }
-        )
+        );
     }
 
     onSearch($event) {

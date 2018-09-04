@@ -30,12 +30,12 @@
   padding: .8em;
   background: #ffffff;
   border: none;
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid #a29a9a;
 }
 
 .no-resource-found {
   padding: 2em;
-  border: 1px solid #EEEEEE;
+  border: 1px solid #a29a9a;
   width: 60%;
   margin: auto;
 }
@@ -47,5 +47,10 @@
 }
 
 #upload-btn:focus {
-  border-color: #EEEEEE;
+  border-color: #a29a9a;
 }
+
+.pagination-container {
+  clear: both;
+}
+

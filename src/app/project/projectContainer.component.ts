@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: "app-project-container",
-    templateUrl: "projectContainer.component.html",
-    styleUrls: ["projectContainer.component.css"]
+    selector: 'app-project-container',
+    templateUrl: 'projectContainer.component.html',
+    styleUrls: ['projectContainer.component.css']
 })
 
-export class ProjectContainer {
+export class ProjectContainerComponent {
 
-    private selected = "project-list";
+    private selected = 'project-list';
 
     toggleView(view) {
         this.selected = view;

@@ -56,10 +56,38 @@ export class CreateResourceComponent implements OnInit {
   onCreateResource() {
     if (this.isResourceFormValid()) {
       this.isUploading = true;
-      this.uploader.queue[0].upload();
-      this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-        console.log(JSON.parse(response).result.files.file[0]);
-        this.resource.content = JSON.parse(response).result.files.file[0];
+      if (this.resource.type !== 'video') {
+        this.uploader.queue[0].upload();
+        this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          console.log(JSON.parse(response).result.files.file[0]);
+          this.resource.content = JSON.parse(response).result.files.file[0];
+          this.resource.categories.push('python');
+          this.resourceService.createResource(this.resource)
+            .subscribe(res => {
+              this.router.navigate(['resources']);
+              console.log(res);
+              this.isUploading = false;
+            }, error => {
+              console.log(error);
+              this.isUploading = false;
+            });
+          this.uploader.queue.pop();
+        };
+        this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+          console.log('progress => ', progress);
+          this.progress = progress;
+        };
+        this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          console.log('Canceled');
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+        this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          console.log('error');
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+      } else {
         this.resource.categories.push('python');
         this.resourceService.createResource(this.resource)
           .subscribe(res => {
@@ -70,22 +98,7 @@ export class CreateResourceComponent implements OnInit {
             console.log(error);
             this.isUploading = false;
           });
-        this.uploader.queue.pop();
-      };
-      this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-        console.log('progress => ', progress);
-        this.progress = progress;
-      };
-      this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-        console.log('Canceled');
-        this.isUploading = false;
-        this.uploader.queue.pop();
-      };
-      this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-        console.log('error');
-        this.isUploading = false;
-        this.uploader.queue.pop();
-      };
+      }
     }
     console.log('the form is not valid');
     console.log(this.resourceForm);
