@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { ForumService } from "../forum.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
     selector: "app-discussion-view",
@@ -13,20 +14,19 @@ export class DiscussionView implements OnInit {
 
     private numberOfComments: any;
     private discussion = {id:0};
-    private comment = {"solveIT-DiscussionId": 0};
+    private comment = {"solveIT-DiscussionId": this.discussion.id, userId:0};
     private commentForm: FormGroup;
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
-        let slung = this.route.snapshot.paramMap.get("slung");
-        this.getDiscussion(slung);
 
     }
 
     ngOnInit() {
-        
+        let slung = this.route.snapshot.paramMap.get("slung");
+        this.getDiscussion(slung);
     }
 
     getDiscussion(slung) {
@@ -47,21 +47,43 @@ export class DiscussionView implements OnInit {
     }
 
     addComment() {
-        this.service.addComment(this.comment).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
+        let authenticated = this._authService.isAuthenticated();
+        if (authenticated) {
+            this._authService.getUserInfo().subscribe(
+                res => {
+                    let userId = res.id;
+                    this.comment.userId = userId;
+
+                    this.service.addComment(this.comment).subscribe(
+                        res => {
+                            console.log(res);
+                        }
+                    );
+                }
+            )
+        } else {
+            this.comment.userId = 0;
+            this.service.addComment(this.comment).subscribe(
+                res => {
+                    console.log(res);
+                }
+            );
+        }
     }
 
-    addToFavourites() {
-        let content = {
-            "discussionId": 0,
-            "userId": 0
-        };
-        this.service.addToFavourites(content).subscribe(
+    addToFavourites(discussion) {
+        this._authService.getUserInfo().subscribe(
             res => {
-                console.log(res);
+                let userId = res.id;
+                let content = {
+                    discussionId: discussion.id,
+                    userId: userId
+                };
+                this.service.addToFavourites(content).subscribe(
+                    res => {
+                        console.log(res);
+                    }
+                );
             }
         );
     }

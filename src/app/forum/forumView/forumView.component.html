@@ -5,10 +5,12 @@
       <ul class=" main-nav nav nav-justified">
         <li><a (click) = "toggleView('discussion-list')">Discussions</a></li>
         <li><a (click) = "toggleView('discussion-create')">Create Discussion</a></li>
+        <li><a (click) = "toggleView('members-list')">Members</a></li>
+        <li><a (click) = "toggleView('add-members')">Add Members</a></li>
       </ul>
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf = "selected == 'discussion-list'">
     <div class="row">
         <br>
     </div>
@@ -59,8 +61,13 @@
         </div>
     </div>
     <div *ngIf = "selected == 'discussion-create'" class="row">
-        <app-discussion-create [forum] = "forum"></app-discussion-create>
-        <button (click) = "toggleView('discussion-list')"></button>   
+        <app-discussion-create [forum] = "forum"></app-discussion-create>   
+    </div>
+    <div *ngIf = "selected == 'add-members'" class="row">
+        <add-member [forum] = "forum"></add-member>
+    </div>
+    <div *ngIf = "selected == 'members-list'" class="row">
+        <member-list [forum] = "forum"></member-list>
     </div>
 </div>
     

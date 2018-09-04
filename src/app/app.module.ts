@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -15,6 +16,7 @@ import {ResourcesModule} from './resources/resources.module';
 import {NgCircleProgressModule} from 'ng-circle-progress';
 import {BsModalModule} from 'ng2-bs3-modal';
 import { ProjectModule } from './project/project.module';
+import { UserManagementModule } from './userManagement/userManagement.module';
 import {ForumModule} from './forum/forum.module';
 import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
@@ -26,6 +28,7 @@ import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
   ],
   imports: [
     BrowserModule,
+    Ng2TableModule,
     HttpModule,
     NgxPaginationModule,
     RouterModule.forRoot(APP_ROUTES, {
@@ -33,6 +36,7 @@ import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
     }),
     FormsModule,
     ProjectModule,
+    UserManagementModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,

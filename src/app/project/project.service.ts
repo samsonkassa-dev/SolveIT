@@ -18,10 +18,18 @@ export class ProjectService {
     }
 
     getMyProjects(userId) {
-        return this.apiService.get(`/solveit-projects`);
+        return this.apiService.get(`/UserAccounts/${userId}/projects`);
+    }
+
+    getAllProjects() {
+        return this.apiService.get(`/solveit-projects`)
     }
 
     addProjectMember(member) {
         return this.apiService.post(``, member);
+    }
+
+    getMembers(projectId) {
+        return this.apiService.get(`solveit-projects/${projectId}/members`);
     }
 }

@@ -22,7 +22,7 @@
 							<h3>{{ discussion.slung }}</h3>
 							<p>{{ discussion.content }}</p>
 						</div>
-						<app-comment-list [discussionId] = "discussion.id"></app-comment-list>
+						<app-comment-list *ngIf = "discussion.id !== 0" [discussionId] = "discussion.id"></app-comment-list>
 						<!-- reply form -->
 						<div class="reply-form">
 							<h3 class="title">Leave a reply</h3>

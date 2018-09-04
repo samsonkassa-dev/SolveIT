@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div id="aside" class="col-md-offset-4 col-md-4">
+            <div class="widget">
+                <div class="widget-search">
+                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="searchMember($event)">
+                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Project Members</h3>
+            </div>
+            <div class="panel-body">
+                <div *ngIf = "members.length > 0" class="list-group">
+                    <a *ngFor = "let member of members | paginate: { itemsPerPage: 20, currentPage: page }" class="list-group-item">
+                        {{ member.email }}
+                    </a>
+                </div>
+                <pagination-controls *ngIf = "members.length > 20" (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

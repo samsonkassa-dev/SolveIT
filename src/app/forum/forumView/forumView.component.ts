@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { ForumService } from '../forum.service';
+import { ForumService } from "../forum.service";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
     selector: 'app-forum-view',
@@ -20,7 +21,7 @@ export class ForumView implements OnInit {
     private pinnedPage = 1;
     private keyword = '';
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
 
     }
 
@@ -71,14 +72,19 @@ export class ForumView implements OnInit {
         return count;
     }
 
-    addToFavourites() {
-        const content = {
-            'discussionId': 0,
-            'userId': 0
-        };
-        this.service.addToFavourites(content).subscribe(
+    addToFavourites(discussion) {
+        this._authService.getUserInfo().subscribe(
             res => {
-                console.log(res);
+                let userId = res.id;
+                let content = {
+                    discussionId: discussion.id,
+                    userId: userId
+                };
+                this.service.addToFavourites(content).subscribe(
+                    res => {
+                        console.log(res);
+                    }
+                );
             }
         );
     }

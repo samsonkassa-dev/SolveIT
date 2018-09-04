@@ -12,6 +12,8 @@ import { CreateDiscussion } from './createDiscussion/createDiscussion.component'
 import { SharedModule } from '../shared/shared.module';
 import { CommentList } from './commentList/commentList.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MemberList } from './memberList/memberList.component';
+import { AddMember } from './addMember/addMember.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ForumView,
         DiscussionView,
         CreateDiscussion,
-        CommentList
+        CommentList,
+        MemberList,
+        AddMember
     ],
     imports: [
         CommonModule,

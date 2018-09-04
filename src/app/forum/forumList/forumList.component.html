@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf = "selected == 'forum-list-public' || 'forum-list-private'" class="container">
     <div class="row">
         <br>
     </div>
@@ -13,21 +13,40 @@
         </div>
     </div>
 </div>
-<div *ngFor = "let category of categories" class="col-md-6">
+<ng-container *ngIf = "selected == 'popular-forums'">
+    <div *ngFor = "let category of categories" class="col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ category.category }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <ng-container *ngFor = "let forum of popularforums">
+                        <a *ngIf = "forum.categoryId == category.id" (click) = "viewForum(forum.slung)" class="list-group-item">
+                            {{ forum.slung }}
+                            <span class="badge badge-primary badge-pill">{{ forum.discussionCount }} Discussions</span>
+                        </a>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<div *ngIf = "(selected == 'forum-list-public') || (selected == 'forum-list-private')">
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ category.category }}</h3>
+            <h3 class="panel-title">{{ forumType }}</h3>
         </div>
         <div class="panel-body">
             <div class="list-group">
-                <ng-container *ngFor = "let forum of popularforums | paginate: { itemsPerPage: 7, currentPage: 1 }">
-                    <a *ngIf = "forum.categoryId == category.id" (click) = "viewForum(forum.slung)" class="list-group-item">
+                <ng-container *ngFor = "let forum of forums | paginate: { itemsPerPage: 20, currentPage: page }">
+                    <a (click) = "viewForum(forum.slung)" class="list-group-item">
                         {{ forum.slung }}
                         <span class="badge badge-primary badge-pill">{{ forum.discussionCount }} Discussions</span>
                     </a>
                 </ng-container>
             </div>
-            <pagination-controls *ngIf = "popularforums.length > 7" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls *ngIf = "popularforums.length > 20" (pageChange)="p = $event"></pagination-controls>
         </div>
     </div>
 </div>
