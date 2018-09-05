@@ -1,79 +1,94 @@
-
-    <div class="row">
-        <ul class=" main-nav nav nav-justified">
-          <li><a (click) = "toggleView('solveitteam', 3)">SolveIT-Team</a></li>
-          <li><a (click) = "toggleView('solveitmgmt', 2)">SolveIT-Mgmt</a></li>
-          <li><a (click) = "toggleView('participant', 4)">Participant</a></li>
-        </ul>
-    </div>
-    <div *ngIf = "selected == 'solveitteam'" class="container">
-        <div class="col-sm-10">
-        <table class="table table-bordered datatable">
-            <thead>
-              <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor = "let user of solveitTeamUsers">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
-                    <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
-                </td>
-              </tr>
-            </tbody>
-        </table>
+<div class="container">
+  <div class="row">
+      <br>
+  </div>
+  <div class="row">
+      <div id="aside" class="col-md-offset-4 col-md-4">
+          <div class="widget">
+              <div class="widget-search">
+                  <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="searchUser($event)">
+                  <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+              </div>
+          </div>
       </div>
-    </div>
-    <div *ngIf = "selected == 'solveitmgmt'" class="row">
-        <table class="table table-bordered datatable">
-            <thead>
-              <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor = "let user of solveitMgmtUsers">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
-                    <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>  
-                </td>
-              </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf = "selected == 'participant'" class="row">
-        <table class="table table-bordered datatable">
-            <thead>
-              <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor = "let user of participantUsers">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
-                    <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
-                </td>
-              </tr>
-            </tbody>
-        </table>
-    </div>
+  </div>
+</div>
+<div class="row">
+    <ul class=" main-nav nav nav-justified">
+      <li><a (click) = "toggleView('solveitteam', 3)">SolveIT-Team</a></li>
+      <li><a (click) = "toggleView('solveitmgmt', 2)">SolveIT-Mgmt</a></li>
+      <li><a (click) = "toggleView('participant', 4)">Participant</a></li>
+    </ul>
+</div>
+<div *ngIf = "selected == 'solveitteam'" class="row">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Activate/Deactivate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let user of solveitTeamUsers | paginate: { itemsPerPage: 15, currentPage: page }">
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
+                <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <pagination-controls *ngIf = "solveitTeamUsers.length > 15" (pageChange)="p = $event"></pagination-controls>
+</div>
+<div *ngIf = "selected == 'solveitmgmt'" class="row">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Activate/Deactivate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let user of solveitMgmtUsers | paginate: { itemsPerPage: 15, currentPage: page }">
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
+                <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>  
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <pagination-controls *ngIf = "solveitMgmtUsers.length > 15" (pageChange)="p = $event"></pagination-controls>
+</div>
+<div *ngIf = "selected == 'participant'" class="row">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Activate/Deactivate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let user of participantUsers | paginate: { itemsPerPage: 15, currentPage: page }">
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <button *ngIf = "user.status == 'INACTIVE'" (click) = "activateUser(user)" type="button" class="btn btn-success">Activate</button>
+                <button *ngIf = "user.status == 'ACTIVE'" (click) = "deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <pagination-controls *ngIf = "participantUsers.length > 15" (pageChange)="p = $event"></pagination-controls>
+</div>
