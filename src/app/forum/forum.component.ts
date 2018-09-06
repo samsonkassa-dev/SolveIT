@@ -7,7 +7,7 @@ import { ForumService } from './forum.service';
     styleUrls: ['./forum.component.css']
 })
 
-export class Forum implements OnInit {
+export class ForumComponent implements OnInit {
 
     private selected = 'forum-list-public';
     private categories = [];

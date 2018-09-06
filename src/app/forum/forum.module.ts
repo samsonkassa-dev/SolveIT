@@ -3,36 +3,38 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ForumService } from './forum.service';
-import { Forum } from './forum.component';
-import { CreateForum } from './createForum/createForum.component';
-import { ForumList } from './forumList/forumList.component';
-import { ForumView } from "./forumView/forumView.component";
-import { DiscussionView } from './discussionView/discussionView.component';
-import { CreateDiscussion } from './createDiscussion/createDiscussion.component';
+import { ForumComponent } from './forum.component';
+import { CreateForumComponent } from './createForum/createForum.component';
+import { ForumListComponent } from './forumList/forumList.component';
+import { ForumViewComponent } from "./forumView/forumView.component";
+import { DiscussionViewComponent } from './discussionView/discussionView.component';
+import { CreateDiscussionComponent } from './createDiscussion/createDiscussion.component';
 import { SharedModule } from '../shared/shared.module';
-import { CommentList } from './commentList/commentList.component';
+import { CommentListComponent } from './commentList/commentList.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MemberList } from './memberList/memberList.component';
 import { AddMember } from './addMember/addMember.component';
+import {MomentModule} from 'angular2-moment';
 
 @NgModule({
     declarations: [
-        Forum,
-        CreateForum,
-        ForumList,
-        ForumView,
-        DiscussionView,
-        CreateDiscussion,
-        CommentList,
+        ForumComponent,
+        CreateForumComponent,
+        ForumListComponent,
+        ForumViewComponent,
+        DiscussionViewComponent,
+        CreateDiscussionComponent,
+        CommentListComponent,
         MemberList,
         AddMember
     ],
     imports: [
-        CommonModule,
-        NgxPaginationModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule
+      CommonModule,
+      NgxPaginationModule,
+      FormsModule,
+      ReactiveFormsModule,
+      SharedModule,
+      MomentModule
     ],
     providers: [ForumService],
     exports: []

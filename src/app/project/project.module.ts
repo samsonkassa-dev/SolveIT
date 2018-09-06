@@ -11,7 +11,7 @@ import { ProjectContainerComponent } from './projectContainer.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NgCircleProgressModule} from 'ng-circle-progress';
-import {AddProjectMember} from './addMember/addMember.component';
+import {AddProjectMemberComponent} from './addMember/addMember.component';
 import {ProjectMemberList} from './memberList/memberList.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import {ProjectMemberList} from './memberList/memberList.component';
     ProjectListComponent,
     ProjectView,
     ProjectContainerComponent,
-    AddProjectMember,
+    AddProjectMemberComponent,
     ProjectMemberList
   ],
   imports: [

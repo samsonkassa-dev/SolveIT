@@ -1,18 +1,18 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
-import { ForumService } from "../forum.service";
-import { AuthService } from "../../Auth/services/auth.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ForumService } from '../forum.service';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
-    selector: "app-forum-create",
-    templateUrl: "./createForum.component.html",
-    styleUrls: ["./createForum.component.css"]
+    selector: 'app-forum-create',
+    templateUrl: './createForum.component.html',
+    styleUrls: ['./createForum.component.css']
 })
 
-export class CreateForum {
+export class CreateForumComponent {
 
     @Input() categories;
-    private forum = { userAccountId:0 };
+    private forum = { userAccountId: 0, created: new Date(), name: '', slung: '' };
     private forumForm: FormGroup;
 
     constructor(private service: ForumService, private _authService: AuthService) {
@@ -25,20 +25,21 @@ export class CreateForum {
     }
 
     getUserId() {
-        
+
     }
 
     createForum() {
+      this.forum.created = new Date();
         this.service.createForum(this.forum).subscribe(
             res => {
-                let forumId = res.id;
+                const forumId = res.id;
                 this._authService.getUserInfo().subscribe(
-                    res => {
-                        let userId = res.id;
-                        let member = {
+                    res1 => {
+                        const userId = res1.id;
+                        const member = {
                             forumId: forumId,
                             userId: userId
-                        }
+                        };
                         this.service.addMember(member).subscribe(
                             res2 => {
                                 console.log(res2);

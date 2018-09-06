@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ForumService } from "../forum.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ForumService } from '../forum.service';
 
 @Component({
     selector: 'member-list',
@@ -7,17 +7,17 @@ import { ForumService } from "../forum.service";
     styleUrls: ['./memberList.component.css']
 })
 
-export class MemberList implements OnInit{
+export class MemberList implements OnInit {
 
     @Input() forum;
-    
+
     private members = [];
     private membersBackup = [];
     private keyword = '';
-    private page: number = 1;
+    private page = 1;
 
     constructor(private service: ForumService) {
-        
+
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class MemberList implements OnInit{
                 this.members = res;
                 this.membersBackup = res;
             }
-        )
+        );
     }
 
     searchMember() {

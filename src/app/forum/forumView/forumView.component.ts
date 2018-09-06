@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { ForumService } from "../forum.service";
-import { AuthService } from "../../Auth/services/auth.service";
+import { ForumService } from '../forum.service';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-forum-view',
@@ -10,19 +10,19 @@ import { AuthService } from "../../Auth/services/auth.service";
     styleUrls: ['./forumView.component.css']
 })
 
-export class ForumView implements OnInit {
+export class ForumViewComponent implements OnInit {
 
-    private selected = 'discussion-list';
-    private discussions = [];
-    private pinnedDiscussions = [];
-    private allDiscussions = [];
-    private forum = {};
-    private discussionPage = 1;
-    private pinnedPage = 1;
-    private keyword = '';
+    public selected = 'discussion-list';
+    public discussions = [];
+    public pinnedDiscussions = [];
+    public allDiscussions = [];
+    public forum = {};
+    public discussionPage = 1;
+    public pinnedPage = 1;
+    public keyword = '';
+    public selectedDiscussion = '';
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
-
+    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public _authService: AuthService) {
     }
 
     ngOnInit() {
@@ -75,14 +75,14 @@ export class ForumView implements OnInit {
     addToFavourites(discussion) {
         this._authService.getUserInfo().subscribe(
             res => {
-                let userId = res.id;
-                let content = {
+                const userId = res.id;
+                const content = {
                     discussionId: discussion.id,
                     userId: userId
                 };
                 this.service.addToFavourites(content).subscribe(
-                    res => {
-                        console.log(res);
+                    res1 => {
+                        console.log(res1);
                     }
                 );
             }
@@ -97,5 +97,10 @@ export class ForumView implements OnInit {
           this.pinnedDiscussions = this.allDiscussions.filter(item => item.pinned);
           this.discussions = this.allDiscussions.filter(item => !item.pinned);
         }
+    }
+
+    discussionDetail(discussion) {
+      this.selectedDiscussion = discussion.slung;
+      this.toggleView('discussion-detail');
     }
 }

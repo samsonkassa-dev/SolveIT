@@ -9,14 +9,14 @@
                 formControlName="slung" [(ngModel)]="forum.slung">
         </div>
         <div class="form-group">
-            <select  style="width: 100%" name="category" id="type" formControlName="category" class="" [(ngModel)]="forum.categoryId">
-              <option value="" selected>Select Category</option>
+          <label for="category">Select Category</label>
+            <select  style="width: 100%" name="category" id="category" formControlName="category" class="" [(ngModel)]="forum.categoryId">
               <option value="{{category.id}}" *ngFor = "let category of categories">{{ category.category }}</option>
             </select>
-        </div> 
+        </div>
         <div class="form-group">
-            <select  style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
-              <option value="" selected>Select Forum Type</option>
+          <label for="type">Select Type</label>
+          <select  style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
               <option value=0>Public</option>
               <option value=1>Private</option>
             </select>
@@ -26,4 +26,3 @@
         </div>
     </div>
 </form>
-        

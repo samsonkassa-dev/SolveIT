@@ -1,23 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
-import { ForumService } from "../forum.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "../../Auth/services/auth.service";
+import {Component, Input, OnInit} from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ForumService } from '../forum.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
-    selector: "app-discussion-view",
-    templateUrl: "./discussionView.component.html",
-    styleUrls: ["./discussionView.component.css"]
+    selector: 'app-discussion-view',
+    templateUrl: './discussionView.component.html',
+    styleUrls: ['./discussionView.component.css']
 })
 
-export class DiscussionView implements OnInit {
+export class DiscussionViewComponent implements OnInit {
 
-    private numberOfComments: any;
-    private discussion = {id:0};
-    private comment = {"solveIT-DiscussionId": this.discussion.id, userId:0};
-    private commentForm: FormGroup;
+    public numberOfComments: any;
+    public discussion = {id: 0};
+    public comment = {'solveIT-DiscussionId': this.discussion.id, userId: 0};
+    public commentForm: FormGroup;
+    @Input() slung = '';
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public _authService: AuthService) {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
@@ -25,8 +26,10 @@ export class DiscussionView implements OnInit {
     }
 
     ngOnInit() {
-        let slung = this.route.snapshot.paramMap.get("slung");
-        this.getDiscussion(slung);
+        // const slung = this.route.snapshot.paramMap.get('slung');
+        if (this.slung !== '') {
+          this.getDiscussion(this.slung);
+        }
     }
 
     getDiscussion(slung) {
@@ -43,15 +46,15 @@ export class DiscussionView implements OnInit {
             res => {
                 this.numberOfComments = res.count;
             }
-        )
+        );
     }
 
     addComment() {
-        let authenticated = this._authService.isAuthenticated();
+        const authenticated = this._authService.isAuthenticated();
         if (authenticated) {
             this._authService.getUserInfo().subscribe(
                 res => {
-                    let userId = res.id;
+                    const userId = res.id;
                     this.comment.userId = userId;
 
                     this.service.addComment(this.comment).subscribe(
@@ -60,7 +63,7 @@ export class DiscussionView implements OnInit {
                         }
                     );
                 }
-            )
+            );
         } else {
             this.comment.userId = 0;
             this.service.addComment(this.comment).subscribe(
@@ -74,8 +77,8 @@ export class DiscussionView implements OnInit {
     addToFavourites(discussion) {
         this._authService.getUserInfo().subscribe(
             res => {
-                let userId = res.id;
-                let content = {
+                const userId = res.id;
+                const content = {
                     discussionId: discussion.id,
                     userId: userId
                 };
@@ -93,7 +96,7 @@ export class DiscussionView implements OnInit {
             res => {
                 console.log(res);
             }
-        )
+        );
     }
 
 }

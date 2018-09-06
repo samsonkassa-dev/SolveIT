@@ -1,73 +1,107 @@
 <app-header></app-header>
 
-<div class="container">
-  <div class="row">
-      <ul class=" main-nav nav nav-justified">
-        <li><a (click) = "toggleView('discussion-list')">Discussions</a></li>
-        <li><a (click) = "toggleView('discussion-create')">Create Discussion</a></li>
-        <li><a (click) = "toggleView('members-list')">Members</a></li>
-        <li><a (click) = "toggleView('add-members')">Add Members</a></li>
-      </ul>
+<div class="forum-detail">
+  <div class="container">
+    <div class="row forum-detail-content">
+      <div class="col-md-4 forum-detail-side-menu">
+        <ul id="detail-menu">
+          <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'discussion-list'">
+            <p (click)="toggleView('discussion-list')"><i class="fa fa-envelope"><p class="menu-title">Discussions</p></i></p>
+          </li>
+          <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'discussion-create'">
+            <p (click)="toggleView('discussion-create')"><i class="fa fa-plus"><p class="menu-title">Create Discussion</p></i></p>
+          </li>
+          <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'members-list'">
+            <p (click)="toggleView('members-list')"><i class="fa fa-users"><p class="menu-title">Members</p></i></p>
+          </li>
+          <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'add-members'">
+            <p (click)="toggleView('add-members')"><i class="fa fa-user-plus"><p class="menu-title">Add Members</p></i></p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <div *ngIf = "selected == 'discussion-list'">
+          <div class="row">
+            <br>
+          </div>
+          <div class="row" *ngIf="allDiscussions.length > 0">
+            <div id="aside" class="col-md-offset-2 col-md-8">
+              <div class="widget">
+                <div class="widget-search">
+                  <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+                  <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div *ngIf = "selected == 'discussion-list'" class="row">
+            <div class="pinned-discussions">
+              <h4 class="title">Pinned Discussions</h4>
+              <div class="no-discussion" *ngIf="pinnedDiscussions.length==0">
+                <p>
+                  <i class="fa fa-frown-o"></i>
+                  You have no pinned discussion.
+                </p>
+              </div>
+              <table class="table" *ngIf="pinnedDiscussions.length > 0">
+                <tbody>
+                <tr *ngFor="let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }" (click)="discussionDetail(discussion)">
+                  <th scope="row">
+                    {{ discussion.slung}}
+                  </th>
+                  <td>Python</td>
+                  <td> created at </td>
+                  <td><span class="badge badge-secondary">{{ countComments(discussion) }}</span> Comments</td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="row discussion-pagination">
+                <pagination-controls *ngIf = "pinnedDiscussions.length > 5" (pageChange)="pinnedPage = $event"></pagination-controls>
+              </div>
+            </div>
+            <div class="discussions" >
+              <h4 class="title">Discussions</h4>
+              <div class="no-discussion" *ngIf="discussions.length==0">
+                <p>
+                  <i class="fa fa-frown-o"></i>
+                  You have no discussion.
+                </p>
+              </div>
+
+              <table class="table" *ngIf = "discussions.length > 0">
+                <tbody>
+                <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: discussionPage  }" (click)="discussionDetail(discussion)">
+                  <th scope="row">
+                    {{ discussion.slung}}
+                  </th>
+                  <td>Python</td>
+                  <td> created at </td>
+                  <td><span class="badge badge-secondary">{{ "count" }}</span> Comments</td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="row discussion-pagination">
+                <pagination-controls *ngIf = "discussions.length > 5" (pageChange)="discussionPage = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+          <div *ngIf = "selected == 'discussion-create'" class="row">
+            <app-discussion-create (created)="toggleView('discussion-list')" [forum] = "forum"></app-discussion-create>
+          </div>
+          <div *ngIf = "selected == 'add-members'" class="row">
+            <add-member [forum] = "forum"></add-member>
+          </div>
+          <div *ngIf = "selected == 'members-list'" class="row">
+            <member-list [forum] = "forum"></member-list>
+          </div>
+          <div *ngIf="selected == 'discussion-detail'">
+            <app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="container" *ngIf = "selected == 'discussion-list'">
-    <div class="row">
-        <br>
-    </div>
-    <div class="row">
-        <div id="aside" class="col-md-offset-4 col-md-4">
-            <div class="widget">
-                <div class="widget-search">
-                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
-                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div *ngIf = "selected == 'discussion-list'" class="row">
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Pinned</h3>
-                </div>
-                <div class="panel-body">
-                    <div *ngIf = "pinnedDiscussions.length > 0" class="list-group">
-                        <a *ngFor = "let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
-                            {{ discussion.slung }}
-                            <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
-                        </a>
-                    </div>
-                    <pagination-controls *ngIf = "pinnedDiscussions.length > 5" (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Discussions</h3>
-                </div>
-                <div class="panel-body">
-                    <div *ngIf = "discussions.length > 0" class="list-group">
-                        <a *ngFor = "let discussion of discussions | paginate: { itemsPerPage: 20, currentPage: discussionPage }" (click) = "viewDiscussion(discussion)" class="list-group-item">
-                            {{ discussion.slung }}
-                            <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
-                        </a>
-                    </div>
-                    <pagination-controls *ngIf = "discussions.length > 20" (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf = "selected == 'discussion-create'" class="row">
-        <app-discussion-create [forum] = "forum"></app-discussion-create>   
-    </div>
-    <div *ngIf = "selected == 'add-members'" class="row">
-        <add-member [forum] = "forum"></add-member>
-    </div>
-    <div *ngIf = "selected == 'members-list'" class="row">
-        <member-list [forum] = "forum"></member-list>
-    </div>
-</div>
-    

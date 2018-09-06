@@ -1,0 +1,14 @@
+#user-icon {
+  float: left;
+  margin-right: 1em;
+}
+
+#item {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+#item:hover {
+  background: rgba(0,0,0,0.1);
+}

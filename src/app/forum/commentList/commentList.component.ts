@@ -1,20 +1,20 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ForumService } from "../forum.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { ForumService } from '../forum.service';
 
 @Component({
-    selector: "app-comment-list",
-    templateUrl: "./commentList.component.html",
-    styleUrls: ["./commentList.component.css"]
+    selector: 'app-comment-list',
+    templateUrl: './commentList.component.html',
+    styleUrls: ['./commentList.component.css']
 })
 
-export class CommentList implements OnInit{
+export class CommentListComponent implements OnInit {
 
     @Input() discussionId;
     private comments = [];
-    private page: number = 1;
+    private page = 1;
 
     constructor(private service: ForumService) {
-        
+
     }
 
     ngOnInit() {
@@ -27,7 +27,7 @@ export class CommentList implements OnInit{
             res => {
                 this.comments = res;
             }
-        )
+        );
     }
-    
+
 }

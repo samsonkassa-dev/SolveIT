@@ -1,0 +1,56 @@
+.forum-detail {
+  margin: 3em auto 8em;
+}
+
+.forum-detail-content {
+  margin-bottom: 6em;
+}
+
+.forum-detail-side-menu {
+  margin-top: 4em;
+}
+
+.no-discussion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  padding: 1.5em;
+}
+
+.no-discussion p {
+  font-size: 1.5em;
+}
+
+.pinned-discussions, .discussions {
+  margin-top: 2em;
+}
+
+.forum-detail-menu {
+  border-left: 1px solid #EC4643;
+  padding-left: 0.5em;
+  cursor: pointer;
+}
+
+.forum-detail-menu:hover {
+  margin-left: 0.5em;
+}
+
+.forum-detail-menu-selected {
+  margin-left: 0.5em;
+  border-left: 1px solid #2BA692;
+}
+
+#detail-menu {
+  margin-right: 4em;
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.menu-title {
+  float: right;
+  margin-left: 0.5em;
+}
+
+tr {
+  cursor: pointer;
+}

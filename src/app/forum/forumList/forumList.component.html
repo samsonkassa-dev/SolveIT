@@ -1,52 +1,64 @@
-<div *ngIf = "selected == 'forum-list-public' || 'forum-list-private'" class="container">
+<div class="forum-list">
+  <div *ngIf = "selected == 'forum-list-public' || 'forum-list-private'" class="container">
     <div class="row">
-        <br>
+      <br>
     </div>
-    <div class="row">
-        <div id="aside" class="col-md-offset-4 col-md-4">
-            <div class="widget">
-                <div class="widget-search">
-                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
-                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+    <div class="row" *ngIf="forums.length > 0 || keyword !== ''">
+      <div id="aside" class="col-md-offset-4 col-md-4">
+        <div class="widget">
+          <div class="widget-search">
+            <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword"  (keyup)="onSearch($event)">
+            <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
+      <p>
+        <i class="fa  fa-frown-o"></i>
+        There are no forums created, yet.
+      </p>
+
+      <button class="outline-btn" (click)="onCreateForum()">create Here</button>
+    </div>
+  </div>
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="forums.length == 0 && keyword !== ''">
+      <p>
+        <i class="fa  fa-frown-o"></i>
+        No search result found for "{{ keyword }}"
+      </p>
+    </div>
+  </div>
+  <div *ngIf = "(selected == 'forum-list-public') || (selected == 'forum-list-private')">
+    <div class="forums-list-content" *ngIf="forums.length > 0">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Topic</th>
+          <th scope="col">Category</th>
+          <th scope="col">Created</th>
+          <th scope="col">Discussions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 10, currentPage: page }" (click)="viewForum(forum.slung)">
+          <th scope="row">
+            {{forum.name}}
+          </th>
+          <td>Python</td>
+          <td>2 days ago</td>
+          <td><span class="badge badge-secondary">{{ forum.discussionCount }}</span> Discussions</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="forum-pagination">
+      <pagination-controls *ngIf = "forums.length > 10" (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+  </div>
 </div>
-<ng-container *ngIf = "selected == 'popular-forums'">
-    <div *ngFor = "let category of categories" class="col-md-6">
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ category.category }}</h3>
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <ng-container *ngFor = "let forum of popularforums">
-                        <a *ngIf = "forum.categoryId == category.id" (click) = "viewForum(forum.slung)" class="list-group-item">
-                            {{ forum.slung }}
-                            <span class="badge badge-primary badge-pill">{{ forum.discussionCount }} Discussions</span>
-                        </a>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-container>
-<div *ngIf = "(selected == 'forum-list-public') || (selected == 'forum-list-private')">
-    <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ forumType }}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="list-group">
-                <ng-container *ngFor = "let forum of forums | paginate: { itemsPerPage: 20, currentPage: page }">
-                    <a (click) = "viewForum(forum.slung)" class="list-group-item">
-                        {{ forum.slung }}
-                        <span class="badge badge-primary badge-pill">{{ forum.discussionCount }} Discussions</span>
-                    </a>
-                </ng-container>
-            </div>
-            <pagination-controls *ngIf = "popularforums.length > 20" (pageChange)="p = $event"></pagination-controls>
-        </div>
-    </div>
-</div>
+
+
