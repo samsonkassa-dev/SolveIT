@@ -21,8 +21,8 @@ export class ForumService {
         return this.apiService.get(`SolveITForums/${forumId}/members`);
     }
 
-    getFavouriteDiscussions(){
-        return null;
+    getFavouriteDiscussions(userId){
+        return this.apiService.get(`UserAccounts/${userId}/favouriteDiscussions`);
     }
 
     getDiscussion(slung) {

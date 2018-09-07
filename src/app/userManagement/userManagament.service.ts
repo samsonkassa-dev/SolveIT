@@ -13,11 +13,7 @@ export class UserManagementService {
         return this.apiService.get(`UserAccounts/role/${roleId}/users`);
     }
 
-    activateUser(user) {
-        return this.apiService.put(`UserAccounts/${user.id}`, user);
-    }
-
-    deactivateUser(user) {
+    activateDeactivateUser(user) {
         return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
 }

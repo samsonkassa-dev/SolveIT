@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from './forum.service';
+import { AuthService } from '../Auth/services/auth.service';
 
 @Component({
     selector: 'app-forum',
@@ -16,7 +17,7 @@ export class ForumComponent implements OnInit {
     private favouriteDiscussionsBackup = [];
     private keyword = '';
 
-    constructor(private service: ForumService) {}
+    constructor(private service: ForumService, private _authService: AuthService) {}
 
     ngOnInit() {
         this.getCategories();
@@ -36,10 +37,16 @@ export class ForumComponent implements OnInit {
 
     getFavouriteDiscussions() {
         this.selected = 'favourite-discussions';
-        this.service.getFavouriteDiscussions().subscribe(
+
+        this._authService.getUserInfo().subscribe(
             res => {
-                this.favouriteDiscussions = res;
-                this.favouriteDiscussionsBackup = res;
+                const userId = res.id;
+                this.service.getFavouriteDiscussions(userId).subscribe(
+                    res => {
+                        this.favouriteDiscussions = res;
+                        this.favouriteDiscussionsBackup = res;
+                    }
+                );
             }
         );
     }

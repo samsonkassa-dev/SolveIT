@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { ForumService } from '../forum.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../Auth/services/auth.service';
-import { SharedService } from '../../shared/services/shared.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
+import { ForumService } from "../forum.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
     selector: 'app-discussion-view',
