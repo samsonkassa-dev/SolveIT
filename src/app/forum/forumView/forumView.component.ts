@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { ForumService } from '../forum.service';
-import { AuthService } from '../../Auth/services/auth.service';
+import { ForumService } from "../forum.service";
+import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-forum-view',
@@ -22,7 +23,8 @@ export class ForumViewComponent implements OnInit {
     public keyword = '';
     public selectedDiscussion = '';
 
-    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public _authService: AuthService) {
+    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
+
     }
 
     ngOnInit() {
@@ -82,7 +84,12 @@ export class ForumViewComponent implements OnInit {
                 };
                 this.service.addToFavourites(content).subscribe(
                     res1 => {
-                        console.log(res1);
+                        this.sharedService.addToast("Success", "Added To Favourites!.", 'success');
+                    },
+                    err => {
+                        if (err.status = 422) {
+                            this.sharedService.addToast("", "Error occured!", 'error');
+                        }
                     }
                 );
             }

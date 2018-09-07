@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { ForumService } from '../forum.service';
-import { AuthService } from '../../Auth/services/auth.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
+import { ForumService } from "../forum.service";
+import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
     selector: 'app-forum-create',
@@ -15,7 +16,7 @@ export class CreateForumComponent {
     private forum = { userAccountId: 0, created: new Date(), name: '', slung: '' };
     private forumForm: FormGroup;
 
-    constructor(private service: ForumService, private _authService: AuthService) {
+    constructor(private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
         this.forumForm = new FormGroup({
             name: new FormControl('', Validators.required),
             slung: new FormControl('', Validators.required),
@@ -24,19 +25,16 @@ export class CreateForumComponent {
         });
     }
 
-    getUserId() {
-
-    }
-
     createForum() {
       this.forum.created = new Date();
         this.service.createForum(this.forum).subscribe(
             res => {
-                const forumId = res.id;
+                this.sharedService.addToast("Success", "Forum Created!.", 'success');
+                let forumId = res.id;
                 this._authService.getUserInfo().subscribe(
                     res1 => {
-                        const userId = res1.id;
-                        const member = {
+                        let userId = res1.id;
+                        let member = {
                             forumId: forumId,
                             userId: userId
                         };
@@ -47,6 +45,11 @@ export class CreateForumComponent {
                         );
                     }
                 );
+            },
+            err => {
+                if (err.status = 422) {
+                    this.sharedService.addToast("", "Error occured!", 'error');
+                }
             }
         );
     }

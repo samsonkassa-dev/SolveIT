@@ -5,6 +5,7 @@ import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {Resource} from '../models/resource';
 import {configs} from '../../app.config';
 import {Router} from '@angular/router';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
   selector: 'app-create-resource',
@@ -28,7 +29,7 @@ export class CreateResourceComponent implements OnInit {
     description: ''
   };
 
-  constructor(public resourceService: ResourcesService, public router: Router) { }
+  constructor(public resourceService: ResourcesService, public router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.resourceForm = new FormGroup({
@@ -65,11 +66,14 @@ export class CreateResourceComponent implements OnInit {
           this.resourceService.createResource(this.resource)
             .subscribe(res => {
               this.router.navigate(['resources']);
-              console.log(res);
+              this.sharedService.addToast("Success", "New Resource Added!.", 'success');
               this.isUploading = false;
-            }, error => {
-              console.log(error);
-              this.isUploading = false;
+            },
+            err => {
+              if (err.status = 422) {
+                this.sharedService.addToast("", "Error occured!", 'error');
+                this.isUploading = false;
+              }
             });
           this.uploader.queue.pop();
         };
@@ -92,11 +96,14 @@ export class CreateResourceComponent implements OnInit {
         this.resourceService.createResource(this.resource)
           .subscribe(res => {
             this.router.navigate(['resources']);
-            console.log(res);
+            this.sharedService.addToast("Success", "New Resource Added!.", 'success');
             this.isUploading = false;
-          }, error => {
-            console.log(error);
-            this.isUploading = false;
+          },
+          err => {
+            if (err.status = 422) {
+              this.sharedService.addToast("", "Error occured!", 'error');
+              this.isUploading = false;
+            }
           });
       }
     }

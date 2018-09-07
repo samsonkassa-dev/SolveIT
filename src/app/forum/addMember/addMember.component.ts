@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ForumService } from '../forum.service';
+import { Component, Input } from "@angular/core";
+import { ForumService } from "../forum.service";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
     selector: 'add-member',
@@ -14,8 +15,8 @@ export class AddMember {
     private page = 1;
     private keyword = '';
 
-    constructor(private service: ForumService) {
-
+    constructor(private service: ForumService, private sharedService: SharedService) {
+        
     }
 
     addMember(user) {
@@ -25,7 +26,12 @@ export class AddMember {
         };
         this.service.addMember(member).subscribe(
             res => {
-                console.log(res);
+                this.sharedService.addToast("Success", "New Member Added!.", 'success');
+            },
+            err => {
+                if (err.status = 422) {
+                    this.sharedService.addToast("", "Error occured!", 'error');
+                }
             }
         );
     }

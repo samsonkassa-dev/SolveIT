@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthService } from "../../Auth/services/auth.service";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
     selector: 'app-add-user',
@@ -15,7 +16,7 @@ export class AddUserComponent {
     private selected = 'participant';
     private userForm: FormGroup;
 
-    constructor(private service: AuthService) {
+    constructor(private service: AuthService, private sharedService: SharedService) {
         this.userForm = new FormGroup({
             firstName: new FormControl('', Validators.required),
             middleName: new FormControl('', Validators.required),
@@ -30,7 +31,12 @@ export class AddUserComponent {
     addUser() {
         this.service.register(this.user)
         .subscribe(res => {
-            console.log(res);
+            this.sharedService.addToast("Success", "New User Added!.", 'success');
+        },
+		err => {
+			if (err.status = 422) {
+				this.sharedService.addToast("", "Error occured!", 'error');
+			}
         });
     }
 

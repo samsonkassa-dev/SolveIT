@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { ToastOptions } from "ng2-toasty";
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -20,6 +21,7 @@ import { UserManagementModule } from './userManagement/userManagement.module';
 import {ForumModule} from './forum/forum.module';
 import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
+import { CompetitionModule } from './competition/competition.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
     FormsModule,
     ProjectModule,
     UserManagementModule,
+    CompetitionModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
@@ -55,7 +58,7 @@ import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
     SolveitTeamModule,
     BsModalModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, ToastOptions],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

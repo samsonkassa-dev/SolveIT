@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { SolveitTeamService } from '../../solveitTeam.service';
+import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
     selector: 'app-event-create',
@@ -18,7 +19,7 @@ export class CreateEventComponent {
     public eventForm: FormGroup;
     @Output() created = new EventEmitter();
 
-    constructor(public service: SolveitTeamService) {
+    constructor(public service: SolveitTeamService, private sharedService: SharedService) {
         this.eventForm = new FormGroup({
             title: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
@@ -29,9 +30,14 @@ export class CreateEventComponent {
   createEvent() {
     this.service.createEvent(this.event).subscribe(
     res => {
-        console.log(res);
         this.toggleCreated();
-      }
+        this.sharedService.addToast("Success", "Event Created!.", 'success');
+      },
+		err => {
+			if (err.status = 422) {
+				this.sharedService.addToast("", "Error occured!", 'error');
+			}
+        }
     );
   }
 
