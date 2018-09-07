@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="container dashboard">
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="dashboard-menu">
+        <li (click)="toggleView(views[0])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[0]">Users</li>
+        <li (click)="toggleView(views[1])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[1]">Competitions</li>
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <div class="dashboard-content">
+        <app-manage-user *ngIf="selected == views[0]"></app-manage-user>
+        <app-competition-view *ngIf="selected == views[1]"></app-competition-view>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,27 +1,28 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { UserManagementService } from "../userManagament.service";
-import { SharedService } from "../../shared/services/shared.service";
+import {Component, OnInit, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import { UserManagementService } from '../userManagament.service';
+import { SharedService } from '../../shared/services/shared.service';
 
-declare var $:any;
+declare var $: any;
 @Component({
     selector: 'app-user-list',
     templateUrl: 'userList.component.html',
     styleUrls: ['userList.component.css']
 })
 
-export class UserListComponent implements OnInit, AfterViewInit{
+export class UserListComponent implements OnInit, AfterViewInit {
 
-    private users = [];
-    private solveitTeamUsers = [];
-    private solveitMgmtUsers = [];
-    private participantUsers = [];
-    private selected = 'solveitmgmt';
-    private roleId = 1;
-    private page: number = 1;
-    private keyword = '';
+    @Output() create = new EventEmitter();
+    public users = [];
+    public solveitTeamUsers = [];
+    public solveitMgmtUsers = [];
+    public participantUsers = [];
+    public selected = 'solveitmgmt';
+    public roleId = 1;
+    public page = 1;
+    public keyword = '';
 
-    constructor(private service: UserManagementService, private sharedService: SharedService) {
-        
+    constructor(public service: UserManagementService, public sharedService: SharedService) {
+
     }
 
     ngOnInit() {
@@ -53,18 +54,18 @@ export class UserListComponent implements OnInit, AfterViewInit{
                     }
                 });
             }
-        )
+        );
     }
 
     activateUser(user) {
-        
+
         this.service.activateUser(user).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Account Activated!.", 'success');
+                this.sharedService.addToast('Success', 'Account Activated!.', 'success');
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );
@@ -73,11 +74,11 @@ export class UserListComponent implements OnInit, AfterViewInit{
     deactivateUser(user) {
         this.service.deactivateUser(user).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Account Deactivated!.", 'success');
+                this.sharedService.addToast('Success', 'Account Deactivated!.', 'success');
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );
@@ -101,5 +102,10 @@ export class UserListComponent implements OnInit, AfterViewInit{
             this.solveitMgmtUsers = this.users.filter(item => item.roleId == 2);
             this.solveitTeamUsers = this.users.filter(item => item.roleId == 3);
         }
+    }
+
+    createUser() {
+      this.create.emit();
+      console.log('creating user');
     }
 }

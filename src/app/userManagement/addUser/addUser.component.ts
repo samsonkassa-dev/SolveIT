@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import { AuthService } from "../../Auth/services/auth.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { AuthService } from '../../Auth/services/auth.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-add-user',
@@ -15,6 +15,7 @@ export class AddUserComponent {
     private user = {};
     private selected = 'participant';
     private userForm: FormGroup;
+    @Output() back = new EventEmitter();
 
     constructor(private service: AuthService, private sharedService: SharedService) {
         this.userForm = new FormGroup({
@@ -31,16 +32,21 @@ export class AddUserComponent {
     addUser() {
         this.service.register(this.user)
         .subscribe(res => {
-            this.sharedService.addToast("Success", "New User Added!.", 'success');
+            this.sharedService.addToast('Success', 'New User Added!.', 'success');
         },
 		err => {
 			if (err.status = 422) {
-				this.sharedService.addToast("", "Error occured!", 'error');
+				this.sharedService.addToast('', 'Error occured!', 'error');
 			}
         });
     }
 
     toggleView(view) {
         this.selected = view;
+    }
+
+    backToList() {
+      this.back.emit();
+      console.log('emmited');
     }
 }

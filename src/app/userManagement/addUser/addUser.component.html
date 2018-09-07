@@ -1,11 +1,11 @@
 
-  <div class="row">
-      <ul class=" main-nav nav nav-justified">
-        <li><a (click) = "toggleView('solveitteam')">SolveIT-Team</a></li>
-        <li><a (click) = "toggleView('solveitmgmt')">SolveIT-Mgmt</a></li>
-        <li><a (click) = "toggleView('participant')">Participant</a></li>
-      </ul>
-  </div>
+  <!--<div class="row">-->
+      <!--<ul class=" main-nav nav nav-justified">-->
+        <!--<li><a (click) = "toggleView('solveitteam')">SolveIT-Team</a></li>-->
+        <!--<li><a (click) = "toggleView('solveitmgmt')">SolveIT-Mgmt</a></li>-->
+        <!--<li><a (click) = "toggleView('participant')">Participant</a></li>-->
+      <!--</ul>-->
+  <!--</div>-->
 <div id="registration-form">
     <form [formGroup]="userForm">
       <div class="input-field">
@@ -62,6 +62,7 @@
         </div>
       </div>
       <button [disabled]="!userForm.valid" (click)="addUser()" type="button" class="main-btn">Submit</button>
+      <button (click)="backToList()" type="button" class="outline-btn">Back</button>
     </form>
   </div>
-  <ng2-toasty [position]="'top-right'"></ng2-toasty>
+  <!--<ng2-toasty [position]="'top-right'"></ng2-toasty>-->

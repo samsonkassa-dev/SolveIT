@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-manage-user',
@@ -11,7 +11,7 @@ export class ManageUserComponent {
     private selected = 'user-list';
 
     constructor() {
-        
+
     }
 
     toggleView(view) {

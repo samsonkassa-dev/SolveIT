@@ -1,11 +1,12 @@
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from "../shared/shared.module";
-import { NgModule } from "@angular/core";
-import { AddUserComponent } from "./addUser/addUser.component";
-import { UserListComponent } from "./userList/userList.component";
-import { ManageUserComponent } from "./manageUser/manageUser.component";
-import { UserManagementService } from "./userManagament.service";
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+import { NgModule } from '@angular/core';
+import { AddUserComponent } from './addUser/addUser.component';
+import { UserListComponent } from './userList/userList.component';
+import { ManageUserComponent } from './manageUser/manageUser.component';
+import { UserManagementService } from './userManagament.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -17,10 +18,11 @@ import { UserManagementService } from "./userManagament.service";
         SharedModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+      NgxPaginationModule
     ],
     providers: [UserManagementService],
-    exports: []
+    exports: [ManageUserComponent]
 })
 
 export class UserManagementModule {

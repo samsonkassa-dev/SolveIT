@@ -21,7 +21,7 @@ import { CompetitionService } from "./competition.service";
         ReactiveFormsModule
     ],
     providers: [CompetitionService],
-    exports: []
+    exports: [CompetitionViewComponent]
 })
 
 export class CompetitionModule {

@@ -22,6 +22,8 @@ import {ForumModule} from './forum/forum.module';
 import {SolveitMgmtModule} from './solveitMgmt/solveitMgmt.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
 import { CompetitionModule } from './competition/competition.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {DashboardModule} from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { CompetitionModule } from './competition/competition.module';
     ForumModule,
     SolveitMgmtModule,
     SolveitTeamModule,
-    BsModalModule
+    BsModalModule,
+    DashboardModule
   ],
   providers: [ApiService, ToastOptions],
   bootstrap: [AppComponent],
