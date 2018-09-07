@@ -57,10 +57,12 @@ export class UserListComponent implements OnInit, AfterViewInit{
     }
 
     activateUser(user) {
-        
-        this.service.activateUser(user).subscribe(
+        let updatedUser = user;
+        updatedUser.status = "ACTIVE"
+        this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
                 this.sharedService.addToast("Success", "Account Activated!.", 'success');
+                user.status = "ACTIVE";
             },
             err => {
                 if (err.status = 422) {
@@ -71,9 +73,12 @@ export class UserListComponent implements OnInit, AfterViewInit{
     }
 
     deactivateUser(user) {
-        this.service.deactivateUser(user).subscribe(
+        let updatedUser = user;
+        updatedUser.status = "INACTIVE"
+        this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
                 this.sharedService.addToast("Success", "Account Deactivated!.", 'success');
+                user.status = "INACTIVE";
             },
             err => {
                 if (err.status = 422) {

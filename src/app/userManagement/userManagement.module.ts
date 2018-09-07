@@ -6,6 +6,7 @@ import { AddUserComponent } from "./addUser/addUser.component";
 import { UserListComponent } from "./userList/userList.component";
 import { ManageUserComponent } from "./manageUser/manageUser.component";
 import { UserManagementService } from "./userManagament.service";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { UserManagementService } from "./userManagament.service";
         SharedModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxPaginationModule
     ],
     providers: [UserManagementService],
     exports: []

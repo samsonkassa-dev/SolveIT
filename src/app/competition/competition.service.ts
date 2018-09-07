@@ -24,4 +24,8 @@ export class CompetitionService {
     getActiveCompetition() {
         return this.apiService.get(`solvieITCompetitions/active`);
     }
+
+    activateDeactivateCompetition(competition) {
+        return this.apiService.put(``, competition)
+    }
 }
