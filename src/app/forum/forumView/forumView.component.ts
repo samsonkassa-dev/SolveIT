@@ -11,16 +11,17 @@ import { SharedService } from '../../shared/services/shared.service';
     styleUrls: ['./forumView.component.css']
 })
 
-export class ForumView implements OnInit {
+export class ForumViewComponent implements OnInit {
 
-    private selected = 'discussion-list';
-    private discussions = [];
-    private pinnedDiscussions = [];
-    private allDiscussions = [];
-    private forum = {};
-    private discussionPage = 1;
-    private pinnedPage = 1;
-    private keyword = '';
+    public selected = 'discussion-list';
+    public discussions = [];
+    public pinnedDiscussions = [];
+    public allDiscussions = [];
+    public forum = {};
+    public discussionPage = 1;
+    public pinnedPage = 1;
+    public keyword = '';
+    public selectedDiscussion = '';
 
     constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
 
@@ -76,8 +77,8 @@ export class ForumView implements OnInit {
     addToFavourites(discussion) {
         this._authService.getUserInfo().subscribe(
             res => {
-                let userId = res.id;
-                let content = {
+                const userId = res.id;
+                const content = {
                     discussionId: discussion.id,
                     userId: userId
                 };
@@ -103,5 +104,10 @@ export class ForumView implements OnInit {
           this.pinnedDiscussions = this.allDiscussions.filter(item => item.pinned);
           this.discussions = this.allDiscussions.filter(item => !item.pinned);
         }
+    }
+
+    discussionDetail(discussion) {
+      this.selectedDiscussion = discussion.slung;
+      this.toggleView('discussion-detail');
     }
 }

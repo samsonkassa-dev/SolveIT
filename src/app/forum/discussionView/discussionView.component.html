@@ -1,34 +1,26 @@
-<app-header></app-header>
-<div id="blog" class="section md-padding">
+<div id="blog" class="section">
 
-		<!-- Container -->
-		<div class="container">
-
-			<!-- Row -->
 			<div class="row">
 
 				<!-- Main -->
 				<main id="main" class="col-md-9">
 					<div class="blog">
-						<div class="blog-img">
-							<img class="img-responsive" src="../../../assets/img/blog-post.jpg" alt="">
-						</div>
 						<div class="blog-content">
-							<ul class="blog-meta">
-								<li><i class="fa fa-user"></i>John doe</li>
-								<li><i class="fa fa-clock-o"></i>{{ discussion.createdAt }}</li>
-								<li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
-							</ul>
-							<h3>{{ discussion.slung }}</h3>
+							<h5>{{ discussion.slung }}</h5>
 							<p>{{ discussion.content }}</p>
+              <ul class="blog-meta">
+                <li><i class="fa fa-user"></i>John doe</li>
+                <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
+                <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
+              </ul>
 						</div>
 						<app-comment-list *ngIf = "discussion.id !== 0" [discussionId] = "discussion.id"></app-comment-list>
 						<!-- reply form -->
 						<div class="reply-form">
-							<h3 class="title">Leave a reply</h3>
+							<h6 class="title">Leave a reply</h6>
 							<form [formGroup]="commentForm">
 								<textarea placeholder="Add Your Commment" formControlName="content" [(ngModel)]="comment.content"></textarea>
-								<button [disabled] = "!commentForm.valid" type="submit" class="main-btn" (click) = "addComment()">Submit</button>
+								<button [disabled] = "!commentForm.valid" type="submit" class="main-btn" (click) = "addComment()">Reply</button>
 							</form>
 						</div>
 						<!-- /reply form -->
@@ -37,8 +29,5 @@
 				<!-- /Main -->
 			</div>
 			<!-- /Row -->
-
-		</div>
-		<!-- /Container -->
 
 	</div>

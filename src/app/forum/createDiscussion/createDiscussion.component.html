@@ -1,4 +1,5 @@
 <form [formGroup]="discussionForm">
+  <h4 class="title" id="form-title"> New Discussion </h4>
     <div id="resource-form">
         <div class="form-group">
             <input type="text" class="inpu" name="slung" placeholder="Slung"
@@ -9,10 +10,9 @@
                 formControlName="content" [(ngModel)]="discussion.content">
             </textarea>
         </div>
-        
+
         <div class="form-group" id="resource-upload-btn">
-        <input type="button" [disabled]="!discussionForm.valid" (click)="createDiscussion()" class="main-btn" value="Submit">
+        <input type="button" [disabled]="!discussionForm.valid" (click)="createDiscussion()" class="main-btn" value="Create">
         </div>
     </div>
 </form>
-      

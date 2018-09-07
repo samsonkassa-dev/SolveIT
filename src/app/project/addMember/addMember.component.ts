@@ -4,27 +4,27 @@ import { ForumService } from "../../forum/forum.service";
 import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
-    selector: 'add-project-member',
+    selector: 'app-add-project-member',
     templateUrl: './addMember.component.html',
     styleUrls: ['./addMember.component.css']
 })
 
-export class AddProjectMember {
+export class AddProjectMemberComponent {
 
     @Input() project;
     private users = [];
-    private page: number = 1;
+    private page = 1;
     private keyword = '';
 
     constructor(private service: ProjectService, private forumService: ForumService, private sharedService: SharedService) {
         
     }
-    
-    addMember(user) {   
-        let member = {
+
+    addMember(user) {
+        const member = {
             forumId: this.project.id,
             userId: user.id
-        }
+        };
         this.service.addProjectMember(member).subscribe(
             res => {
                 this.sharedService.addToast("Success", "New Member Added!.", 'success');
@@ -42,6 +42,6 @@ export class AddProjectMember {
             res => {
                 this.users = res.Result;
             }
-        )
+        );
     }
 }

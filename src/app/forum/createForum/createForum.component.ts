@@ -5,15 +5,15 @@ import { AuthService } from "../../Auth/services/auth.service";
 import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
-    selector: "app-forum-create",
-    templateUrl: "./createForum.component.html",
-    styleUrls: ["./createForum.component.css"]
+    selector: 'app-forum-create',
+    templateUrl: './createForum.component.html',
+    styleUrls: ['./createForum.component.css']
 })
 
-export class CreateForum {
+export class CreateForumComponent {
 
     @Input() categories;
-    private forum = { userAccountId:0 };
+    private forum = { userAccountId: 0, created: new Date(), name: '', slung: '' };
     private forumForm: FormGroup;
 
     constructor(private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
@@ -26,6 +26,7 @@ export class CreateForum {
     }
 
     createForum() {
+      this.forum.created = new Date();
         this.service.createForum(this.forum).subscribe(
             res => {
                 this.sharedService.addToast("Success", "Forum Created!.", 'success');
@@ -36,7 +37,7 @@ export class CreateForum {
                         let member = {
                             forumId: forumId,
                             userId: userId
-                        }
+                        };
                         this.service.addMember(member).subscribe(
                             res2 => {
                                 console.log(res2);

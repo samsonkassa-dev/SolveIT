@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ForumService } from "../forum.service";
 import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
-    selector: "app-discussion-create",
-    templateUrl: "./createDiscussion.component.html",
-    styleUrls: ["./createDiscussion.component.css"]
+    selector: 'app-discussion-create',
+    templateUrl: './createDiscussion.component.html',
+    styleUrls: ['./createDiscussion.component.css']
 })
 
-export class CreateDiscussion implements OnInit{
+export class CreateDiscussionComponent implements OnInit {
 
     @Input() forum;
+    @Output() created = new EventEmitter();
     private discussion = {userAccountId: 0, forumId: 0};
     private discussionForm: FormGroup;
 
@@ -38,5 +39,9 @@ export class CreateDiscussion implements OnInit{
                 }
             }
         );
+    }
+
+    toggleDiscussionList() {
+      this.created.emit();
     }
 }
