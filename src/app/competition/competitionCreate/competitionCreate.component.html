@@ -1,0 +1,20 @@
+<div id="registration-form">
+    <h4>Create Competition</h4>
+    <form [formGroup]="competitionForm">
+        <div class="input-field">
+            <input class="input " type="text" name="name" formControlName="name" placeholder="Competition Name" [(ngModel)]="competition.name" [class.err]="competitionForm.controls.name.invalid && competitionForm.controls.name.touched">
+            <div class="error-message" *ngIf="competitionForm.controls.name.invalid && competitionForm.controls.name.touched">
+                <p>* Competition Name is required.</p>
+            </div>
+        </div>
+        <div class="input-field">
+            <input class="input" type="date" name="start_date" formControlName="start_date" placeholder="Start Date" [(ngModel)]="competition.start_date" [class.err]="competitionForm.controls.start_date.invalid && competitionForm.controls.start_date.touched">
+            <div class="error-message" *ngIf="competitionForm.controls.start_date.invalid && competitionForm.controls.start_date.touched">
+                <p>* Start Date is required.</p>
+            </div>
+        </div>
+
+        <button [disabled]="!competitionForm.valid" (click)="createCompetition()" type="button" class="main-btn">Submit</button>
+        <button (click)="backToList()" type="button" class="outline-btn">Back</button>
+    </form>
+</div>

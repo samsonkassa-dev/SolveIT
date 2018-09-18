@@ -66,7 +66,7 @@ export class ForumService {
     }
 
     addMember(member) {
-        return this.apiService.post(`forum-members`, member);
+        return this.apiService.post(`forum_members`, member);
     }
 
     addToFavourites(favourite) {

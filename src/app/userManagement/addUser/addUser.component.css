@@ -1,39 +1,43 @@
 #registration-form {
     width: 90%;
     padding: 6em;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: white;
     margin: 7% auto 10%;
-  }
+}
 
-  form {
+form {
     width: 90%;
     margin: auto;
-  }
+}
 
-  input {
+input {
     background: #ffffff;
     border-bottom: 2px solid #EEE;
-  }
+}
 
-  .input-field {
+.input-field {
     margin-bottom: 1em;
-  }
+}
 
-  .login-link {
+.login-link {
     margin-top: 2em;
-  }
+}
 
-  .login-link p {
+.login-link p {
     text-align: center;
-  }
+}
 
-  .error-message p {
+.error-message p {
     font-size: 0.7em;
     text-align: center;
     color: #EC4643;
-  }
+}
 
-  .err {
+.err {
     border-color: #EC4643
-  }
+}
+
+h4 {
+    text-align: center;
+}

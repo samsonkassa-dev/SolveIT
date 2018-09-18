@@ -10,12 +10,17 @@ import { CompetitionService } from "../competition.service";
 
 export class CompetitionViewComponent implements OnInit{
 
-    private projects = [];
-    private projectsBackup = [];
-    private keyword = '';
-    private competitionId: any;
-
-    constructor(private service: CompetitionService, private route: ActivatedRoute, private router: Router) {
+    public projects = [];
+    public projectsBackup = [];
+    public keyword = '';
+    public competitionId: any;
+    public views = [
+        'competition-list',
+        'create-competition'
+    ];
+    public selected = this.views[0];
+    
+    constructor(public service: CompetitionService, public route: ActivatedRoute, public router: Router) {
         
     }
 
@@ -41,6 +46,14 @@ export class CompetitionViewComponent implements OnInit{
           } else {
             this.projects = this.projectsBackup;
           }
+    }
+
+    toggleView(viewName: string) {
+        this.selected = viewName;
+    }
+
+    debug() {
+        console.log('getting emitted event');
     }
 
 }

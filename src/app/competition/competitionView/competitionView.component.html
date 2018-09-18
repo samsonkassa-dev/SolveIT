@@ -1,0 +1,2 @@
+<app-competition-list (create)="toggleView(views[1])" *ngIf="selected == views[0]"></app-competition-list>
+<app-competition-create (back)="toggleView(views[0])" *ngIf="selected == views[1]"></app-competition-create>

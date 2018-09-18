@@ -2,6 +2,7 @@ import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { ForumService } from '../forum.service';
 import { AuthService } from '../../Auth/services/auth.service';
+import { retry } from 'rxjs/operator/retry';
 
 @Component({
     selector: 'app-forum-list',
@@ -15,29 +16,57 @@ export class ForumListComponent implements OnInit {
     @Input() categories;
     @Output() create = new EventEmitter();
 
-    private popularforums = [];
-    private forumsBackup = [];
-    private forums = [];
-    private keyword = '';
-    private forumType = '';
-    private page = 1;
+    public popularforums = [];
+    public forumsBackup = [];
+    public forums = [];
+    public keyword = '';
+    public forumType = '';
+    public page = 1;
 
-    constructor(private service: ForumService, private router: Router, private _authService: AuthService) {
+    constructor(public service: ForumService, public router: Router, public authService: AuthService) {
 
     }
 
     ngOnInit() {
-      console.log(this.selected);
+        
+    //   console.log(this.selected);
       this.fetchForumsList();
-      this.getAllForums();
+    //   this.getAllForums();
+        this.showForums();
     }
 
     fetchForumsList() {
         this.service.getForumList().subscribe(
             res => {
-                this.popularforums = res.Result;
+                this.forums = res.Result;
+                this.forumsBackup = res.Result;
+                console.log('All Frorums', this.forums);
             }
         );
+    }
+
+
+    showForums() {
+        if(this.selected === 'forum-list-public') {
+            // todo: show public forums
+            this.forums = this.forumsBackup.filter(forum => {
+                return !forum.private
+            });
+            console.log('Public forums => ', this.forums);
+        } else if(this.selected === 'forum-list-private') {
+            // todo: show private forums which the user is a member
+            // this.service.getMyForumList()
+            this.authService.getUserInfo()
+                .subscribe(res => {
+                    this.service.getMyForumList(res.id)
+                      .subscribe(forums => {
+                          this.forums = forums.filter(forum => {
+                              return forum.private;
+                          })
+                      })
+                });
+            
+        }
     }
 
     getAllForums() {
@@ -53,7 +82,7 @@ export class ForumListComponent implements OnInit {
             );
         } else if (this.selected === 'forum-list-private') {
             this.forumType = 'My Forums';
-            this._authService.getUserInfo().subscribe(
+            this.authService.getUserInfo().subscribe(
                 res => {
                     const userId = res.id;
                     this.service.getMyForumList(userId).subscribe(

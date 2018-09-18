@@ -24,7 +24,6 @@ export class AuthService {
   setSession(data: any) {
     this.getUserRole(data.userId)
       .subscribe(res => {
-        console.log('Role', res);
         data['role'] = res.name;
         window.localStorage.setItem(this.TOKEN, JSON.stringify(data));
       });

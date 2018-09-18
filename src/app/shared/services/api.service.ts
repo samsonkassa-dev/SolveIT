@@ -51,8 +51,12 @@ export class ApiService {
   public setHeaders(token) {
     const temp = window.localStorage.getItem(token);
     if (temp != null) {
-      const session = JSON.parse(temp);
-      this.headers.set('Authorization', 'Bearer ' + session.id);
+      try {
+        const session = JSON.parse(temp);
+        this.headers.set('Authorization', 'Bearer ' + session.id);
+      } catch (e) {
+        return;
+      }
     }
   }
 

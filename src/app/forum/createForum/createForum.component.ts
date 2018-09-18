@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { ForumService } from "../forum.service";
 import { AuthService } from "../../Auth/services/auth.service";
@@ -13,6 +13,7 @@ import { SharedService } from "../../shared/services/shared.service";
 export class CreateForumComponent {
 
     @Input() categories;
+    @Output() created = new EventEmitter();
     private forum = { userAccountId: 0, created: new Date(), name: '', slung: '' };
     private forumForm: FormGroup;
 
@@ -31,6 +32,7 @@ export class CreateForumComponent {
             res => {
                 this.sharedService.addToast("Success", "Forum Created!.", 'success');
                 let forumId = res.id;
+                this.created.emit();
                 this._authService.getUserInfo().subscribe(
                     res1 => {
                         let userId = res1.id;

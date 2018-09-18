@@ -10,14 +10,14 @@ import { AuthService } from '../Auth/services/auth.service';
 
 export class ForumComponent implements OnInit {
 
-    private selected = 'forum-list-public';
-    private categories = [];
-    private favouritePage = 1;
-    private favouriteDiscussions = [];
-    private favouriteDiscussionsBackup = [];
-    private keyword = '';
+    public selected = 'forum-list-public';
+    public categories = [];
+    public favouritePage = 1;
+    public favouriteDiscussions = [];
+    public favouriteDiscussionsBackup = [];
+    public keyword = '';
 
-    constructor(private service: ForumService, private _authService: AuthService) {}
+    constructor(public service: ForumService, public authService: AuthService) {}
 
     ngOnInit() {
         this.getCategories();
@@ -38,7 +38,7 @@ export class ForumComponent implements OnInit {
     getFavouriteDiscussions() {
         this.selected = 'favourite-discussions';
 
-        this._authService.getUserInfo().subscribe(
+        this.authService.getUserInfo().subscribe(
             res => {
                 const userId = res.id;
                 this.service.getFavouriteDiscussions(userId).subscribe(

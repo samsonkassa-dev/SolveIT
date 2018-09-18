@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, EventEmitter, Output } from "@angular/core";
 import { CompetitionService } from "../competition.service";
 import { SharedService } from "../../shared/services/shared.service";
 
@@ -10,18 +10,26 @@ import { SharedService } from "../../shared/services/shared.service";
 
 export class CompetitionListComponent {
 
-    private competitions = [];
+    public competitions = [
+        {
+            'name': 'Competition Name',
+            'start_date': 'Aug - 12 - 2018',
+        }
+    ];
+    public backupCompetitions = this.competitions; 
+    public key = '';
+    @Output() create = new EventEmitter();
 
-    constructor(private service: CompetitionService, private sharedService: SharedService) {
+    constructor(public service: CompetitionService, public sharedService: SharedService) {
         
     }
 
     getCompetitions() {
-        this.service.getCompetitions().subscribe(
-            res => {
-                this.competitions = res;
-            }
-        )
+        // this.service.getCompetitions().subscribe(
+        //     res => {
+        //         this.competitions = res;
+        //     }
+        // )
     }
 
     viewCompetition(competition) {
@@ -58,5 +66,20 @@ export class CompetitionListComponent {
                 }
             }
         );
+    }
+
+    createCompetition() {
+        this.create.emit();
+        console.log('Emiting create event');
+    }
+
+    onSearch() {
+        if(this.key !== '') {
+            this.competitions = this.competitions.filter(item => {
+                return item.name.toLocaleLowerCase().indexOf(this.key.toLocaleLowerCase()) != -1;
+            })
+        } else {
+            this.competitions = this.backupCompetitions;
+        }
     }
 }

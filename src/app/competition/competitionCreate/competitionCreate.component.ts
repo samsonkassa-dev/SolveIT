@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { CompetitionService } from "../competition.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { SharedService } from "../../shared/services/shared.service";
@@ -11,12 +11,17 @@ import { SharedService } from "../../shared/services/shared.service";
 
 export class CompetitionCreateComponent {
 
-    private competition = {};
-    private competitionForm: FormGroup;
+    public competition = {
+        name: '',
+        start_date: new Date()
+    };
+    public competitionForm: FormGroup;
+    @Output() back = new EventEmitter();
 
-    constructor(private service: CompetitionService, private sharedService: SharedService) {
+    constructor(public service: CompetitionService, public sharedService: SharedService) {
         this.competitionForm = new FormGroup({
-
+            name: new FormControl('', Validators.required),
+            start_date: new FormControl('', Validators.required)
         })
     }
 
@@ -31,5 +36,9 @@ export class CompetitionCreateComponent {
                 }
             }
         );
+    }
+
+    backToList() {
+        this.back.emit();
     }
 }

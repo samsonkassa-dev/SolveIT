@@ -1,0 +1,50 @@
+<div class="competetion-list">
+    <div class="competetion-list-header">
+        <div class="row">
+            <div id="aside" class="col-md-offset-2 col-md-6">
+                <div class="widget">
+                    <div class="widget-search">
+                        <input class="search-input" type="text" placeholder="search" [(ngModel)]="key" (keyup)="onSearch($event)">
+                        <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button (click)="createCompetition()" class="outline-btn create">Create</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="competetion-list-content">
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Started Date</th>
+                        <th>Activate/Deactivate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let competition of competitions">
+                        <td>{{ 1 }}</td>
+                        <td>{{ competition.name }}</td>
+                        <td>{{ competition.start_date }}</td>
+                        <td>
+                            <button *ngIf="true" type="button" class="btn btn-success">Activate</button>
+                            <button *ngIf="true" type="button" class="btn btn-danger">Deactivate</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="not-found" *ngIf="competitions.length == 0">
+                <div class="no-resource-found">
+                    <p>
+                        <i class="fa  fa-frown-o"></i> Competitions are not created yet.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

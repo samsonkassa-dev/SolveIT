@@ -1,65 +1,63 @@
 .address-form {
-  width: 40%;
-  padding: 3em;
-  border: 1px solid rgba(0,0,0,0.2);
-  background-color: white;
-  margin: 7% auto 10%;
+    width: 40%;
+    padding: 3em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin: 7% auto 10%;
 }
+
 form {
-  width: 80%;
-  margin: auto;
+    width: 80%;
+    margin: auto;
 }
 
 input {
-  background: #ffffff;
-  border-bottom: 1px solid #a29a9a;
-  padding: 1em;
+    background: #ffffff;
+    border-bottom: 1px solid #a29a9a;
 }
 
 .input-field {
-  margin-bottom: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 .login-link {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 .login-link p {
-  text-align: center;
+    text-align: center;
 }
 
 .error-message p {
-  font-size: 0.7em;
-  text-align: center;
-  color: #EC4643;
+    font-size: 0.7em;
+    text-align: center;
+    color: #EC4643;
 }
 
 .err {
-  border-color: #EC4643
+    border-color: #EC4643
 }
 
 .input-field select {
-  padding: .5em;
-  background: white;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ccc;
+    padding: 0.5em;
+    background: white;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
 }
 
 .register-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.register-btn button {
-
-}
+.register-btn button {}
 
 .disabled-btn {
-  background: #EEEEEE;
+    background: #EEEEEE;
 }
 
 body {
-  background-color: red;
+    background-color: red;
 }
