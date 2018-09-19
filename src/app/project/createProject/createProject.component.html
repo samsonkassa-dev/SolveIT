@@ -1,40 +1,28 @@
 <form [formGroup]="projectForm">
-  <h2 id="form-title"> New Project </h2>
-  <div class="error-message" *ngIf="error">
-    <p>
-      Error while uploading the file. please check if your file is not corrupted and try again.
-    </p>
-  </div>
-  <div id="resource-form">
-    <div class="form-group">
-      <input type="text" class="inpu" name="title" placeholder="Name"
-             formControlName="title" [(ngModel)]="project.title">
+    <h4 id="form-title"> New Project </h4>
+    <div class="error-message" *ngIf="error">
+        <p>
+            Error while uploading the file. please check if your file is not corrupted and try again.
+        </p>
     </div>
-    <div class="form-group">
-      <textarea placeholder="Some description about the project" class="input "
-        formControlName="description" [(ngModel)]="project.description">
+    <div id="resource-form">
+        <div class="form-group">
+            <input type="text" class="inpu" name="title" placeholder="Name" formControlName="title" [(ngModel)]="project.title">
+        </div>
+        <div class="form-group">
+            <textarea placeholder="Some description about the project" class="input " formControlName="description" [(ngModel)]="project.description">
       </textarea>
-    </div>
+        </div>
 
-    <div class="form-group">
-      <label id="proposal-label" for="proposal">Project Proposal</label>
-      <input ng2FileSelect [uploader]="uploader" (change)="handleFileSelection($event)" id="proposal" type="file">
+        <div class="form-group">
+            <label id="proposal-label" for="proposal">Project Proposal</label>
+            <input ng2FileSelect [uploader]="uploader" (change)="handleFileSelection($event)" id="proposal" type="file">
+        </div>
+        <div id="progress" *ngIf="isUploading">
+            <circle-progress [percent]="progress" [radius]="40" [outerStrokeWidth]="8" [innerStrokeWidth]="4" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300" [titleFontSize]="20"></circle-progress>
+        </div>
+        <div class="form-group" id="resource-upload-btn">
+            <input type="button" [disabled]="!projectForm.valid || !isFileSelected || isUploading" (click)="createProject()" class="main-btn" value="Submit">
+        </div>
     </div>
-    <div id="progress" *ngIf="isUploading">
-      <circle-progress
-        [percent]="progress"
-        [radius]="40"
-        [outerStrokeWidth]="8"
-        [innerStrokeWidth]="4"
-        [outerStrokeColor]="'#78C000'"
-        [innerStrokeColor]="'#C7E596'"
-        [animation]="true"
-        [animationDuration]="300"
-        [titleFontSize]="20"
-      ></circle-progress>
-    </div>
-    <div class="form-group" id="resource-upload-btn">
-      <input type="button" [disabled]="!projectForm.valid || !isFileSelected || isUploading" (click)="createProject()" class="main-btn" value="Submit">
-    </div>
-  </div>
 </form>

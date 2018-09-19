@@ -1,22 +1,21 @@
 <form [formGroup]="forumForm">
+    <h4 class="title2">New Forum</h4>
     <div id="resource-form">
         <div class="form-group">
-            <input type="text" class="inpu" name="name" placeholder="Name"
-                formControlName="name" [(ngModel)]="forum.name">
+            <input type="text" class="inpu" name="name" placeholder="Name" formControlName="name" [(ngModel)]="forum.name">
         </div>
         <div class="form-group">
-            <input type="text" class="inpu" name="slung" placeholder="slung"
-                formControlName="slung" [(ngModel)]="forum.slung">
+            <input type="text" class="inpu" name="slung" placeholder="slung" formControlName="slung" [(ngModel)]="forum.slung">
         </div>
         <div class="form-group">
-          <label for="category">Select Category</label>
-            <select  style="width: 100%" name="category" id="category" formControlName="category" class="" [(ngModel)]="forum.categoryId">
+            <label for="category">Select Category</label>
+            <select style="width: 100%" name="category" id="category" formControlName="category" class="" [(ngModel)]="forum.categoryId">
               <option value="{{category.id}}" *ngFor = "let category of categories">{{ category.category }}</option>
             </select>
         </div>
         <div class="form-group">
-          <label for="type">Select Type</label>
-          <select  style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
+            <label for="type">Select Type</label>
+            <select style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
               <option value=0>Public</option>
               <option value=1>Private</option>
             </select>

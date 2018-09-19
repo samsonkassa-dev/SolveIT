@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-project-list',
@@ -12,10 +13,10 @@ export class ProjectListComponent implements OnInit {
 
   @Output() create = new EventEmitter();
 
-  private projects = [];
-  private p = 1;
+  public projects = [];
+  public p = 1;
 
-  constructor(private service: ProjectService, private router: Router) {
+  constructor(public service: ProjectService, public router: Router, public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -23,11 +24,14 @@ export class ProjectListComponent implements OnInit {
   }
 
   getProjectList() {
-      this.service.getMyProjects(0).subscribe(
-          res => {
-              this.projects = res;
-          }
-      );
+    this.authService.getUserInfo()
+        .subscribe(res => {
+            this.service.getMyProjects(res.id).subscribe(
+                res => {
+                    this.projects = res;
+                }
+            ); 
+        });
   }
 
   viewProject(project) {

@@ -11,6 +11,9 @@ export class AuthService {
   public login_path = 'UserAccounts/login';
   public logout_path = 'UserAccounts/logout';
   public register_path = 'UserAccounts/register-participants';
+  public register_mgt_path = 'UserAccounts/register-solveit-mgt';
+  public register_team_path = 'UserAccounts/register-solveit-team';
+
   public ICOG_ROLE = [
     'solve-it-mgt',
     'solve-it-team',
@@ -110,6 +113,17 @@ export class AuthService {
       return data.role === this.ICOG_ROLE[2];
     } catch (e) {
       return false;
+    }
+  }
+
+  addUser(user, role) {
+    console.log('adding user', role);
+    if(role === this.ICOG_ROLE[0]) {
+      return this.apiService.post(this.register_mgt_path, user);
+    } else if (role === this.ICOG_ROLE[1]) {
+      return this.apiService.post(this.register_team_path, user);
+    } else if (role === this.ICOG_ROLE[2]) {
+      return this.apiService.post(this.register_path, user);
     }
   }
 }

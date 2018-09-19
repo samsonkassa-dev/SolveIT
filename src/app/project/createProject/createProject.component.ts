@@ -5,6 +5,7 @@ import { ProjectService } from '../project.service';
 import {configs} from '../../app.config';
 import {Router} from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-project-create',
@@ -14,7 +15,7 @@ import { SharedService } from '../../shared/services/shared.service';
 
 export class CreateProjectComponent {
 
-  private project: any = {};
+  public project: any = {};
   public projectForm: FormGroup;
   public URL =  `${configs.rootUrl}storages/proposals/upload`;
   public uploader: FileUploader = new FileUploader({url: this.URL});
@@ -24,7 +25,7 @@ export class CreateProjectComponent {
   public error = false;
   @Output() created = new EventEmitter();
 
-  constructor(private service: ProjectService, public router: Router, private sharedService: SharedService) {
+  constructor(public service: ProjectService, public router: Router, public sharedService: SharedService, public authService: AuthService) {
       this.projectForm = new FormGroup({
           title: new FormControl('', Validators.required),
           description: new FormControl('', Validators.required)
@@ -36,13 +37,19 @@ export class CreateProjectComponent {
     this.isUploading = true;
     this.uploader.queue[0].upload();
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      console.log(JSON.parse(response).result.files.file[0]);
       this.project.proposal = JSON.parse(response).result.files.file[0];
       this.service.createProject(this.project).subscribe(
         res => {
           this.sharedService.addToast("Success", "Project Created!.", 'success');
           this.isUploading = false;
           this.toggleProjectsList()
+          this.authService.getUserInfo()
+            .subscribe(res1 => {
+              this.service.addProjectMember({projectId: res.id, userId: res1.id})
+                .subscribe(res => {
+                  console.log("project added successfully");
+                })
+            })
         },
         err => {
           if (err.status = 422) {

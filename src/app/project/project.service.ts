@@ -6,7 +6,7 @@ import { CompetitionService } from "../competition/competition.service";
 
 export class ProjectService {
     
-    constructor(private apiService: ApiService, private competitionService: CompetitionService) {
+    constructor(public apiService: ApiService, public competitionService: CompetitionService) {
         
     }
 
@@ -27,7 +27,7 @@ export class ProjectService {
     }
 
     addProjectMember(member) {
-        return this.apiService.post(``, member);
+        return this.apiService.post(`/project-members`, member);
     }
 
     getMembers(projectId) {

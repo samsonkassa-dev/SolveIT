@@ -32,6 +32,14 @@
             </div>
         </div>
         <div class="input-field">
+            <select name="role" id="role" [(ngModel)]="role" formControlName="role">
+                <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
+            </select>
+            <div class="error-message" *ngIf="userForm.controls.role.invalid && userForm.controls.role.touched">
+                <p> * Role is required. </p>
+            </div>
+        </div>
+        <div class="input-field">
             <input class="input" type="password" name="password" formControlName="password" placeholder="Password" [(ngModel)]="user.password" [class.err]="userForm.controls.password.invalid && userForm.controls.password.touched">
             <div class="error-message" *ngIf="userForm.controls.password.invalid && userForm.controls.password.touched">
                 <p> * Password is required </p>
