@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
-import { ForumService } from "../forum.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "../../Auth/services/auth.service";
-import { SharedService } from "../../shared/services/shared.service";
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ForumService } from '../forum.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../Auth/services/auth.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-discussion-view',
@@ -15,11 +15,14 @@ export class DiscussionViewComponent implements OnInit {
 
     public numberOfComments: any;
     public discussion = {id: 0};
-    public comment = {'solveIT-DiscussionId': this.discussion.id, userId: 0};
+    public comment = {solveitdiscussionId: this.discussion.id, userId: 0};
     public commentForm: FormGroup;
+    public favoriteDiscusions = [];
     @Input() slung = '';
+    @Input() favoriteDiscussions = [];
+    @Output() addFavorite = new EventEmitter();
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
@@ -31,6 +34,9 @@ export class DiscussionViewComponent implements OnInit {
         if (this.slung !== '') {
           this.getDiscussion(this.slung);
         }
+    }
+
+    getFavoriteDiscusions() {
     }
 
     getDiscussion(slung) {
@@ -51,12 +57,13 @@ export class DiscussionViewComponent implements OnInit {
     }
 
     addComment() {
-        const authenticated = this._authService.isAuthenticated();
+        const authenticated = this.authService.isAuthenticated();
         if (authenticated) {
-            this._authService.getUserInfo().subscribe(
+            this.authService.getUserInfo().subscribe(
                 res => {
                     const userId = res.id;
                     this.comment.userId = userId;
+                    this.comment.solveitdiscussionId = this.discussion.id;
 
                     this.service.addComment(this.comment).subscribe(
                         res1 => {
@@ -85,39 +92,11 @@ export class DiscussionViewComponent implements OnInit {
         }
     }
 
-    addToFavourites(discussion) {
-        this._authService.getUserInfo().subscribe(
-            res => {
-                const userId = res.id;
-                const content = {
-                    discussionId: discussion.id,
-                    userId: userId
-                };
-                this.service.addToFavourites(content).subscribe(
-                    res1 => {
-                        this.sharedService.addToast('Success', 'Added To Favourites!.', 'success');
-                    },
-                    err => {
-                        if (err.status = 422) {
-                            this.sharedService.addToast('', 'Error occured!', 'error');
-                        }
-                    }
-                );
-            }
-        );
+    addToFavorites() {
+      this.addFavorite.emit({id: this.discussion.id});
     }
 
-    pinDiscussion() {
-        this.service.pinDiscussion(this.discussion).subscribe(
-            res => {
-                this.sharedService.addToast('Success', 'Discussion Pinned!.', 'success');
-            },
-            err => {
-                if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occured!', 'error');
-                }
-            }
-        );
+    isFavorite(discussion) {
+      return this.favoriteDiscusions.indexOf(discussion) !== -1;
     }
-
 }

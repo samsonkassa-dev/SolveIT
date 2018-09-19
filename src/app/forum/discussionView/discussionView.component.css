@@ -1,0 +1,18 @@
+h5 {
+  float: left;
+}
+
+.pin {
+  float: left;
+  margin-left: 2em;
+}
+
+i {
+  font-size: 1em;
+  color: #2BA692;
+  cursor: pointer;
+}
+
+#content {
+  clear: both;
+}

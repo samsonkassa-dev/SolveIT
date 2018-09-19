@@ -1,36 +1,37 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../shared/services/api.service';
+import {AuthService} from '../Auth/services/auth.service';
 
 @Injectable()
 
 export class ForumService {
 
-    constructor(private apiService: ApiService) {}
+    constructor(public apiService: ApiService, public authService: AuthService) {}
 
     createDiscussion(discussion) {
-        return this.apiService.post(`SolveIT-Discussions`, discussion);
+        return this.apiService.post(`Solveitdiscussions`, discussion);
     }
 
-    pinDiscussion(discussion) {
+    togglePinDiscussion(discussion) {
         const update = discussion;
-        update.pinned = true;
-        return this.apiService.put(`SolveIT-Discussions/${discussion.id}`, update);
+        update.pinned = !discussion.pinned;
+        return this.apiService.put(`Solveitdiscussions/${discussion.id}`, update);
     }
 
-    getMembers(forumId){
+    getMembers(forumId) {
         return this.apiService.get(`SolveITForums/${forumId}/members`);
     }
 
-    getFavouriteDiscussions(userId){
+    getFavouriteDiscussions(userId) {
         return this.apiService.get(`UserAccounts/${userId}/favouriteDiscussions`);
     }
 
     getDiscussion(slung) {
-        return this.apiService.get(`SolveIT-Discussions/${slung}/discussion`);
+        return this.apiService.get(`Solveitdiscussions/${slung}/discussion`);
     }
 
     countComments(discussionId) {
-        return this.apiService.get(`SolveIT-Discussions/${discussionId}/comments/count`);
+        return this.apiService.get(`Solveitdiscussions/${discussionId}/comments/count`);
     }
 
     getDiscussions(forumId) {
@@ -38,7 +39,7 @@ export class ForumService {
     }
 
     getComments(discussionId) {
-        return this.apiService.get(`SolveIT-Discussions/${discussionId}/comments`);
+        return this.apiService.get(`Solveitdiscussions/${discussionId}/comments`);
     }
 
     createForum(forum) {
@@ -71,6 +72,10 @@ export class ForumService {
 
     addToFavourites(favourite) {
         return this.apiService.post(`favourite-discussions`, favourite);
+    }
+
+    removeFromFavorites(userId, discussionId) {
+      return this.apiService.delete( `UserAccount/${userId}/favouriteDiscussions/${discussionId}`);
     }
 
     getCategories() {

@@ -7,7 +7,11 @@
 					<div class="blog">
 						<div class="blog-content">
 							<h5>{{ discussion.slung }}</h5>
-							<p>{{ discussion.content }}</p>
+              <div class="pin" *ngIf="authService.isAuthenticated()">
+                <i *ngIf="isFavorite(discussion)" class="fa fa-heart"></i>
+                <i *ngIf="!isFavorite(discussion)" class="fa fa-heart-o"></i>
+              </div>
+							<p id="content">{{ discussion.content }}</p>
               <ul class="blog-meta">
                 <li><i class="fa fa-user"></i>John doe</li>
                 <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>

@@ -84,6 +84,7 @@
               </table>
 
               <div class="row discussion-pagination">
+                {{discussions.length}}
                 <pagination-controls *ngIf = "discussions.length > 5" (pageChange)="discussionPage = $event"></pagination-controls>
               </div>
             </div>
@@ -98,7 +99,7 @@
             <member-list [forum] = "forum"></member-list>
           </div>
           <div *ngIf="selected == 'discussion-detail'">
-            <app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>
+            <app-discussion-view [favoriteDiscussions]="pinnedDiscussions" (addFavorite)="addToFavourites($event)" [slung]="selectedDiscussion"></app-discussion-view>
           </div>
         </div>
       </div>

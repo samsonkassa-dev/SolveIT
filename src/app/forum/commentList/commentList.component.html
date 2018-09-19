@@ -8,8 +8,8 @@
             <img class="media-object" src="../../../assets/img/perso2.jpg" alt="">
         </div>
         <div class="media-body">
-            <h6 class="media-heading">Joe Doe<span class="time">2 min ago</span><a href="#" class="reply">Reply <i class="fa fa-reply"></i></a></h6>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
+            <h6 class="media-heading">Joe Doe<span class="time">{{ comment.createdAt.substring(0,10) }}</span></h6>
+            <p>{{ comment.content }}</p>
         </div>
     </div>
     <!-- /comment -->

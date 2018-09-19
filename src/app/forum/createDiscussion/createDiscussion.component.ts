@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ForumService } from "../forum.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { ForumService } from '../forum.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-discussion-create',
@@ -31,11 +31,12 @@ export class CreateDiscussionComponent implements OnInit {
     createDiscussion() {
         this.service.createDiscussion(this.discussion).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Discussion Created!.", 'success');
+              this.toggleDiscussionList();
+                this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );
