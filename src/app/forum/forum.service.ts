@@ -71,7 +71,7 @@ export class ForumService {
     }
 
     addToFavourites(favourite) {
-        return this.apiService.post(`favourite-discussions`, favourite);
+        return this.apiService.post(`favouriteDiscussions`, favourite);
     }
 
     removeFromFavorites(userId, discussionId) {

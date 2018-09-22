@@ -17,10 +17,12 @@ export class DiscussionViewComponent implements OnInit {
     public discussion = {id: 0};
     public comment = {solveitdiscussionId: this.discussion.id, userId: 0};
     public commentForm: FormGroup;
+    public comments = [];
     public favoriteDiscusions = [];
     @Input() slung = '';
     @Input() favoriteDiscussions = [];
     @Output() addFavorite = new EventEmitter();
+    @Output() remove = new EventEmitter();
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
         this.commentForm = new FormGroup({
@@ -44,6 +46,7 @@ export class DiscussionViewComponent implements OnInit {
             res => {
                 this.discussion = res.Result[0];
                 this.countComments();
+                this.getComments();
             }
         );
     }
@@ -64,10 +67,13 @@ export class DiscussionViewComponent implements OnInit {
                     const userId = res.id;
                     this.comment.userId = userId;
                     this.comment.solveitdiscussionId = this.discussion.id;
-
+                    
                     this.service.addComment(this.comment).subscribe(
                         res1 => {
                             this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+                            this.getComments();
+                            this.countComments();
+                            this.commentForm.reset();
                         },
                         err => {
                             if (err.status = 422) {
@@ -82,6 +88,9 @@ export class DiscussionViewComponent implements OnInit {
             this.service.addComment(this.comment).subscribe(
                 res => {
                     this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+                    this.countComments();
+                    this.getComments();
+                    this.commentForm.reset();
                 },
                 err => {
                     if (err.status = 422) {
@@ -96,7 +105,19 @@ export class DiscussionViewComponent implements OnInit {
       this.addFavorite.emit({id: this.discussion.id});
     }
 
+    removeFromFavorites() {
+        this.remove.emit({id: this.discussion.id});
+    }
+
     isFavorite(discussion) {
+        console.log(this.favoriteDiscusions);
       return this.favoriteDiscusions.indexOf(discussion) !== -1;
+    }
+
+    getComments() {
+        this.service.getComments(this.discussion.id)
+            .subscribe(res => {
+                this.comments = res;
+            })
     }
 }

@@ -9,8 +9,7 @@ import { ForumService } from '../forum.service';
 
 export class CommentListComponent implements OnInit {
 
-    @Input() discussionId;
-    private comments = [];
+    @Input() comments = [];
     private page = 1;
 
     constructor(private service: ForumService) {
@@ -18,16 +17,6 @@ export class CommentListComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.discussionId);
-        this.getCommentList();
-    }
-
-    getCommentList() {
-        this.service.getComments(this.discussionId).subscribe(
-            res => {
-                this.comments = res;
-            }
-        );
     }
 
 }

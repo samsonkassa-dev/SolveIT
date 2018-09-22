@@ -62,6 +62,7 @@ export class ForumViewComponent implements OnInit {
               this.service.getFavouriteDiscussions(res.id)
                 .subscribe(res2 => {
                   this.pinnedDiscussions = res2;
+                  console.log("pinned discussions", this.pinnedDiscussions);
                 });
             });
         } catch (e) {
@@ -87,6 +88,7 @@ export class ForumViewComponent implements OnInit {
     }
 
     addToFavourites($event) {
+      console.log('adding to favorite');
         try {
           this.authService.getUserInfo().subscribe(
             res => {
