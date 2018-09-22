@@ -71,11 +71,11 @@ export class ForumService {
     }
 
     addToFavourites(favourite) {
-        return this.apiService.post(`favourite-discussions`, favourite);
+        return this.apiService.post(`Favouritediscussions`, favourite);
     }
 
     removeFromFavorites(userId, discussionId) {
-      return this.apiService.delete( `UserAccount/${userId}/favouriteDiscussions/${discussionId}`);
+      return this.apiService.delete( `UserAccounts/${userId}/favouriteDiscussions/${discussionId}`);
     }
 
     getCategories() {

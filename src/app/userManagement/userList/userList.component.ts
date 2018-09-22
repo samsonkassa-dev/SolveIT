@@ -1,15 +1,14 @@
-import {Component, OnInit, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
 
-declare var $: any;
 @Component({
     selector: 'app-user-list',
     templateUrl: 'userList.component.html',
     styleUrls: ['userList.component.css']
 })
 
-export class UserListComponent implements OnInit, AfterViewInit {
+export class UserListComponent implements OnInit {
 
     @Output() create = new EventEmitter();
     public users = [];
@@ -27,17 +26,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.getUserList();
-    }
-
-    showDatatable() {
-        setTimeout(() => {
-            $('.datatable').DataTable();
-        }, 1000);
-    }
-    ngAfterViewInit(): void {
-        setTimeout(() => {
-          $('.datatable').DataTable();
-        }, 1000);
     }
 
     getUserList() {

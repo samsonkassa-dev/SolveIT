@@ -11,11 +11,11 @@ export class ProjectService {
     }
 
     createProject(project) {
-        return this.apiService.post(`/solveit-projects`, project);
+        return this.apiService.post(`/Solveitprojects`, project);
     }
 
     getProject(projectId) {
-        return this.apiService.get(`/solveit-projects/${projectId}`);
+        return this.apiService.get(`/Solveitprojects/${projectId}`);
     }
 
     getMyProjects(userId) {
@@ -23,7 +23,7 @@ export class ProjectService {
     }
 
     getAllProjects() {
-        return this.apiService.get(`/solveit-projects`)
+        return this.apiService.get(`/Solveitprojects`)
     }
 
     addProjectMember(member) {
@@ -31,14 +31,14 @@ export class ProjectService {
     }
 
     getMembers(projectId) {
-        return this.apiService.get(`solveit-projects/${projectId}/members`);
+        return this.apiService.get(`Solveitprojects/${projectId}/members`);
     }
 
     joinCompetition(project) {
         this.competitionService.getActiveCompetition().subscribe(
             res => {
                 project.competitionId = res.Result.id;
-                return this.apiService.put(`solveit-projects/${project.id}`, project);
+                return this.apiService.put(`Solveitprojects/${project.id}`, project);
             }
         )
     }
