@@ -50,7 +50,6 @@ input:focus {
 }
 
 .login-btn button {
-  width: 50%;
 }
 .login-error {
   margin-bottom: 2em;
