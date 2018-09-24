@@ -20,18 +20,29 @@
             </div>
         </div>
         <div class="input-field">
-            <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email" [class.err]="userForm.controls.email.invalid && userForm.controls.email.touched">
-            <div class="error-message" *ngIf="userForm.controls.email.invalid && userForm.controls.email.touched">
+            <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email"
+                   [class.err]="userForm.controls.email.invalid && userForm.controls.email.touched"
+                   email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+            <div class="error-message" *ngIf="userForm.controls.email.touched && userForm.controls.email.errors?.required">
                 <p> * Email is required. </p>
             </div>
+          <div class="error-message" *ngIf="userForm.controls.email.touched && userForm.controls.email.errors?.pattern">
+            <p> * Invalid email address. </p>
+          </div>
         </div>
-        <div class="input-field">
-            <input class="input" type="tel" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number" [(ngModel)]="user.phoneNumber" [class.err]="userForm.controls.phoneNumber.invalid && userForm.controls.phoneNumber.touched">
-            <div class="error-message" *ngIf="userForm.controls.phoneNumber.invalid && userForm.controls.phoneNumber.touched">
-                <p> * Phone Number is required. </p>
-            </div>
+        <div class="input-group" >
+          <span class="input-group-addon"><b>+251</b></span>
+          <input type="tel" class="input" placeholder="Phone Number" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number" [(ngModel)]="user.phoneNumber"
+                 [class.err]="userForm.controls.phoneNumber.invalid && userForm.controls.phoneNumber.touched" >
         </div>
-        <div class="input-field">
+        <div class="error-message" *ngIf="userForm.controls.phoneNumber.errors?.required && userForm.controls.phoneNumber.touched">
+          <p> * Phone Number is required. </p>
+        </div>
+        <div class="error-message" *ngIf="userForm.controls.phoneNumber.touched && userForm.controls.phoneNumber.errors?.incorrect">
+          <p> * Incorrect phone number. </p>
+          <p> * e.g 9xxxxxxxx </p>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
             <select name="role" id="role" [(ngModel)]="role" formControlName="role">
                 <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
             </select>
@@ -47,9 +58,12 @@
         </div>
         <div class="input-field">
             <input class="input" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password" [(ngModel)]="user.rePassword" [class.err]="userForm.controls.rePassword.invalid && userForm.controls.rePassword.touched">
-            <div class="error-message" *ngIf="userForm.controls.rePassword.invalid && userForm.controls.rePassword.touched">
-                <p> * Password didn't match. </p>
+            <div class="error-message" *ngIf="userForm.controls.rePassword.touched && userForm.controls.rePassword.errors?.required">
+                <p> * Confirm your password. </p>
             </div>
+          <div class="error-message" *ngIf="userForm.controls.rePassword.touched && userForm.controls.rePassword.errors?.MatchPassword">
+            <p> * Password didn't match. </p>
+          </div>
         </div>
         <button [disabled]="!userForm.valid" (click)="addUser()" type="button" class="main-btn">Submit</button>
         <button (click)="backToList()" type="button" class="outline-btn">Back</button>

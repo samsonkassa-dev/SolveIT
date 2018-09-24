@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "../shared/services/api.service";
+import { Injectable } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
 
 @Injectable()
 
 export class UserManagementService {
 
     constructor(private apiService: ApiService) {
-        
+
     }
 
     getUserList() {
@@ -18,6 +18,6 @@ export class UserManagementService {
     }
 
     getRoles() {
-    	return this.apiService.get(`IcogRole/`);
+      return this.apiService.get(`Icog-Role/`);
     }
 }

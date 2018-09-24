@@ -28,9 +28,14 @@
                     </div>
                 </div>
                 <div class="input-field">
-                    <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email" [class.err]="registerForm.controls.email.invalid && registerForm.controls.email.touched">
-                    <div class="error-message" *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+                    <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email"
+                           [class.err]="registerForm.controls.email.invalid && registerForm.controls.email.touched"
+                           email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                    <div class="error-message" *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.required">
                         <p> * Email is required. </p>
+                    </div>
+                    <div class="error-message" *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.pattern">
+                      <p> * invalid email address. </p>
                     </div>
                 </div>
                 <div class="input-group">
@@ -52,7 +57,7 @@
                 </div>
                 <div class="input-field">
                     <input class="input" (change)="debug($event)" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password" [(ngModel)]="extraParams.rePassword" [class.err]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
-                    <div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
+                    <div class="error-message" *ngIf="registerForm.controls.rePassword.touched && registerForm.controls.rePassword.errors?.required">
                         <p> * Confirm your password. </p>
                     </div>
                   <div class="error-message" *ngIf="registerForm.controls.rePassword.touched && registerForm.controls.rePassword.errors?.MatchPassword">

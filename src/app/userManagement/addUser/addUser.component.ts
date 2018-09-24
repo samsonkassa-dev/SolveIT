@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { AuthService } from '../../Auth/services/auth.service';
 import { SharedService } from '../../shared/services/shared.service';
+import {PasswordValidation} from '../../Auth/validator/passwordValidation';
+import {PhoneNumberValidation} from '../../Auth/validator/phoneNumberValidation';
 
 @Component({
     selector: 'app-add-user',
@@ -10,7 +11,7 @@ import { SharedService } from '../../shared/services/shared.service';
     styleUrls: ['addUser.component.css']
 })
 
-export class AddUserComponent {
+export class AddUserComponent implements OnInit{
 
     public user = {};
     public selected = 'participant';
@@ -25,18 +26,23 @@ export class AddUserComponent {
     @Output() created = new EventEmitter();
 
 
-    constructor(public service: AuthService, public sharedService: SharedService) {
-        this.userForm = new FormGroup({
-            firstName: new FormControl('', Validators.required),
-            middleName: new FormControl('', Validators.required),
-            lastName: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.required),
-            phoneNumber: new FormControl('', Validators.required),
-            role: new FormControl('', Validators.required),
-            password: new FormControl('', Validators.required),
-            rePassword: new FormControl('', Validators.required)
-        });
+    constructor(public service: AuthService, public sharedService: SharedService, public formBuilder: FormBuilder) {
     }
+
+  ngOnInit() {
+      this.userForm = this.formBuilder.group({
+        firstName: ['', Validators.required],
+        middleName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        role: ['', Validators.required],
+        password: ['', Validators.required],
+        rePassword: ['', Validators.required]
+      }, {
+        validator: Validators.compose([PasswordValidation.MatchPassword, PhoneNumberValidation.Validate])
+      });
+  }
 
     addUser() {
         this.service.addUser(this.user, this.role)
@@ -60,4 +66,6 @@ export class AddUserComponent {
       this.back.emit();
       console.log('emmited');
     }
+
+
 }

@@ -1,4 +1,4 @@
-<app-header></app-header>
+'<app-header></app-header>
 
 <div id="registration-form">
   <!-- Section-header -->
@@ -15,9 +15,13 @@
 
     <div class="input-field">
       <input class="input" type="email" placeholder="Email" formControlName="email" [(ngModel)]="user.email"
-              [class.err]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
-      <div class="error-message" *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
-        <p> Email is required! </p>
+              [class.err]="loginForm.controls.email.invalid && loginForm.controls.email.touched"
+             email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+      <div class="error-message" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">
+        <p> * Email is required. </p>
+      </div>
+      <div class="error-message" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.pattern">
+        <p> * invalid email address. </p>
       </div>
     </div>
     <div class="input-field">
