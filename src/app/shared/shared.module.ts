@@ -21,9 +21,9 @@ import { ApiService } from './services/api.service';
     RouterModule,
     AppTableModule,
     Ng2TableModule,
-    ToastyModule
+    ToastyModule.forRoot()
   ],
   providers: [ApiService, ToastyService, SharedService],
-  exports: [HeaderComponent, AppTableComponent],
+  exports: [HeaderComponent, AppTableComponent, ToastyModule],
 })
 export class SharedModule { }

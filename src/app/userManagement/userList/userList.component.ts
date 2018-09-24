@@ -16,7 +16,9 @@ export class UserListComponent implements OnInit {
     public solveitMgmtUsers = [];
     public participantUsers = [];
     public selected = 'solveitmgmt';
-    public roleId = 1;
+    public solveitTeamroleId = 0;
+    public solveitMgmtroleId = 0;
+    public solveitParticipantroleId = 0;
     public page = 1;
     public keyword = '';
 
@@ -25,24 +27,39 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getUserList();
+        this.getRoleIds();
     }
 
     getUserList() {
-        this.service.getUserList(this.roleId).subscribe(
+        this.service.getUserList().subscribe(
             res => {
                 this.users = res.Result;
                 res.Result.filter(item => {
-                    if (item.roleId === 2) {
+                    if (item.roleId === this.solveitMgmtroleId) {
                       this.solveitMgmtUsers.push(item);
-                    } else if (item.roleId === 3) {
+                    } else if (item.roleId === solveitTeamroleId) {
                       this.solveitTeamUsers.push(item);
-                    } else if (item.roleId === 4) {
+                    } else if (item.roleId === solveitParticipantroleId) {
                         this.participantUsers.push(item);
                     }
                 });
             }
         );
+    }
+
+    getRoleIds() {
+        this.service.getRoles().subscribe(res => {
+            for (let i = 0; i < res.length; ++i) {
+                if (res[i].name == "solveitTeam") {
+                    this.solveitTeamroleId = res[i].role;
+                }else if (res[i].name == "solveitMgmt") {
+                    this.solveitMgmtroleId = res[i].role;
+                }else if (res[i].name == "solveitParticipant") {
+                    this.solveitParticipanttroleId = res[i].role;
+                }
+            }
+            this.getUserList();
+        });
     }
 
     activateUser(user) {
@@ -77,23 +94,20 @@ export class UserListComponent implements OnInit {
         );
     }
 
-    toggleView(view, roleId) {
+    toggleView(view) {
         this.page = 1;
-        this.roleId = roleId;
         this.selected = view;
-        this.getUserList();
-        this.showDatatable();
     }
 
     searchUser() {
         if (this.keyword != '') {
-            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == 4));
-            this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == 2));
-            this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == 3));
+            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitParticipantroleId));
+            this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitMgmtroleId));
+            this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitTeamroleId));
         } else {
-            this.participantUsers = this.users.filter(item => item.roleId == 4);
-            this.solveitMgmtUsers = this.users.filter(item => item.roleId == 2);
-            this.solveitTeamUsers = this.users.filter(item => item.roleId == 3);
+            this.participantUsers = this.users.filter(item => item.roleId == this.solveitParticipantroleId);
+            this.solveitMgmtUsers = this.users.filter(item => item.roleId == this.solveitMgmtroleId);
+            this.solveitTeamUsers = this.users.filter(item => item.roleId == this.solveitTeamroleId);
         }
     }
 
