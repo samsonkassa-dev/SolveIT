@@ -82,7 +82,6 @@ export class UserListComponent implements OnInit {
         this.roleId = roleId;
         this.selected = view;
         this.getUserList();
-        this.showDatatable();
     }
 
     searchUser() {

@@ -3,17 +3,17 @@
     <h6 class="title">{{ comments.length }} Comments</h6>
 
     <!-- comment -->
-    <div class="media" *ngFor = "let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">
+    <div class="media" *ngFor="let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">
         <div class="media-left">
             <img class="media-object" src="../../../assets/img/perso2.jpg" alt="">
         </div>
         <div class="media-body">
-            <h6 class="media-heading">Joe Doe<span class="time">{{ comment.createdAt.substring(0,10) }}</span></h6>
+            <h6 class="media-heading">{{comment.user.firstName + " " + comment.user.middleName}}<span class="time">{{ comment.createdAt | amTimeAgo }}</span></h6>
             <p>{{ comment.content }}</p>
         </div>
     </div>
     <!-- /comment -->
 
-    <pagination-controls *ngIf = "comments.length > 20" (pageChange)="page = $event"></pagination-controls>
+    <pagination-controls *ngIf="comments.length > 20" (pageChange)="page = $event"></pagination-controls>
 </div>
 <!-- /blog comments -->

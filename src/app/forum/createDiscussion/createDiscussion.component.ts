@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ForumService } from '../forum.service';
 import { SharedService } from '../../shared/services/shared.service';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-discussion-create',
@@ -14,10 +15,10 @@ export class CreateDiscussionComponent implements OnInit {
 
     @Input() forum;
     @Output() created = new EventEmitter();
-    private discussion = {userAccountId: 0, forumId: 0};
-    private discussionForm: FormGroup;
+    public discussion = {userAccountId: 0, forumId: 0};
+    public discussionForm: FormGroup;
 
-    constructor(private router: Router, private service: ForumService, private sharedService: SharedService) {
+    constructor(public authService: AuthService, public service: ForumService, public sharedService: SharedService) {
         this.discussionForm = new FormGroup({
             slung: new FormControl('', Validators.required),
             content: new FormControl('', Validators.required)
@@ -26,6 +27,7 @@ export class CreateDiscussionComponent implements OnInit {
 
     ngOnInit() {
         this.discussion.forumId = this.forum.id;
+        this.discussion.userAccountId = this.authService.getUserId() ? this.authService.getUserId() : 0;
     }
 
     createDiscussion() {

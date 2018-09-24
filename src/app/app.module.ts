@@ -36,7 +36,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
     HttpModule,
     NgxPaginationModule,
     RouterModule.forRoot(APP_ROUTES, {
-      enableTracing: true
+      // enableTracing: true
     }),
     FormsModule,
     ProjectModule,

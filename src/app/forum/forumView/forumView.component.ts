@@ -54,20 +54,8 @@ export class ForumViewComponent implements OnInit {
     }
 
     getDiscussions(forum) {
-
         // fetch favorite discussions
-        try {
-          this.authService.getUserInfo()
-            .subscribe(res => {
-              this.service.getFavouriteDiscussions(res.id)
-                .subscribe(res2 => {
-                  this.pinnedDiscussions = res2;
-                  console.log("pinned discussions", this.pinnedDiscussions);
-                });
-            });
-        } catch (e) {
-          this.pinnedDiscussions = [];
-        }
+        this.getFavouriteDiscussions();
 
         this.service.getDiscussions(forum.id).subscribe(
             res => {
@@ -75,6 +63,22 @@ export class ForumViewComponent implements OnInit {
                 this.discussions = res;
             }
         );
+    }
+
+    getFavouriteDiscussions() {
+      try {
+        this.authService.getUserInfo()
+          .subscribe(res => {
+            this.service.getFavouriteDiscussions(res.id)
+              .subscribe(res2 => {
+                this.pinnedDiscussions = res2;
+                console.log("pinned discussions", this.pinnedDiscussions);
+              });
+          });
+      } catch (e) {
+        console.log("error");
+        this.pinnedDiscussions = [];
+      }
     }
 
     countComments(discussion) {
@@ -143,6 +147,7 @@ export class ForumViewComponent implements OnInit {
             this.service.removeFromFavorites(res.id, $event.id)
               .subscribe(res1 => {
                 console.log('removed from favorites');
+                this.getFavouriteDiscussions();8
               }, error => {
                 console.log('error while removing from favorites');
               });

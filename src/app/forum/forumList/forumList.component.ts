@@ -34,9 +34,9 @@ export class ForumListComponent implements OnInit {
 
     fetchForumsList() {
         if (this.selected === 'forum-list-public') {
-            this.service.getForumList().subscribe(
+            this.service.getAllForumList().subscribe(
                 res => {
-                    this.forumsBackup = res.Result.filter(forum => {
+                    this.forumsBackup = res.filter(forum => {
                         return !forum.private;
                     });
                     this.forums = this.forumsBackup;
@@ -58,30 +58,18 @@ export class ForumListComponent implements OnInit {
         }
     }
 
-    getAllForums() {
-        if (this.selected === 'forum-list-public') {
-            this.forumType = 'Public Forums';
-            this.service.getAllForumList().subscribe(
-                res => {
-                  console.log('public forums', res);
-                  this.forums = res;
-                  this.forumsBackup = res;
-                }
-            );
-        } else if (this.selected === 'forum-list-private') {
-            this.forumType = 'My Forums';
-            this.authService.getUserInfo().subscribe(
-                res => {
-                    const userId = res.id;
-                    this.service.getMyForumList(userId).subscribe(
-                        response => {
-                            this.forums = response;
-                            this.forumsBackup = response;
-                        }
-                    );
-                }
-            );
-        }
+
+    getForumDiscussionCount(forumId) {
+        // this.service.getDiscussionCount(forumId)
+        //     .subscribe(res => {
+        //         console.log('discussion count ', res);
+        //         return res;
+        //     }, error => {
+        //         console.log('error while fetching discussion count', error);
+        //         return null;
+        //     });
+        console.log("hello");
+        return null;
     }
 
     viewForum(slung) {

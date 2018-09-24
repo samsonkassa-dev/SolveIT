@@ -46,9 +46,10 @@
                         <th scope="row">
                             {{forum.name}}
                         </th>
-                        <td>Python</td>
+                        <td>{{forum.category.category }}
+                        </td>
                         <td>2 days ago</td>
-                        <td><span class="badge badge-secondary">{{ forum.discussionCount }}</span> Discussions</td>
+                        <td><span class="badge badge-secondary">{{ getForumDiscussionCount(forum.id) }}</span> Discussions</td>
                     </tr>
                 </tbody>
             </table>

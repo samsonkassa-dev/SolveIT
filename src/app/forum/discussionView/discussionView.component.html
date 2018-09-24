@@ -3,17 +3,17 @@
     <div class="row">
 
         <!-- Main -->
-        <main id="main" class="col-md-9">
+        <main id="main" class="col-md-9" *ngIf="discussion.id !== 0">
             <div class="blog">
                 <div class="blog-content">
                     <h5>{{ discussion.slung }}</h5>
                     <div class="pin" *ngIf="authService.isAuthenticated()">
-                        <i *ngIf="isFavorite(discussion)" (click)="removeFromFavorites()" class="fa fa-heart"></i>
-                        <i *ngIf="!isFavorite(discussion)" (click)="addToFavorites()" class="fa fa-heart-o"></i>
+                        <i *ngIf="isFavouriteDiscussion" (click)="removeFromFavorites()" class="fa fa-heart"></i>
+                        <i *ngIf="!isFavouriteDiscussion" (click)="addToFavorites()" class="fa fa-heart-o"></i>
                     </div>
                     <p id="content">{{ discussion.content }}</p>
                     <ul class="blog-meta">
-                        <li><i class="fa fa-user"></i>John doe</li>
+                        <li><i class="fa fa-user"></i>by : {{postedBy.firstName + " " + postedBy.middleName}}</li>
                         <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
                         <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
                     </ul>

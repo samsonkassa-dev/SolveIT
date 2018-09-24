@@ -18,7 +18,8 @@ export class DiscussionViewComponent implements OnInit {
     public comment = {solveitdiscussionId: this.discussion.id, userId: 0};
     public commentForm: FormGroup;
     public comments = [];
-    public favoriteDiscusions = [];
+    public isFavouriteDiscussion = false;
+    public postedBy = null;
     @Input() slung = '';
     @Input() favoriteDiscussions = [];
     @Output() addFavorite = new EventEmitter();
@@ -44,9 +45,13 @@ export class DiscussionViewComponent implements OnInit {
     getDiscussion(slung) {
         this.service.getDiscussion(slung).subscribe(
             res => {
-                this.discussion = res.Result[0];
+                this.postedBy = res.Result.user;
+                console.log("user ", this.postedBy);
+                this.discussion = res.Result.discussion[0];
+                console.log('fetched', this.discussion);
                 this.countComments();
                 this.getComments();
+                this.isFavorite(this.discussion);
             }
         );
     }
@@ -110,8 +115,14 @@ export class DiscussionViewComponent implements OnInit {
     }
 
     isFavorite(discussion) {
-        console.log(this.favoriteDiscusions);
-      return this.favoriteDiscusions.indexOf(discussion) !== -1;
+        this.favoriteDiscussions.forEach(item => {
+            if (item.id === discussion.id) {
+                console.log('is Favorite');
+                this.isFavouriteDiscussion = true;
+                return;
+            }
+            console.log('finished');
+        });
     }
 
     getComments() {

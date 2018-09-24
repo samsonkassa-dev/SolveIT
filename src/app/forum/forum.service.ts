@@ -27,7 +27,11 @@ export class ForumService {
     }
 
     getDiscussion(slung) {
-        return this.apiService.get(`Solveitdiscussions/${slung}/discussion`);
+        return this.apiService.get(`Solveitdiscussions/${slung}/discussion?filter={"include": "user"dfe}`);
+    }
+
+    getDiscussionCount(forumId) {
+        return this.apiService.get(`SolveITForums/${forumId}/discussions/count`)
     }
 
     countComments(discussionId) {
@@ -35,11 +39,11 @@ export class ForumService {
     }
 
     getDiscussions(forumId) {
-        return this.apiService.get(`SolveITForums/${forumId}/discussions`);
+        return this.apiService.get(`SolveITForums/${forumId}/discussions?filter={"include": "user"}`);
     }
 
     getComments(discussionId) {
-        return this.apiService.get(`Solveitdiscussions/${discussionId}/comments`);
+        return this.apiService.get(`Solveitdiscussions/${discussionId}/comments?filter={"include": "user"}`);
     }
 
     createForum(forum) {
@@ -51,11 +55,11 @@ export class ForumService {
     }
 
     getAllForumList() {
-        return this.apiService.get(`SolveITForums`);
+        return this.apiService.get(`SolveITForums?filter={"include": "category"}`);
     }
 
     getMyForumList(userId) {
-        return this.apiService.get(`UserAccounts/${userId}/forums`);
+        return this.apiService.get(`UserAccounts/${userId}/forums?filter={"include": "category"}`);
     }
 
     getForum(slung) {

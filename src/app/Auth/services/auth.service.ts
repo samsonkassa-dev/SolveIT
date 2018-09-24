@@ -63,6 +63,16 @@ export class AuthService {
     }
   }
 
+
+  getUserId() {
+    const temp = window.localStorage.getItem(this.TOKEN);
+    if (temp != null) {
+      const session = JSON.parse(temp);
+      return session.userId;
+    }
+    return false;
+  }
+
   signOut() {
     if (this.isAuthenticated()) {
      // this.apiService.post(`${this.logout_path}`, {})
