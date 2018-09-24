@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import {User} from '../models/user';
 import {r} from '../../../../node_modules/@angular/core/src/render3';
+import {PasswordValidation} from '../validator/passwordValidation';
 
 
 @Component({
@@ -65,7 +66,7 @@ export class RegisterComponent implements OnInit {
   public isAddressFormActive = false;
   public isQuestionariesActive = false;
 
-  constructor(public authService: AuthService, public router: Router) {}
+  constructor(public authService: AuthService, public router: Router, public formBuilder: FormBuilder) {}
 
   ngOnInit() {
 
@@ -73,21 +74,39 @@ export class RegisterComponent implements OnInit {
       this.ageRange.push(i);
     }
 
-    this.registerForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      middleName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      phoneNumber: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      rePassword: new FormControl('', Validators.required),
-      sex: new FormControl('', Validators.required),
-      age: new FormControl(this.user.age, Validators.required),
-      status: new FormControl(''),
-      educationLevel: new FormControl('', Validators.required),
-      otherStatus: new FormControl(''),
-      otherEducationLevel: new FormControl('')
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      middleName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      password: ['', Validators.required],
+      rePassword: ['', Validators.required],
+      sex: ['', Validators.required],
+      age: ['', Validators.required],
+      status: ['', Validators.required],
+      educationLevel: ['', Validators.required],
+      otherStatus: ['', Validators.required],
+      otherEduvationLevel: ['', Validators.required]
+    },{
+      validator: PasswordValidation.MatchPassword
     });
+
+    // this.registerForm = new FormGroup({
+    //   firstName: new FormControl('', Validators.required),
+    //   middleName: new FormControl('', Validators.required),
+    //   lastName: new FormControl('', Validators.required),
+    //   email: new FormControl('', Validators.required),
+    //   phoneNumber: new FormControl('', Validators.required),
+    //   password: new FormControl('', Validators.required),
+    //   rePassword: new FormControl('', Validators.required),
+    //   sex: new FormControl('', Validators.required),
+    //   age: new FormControl(this.user.age, Validators.required),
+    //   status: new FormControl(''),
+    //   educationLevel: new FormControl('', Validators.required),
+    //   otherStatus: new FormControl(''),
+    //   otherEducationLevel: new FormControl('')
+    // });
   }
 
   isFormValid() {
@@ -111,8 +130,8 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  debugg($event) {
-    console.log(this.registerForm.controls.otherEducationLevel);
+  debug($event) {
+    console.log(this.registerForm.controls);
   }
 
   onAdressNext() {

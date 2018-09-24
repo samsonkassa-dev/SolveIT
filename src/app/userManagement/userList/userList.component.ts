@@ -21,6 +21,7 @@ export class UserListComponent implements OnInit {
     public solveitParticipantroleId = 0;
     public page = 1;
     public keyword = '';
+  private solveitParticipanttroleId = 0;
 
     constructor(public service: UserManagementService, public sharedService: SharedService) {
 
@@ -37,9 +38,9 @@ export class UserListComponent implements OnInit {
                 res.Result.filter(item => {
                     if (item.roleId === this.solveitMgmtroleId) {
                       this.solveitMgmtUsers.push(item);
-                    } else if (item.roleId === solveitTeamroleId) {
+                    } else if (item.roleId === this.solveitTeamroleId) {
                       this.solveitTeamUsers.push(item);
-                    } else if (item.roleId === solveitParticipantroleId) {
+                    } else if (item.roleId === this.solveitParticipantroleId) {
                         this.participantUsers.push(item);
                     }
                 });
@@ -50,11 +51,11 @@ export class UserListComponent implements OnInit {
     getRoleIds() {
         this.service.getRoles().subscribe(res => {
             for (let i = 0; i < res.length; ++i) {
-                if (res[i].name == "solveitTeam") {
+                if (res[i].name === 'solveitTeam') {
                     this.solveitTeamroleId = res[i].role;
-                }else if (res[i].name == "solveitMgmt") {
+                } else if (res[i].name === 'solveitMgmt') {
                     this.solveitMgmtroleId = res[i].role;
-                }else if (res[i].name == "solveitParticipant") {
+                } else if (res[i].name === 'solveitParticipant') {
                     this.solveitParticipanttroleId = res[i].role;
                 }
             }
@@ -63,12 +64,12 @@ export class UserListComponent implements OnInit {
     }
 
     activateUser(user) {
-        let updatedUser = user;
-        updatedUser.status = "ACTIVE"
+        const updatedUser = user;
+        updatedUser.status = 'ACTIVE';
         this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Account Activated!.", 'success');
-                user.status = "ACTIVE";
+                this.sharedService.addToast('Success', 'Account Activated!.', 'success');
+                user.status = 'ACTIVE';
             },
             err => {
                 if (err.status = 422) {
@@ -79,12 +80,12 @@ export class UserListComponent implements OnInit {
     }
 
     deactivateUser(user) {
-        let updatedUser = user;
-        updatedUser.status = "INACTIVE"
+        const updatedUser = user;
+        updatedUser.status = 'INACTIVE';
         this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Account Deactivated!.", 'success');
-                user.status = "INACTIVE";
+                this.sharedService.addToast('Success', 'Account Deactivated!.', 'success');
+                user.status = 'INACTIVE';
             },
             err => {
                 if (err.status = 422) {
@@ -101,10 +102,10 @@ export class UserListComponent implements OnInit {
     }
 
     searchUser() {
-        if (this.keyword != '') {
-            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitParticipantroleId));
-            this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitMgmtroleId));
-            this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId == this.solveitTeamroleId));
+        if (this.keyword !== '') {
+            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitParticipantroleId));
+            this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitMgmtroleId));
+            this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitTeamroleId));
         } else {
             this.participantUsers = this.users.filter(item => item.roleId == this.solveitParticipantroleId);
             this.solveitMgmtUsers = this.users.filter(item => item.roleId == this.solveitMgmtroleId);

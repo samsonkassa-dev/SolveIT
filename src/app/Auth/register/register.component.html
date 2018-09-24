@@ -42,17 +42,21 @@
                 <div class="input-field">
                     <input class="input" type="password" name="password" formControlName="password" placeholder="Password" [(ngModel)]="user.password" [class.err]="registerForm.controls.password.invalid && registerForm.controls.password.touched">
                     <div class="error-message" *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">
-                        <p> * Password is required </p>
+                        <p> * Password is required. </p>
                     </div>
                 </div>
                 <div class="input-field">
-                    <input class="input" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password" [(ngModel)]="extraParams.rePassword" [class.err]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
-                    <div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
-                        <p> * Password didn't match. </p>
-                    </div>
+                    <input class="input" (change)="debug($event)" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password" [(ngModel)]="extraParams.rePassword" [class.err]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
+                    <!--<div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">-->
+                        <!--<p> * Confirm your password. </p>-->
+                    <!--</div>-->
+                  <div class="error-message" *ngIf="registerForm.controls.rePassword.touched && registerForm.controls.rePassword.errors?.MatchPassword">
+                    <p>*   * Password not match. </p>
+                  </div>
                 </div>
             </div>
-            <div class="col-md-6">
+
+          <div class="col-md-6">
                 <div class="input-field">
                     <select name="age" id="age" [(ngModel)]="user.age" [ngModelOptions]="{standalone: true}" [class.err]="registerForm.controls.age.invalid && registerForm.controls.age.touched">
             <option value="" selected>Select Your Age</option>
