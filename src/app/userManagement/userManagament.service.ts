@@ -9,11 +9,15 @@ export class UserManagementService {
         
     }
 
-    getUserList(roleId) {
-        return this.apiService.get(`UserAccounts/role/${roleId}/users`);
+    getUserList() {
+        return this.apiService.get(`UserAccounts/`);
     }
 
     activateDeactivateUser(user) {
         return this.apiService.put(`UserAccounts/${user.id}`, user);
+    }
+
+    getRoles() {
+    	return this.apiService.get(`IcogRole/`);
     }
 }
