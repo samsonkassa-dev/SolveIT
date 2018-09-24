@@ -33,11 +33,16 @@
                         <p> * Email is required. </p>
                     </div>
                 </div>
-                <div class="input-field">
-                    <input class="input" type="tel" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number" [(ngModel)]="user.phoneNumber" [class.err]="registerForm.controls.phoneNumber.invalid && registerForm.controls.phoneNumber.touched">
-                    <div class="error-message" *ngIf="registerForm.controls.phoneNumber.invalid && registerForm.controls.phoneNumber.touched">
-                        <p> * Phone Number is required. </p>
-                    </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><b>+251</b></span>
+                  <input (change)="debug($event)" type="tel" class="input" placeholder="Phone Number" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number" [(ngModel)]="user.phoneNumber" [class.err]="registerForm.controls.phoneNumber.invalid && registerForm.controls.phoneNumber.touched" >
+                </div>
+                <div class="error-message" *ngIf="registerForm.controls.phoneNumber.errors?.required && registerForm.controls.phoneNumber.touched">
+                  <p> * Phone Number is required. </p>
+                </div>
+                <div class="error-message" *ngIf="registerForm.controls.phoneNumber.touched && registerForm.controls.phoneNumber.errors?.incorrect">
+                  <p> * Incorrect phone number. </p>
+                  <p> * e.g 9xxxxxxxx </p>
                 </div>
                 <div class="input-field">
                     <input class="input" type="password" name="password" formControlName="password" placeholder="Password" [(ngModel)]="user.password" [class.err]="registerForm.controls.password.invalid && registerForm.controls.password.touched">
@@ -47,9 +52,9 @@
                 </div>
                 <div class="input-field">
                     <input class="input" (change)="debug($event)" type="password" name="rePassword" formControlName="rePassword" placeholder="Confirm Password" [(ngModel)]="extraParams.rePassword" [class.err]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
-                    <!--<div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">-->
-                        <!--<p> * Confirm your password. </p>-->
-                    <!--</div>-->
+                    <div class="error-message" *ngIf="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched">
+                        <p> * Confirm your password. </p>
+                    </div>
                   <div class="error-message" *ngIf="registerForm.controls.rePassword.touched && registerForm.controls.rePassword.errors?.MatchPassword">
                     <p>*   * Password not match. </p>
                   </div>
@@ -58,10 +63,10 @@
 
           <div class="col-md-6">
                 <div class="input-field">
-                    <select name="age" id="age" [(ngModel)]="user.age" [ngModelOptions]="{standalone: true}" [class.err]="registerForm.controls.age.invalid && registerForm.controls.age.touched">
-            <option value="" selected>Select Your Age</option>
-            <option *ngFor="let age of ageRange" value="{{age}}" >{{age}}</option>
-          </select>
+                  <select name="age" id="age" [(ngModel)]="user.age" formControlName="age"  [class.err]="registerForm.controls.age.invalid && registerForm.controls.age.touched">
+                    <option value="" selected>Select Your Age</option>
+                    <option *ngFor="let age of ageRange" value="{{age}}" >{{age}}</option>
+                   </select>
                     <div class="error-message" *ngIf="registerForm.controls.age.invalid && registerForm.controls.age.touched">
                         <p>* Age is required.</p>
                     </div>
@@ -86,7 +91,9 @@
                     </div>
                 </div>
                 <div class="input-field" *ngIf="user.educationLevel === 'Other'">
-                    <input type="text" name="otherEducationLevel" id="otherEducationLevel" class="input" placeholder="Other Education Level" [(ngModel)]="extraParams.otherEducationLevel" formControlName="otherEducationLevel" [class.err]="user.educationLevel === 'Other' && extraParams.otherEducationLevel === '' && registerForm.controls.otherEducationLevel.touched">
+                    <input type="text" name="otherEducationLevel" id="otherEducationLevel" class="input" placeholder="Other Education Level"
+                            [(ngModel)]="extraParams.otherEducationLevel" formControlName="otherEducationLevel"
+                            [class.err]="user.educationLevel === 'Other' && extraParams.otherEducationLevel === '' && registerForm.controls.otherEducationLevel.touched">
                     <div class="error-message" *ngIf="user.educationLevel === 'Other' && extraParams.otherEducationLevel === '' && registerForm.controls.otherEducationLevel.touched">
                         <p> * Education Level is required. </p>
                     </div>

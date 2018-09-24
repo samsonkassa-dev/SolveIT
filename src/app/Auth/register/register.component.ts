@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {User} from '../models/user';
 import {r} from '../../../../node_modules/@angular/core/src/render3';
 import {PasswordValidation} from '../validator/passwordValidation';
+import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
 
 
 @Component({
@@ -86,27 +87,11 @@ export class RegisterComponent implements OnInit {
       age: ['', Validators.required],
       status: ['', Validators.required],
       educationLevel: ['', Validators.required],
-      otherStatus: ['', Validators.required],
-      otherEduvationLevel: ['', Validators.required]
-    },{
-      validator: PasswordValidation.MatchPassword
+      otherStatus: [''],
+      otherEduvationLevel: ['']
+    }, {
+      validator: Validators.compose([PasswordValidation.MatchPassword, PhoneNumberValidation.Validate])
     });
-
-    // this.registerForm = new FormGroup({
-    //   firstName: new FormControl('', Validators.required),
-    //   middleName: new FormControl('', Validators.required),
-    //   lastName: new FormControl('', Validators.required),
-    //   email: new FormControl('', Validators.required),
-    //   phoneNumber: new FormControl('', Validators.required),
-    //   password: new FormControl('', Validators.required),
-    //   rePassword: new FormControl('', Validators.required),
-    //   sex: new FormControl('', Validators.required),
-    //   age: new FormControl(this.user.age, Validators.required),
-    //   status: new FormControl(''),
-    //   educationLevel: new FormControl('', Validators.required),
-    //   otherStatus: new FormControl(''),
-    //   otherEducationLevel: new FormControl('')
-    // });
   }
 
   isFormValid() {
@@ -126,6 +111,7 @@ export class RegisterComponent implements OnInit {
       this.isAddressFormActive = true;
       this.isBasicFormActive = false;
     } else {
+      console.log(this.registerForm);
       console.log('Register form is not valid');
     }
   }

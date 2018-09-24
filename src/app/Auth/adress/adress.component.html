@@ -43,8 +43,12 @@
     <div class="input-field">
       <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" formControlName="phoneNumber"
              [(ngModel)]="address.emergencyContact.phoneNumber" [class]="addressForm.controls.phoneNumber.invalid && addressForm.controls.phoneNumber.touched">
-      <div class="error-message" *ngIf="addressForm.controls.phoneNumber.invalid && addressForm.controls.phoneNumber.touched">
+      <div class="error-message" *ngIf="addressForm.controls.phoneNumber.touched && addressForm.controls.phoneNumber.errors?.required">
         <p> * Emergency Phone Number is required </p>
+      </div>
+      <div class="error-message" *ngIf="addressForm.controls.phoneNumber.touched && addressForm.controls.phoneNumber.errors?.incorrect">
+        <p> * Incorrect phone number. </p>
+        <p> * e.g 9xxxxxxxx </p>
       </div>
     </div>
     <div class="register-btn">

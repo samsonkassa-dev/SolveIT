@@ -59,3 +59,7 @@ input {
 .disabled-btn {
     background: #ccc;
 }
+
+.input[type=password]:first-child {
+  margin-top: 1em;
+}
