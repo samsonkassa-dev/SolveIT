@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "../shared/services/api.service";
+import { Injectable } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
 
 @Injectable()
 
 export class CompetitionService {
 
     constructor(private apiService: ApiService) {
-        
+
     }
 
     getProjects(competitionId) {
@@ -26,6 +26,6 @@ export class CompetitionService {
     }
 
     activateDeactivateCompetition(competition) {
-        return this.apiService.put(``, competition)
+        return this.apiService.put(`solvieITCompetitions/${competition.id}`, competition);
     }
 }
