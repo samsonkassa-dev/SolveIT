@@ -31,7 +31,7 @@ export class ForumService {
     }
 
     getDiscussionCount(forumId) {
-        return this.apiService.get(`SolveITForums/${forumId}/discussions/count`)
+        return this.apiService.get(`SolveITForums/${forumId}/discussions/count`);
     }
 
     countComments(discussionId) {

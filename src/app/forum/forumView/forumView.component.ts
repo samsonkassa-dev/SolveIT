@@ -23,6 +23,8 @@ export class ForumViewComponent implements OnInit {
     public keyword = '';
     public selectedDiscussion = '';
     public slung = null;
+    public allDiscussionCommentCount = [];
+    public pinnedDiscussionCommentCount = [];
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
                 public authService: AuthService, public sharedService: SharedService) {
@@ -60,7 +62,11 @@ export class ForumViewComponent implements OnInit {
 
         this.service.getDiscussions(forum.id).subscribe(
             res => {
+              this.allDiscussionCommentCount = [];
                 this.allDiscussions = res;
+                this.allDiscussions.forEach(item => {
+                  this.countComments(item, this.allDiscussionCommentCount);
+                });
                 this.discussions = res;
             }
         );
@@ -73,23 +79,28 @@ export class ForumViewComponent implements OnInit {
             this.service.getFavouriteDiscussions(res.id)
               .subscribe(res2 => {
                 this.pinnedDiscussions = res2;
-                console.log("pinned discussions", this.pinnedDiscussions);
+                this.pinnedDiscussions = [];
+                this.pinnedDiscussions.forEach(item => {
+                  this.countComments(item, this.pinnedDiscussionCommentCount);
+                });
+                console.log('pinned discussions', this.pinnedDiscussions);
               });
           });
       } catch (e) {
-        console.log("error");
+        console.log('error');
         this.pinnedDiscussions = [];
       }
     }
 
-    countComments(discussion) {
-        let count = 0;
+    countComments(discussion, store) {
         this.service.countComments(discussion.id).subscribe(
             res => {
-                count = res.count;
-            }
+                store.push(res.count);
+            },
+          error => {
+              store.push(0);
+          }
         );
-        return count;
     }
 
     addToFavourites($event) {
@@ -148,7 +159,7 @@ export class ForumViewComponent implements OnInit {
             this.service.removeFromFavorites(res.id, $event.id)
               .subscribe(res1 => {
                 console.log('removed from favorites');
-                this.getFavouriteDiscussions();8
+                this.getFavouriteDiscussions(); 8;
               }, error => {
                 console.log('error while removing from favorites');
               });

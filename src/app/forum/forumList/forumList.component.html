@@ -42,14 +42,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 10, currentPage: page }" (click)="viewForum(forum.slung)">
+                    <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
                         <th scope="row">
                             {{forum.name}}
                         </th>
                         <td>{{forum.category.category }}
                         </td>
                         <td>2 days ago</td>
-                        <td><span class="badge badge-secondary">{{ getForumDiscussionCount(forum.id) }}</span> Discussions</td>
+                        <td><span class="badge badge-secondary">{{discussionCounts[i]}}</span> Discussions</td>
                     </tr>
                 </tbody>
             </table>

@@ -22,6 +22,7 @@ export class ForumListComponent implements OnInit {
     public keyword = '';
     public forumType = '';
     public page = 1;
+    public discussionCounts = [];
 
     constructor(public service: ForumService, public router: Router, public authService: AuthService) {
 
@@ -33,11 +34,15 @@ export class ForumListComponent implements OnInit {
     }
 
     fetchForumsList() {
-        if (this.selected === 'forum-list-public') {
+      this.discussionCounts = [];
+      if (this.selected === 'forum-list-public') {
             this.service.getAllForumList().subscribe(
                 res => {
                     this.forumsBackup = res.filter(forum => {
                         return !forum.private;
+                    });
+                    this.forumsBackup.forEach(item => {
+                      this.getForumDiscussionCount(item.id);
                     });
                     this.forums = this.forumsBackup;
                     console.log('Public backup', this.forumsBackup);
@@ -52,6 +57,9 @@ export class ForumListComponent implements OnInit {
                   return forum.private;
                 });
                 this.forumsBackup = this.forums;
+                this.forumsBackup.forEach(item => {
+                this.getForumDiscussionCount(item.id);
+                });
               });
           }
         }
@@ -61,12 +69,14 @@ export class ForumListComponent implements OnInit {
     getForumDiscussionCount(forumId) {
         this.service.getDiscussionCount(forumId)
             .subscribe(res => {
-                console.log('discussion count ', res);
-                return res;
+                console.log('discussion count ', res.count);
+                this.discussionCounts.push(res.count);
+                console.log(this.discussionCounts);
             }, error => {
                 console.log('error while fetching discussion count', error);
-                return null;
+                this.discussionCounts.push(0);
             });
+        console.log('finished');
     }
 
     viewForum(slung) {
