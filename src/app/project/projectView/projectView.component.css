@@ -1,0 +1,69 @@
+.main-container {
+  margin: 4em auto 7em;
+}
+
+.menu-container {
+}
+
+.project-menu {
+
+}
+
+.project-content{
+
+}
+
+li {
+  cursor: pointer;
+  color: #868F9B;
+  padding: 1em auto;
+  margin: 0.5em auto;
+}
+
+.selected {
+  margin-left: 1em;
+  color: #2BA692;
+}
+
+#progress-report-heading {
+  padding: 1em;
+}
+
+#progress-report-title {
+  float: left;
+  margin-top: 0.5em;
+}
+
+#upload-progress-report, #show-progress-report {
+  float: right;
+}
+
+#progress-report-content {
+  clear: both;
+}
+
+.progress-reports {
+  margin-top: 2em;
+  clear: both;
+}
+
+.project-profile {
+  padding: 1em;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+#label, #status-label {
+  float: left;
+  margin-right: 2em;
+  clear: both;
+}
+#description, #status-description {
+  float: left;
+}
+
+#enroll {
+  color: #2BA692;
+  cursor: pointer;
+  text-decoration: underline;
+}
+

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ProjectService } from "../project.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ProjectService } from '../project.service';
 
 @Component({
     selector: 'project-member-list',
@@ -7,17 +7,17 @@ import { ProjectService } from "../project.service";
     styleUrls: ['./memberList.component.css']
 })
 
-export class ProjectMemberList implements OnInit{
+export class ProjectMemberList implements OnInit {
 
     @Input() project;
-    
+
     private members = [];
     private membersBackup = [];
     private keyword = '';
-    private page: number = 1;
+    private page = 1;
 
     constructor(private service: ProjectService) {
-        
+
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class ProjectMemberList implements OnInit{
                 this.members = res;
                 this.membersBackup = res;
             }
-        )
+        );
     }
 
     searchMember() {

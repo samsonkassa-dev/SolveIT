@@ -5,9 +5,9 @@ import { CompetitionService } from "../competition/competition.service";
 @Injectable()
 
 export class ProjectService {
-    
+
     constructor(public apiService: ApiService, public competitionService: CompetitionService) {
-        
+
     }
 
     createProject(project) {
@@ -40,6 +40,10 @@ export class ProjectService {
                 project.competitionId = res.Result.id;
                 return this.apiService.put(`Solveitprojects/${project.id}`, project);
             }
-        )
+        );
+    }
+
+    uploadProgressReport(report) {
+      return this.apiService.post('reports', report);
     }
 }

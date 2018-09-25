@@ -1,7 +1,7 @@
-import { Component, Input } from "@angular/core";
-import { ProjectService } from "../project.service";
-import { ForumService } from "../../forum/forum.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { Component, Input } from '@angular/core';
+import { ProjectService } from '../project.service';
+import { ForumService } from '../../forum/forum.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'app-add-project-member',
@@ -17,7 +17,7 @@ export class AddProjectMemberComponent {
     private keyword = '';
 
     constructor(private service: ProjectService, private forumService: ForumService, private sharedService: SharedService) {
-        
+
     }
 
     addMember(user) {
@@ -27,11 +27,11 @@ export class AddProjectMemberComponent {
         };
         this.service.addProjectMember(member).subscribe(
             res => {
-                this.sharedService.addToast("Success", "New Member Added!.", 'success');
+                this.sharedService.addToast('Success', 'New Member Added!.', 'success');
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );

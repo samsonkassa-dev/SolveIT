@@ -18,6 +18,6 @@ export class UserManagementService {
     }
 
     getRoles() {
-      return this.apiService.get(`Icog-Role/`);
+      return this.apiService.get(`Icog-Roles/`);
     }
 }

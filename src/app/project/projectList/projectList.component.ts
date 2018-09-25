@@ -38,7 +38,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   viewProject(project) {
-      this.router.navigate(['/projects/', project.id]);
+      this.router.navigate(['/my-projects/', project.id]);
   }
 
   onCreateProject() {

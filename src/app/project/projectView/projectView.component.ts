@@ -8,10 +8,15 @@ import { ProjectService } from '../project.service';
     styleUrls: ['projectView.component.css']
 })
 
-export class ProjectView implements OnInit {
-
-    public selected = 'project';
-    public project = {};
+export class ProjectViewComponent implements OnInit {
+    public views = [
+      'report',
+      'members',
+      'add-member',
+    ];
+    public selected = this.views[0];
+    public uploadReport = false;
+    public project: any = null;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService) {
 
@@ -36,7 +41,7 @@ export class ProjectView implements OnInit {
 
     addProjectMember() {
         const member = {
-            projectId: 0,
+            projectId: this.project.id,
             userId: 0
         };
         this.service.addProjectMember(member).subscribe(
@@ -44,6 +49,10 @@ export class ProjectView implements OnInit {
                 console.log(res);
             }
         );
+    }
+
+    toggleUploadReport(value) {
+      this.uploadReport = value;
     }
 
 }
