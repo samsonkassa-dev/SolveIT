@@ -61,6 +61,10 @@ export class AuthService {
       const session = JSON.parse(temp);
       return this.apiService.get(`UserAccounts/${session.userId}`);
     }
+    const errorResult = new Promise((resolve, reject) => {
+      reject('You are not signed in yet.');
+    });
+    return errorResult;
   }
 
 

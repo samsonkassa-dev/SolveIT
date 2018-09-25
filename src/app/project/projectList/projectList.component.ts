@@ -24,14 +24,17 @@ export class ProjectListComponent implements OnInit {
   }
 
   getProjectList() {
-    this.authService.getUserInfo()
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.getMyProjects(userId)
         .subscribe(res => {
-            this.service.getMyProjects(res.id).subscribe(
-                res => {
-                    this.projects = res;
-                }
-            ); 
+          this.projects = res;
+        }, error => {
+          console.log(error);
         });
+    } else {
+      console.log('You are not signed in yet.');
+    }
   }
 
   viewProject(project) {

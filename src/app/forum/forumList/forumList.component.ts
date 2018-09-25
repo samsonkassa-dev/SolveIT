@@ -28,7 +28,7 @@ export class ForumListComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+
       this.fetchForumsList();
     }
 
@@ -43,33 +43,30 @@ export class ForumListComponent implements OnInit {
                     console.log('Public backup', this.forumsBackup);
                 }
             );
-        }else if (this.selected === 'forum-list-private') {
-            this.authService.getUserInfo()
-                .subscribe(res => {
-                    this.service.getMyForumList(res.id)
-                      .subscribe(forums => {
-                          this.forums = forums.filter(forum => {
-                              return forum.private;
-                          });
-                          this.forumsBackup = this.forums;
-                      })
+        } else if (this.selected === 'forum-list-private') {
+          const userId = this.authService.getUserId();
+          if (userId) {
+            this.service.getMyForumList(userId)
+              .subscribe(forums => {
+                this.forums = forums.filter(forum => {
+                  return forum.private;
                 });
-            
+                this.forumsBackup = this.forums;
+              });
+          }
         }
     }
 
 
     getForumDiscussionCount(forumId) {
-        // this.service.getDiscussionCount(forumId)
-        //     .subscribe(res => {
-        //         console.log('discussion count ', res);
-        //         return res;
-        //     }, error => {
-        //         console.log('error while fetching discussion count', error);
-        //         return null;
-        //     });
-        console.log("hello");
-        return null;
+        this.service.getDiscussionCount(forumId)
+            .subscribe(res => {
+                console.log('discussion count ', res);
+                return res;
+            }, error => {
+                console.log('error while fetching discussion count', error);
+                return null;
+            });
     }
 
     viewForum(slung) {

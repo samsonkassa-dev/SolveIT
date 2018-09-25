@@ -10,15 +10,15 @@ import { ProjectService } from '../project.service';
 
 export class ProjectView implements OnInit {
 
-    private selected = 'project';
-    private project = {};
+    public selected = 'project';
+    public project = {};
 
-    constructor(private route: ActivatedRoute, private router: Router, private service: ProjectService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService) {
 
     }
 
     ngOnInit() {
-        let id = this.route.snapshot.paramMap.get("id")
+        const id = this.route.snapshot.paramMap.get('id');
         this.getProject(id);
     }
 

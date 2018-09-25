@@ -40,20 +40,20 @@ export class CreateProjectComponent {
       this.project.proposal = JSON.parse(response).result.files.file[0];
       this.service.createProject(this.project).subscribe(
         res => {
-          this.sharedService.addToast("Success", "Project Created!.", 'success');
-          this.isUploading = false;
-          this.toggleProjectsList()
-          this.authService.getUserInfo()
-            .subscribe(res1 => {
-              this.service.addProjectMember({projectId: res.id, userId: res1.id})
-                .subscribe(res => {
-                  console.log("project added successfully");
-                })
-            })
+          this.sharedService.addToast('Success', 'Project Created!.', 'success');
+          const userId = this.authService.getUserId();
+          if (userId) {
+            this.service.addProjectMember({projectId: res.id, userId: userId})
+              .subscribe(res1 => {
+                console.log('project added successfully');
+                this.isUploading = false;
+                this.toggleProjectsList();
+              });
+          }
         },
         err => {
           if (err.status = 422) {
-            this.sharedService.addToast("", "Error occured!", 'error');
+            this.sharedService.addToast('', 'Error occurred!', 'error');
           }
         }
       );
