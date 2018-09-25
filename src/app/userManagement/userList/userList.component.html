@@ -32,15 +32,15 @@
         <thead>
             <tr>
                 <th>Firstname</th>
-                <th>Lastname</th>
+                <th>lastName</th>
                 <th>Email</th>
                 <th>Activate/Deactivate</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of solveitTeamUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
@@ -50,28 +50,35 @@
         </tbody>
     </table>
     <pagination-controls *ngIf="solveitTeamUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="solveitTeamUsers.length == 0">
+    <div class="not-found" *ngIf="solveitTeamUsers.length == 0 && keyword === ''">
         <div class="no-resource-found">
             <p>
                 <i class="fa  fa-frown-o"></i> User not registered, yet.
             </p>
         </div>
     </div>
+  <div class="not-found" *ngIf="solveitTeamUsers.length == 0 && keyword !== ''">
+    <div class="no-resource-found">
+      <p>
+        <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
+      </p>
+    </div>
+  </div>
 </div>
 <div *ngIf="selected == 'solveitmgmt'" class="row">
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Firstname</th>
-                <th>Lastname</th>
+                <th>lastName</th>
                 <th>Email</th>
                 <th>Activate/Deactivate</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of solveitMgmtUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
@@ -81,28 +88,35 @@
         </tbody>
     </table>
     <pagination-controls *ngIf="solveitMgmtUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="solveitMgmtUsers.length == 0">
+    <div class="not-found" *ngIf="solveitMgmtUsers.length == 0 && keyword === ''">
         <div class="no-resource-found">
             <p>
                 <i class="fa  fa-frown-o"></i> User not registered, yet.
             </p>
         </div>
     </div>
+  <div class="not-found" *ngIf="solveitMgmtUsers.length == 0 && keyword !== ''">
+    <div class="no-resource-found">
+      <p>
+        <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
+      </p>
+    </div>
+  </div>
 </div>
 <div *ngIf="selected == 'participant'" class="row">
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>firstName</th>
+                <th>lastName</th>
                 <th>Email</th>
                 <th>Activate/Deactivate</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of participantUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
@@ -112,12 +126,19 @@
         </tbody>
     </table>
     <pagination-controls *ngIf="participantUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="participantUsers.length == 0">
+    <div class="not-found" *ngIf="participantUsers.length == 0 && keyword === ''">
         <div class="no-resource-found">
             <p>
                 <i class="fa  fa-frown-o"></i> User not registered, yet.
             </p>
         </div>
     </div>
+  <div class="not-found" *ngIf="participantUsers.length == 0 && keyword !== ''">
+    <div class="no-resource-found">
+      <p>
+        <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
+      </p>
+    </div>
+  </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

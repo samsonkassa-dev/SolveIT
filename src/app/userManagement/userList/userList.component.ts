@@ -18,7 +18,6 @@ export class UserListComponent implements OnInit {
     public selected = 'solveitmgmt';
     public solveitTeamroleId = 0;
     public solveitMgmtroleId = 0;
-    public solveitParticipantroleId = 0;
     public page = 1;
     public keyword = '';
   private solveitParticipanttroleId = 0;
@@ -34,16 +33,21 @@ export class UserListComponent implements OnInit {
     getUserList() {
         this.service.getUserList().subscribe(
             res => {
-                this.users = res.Result;
-                res.Result.filter(item => {
+                this.users = res;
+                res.filter(item => {
                     if (item.roleId === this.solveitMgmtroleId) {
                       this.solveitMgmtUsers.push(item);
                     } else if (item.roleId === this.solveitTeamroleId) {
                       this.solveitTeamUsers.push(item);
-                    } else if (item.roleId === this.solveitParticipantroleId) {
+                    } else if (item.roleId === this.solveitParticipanttroleId) {
                         this.participantUsers.push(item);
                     }
                 });
+                console.log(this.users);
+                console.log('team ', this.solveitTeamUsers);
+                console.log('mgt ', this.solveitMgmtUsers);
+                console.log('part ', this.participantUsers);
+
             }
         );
     }
@@ -51,14 +55,17 @@ export class UserListComponent implements OnInit {
     getRoleIds() {
         this.service.getRoles().subscribe(res => {
             for (let i = 0; i < res.length; ++i) {
-                if (res[i].name === 'solveitTeam') {
-                    this.solveitTeamroleId = res[i].role;
-                } else if (res[i].name === 'solveitMgmt') {
-                    this.solveitMgmtroleId = res[i].role;
-                } else if (res[i].name === 'solveitParticipant') {
-                    this.solveitParticipanttroleId = res[i].role;
+                if (res[i].name === 'solve-it-team') {
+                    this.solveitTeamroleId = res[i].id;
+                } else if (res[i].name === 'solve-it-mgt') {
+                    this.solveitMgmtroleId = res[i].id;
+                } else if (res[i].name === 'solve-it-participants') {
+                    this.solveitParticipanttroleId = res[i].id;
                 }
             }
+          console.log('team ', this.solveitTeamroleId);
+          console.log('mgt  ', this.solveitMgmtroleId);
+          console.log('part ', this.solveitParticipanttroleId);
             this.getUserList();
         });
     }
@@ -98,18 +105,17 @@ export class UserListComponent implements OnInit {
     toggleView(view) {
         this.page = 1;
         this.selected = view;
-        this.getUserList();
     }
 
     searchUser() {
         if (this.keyword !== '') {
-            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitParticipantroleId));
+            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitParticipanttroleId));
             this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitMgmtroleId));
             this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitTeamroleId));
         } else {
-            this.participantUsers = this.users.filter(item => item.roleId == this.solveitParticipantroleId);
-            this.solveitMgmtUsers = this.users.filter(item => item.roleId == this.solveitMgmtroleId);
-            this.solveitTeamUsers = this.users.filter(item => item.roleId == this.solveitTeamroleId);
+            this.participantUsers = this.users.filter(item => item.roleId ===this.solveitParticipanttroleId);
+            this.solveitMgmtUsers = this.users.filter(item => item.roleId ===this.solveitMgmtroleId);
+            this.solveitTeamUsers = this.users.filter(item => item.roleId ===this.solveitTeamroleId);
         }
     }
 

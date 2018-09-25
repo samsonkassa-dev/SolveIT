@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from "ng2-toasty";
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 @Injectable()
 
 export class SharedService {
 
-	constructor(private apiService: ApiService, private toastyService:ToastyService, private toastyConfig: ToastyConfig) { }
+	constructor(private apiService: ApiService, private toastyService: ToastyService, private toastyConfig: ToastyConfig) { }
 
 
 	addToast(title, msg, type) {
-		var toastOptions:ToastOptions = {
+		let toastOptions: ToastOptions = {
 			title: title,
 			msg: msg,
 			showClose: true,
-			timeout: 2000,
+			timeout: 7000,
 			theme: 'default',
-			onAdd: (toast:ToastData) => {
+			onAdd: (toast: ToastData) => {
 				console.log('Toast ' + toast.id + ' has been added!');
 			},
-			onRemove: function(toast:ToastData) {
+			onRemove: function(toast: ToastData) {
 				console.log('Toast ' + toast.id + ' has been removed!');
 			}
 		};
 
-		if(type == 'success') {
+		if (type == 'success') {
 			this.toastyService.success(toastOptions);
-		} else if(type == 'error') {
+		} else if (type == 'error') {
 			this.toastyService.error(toastOptions);
 		}
 	}
-	
+
 }
