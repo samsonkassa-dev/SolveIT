@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import { ApiService } from '../../shared/services/api.service';
+import {from} from '../../../../node_modules/rxjs/observable/from';
+
 
 @Injectable()
 export class AuthService {
@@ -64,7 +66,7 @@ export class AuthService {
     const errorResult = new Promise((resolve, reject) => {
       reject('You are not signed in yet.');
     });
-    return errorResult;
+    return from(errorResult);
   }
 
 
