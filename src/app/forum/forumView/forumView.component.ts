@@ -24,7 +24,8 @@ export class ForumViewComponent implements OnInit {
     public selectedDiscussion = '';
     public slung = null;
 
-    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
+                public authService: AuthService, public sharedService: SharedService) {
 
     }
 
