@@ -25,7 +25,7 @@
     <tbody>
     <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: page }">
       <th id="item" scope="row">
-        <i id="user-icon" class="fa fa-user-circle"></i> <p>{{ user.email }}</p>
+        <i id="user-icon" class="fa fa-user-circle"></i> <p>{{ user.firstName + " " + user.middleName}}</p>
       </th>
       <th>
         <button class="main-btn" (click) = "addMember(user)">Add</button>
@@ -36,3 +36,4 @@
   <pagination-controls *ngIf = "users.length > 10" (pageChange)="page = $event"></pagination-controls>
 
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

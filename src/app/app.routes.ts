@@ -5,7 +5,6 @@ import { AUTH_ROUTES } from './Auth/auth.routes';
 import {RESOURCES_ROUTES} from './resources/resources.routes';
 
 import { ForumRoutes } from './forum/forum.route';
-import { SolveitMgmtRoutes } from './solveitMgmt/solveitMgmt.route';
 import { SolveitTeamRoutes } from './solveitTeam/solveitTeam.route';
 import { ProjectRoutes } from './project/project.route';
 import { UserManagementRoutes } from './userManagement/userManagament.route';
@@ -19,7 +18,6 @@ export const APP_ROUTES: Routes = [
   ...ProjectRoutes,
   ...UserManagementRoutes,
   ...CompetitionRoutes,
-  ...SolveitMgmtRoutes,
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
   { path: 'dashboard', component: DashboardComponent}

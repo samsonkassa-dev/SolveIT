@@ -14,6 +14,8 @@
         <h3 id="project-title">Title : {{ project.title }}</h3>
         <h4 id="label">Description</h4>
         <p id="description">{{ project.description }}</p>
+        <h4 id="proposal-label">Proposal</h4>
+        <p id="proposal-description"> <span id="download" (click)="downloadProposal(project.proposal.name)"> <i style="margin-right: 1em" class="fa fa-file"></i>Download</span></p>
         <h4 id="status-label">Status</h4>
         <p id="status-description">Not registered in any competitions yet. <span id="enroll">Enroll</span></p>
       </div>

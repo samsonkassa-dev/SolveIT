@@ -71,19 +71,6 @@ export class ResourcesListComponent implements OnInit {
   }
 
   downloadResource(content) {
-    // console.log('Downloading Resource', content);
-    // this.resourceService.downloadResource(content.name)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     const blob = new Blob([res], { type: 'application/' + content.name.slice(content.name.lastIndexOf('.') + 1, content.name.length) });
-    //     console.log('blob', blob);
-    //     const url = window.URL.createObjectURL(blob);
-    //     console.log('url', url);
-    //     window.open(url, '_blank');
-    //   }, err => {
-    //     console.log('error', err);
-    //   });
-
     this.resourceService.downloadResource(content.name)
       .subscribe(res => {
         console.log(res);

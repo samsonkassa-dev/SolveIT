@@ -22,11 +22,12 @@ export class AddProjectMemberComponent {
 
     addMember(user) {
         const member = {
-            forumId: this.project.id,
+            projectId: this.project.id,
             userId: user.id
         };
         this.service.addProjectMember(member).subscribe(
             res => {
+                this.users.splice(this.users.indexOf(user), 1);
                 this.sharedService.addToast('Success', 'New Member Added!.', 'success');
             },
             err => {
@@ -38,10 +39,14 @@ export class AddProjectMemberComponent {
     }
 
     searchUser() {
-        this.forumService.searchUser(this.keyword).subscribe(
+        if (this.keyword.trim() !== '') {
+          this.forumService.searchUser(this.keyword.trim()).subscribe(
             res => {
-                this.users = res.Result;
+              this.users = res.Result;
             }
-        );
+          );
+        } else {
+          this.users = [];
+        }
     }
 }

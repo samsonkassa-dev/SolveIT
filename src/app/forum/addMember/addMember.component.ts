@@ -1,6 +1,6 @@
-import { Component, Input } from "@angular/core";
-import { ForumService } from "../forum.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { Component, Input } from '@angular/core';
+import { ForumService } from '../forum.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
     selector: 'add-member',
@@ -16,7 +16,7 @@ export class AddMember {
     private keyword = '';
 
     constructor(private service: ForumService, private sharedService: SharedService) {
-        
+
     }
 
     addMember(user) {
@@ -26,21 +26,26 @@ export class AddMember {
         };
         this.service.addMember(member).subscribe(
             res => {
-                this.sharedService.addToast("Success", "New Member Added!.", 'success');
+              this.users.splice(this.users.indexOf(user), 1);
+              this.sharedService.addToast('Success', 'New Member Added!.', 'success');
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );
     }
 
     searchUser() {
-        this.service.searchUser(this.keyword).subscribe(
+        if (this.keyword.trim() !== '') {
+          this.service.searchUser(this.keyword).subscribe(
             res => {
-                this.users = res.Result;
+              this.users = res.Result;
             }
-        );
+          );
+        } else {
+          this.users = [];
+        }
     }
 }

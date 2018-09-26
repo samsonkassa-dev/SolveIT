@@ -23,7 +23,7 @@ export class ProjectService {
     }
 
     getAllProjects() {
-        return this.apiService.get(`/Solveitprojects`)
+        return this.apiService.get(`/Solveitprojects`);
     }
 
     addProjectMember(member) {
@@ -46,4 +46,8 @@ export class ProjectService {
     uploadProgressReport(report) {
       return this.apiService.post('reports', report);
     }
+
+  downloadProposal(file) {
+    return this.apiService.download(`storages/proposals/download/${file}`, file);
+  }
 }

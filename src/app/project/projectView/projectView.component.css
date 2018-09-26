@@ -52,16 +52,16 @@ li {
   border: 1px solid rgba(0,0,0,0.2);
 }
 
-#label, #status-label {
+#label, #status-label, #proposal-label {
   float: left;
   margin-right: 2em;
   clear: both;
 }
-#description, #status-description {
+#description, #status-description, #proposal-description{
   float: left;
 }
 
-#enroll {
+#enroll, #download {
   color: #2BA692;
   cursor: pointer;
   text-decoration: underline;

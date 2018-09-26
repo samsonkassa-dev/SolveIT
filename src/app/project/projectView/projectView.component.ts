@@ -35,6 +35,7 @@ export class ProjectViewComponent implements OnInit {
         this.service.getProject(projectId).subscribe(
             res => {
                 this.project = res;
+                console.log(this.project);
             }
         );
     }
@@ -54,5 +55,23 @@ export class ProjectViewComponent implements OnInit {
     toggleUploadReport(value) {
       this.uploadReport = value;
     }
+
+  downloadProposal(content) {
+    this.service.downloadProposal(content)
+      .subscribe(res => {
+        console.log(res);
+        const url = window.URL.createObjectURL(res.data);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = res.fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+      }, error => {
+        console.log('error', error);
+      });
+  }
 
 }

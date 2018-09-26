@@ -66,12 +66,12 @@ export class CreateResourceComponent implements OnInit {
           this.resourceService.createResource(this.resource)
             .subscribe(res => {
               this.router.navigate(['resources']);
-              this.sharedService.addToast("Success", "New Resource Added!.", 'success');
+              this.sharedService.addToast('Success', 'New Resource Added!.', 'success');
               this.isUploading = false;
             },
             err => {
               if (err.status = 422) {
-                this.sharedService.addToast("", "Error occured!", 'error');
+                this.sharedService.addToast('', 'Error occured!', 'error');
                 this.isUploading = false;
               }
             });
@@ -96,12 +96,12 @@ export class CreateResourceComponent implements OnInit {
         this.resourceService.createResource(this.resource)
           .subscribe(res => {
             this.router.navigate(['resources']);
-            this.sharedService.addToast("Success", "New Resource Added!.", 'success');
+            this.sharedService.addToast('Success', 'New Resource Added!.', 'success');
             this.isUploading = false;
           },
           err => {
             if (err.status = 422) {
-              this.sharedService.addToast("", "Error occured!", 'error');
+              this.sharedService.addToast('', 'Error occured!', 'error');
               this.isUploading = false;
             }
           });
