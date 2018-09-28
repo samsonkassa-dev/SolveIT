@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {configs} from '../../app.config';
 import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
@@ -22,6 +22,8 @@ export class CreateProgressReportComponent implements OnInit {
   public isUploading = false;
   public isFileSelected = false;
   public error = false;
+  @Input() project: any = {};
+  @Output() created = new EventEmitter();
 
   constructor(public formBuilder: FormBuilder, public service: ProjectService, public sharedService: SharedService) { }
 
@@ -36,12 +38,14 @@ export class CreateProgressReportComponent implements OnInit {
     this.isUploading = true;
     this.uploader.queue[0].upload();
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      this.report.data = JSON.parse(response).result.files.file[0];
+      this.report.content = JSON.parse(response).result.files.file[0];
+      this.report.projectId = this.project.id;
       this.service.uploadProgressReport(this.report)
         .subscribe(
         res => {
           this.sharedService.addToast('Success', 'Project Created!.', 'success');
           this.isUploading = false;
+          this.created.emit();
         },
         err => {
           if (err.status = 422) {

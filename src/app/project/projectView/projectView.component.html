@@ -17,7 +17,8 @@
         <h4 id="proposal-label">Proposal</h4>
         <p id="proposal-description"> <span id="download" (click)="downloadProposal(project.proposal.name)"> <i style="margin-right: 1em" class="fa fa-file"></i>Download</span></p>
         <h4 id="status-label">Status</h4>
-        <p id="status-description">Not registered in any competitions yet. <span id="enroll">Enroll</span></p>
+        <p id="status-description" *ngIf="!enrolled" (click)="enrollToCompetition()">Not registered in any competitions yet. <span id="enroll">Enroll</span></p>
+        <p id="status-description" *ngIf="enrolled"><span id="enroll">Enrolled</span></p>
       </div>
       <div class="row progress-reports" *ngIf="selected == views[0]">
         <div class="panel panel-default">
@@ -28,37 +29,26 @@
           </div>
           <div class="panel-body" id="progress-report-content">
             <div class="reports" *ngIf="!uploadReport">
-              <div class="col-md-4 col-sm-6">
-                <div class="service">
-                  <i class="fa fa-diamond"></i>
-                  <h3>Report 1</h3>
-                  <p>Report short Description</p>
+              <div *ngIf="progressReports.length > 0">
+                <div class="col-md-4 col-sm-6" *ngFor="let report of progressReports">
+                  <div class="service">
+                    <i class="fa fa-diamond"></i>
+                    <h3>{{report.title}}</h3>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-4 col-sm-6">
-                <div class="service">
-                  <i class="fa fa-diamond"></i>
-                  <h3>Report 2</h3>
-                  <p>Report short Description</p>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6">
-                <div class="service">
-                  <i class="fa fa-diamond"></i>
-                  <h3>Report 3</h3>
-                  <p>Report short Description</p>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6">
-                <div class="service">
-                  <i class="fa fa-diamond"></i>
-                  <h3>Report 4</h3>
-                  <p>Report short Description</p>
-                </div>
+              <div *ngIf="progressReports.length == 0">
+                <div class="not-found">
+                  <div class="no-resource-found">
+                    <p>
+                      <i class="fa  fa-frown-o"></i> You haven't uploaded any report, yet.
+                    </p>
+                    <button class="outline-btn" (click)="toggleUploadReport(true)">create Here</button>
+                  </div>
               </div>
             </div>
-            <app-create-progress-report *ngIf="uploadReport"></app-create-progress-report>
           </div>
+            <app-create-progress-report (created)="reportCreated()" [project]="project" *ngIf="uploadReport"></app-create-progress-report>
         </div>
       </div>
       <app-add-project-member *ngIf = "selected == views[2]" [project] = "project"></app-add-project-member>

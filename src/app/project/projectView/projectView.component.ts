@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectService } from '../project.service';
+import { CompetitionService } from "../../competition/competition.service";
+import {ApiService} from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-project-view',
@@ -17,8 +19,11 @@ export class ProjectViewComponent implements OnInit {
     public selected = this.views[0];
     public uploadReport = false;
     public project: any = null;
+    public progressReports: any = [];
+    public enrolled = false;
 
-    constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
+                public s: CompetitionService, public apiService: ApiService) {
 
     }
 
@@ -35,12 +40,20 @@ export class ProjectViewComponent implements OnInit {
         this.service.getProject(projectId).subscribe(
             res => {
                 this.project = res;
+                this.getProgressReports();
                 console.log(this.project);
             }
         );
     }
 
-    addProjectMember() {
+  private getProgressReports() {
+    this.service.getAllProgressReport(this.project.id)
+      .subscribe(res1 => {
+        this.progressReports = res1;
+      });
+  }
+
+  addProjectMember() {
         const member = {
             projectId: this.project.id,
             userId: 0
@@ -61,7 +74,7 @@ export class ProjectViewComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         const url = window.URL.createObjectURL(res.data);
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         document.body.appendChild(a);
         a.setAttribute('style', 'display: none');
         a.href = url;
@@ -72,6 +85,28 @@ export class ProjectViewComponent implements OnInit {
       }, error => {
         console.log('error', error);
       });
+  }
+
+  reportCreated() {
+      this.uploadReport = false;
+      this.getProgressReports();
+  }
+
+  enrollToCompetition() {
+      this.s.getActiveCompetition()
+        .subscribe(res => {
+          const temp = {
+            competitionId: res.Result[0].id,
+            projectId: this.project.id
+          };
+          this.apiService.post('CompetitionProjects', temp)
+            .subscribe(res1 => {
+              console.log('enrolled');
+              this.enrolled = true;
+            }, err => {
+              console.log(err);
+            });
+        });
   }
 
 }

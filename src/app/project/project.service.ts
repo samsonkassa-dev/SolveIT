@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ApiService } from "../shared/services/api.service";
 import { CompetitionService } from "../competition/competition.service";
+import {from} from '../../../node_modules/rxjs/observable/from';
 
 @Injectable()
 
@@ -37,17 +38,30 @@ export class ProjectService {
     joinCompetition(project) {
         this.competitionService.getActiveCompetition().subscribe(
             res => {
-                project.competitionId = res.Result.id;
-                return this.apiService.put(`Solveitprojects/${project.id}`, project);
-            }
+                const temp = {
+                  competitionId: res.Result[0].id,
+                  projectId: project.id
+                };
+                return this.apiService.post('CompetitionProjects', temp);
+            },
+          error1 => {
+            const err = new Promise((resolve, reject) => {
+              reject('Error');
+            });
+            return from(err);
+          }
         );
     }
 
     uploadProgressReport(report) {
-      return this.apiService.post('reports', report);
+      return this.apiService.post('ProgressReports', report);
     }
 
   downloadProposal(file) {
     return this.apiService.download(`storages/proposals/download/${file}`, file);
+  }
+
+  getAllProgressReport(projectId) {
+      return this.apiService.get(`Solveitprojects/${projectId}/reports`);
   }
 }
