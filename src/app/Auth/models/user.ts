@@ -7,7 +7,7 @@ export interface User {
   workStatus: string;
   educationLevel: string;
   sex: string;
-  age: number;
+  age: any;
   password: string;
   address: object;
 }

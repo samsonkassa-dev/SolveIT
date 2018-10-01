@@ -13,15 +13,15 @@ import {PhoneNumberValidation} from '../../Auth/validator/phoneNumberValidation'
 
 export class AddUserComponent implements OnInit{
 
-    public user = {};
+    public user = {
+    };
     public selected = 'participant';
     public userForm: FormGroup;
     public roles = [
-        'solve-it-mgt',
-        'solve-it-team',
-        'solve-it-participants',
+      {id: 'solve-it-mgt', name: 'Management Team'},
+      {id: 'solve-it-team', name: 'Staff & Mentor Team'},
     ];
-    public role = this.roles[0];
+    public role = '';
     @Output() back = new EventEmitter();
     @Output() created = new EventEmitter();
 
@@ -37,6 +37,7 @@ export class AddUserComponent implements OnInit{
         email: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         role: ['', Validators.required],
+        username: ['', Validators.required],
         password: ['', Validators.required],
         rePassword: ['', Validators.required]
       }, {

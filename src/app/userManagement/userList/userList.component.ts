@@ -11,63 +11,50 @@ import { SharedService } from '../../shared/services/shared.service';
 export class UserListComponent implements OnInit {
 
     @Output() create = new EventEmitter();
-    public users = [];
-    public solveitTeamUsers = [];
-    public solveitMgmtUsers = [];
-    public participantUsers = [];
-    public selected = 'solveitmgmt';
-    public solveitTeamroleId = 0;
-    public solveitMgmtroleId = 0;
+    public selected = '0';
     public page = 1;
     public keyword = '';
-  private solveitParticipanttroleId = 0;
+    public backupUsers = [];
+    public allUsers = [];
+    public selectedUsers = [];
+    public views = [
+      { name: 'solveitmgmt', id: '' },
+      { name: 'solveitteam', id: '' },
+      { name: 'participant', id: '' }
+    ];
+    public selectedRole = this.views[0];
+
 
     constructor(public service: UserManagementService, public sharedService: SharedService) {
 
     }
 
     ngOnInit() {
-        this.getRoleIds();
+        this.populateUsersList();
     }
 
-    getUserList() {
-        this.service.getUserList().subscribe(
-            res => {
-                this.users = res;
-                res.filter(item => {
-                    if (item.roleId === this.solveitMgmtroleId) {
-                      this.solveitMgmtUsers.push(item);
-                    } else if (item.roleId === this.solveitTeamroleId) {
-                      this.solveitTeamUsers.push(item);
-                    } else if (item.roleId === this.solveitParticipanttroleId) {
-                        this.participantUsers.push(item);
-                    }
-                });
-                console.log(this.users);
-                console.log('team ', this.solveitTeamUsers);
-                console.log('mgt ', this.solveitMgmtUsers);
-                console.log('part ', this.participantUsers);
-
-            }
-        );
-    }
-
-    getRoleIds() {
-        this.service.getRoles().subscribe(res => {
-            for (let i = 0; i < res.length; ++i) {
-                if (res[i].name === 'solve-it-team') {
-                    this.solveitTeamroleId = res[i].id;
-                } else if (res[i].name === 'solve-it-mgt') {
-                    this.solveitMgmtroleId = res[i].id;
-                } else if (res[i].name === 'solve-it-participants') {
-                    this.solveitParticipanttroleId = res[i].id;
-                }
-            }
-          console.log('team ', this.solveitTeamroleId);
-          console.log('mgt  ', this.solveitMgmtroleId);
-          console.log('part ', this.solveitParticipanttroleId);
-            this.getUserList();
+    getAllUsers() {
+      this.service.getUserList()
+        .subscribe(res => {
+          this.allUsers = res;
+          this.filterUsers();
         });
+    }
+
+    populateUsersList() {
+        this.service.getRoles()
+          .subscribe(res => {
+            for (let i = 0; i < res.length; ++i) {
+              if (res[i].name === 'solve-it-team') {
+                this.views[1].id = res[i].id;
+              } else if (res[i].name === 'solve-it-mgt') {
+                this.views[0].id = res[i].id;
+              } else if (res[i].name === 'solve-it-participants') {
+                this.views[2].id = res[i].id;
+              }
+            }
+            this.getAllUsers();
+          });
     }
 
     activateUser(user) {
@@ -102,25 +89,32 @@ export class UserListComponent implements OnInit {
         );
     }
 
-    toggleView(view) {
+    toggleView(index: string) {
         this.page = 1;
-        this.selected = view;
+        this.selectedRole = this.views[parseInt(index)];
+        this.filterUsers();
+    }
+
+    filterUsers() {
+      this.selectedUsers = this.allUsers.filter(item => {
+        return item.roleId === this.selectedRole.id;
+      });
+      this.backupUsers = this.selectedUsers;
+      console.log('all users', this.allUsers);
+      console.log('Selected users', this.selectedUsers);
     }
 
     searchUser() {
         if (this.keyword !== '') {
-            this.participantUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitParticipanttroleId));
-            this.solveitMgmtUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitMgmtroleId));
-            this.solveitTeamUsers = this.users.filter(item => item.email.includes(this.keyword) && (item.roleId === this.solveitTeamroleId));
+            this.selectedUsers = this.backupUsers.filter(item => {
+              return item.email.includes(this.keyword) || item.firstName.includes(this.keyword) || item.middleName.includes(this.keyword) || item.lastName.includes(this.keyword);
+            });
         } else {
-            this.participantUsers = this.users.filter(item => item.roleId ===this.solveitParticipanttroleId);
-            this.solveitMgmtUsers = this.users.filter(item => item.roleId ===this.solveitMgmtroleId);
-            this.solveitTeamUsers = this.users.filter(item => item.roleId ===this.solveitTeamroleId);
+          this.selectedUsers = this.backupUsers;
         }
     }
 
     createUser() {
       this.create.emit();
-      console.log('creating user');
     }
 }

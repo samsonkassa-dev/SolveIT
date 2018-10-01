@@ -19,27 +19,29 @@
     <div class="row filter">
         <div class="col-md-offset-4 col-md-4">
             <select name="view" id="view-filter" [(ngModel)]="selected" (change)="toggleView(selected)">
-        <option value="solveitteam">SolveIT Mentors</option>
-        <option value="solveitmgmt">SolveIT Staffs</option>
-        <option value="participant">SolveIT Participants</option>
-      </select>
+              <option selected="selected" value="0">SolveIT Management Team</option>
+              <option value="1">SolveIT Staffs & Mentors Team</option>
+              <option value="2">SolveIT Participants</option>
+            </select>
         </div>
     </div>
 </div>
 
-<div *ngIf="selected == 'solveitteam'" class="row">
+<div class="row">
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>lastName</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Activate/Deactivate</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of solveitTeamUsers | paginate: { itemsPerPage: 15, currentPage: page }">
+            <tr *ngFor="let user of selectedUsers | paginate: { itemsPerPage: 15, currentPage: page }">
                 <td>{{ user.firstName }}</td>
+                <td>{{ user.middleName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
@@ -49,91 +51,15 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls *ngIf="solveitTeamUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="solveitTeamUsers.length == 0 && keyword === ''">
+    <pagination-controls *ngIf="selectedUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
+    <div class="not-found" *ngIf="backupUsers.length == 0 && keyword === ''">
         <div class="no-resource-found">
             <p>
-                <i class="fa  fa-frown-o"></i> User not registered, yet.
+                <i class="fa  fa-frown-o"></i> No registered users, yet.
             </p>
         </div>
     </div>
-  <div class="not-found" *ngIf="solveitTeamUsers.length == 0 && keyword !== ''">
-    <div class="no-resource-found">
-      <p>
-        <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
-      </p>
-    </div>
-  </div>
-</div>
-<div *ngIf="selected == 'solveitmgmt'" class="row">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>lastName</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of solveitMgmtUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
-                    <button *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls *ngIf="solveitMgmtUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="solveitMgmtUsers.length == 0 && keyword === ''">
-        <div class="no-resource-found">
-            <p>
-                <i class="fa  fa-frown-o"></i> User not registered, yet.
-            </p>
-        </div>
-    </div>
-  <div class="not-found" *ngIf="solveitMgmtUsers.length == 0 && keyword !== ''">
-    <div class="no-resource-found">
-      <p>
-        <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
-      </p>
-    </div>
-  </div>
-</div>
-<div *ngIf="selected == 'participant'" class="row">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>Email</th>
-                <th>Activate/Deactivate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of participantUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
-                    <button *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls *ngIf="participantUsers.length > 15" (pageChange)="page = $event"></pagination-controls>
-    <div class="not-found" *ngIf="participantUsers.length == 0 && keyword === ''">
-        <div class="no-resource-found">
-            <p>
-                <i class="fa  fa-frown-o"></i> User not registered, yet.
-            </p>
-        </div>
-    </div>
-  <div class="not-found" *ngIf="participantUsers.length == 0 && keyword !== ''">
+  <div class="not-found" *ngIf="selectedUsers.length == 0 && keyword !== ''">
     <div class="no-resource-found">
       <p>
         <i class="fa  fa-frown-o"></i> User "{{keyword}}" not found.
