@@ -11,10 +11,10 @@
                     <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'discussion-create'">
                         <p (click)="toggleView('discussion-create')"><i class="fa fa-plus"><p class="menu-title">Create Discussion</p></i></p>
                     </li>
-                    <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'members-list'">
+                    <li *ngIf="forum.private" class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'members-list'">
                         <p (click)="toggleView('members-list')"><i class="fa fa-users"><p class="menu-title">Members</p></i></p>
                     </li>
-                    <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'add-members'">
+                    <li *ngIf="forum.private" class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'add-members'">
                         <p (click)="toggleView('add-members')"><i class="fa fa-user-plus"><p class="menu-title">Add Members</p></i></p>
                     </li>
                 </ul>
@@ -38,7 +38,7 @@
                 <div>
                     <div *ngIf="selected == 'discussion-list'" class="row">
                         <div class="pinned-discussions">
-                            <h4 class="title">Pinned Discussions</h4>
+                            <h4 class="title">Favorite Discussions</h4>
                             <div class="no-discussion" *ngIf="pinnedDiscussions.length==0">
                                 <p>
                                     <i class="fa fa-frown-o"></i> You have no pinned discussion.
@@ -51,7 +51,7 @@
                                             {{ discussion.slung}}
                                         </th>
                                         <td>Python</td>
-                                        <td> created at </td>
+                                        <td> {{discussion.createdAt | amTimeAgo}} </td>
                                         <td><span class="badge badge-secondary">{{ pinnedDiscussionCommentCount[i] }}</span> Comments</td>
                                     </tr>
                                 </tbody>
@@ -75,7 +75,7 @@
                                             {{ discussion.slung}}
                                         </th>
                                         <td>Python</td>
-                                        <td> created at </td>
+                                        <td> {{ discussion.createdAt | amTimeAgo }} </td>
                                         <td><span class="badge badge-secondary">{{allDiscussionCommentCount[index]}}</span> Comments</td>
                                     </tr>
                                 </tbody>
@@ -96,7 +96,7 @@
                         <member-list [forum]="forum"></member-list>
                     </div>
                     <div *ngIf="selected == 'discussion-detail'">
-                        <app-discussion-view [favoriteDiscussions]="pinnedDiscussions" (addFavorite)="addToFavourites($event)" (remove)="removeFromFavorite($event)" [slung]="selectedDiscussion"></app-discussion-view>
+                        <app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>
                     </div>
                 </div>
             </div>

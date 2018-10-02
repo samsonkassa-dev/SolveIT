@@ -27,7 +27,7 @@ export class ForumService {
     }
 
     getDiscussion(slung) {
-        return this.apiService.get(`Solveitdiscussions/${slung}/discussion?filter={"include": "user"dfe}`);
+        return this.apiService.get(`Solveitdiscussions/${slung}/discussion?filter={"include": "user"}`);
     }
 
     getDiscussionCount(forumId) {
@@ -79,7 +79,7 @@ export class ForumService {
     }
 
     removeFromFavorites(userId, discussionId) {
-      return this.apiService.delete( `UserAccounts/${userId}/favouriteDiscussions/${discussionId}`);
+      return this.apiService.post( `Favouritediscussions/removeFromFavorite`, {userId, discussionId});
     }
 
     getCategories() {
@@ -88,5 +88,17 @@ export class ForumService {
 
     searchUser(keyword) {
         return this.apiService.get(`UserAccounts/search/${keyword}`);
+    }
+
+    blackList(content) {
+      return this.apiService.post('BlackListedDiscussions', content);
+    }
+
+    removeFromBlackList(content) {
+      return this.apiService.post('BlackListedDiscussions/removeFromBlackList', content);
+    }
+
+    isUserBlackListedDiscussion(userId, discussionId) {
+      return this.apiService.get(`Solveitdiscussions/${discussionId}/blackListed/${userId}`);
     }
 }

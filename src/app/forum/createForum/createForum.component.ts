@@ -14,10 +14,10 @@ export class CreateForumComponent {
 
     @Input() categories;
     @Output() created = new EventEmitter();
-    private forum = { userAccountId: 0, created: new Date(), name: '', slung: '' };
-    private forumForm: FormGroup;
+    public forum = { userAccountId: 0, created: new Date(), name: '', slung: '', categoryId: '', private: '' };
+    public forumForm: FormGroup;
 
-    constructor(private service: ForumService, private _authService: AuthService, private sharedService: SharedService) {
+    constructor (public service: ForumService, public _authService: AuthService, public sharedService: SharedService) {
         this.forumForm = new FormGroup({
             name: new FormControl('', Validators.required),
             slung: new FormControl('', Validators.required),

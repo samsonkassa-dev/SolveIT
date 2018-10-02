@@ -8,12 +8,16 @@
                 <div class="blog-content">
                     <h5>{{ discussion.slung }}</h5>
                     <div class="pin" *ngIf="authService.isAuthenticated()">
-                        <i *ngIf="isFavouriteDiscussion" (click)="removeFromFavorites()" class="fa fa-heart"></i>
-                        <i *ngIf="!isFavouriteDiscussion" (click)="addToFavorites()" class="fa fa-heart-o"></i>
+                        <i *ngIf="isFavorite(discussion)" (click)="removeFromFavorites()" class="fa fa-heart"></i>
+                        <i *ngIf="!isFavorite(discussion)" (click)="addToFavorites()" class="fa fa-heart-o"></i>
                     </div>
+                  <div class="pin" *ngIf="authService.isAuthenticated()">
+                    <i *ngIf="isBlackListed" (click)="removeFromBlackList(discussion.id)" class="fa fa-flag"></i>
+                    <i *ngIf="!isBlackListed" (click)="blackList(discussion.id)" class="fa fa-flag-o"></i>
+                  </div>
                     <p id="content">{{ discussion.content }}</p>
                     <ul class="blog-meta">
-                        <li><i class="fa fa-user"></i>by : {{postedBy.firstName + " " + postedBy.middleName}}</li>
+                        <li><i class="fa fa-user"></i>by : {{postedBy.username}}</li>
                         <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
                         <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
                     </ul>

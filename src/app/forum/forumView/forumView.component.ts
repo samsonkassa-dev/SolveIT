@@ -73,22 +73,16 @@ export class ForumViewComponent implements OnInit {
     }
 
     getFavouriteDiscussions() {
-      try {
-        this.authService.getUserInfo()
+      const userId = this.authService.getUserId();
+      if (userId) {
+        this.service.getFavouriteDiscussions(userId)
           .subscribe(res => {
-            this.service.getFavouriteDiscussions(res.id)
-              .subscribe(res2 => {
-                this.pinnedDiscussions = res2;
-                this.pinnedDiscussions = [];
-                this.pinnedDiscussions.forEach(item => {
-                  this.countComments(item, this.pinnedDiscussionCommentCount);
-                });
-                console.log('pinned discussions', this.pinnedDiscussions);
-              });
+            this.pinnedDiscussions = res;
+            this.pinnedDiscussions.forEach(item => {
+              this.countComments(item, this.pinnedDiscussionCommentCount);
+            });
+            console.log('pinned discussions ', this.pinnedDiscussions);
           });
-      } catch (e) {
-        console.log('error');
-        this.pinnedDiscussions = [];
       }
     }
 
@@ -101,40 +95,6 @@ export class ForumViewComponent implements OnInit {
               store.push(0);
           }
         );
-    }
-
-    addToFavourites($event) {
-      console.log('adding to favorite');
-        try {
-          this.authService.getUserInfo().subscribe(
-            res => {
-              const userId = res.id;
-              const content = {
-                discussionId: $event.id,
-                userId: userId
-              };
-              this.service.addToFavourites(content).subscribe(
-                res1 => {
-                  console.log('added to favorites');
-                  this.service.getFavouriteDiscussions(userId)
-                    .subscribe(favs => {
-                      this.pinnedDiscussions = favs;
-                    }, error1 => {
-                      console.log('error');
-                    });
-                  this.sharedService.addToast('Success', 'Added To Favourites!.', 'success');
-                },
-                err => {
-                  if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occured!', 'error');
-                  }
-                }
-              );
-            }
-          );
-        } catch (e) {
-          return;
-        }
     }
 
     onSearch($event) {
@@ -150,23 +110,5 @@ export class ForumViewComponent implements OnInit {
     discussionDetail(discussion) {
       this.selectedDiscussion = discussion.slung;
       this.toggleView('discussion-detail');
-    }
-
-    removeFromFavorite($event) {
-      try {
-        this.authService.getUserInfo()
-          .subscribe(res => {
-            this.service.removeFromFavorites(res.id, $event.id)
-              .subscribe(res1 => {
-                console.log('removed from favorites');
-                this.getFavouriteDiscussions(); 8;
-              }, error => {
-                console.log('error while removing from favorites');
-              });
-          });
-      } catch (e) {
-        console.log('You are not signed in.');
-        return;
-      }
     }
 }

@@ -8,7 +8,7 @@
             <img class="media-object" id="commenter-avatar" src="../../../assets/img/User_Circle.png" alt="">
         </div>
         <div class="media-body">
-            <h6 class="media-heading">{{comment.user.firstName + " " + comment.user.middleName}}<span class="time">{{ comment.createdAt | amTimeAgo }}</span></h6>
+            <h6 class="media-heading">{{ comment.user.username }}<span class="time">{{ comment.createdAt | amTimeAgo }}</span></h6>
             <p>{{ comment.content }}</p>
         </div>
     </div>

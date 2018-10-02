@@ -14,18 +14,17 @@ import { SharedService } from '../../shared/services/shared.service';
 export class DiscussionViewComponent implements OnInit {
 
     public numberOfComments: any;
-    public discussion = {id: 0};
+    public discussion = {id: 0, isBlackListed: false};
     public comment = {solveitdiscussionId: this.discussion.id, userId: 0};
     public commentForm: FormGroup;
     public comments = [];
-    public isFavouriteDiscussion = false;
     public postedBy = null;
+    public isBlackListed = false;
+    public favoriteDiscussions = [];
     @Input() slung = '';
-    @Input() favoriteDiscussions = [];
-    @Output() addFavorite = new EventEmitter();
-    @Output() remove = new EventEmitter();
 
-    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
+    constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
+                public authService: AuthService, public sharedService: SharedService) {
         this.commentForm = new FormGroup({
             content: new FormControl('', Validators.required)
         });
@@ -33,102 +32,168 @@ export class DiscussionViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        // const slung = this.route.snapshot.paramMap.get('slung');
         if (this.slung !== '') {
           this.getDiscussion(this.slung);
         }
     }
 
     getFavoriteDiscusions() {
+      this.favoriteDiscussions = [];
+      const userId = this.authService.getUserId();
+      if (userId) {
+        this.service.getFavouriteDiscussions(userId)
+          .subscribe(res => {
+            res.forEach(item => {
+              this.favoriteDiscussions.push(item.id);
+            });
+          });
+      }
     }
 
     getDiscussion(slung) {
         this.service.getDiscussion(slung).subscribe(
             res => {
                 this.postedBy = res.Result.user;
-                console.log("user ", this.postedBy);
-                this.discussion = res.Result.discussion[0];
-                console.log('fetched', this.discussion);
+                this.discussion = res.Result.discussion;
                 this.countComments();
                 this.getComments();
-                this.isFavorite(this.discussion);
+                this.getFavoriteDiscusions();
+                this.isUserBlackListedDiscussion(this.discussion.id);
             }
         );
     }
 
-    countComments() {
-        this.service.countComments(this.discussion.id).subscribe(
-            res => {
-                this.numberOfComments = res.count;
-            }
-        );
+  countComments() {
+      this.service.countComments(this.discussion.id).subscribe(
+          res => {
+              this.numberOfComments = res.count;
+          }
+      );
+  }
+
+  addComment() {
+      const authenticated = this.authService.isAuthenticated();
+      if (authenticated) {
+          this.authService.getUserInfo().subscribe(
+              res => {
+                  const userId = res.id;
+                  this.comment.userId = userId;
+                  this.comment.solveitdiscussionId = this.discussion.id;
+
+                  this.service.addComment(this.comment).subscribe(
+                      res1 => {
+                          this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+                          this.getComments();
+                          this.countComments();
+                          this.commentForm.reset();
+                      },
+                      err => {
+                          if (err.status = 422) {
+                              this.sharedService.addToast('', 'Error occured!', 'error');
+                          }
+                      }
+                  );
+              }
+          );
+      } else {
+          this.comment.userId = 0;
+          this.service.addComment(this.comment).subscribe(
+              res => {
+                  this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+                  this.countComments();
+                  this.getComments();
+                  this.commentForm.reset();
+              },
+              err => {
+                  if (err.status = 422) {
+                      this.sharedService.addToast('', 'Error occured!', 'error');
+                  }
+              }
+          );
+      }
+  }
+
+  isUserBlackListedDiscussion(discussionId) {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.isUserBlackListedDiscussion(userId, discussionId)
+        .subscribe(res => {
+          this.isBlackListed = true;
+        }, error => {
+          this.isBlackListed = false;
+        });
+      this.isBlackListed = false;
+    }
+    this.isBlackListed = false;
+  }
+
+  addToFavorites() {
+      const userId = this.authService.getUserId();
+      if (userId) {
+        const content = {
+          discussionId: this.discussion.id,
+          userId: userId
+        };
+        this.service.addToFavourites(content)
+          .subscribe(res => {
+            this.favoriteDiscussions.push(this.discussion.id);
+            this.sharedService.addToast('Success', 'Added To Favourites!.', 'success');
+          }, error1 => {
+            this.sharedService.addToast('', 'Error occured!', 'error');
+          });
+      }
     }
 
-    addComment() {
-        const authenticated = this.authService.isAuthenticated();
-        if (authenticated) {
-            this.authService.getUserInfo().subscribe(
-                res => {
-                    const userId = res.id;
-                    this.comment.userId = userId;
-                    this.comment.solveitdiscussionId = this.discussion.id;
-                    
-                    this.service.addComment(this.comment).subscribe(
-                        res1 => {
-                            this.sharedService.addToast('Success', 'Comment Added!.', 'success');
-                            this.getComments();
-                            this.countComments();
-                            this.commentForm.reset();
-                        },
-                        err => {
-                            if (err.status = 422) {
-                                this.sharedService.addToast('', 'Error occured!', 'error');
-                            }
-                        }
-                    );
-                }
-            );
-        } else {
-            this.comment.userId = 0;
-            this.service.addComment(this.comment).subscribe(
-                res => {
-                    this.sharedService.addToast('Success', 'Comment Added!.', 'success');
-                    this.countComments();
-                    this.getComments();
-                    this.commentForm.reset();
-                },
-                err => {
-                    if (err.status = 422) {
-                        this.sharedService.addToast('', 'Error occured!', 'error');
-                    }
-                }
-            );
-        }
-    }
-
-    addToFavorites() {
-      this.addFavorite.emit({id: this.discussion.id});
-    }
-
-    removeFromFavorites() {
-        this.remove.emit({id: this.discussion.id});
-    }
-
-    isFavorite(discussion) {
-        this.favoriteDiscussions.forEach(item => {
-            if (item.id === discussion.id) {
-                console.log('is Favorite');
-                this.isFavouriteDiscussion = true;
-                return;
-            }
-            console.log('finished');
+  removeFromFavorites() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.removeFromFavorites(userId, this.discussion.id)
+        .subscribe(res => {
+          this.sharedService.addToast('Success', 'Removed From Favourites!.', 'success');
+          this.favoriteDiscussions.splice(this.favoriteDiscussions.indexOf(this.discussion.id), 1);
+        }, error => {
+          this.sharedService.addToast('', 'Error occured!', 'error');
         });
     }
+  }
 
-    getComments() {
+  isFavorite(discussion) {
+      return this.favoriteDiscussions.indexOf(discussion.id) !== -1;
+  }
+
+  getComments() {
         this.service.getComments(this.discussion.id)
             .subscribe(res => {
                 this.comments = res;
-            })
+            });
     }
+
+  removeFromBlackList() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.removeFromBlackList({userId, discussionId: this.discussion.id})
+        .subscribe(res => {
+          this.sharedService.addToast('Success', 'Remove from black list!.', 'success');
+          this.isBlackListed = false;
+        }, error => {
+          this.sharedService.addToast('', 'Error occured!', 'error');
+        });
+    }
+  }
+
+  blackList() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      const content = {userId: userId, discussionId: this.discussion.id};
+      this.service.blackList(content)
+        .subscribe(res => {
+          this.sharedService.addToast('Success', 'Black Listed!.', 'success');
+          this.isBlackListed = true;
+        }, error => {
+          this.sharedService.addToast('', 'Error occured!', 'error');
+        });
+    }
+  }
+
 }
+  
