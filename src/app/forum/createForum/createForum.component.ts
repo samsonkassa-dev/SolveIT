@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
-import { ForumService } from "../forum.service";
-import { AuthService } from "../../Auth/services/auth.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ForumService } from '../forum.service';
+import { AuthService } from '../../Auth/services/auth.service';
+import { SharedService } from '../../shared/services/shared.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-forum-create',
@@ -17,7 +18,8 @@ export class CreateForumComponent {
     public forum = { userAccountId: 0, created: new Date(), name: '', slung: '', categoryId: '', private: '' };
     public forumForm: FormGroup;
 
-    constructor (public service: ForumService, public _authService: AuthService, public sharedService: SharedService) {
+    constructor (public service: ForumService, public authService: AuthService,
+                 public sharedService: SharedService, public router: Router) {
         this.forumForm = new FormGroup({
             name: new FormControl('', Validators.required),
             slung: new FormControl('', Validators.required),
@@ -30,13 +32,13 @@ export class CreateForumComponent {
       this.forum.created = new Date();
         this.service.createForum(this.forum).subscribe(
             res => {
-                this.sharedService.addToast("Success", "Forum Created!.", 'success');
-                let forumId = res.id;
+                this.sharedService.addToast('Success', 'Forum Created!.', 'success');
+                const forumId = res.id;
                 this.created.emit();
-                this._authService.getUserInfo().subscribe(
+                this.authService.getUserInfo().subscribe(
                     res1 => {
-                        let userId = res1.id;
-                        let member = {
+                        const userId = res1.id;
+                        const member = {
                             forumId: forumId,
                             userId: userId
                         };
@@ -50,9 +52,13 @@ export class CreateForumComponent {
             },
             err => {
                 if (err.status = 422) {
-                    this.sharedService.addToast("", "Error occured!", 'error');
+                    this.sharedService.addToast('', 'Error occured!', 'error');
                 }
             }
         );
     }
+
+  onSignIn() {
+      this.router.navigate(['login']);
+  }
 }

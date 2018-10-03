@@ -195,5 +195,9 @@ export class DiscussionViewComponent implements OnInit {
     }
   }
 
+  onSignIn() {
+      this.router.navigate(['login']);
+  }
+
 }
-  
+

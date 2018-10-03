@@ -18,7 +18,8 @@ export class CreateDiscussionComponent implements OnInit {
     public discussion = {userAccountId: 0, forumId: 0};
     public discussionForm: FormGroup;
 
-    constructor(public authService: AuthService, public service: ForumService, public sharedService: SharedService) {
+    constructor(public authService: AuthService, public service: ForumService,
+                public sharedService: SharedService, public router: Router) {
         this.discussionForm = new FormGroup({
             slung: new FormControl('', Validators.required),
             content: new FormControl('', Validators.required)
@@ -46,5 +47,9 @@ export class CreateDiscussionComponent implements OnInit {
 
     toggleDiscussionList() {
       this.created.emit();
+    }
+
+    onSignIn() {
+      this.router.navigate(['login']);
     }
 }

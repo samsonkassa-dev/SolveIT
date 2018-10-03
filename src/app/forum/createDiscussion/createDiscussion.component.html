@@ -1,4 +1,4 @@
-<form [formGroup]="discussionForm">
+<form [formGroup]="discussionForm" *ngIf="authService.isAuthenticated()">
   <h4 class="title" id="form-title"> New Discussion </h4>
     <div id="resource-form">
         <div class="form-group">
@@ -16,4 +16,15 @@
         </div>
     </div>
 </form>
+
+<div class="not-found" *ngIf="!authService.isAuthenticated()">
+  <div class="no-resource-found">
+    <p>
+      <i class="fa  fa-frown-o"></i> Please sign in to create discussion.
+    </p>
+
+    <button class="outline-btn" (click)="onSignIn()">SignIn Here</button>
+  </div>
+</div>
+
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

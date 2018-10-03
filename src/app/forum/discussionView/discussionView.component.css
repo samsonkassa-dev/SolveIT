@@ -16,3 +16,9 @@ i {
 #content {
   clear: both;
 }
+
+#link {
+  text-decoration: underline;
+  color: #2BA692;
+  cursor: pointer;
+}

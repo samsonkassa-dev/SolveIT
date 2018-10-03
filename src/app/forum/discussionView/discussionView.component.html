@@ -25,8 +25,9 @@
                 <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments"></app-comment-list>
                 <!-- reply form -->
                 <div class="reply-form">
-                    <h6 class="title">Leave a reply</h6>
-                    <form [formGroup]="commentForm">
+                    <h6 class="title" *ngIf="authService.isAuthenticated()">Leave a reply</h6>
+                    <h6 class="title" *ngIf="!authService.isAuthenticated()">Please sign in to post a reply. <span id="link" (click)="onSignIn()">here</span></h6>
+                    <form [formGroup]="commentForm" *ngIf="authService.isAuthenticated()">
                         <textarea placeholder="Add Your Commment" formControlName="content" [(ngModel)]="comment.content"></textarea>
                         <button [disabled]="!commentForm.valid" type="submit" class="main-btn" (click)="addComment()">Reply</button>
                     </form>
