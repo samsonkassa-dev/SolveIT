@@ -25,6 +25,11 @@ export class EventListComponent implements OnInit {
         this.getEventsList();
     }
 
+  isPassed(event) {
+      const now = new Date();
+      return event.date < now.toISOString();
+  }
+
     getEventsList() {
         this.service.getEventsList().subscribe(
             res => {

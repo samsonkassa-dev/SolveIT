@@ -44,3 +44,8 @@
 #event > p:nth-child(3),#event > p:nth-child(4) {
   padding-bottom: 1em;
 }
+
+#passed-status {
+  background: #F3675E;
+  cursor: not-allowed;
+}

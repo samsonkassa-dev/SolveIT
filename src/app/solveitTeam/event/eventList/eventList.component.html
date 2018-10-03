@@ -16,13 +16,14 @@
         <!-- Event list -->
         <ng-container *ngIf = "events.length > 0">
 
-          <div class="col-md-4 col-sm-6" *ngFor = "let event of events | paginate: { itemsPerPage: 10, currentPage: p }">
+          <div class="col-lg-3 col-md-4 col-sm-6" *ngFor = "let event of events | paginate: { itemsPerPage: 10, currentPage: p }">
               <div class="service" id="event">
                 <i class="fa fa-calendar"></i>
                 <h3>{{ event.title }}</h3>
-                <p>{{ getDate(event.date).date }}</p>
+                <p><b>On</b> {{ getDate(event.date).date }}</p>
                 <p><i id="event-time-icon" class="fa fa-clock-o"></i>{{ getDate(event.date).clock }}</p>
-                <button class="outline-btn" (click)="viewEventDetail(event)" data-toggle="modal" data-target="#myModal">Detail</button>
+                <button *ngIf="!isPassed(event)" class="outline-btn" (click)="viewEventDetail(event)" data-toggle="modal" data-target="#myModal">Detail</button>
+                <button id="passed-status" *ngIf="isPassed(event)" class="main-btn">Passed</button>
               </div>
           </div>
         </ng-container>
