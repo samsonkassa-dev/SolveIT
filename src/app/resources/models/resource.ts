@@ -6,4 +6,5 @@ export interface Resource {
   categories?: string[];
   id?: string;
   description?: string;
+  createdAt?: Date;
 }

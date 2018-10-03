@@ -24,6 +24,10 @@ export class ResourcesListComponent implements OnInit {
   vidResourcePage = 1;
   p =1;
   collections = [1,2];
+  public showDetail = false;
+  public selectedResource: any = null;
+  public backUpDocResources = [];
+  public backUpVidResources = [];
 
   constructor(public resourceService: ResourcesService, public router: Router, public authService: AuthService) { }
 
@@ -35,8 +39,10 @@ export class ResourcesListComponent implements OnInit {
         res.filter(item => {
           if (item.type === 'document') {
             this.doc_resources.push(item);
+            this.backUpDocResources.push(item);
           } else if (item.type === 'video') {
             this.vid_resources.push(item);
+            this.backUpVidResources.push(item);
           }
         });
 
@@ -51,22 +57,24 @@ export class ResourcesListComponent implements OnInit {
   }
 
   filterResource($event) {
+    this.keyword = '';
     if (this.filterCategory !== '') {
-      this.vid_resources = this.vid_resources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
-      this.doc_resources = this.doc_resources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
+      this.vid_resources = this.backUpVidResources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
+      this.doc_resources = this.backUpDocResources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
     } else {
-      this.vid_resources = this.resources.filter(item => item.type === 'video');
-      this.doc_resources = this.resources.filter(item => item.type === 'document');
+      this.vid_resources = this.backUpVidResources;
+      this.doc_resources = this.backUpDocResources;
     }
   }
 
   onSearch($event) {
+    this.filterCategory = '';
     if (this.keyword !== '') {
-      this.vid_resources = this.vid_resources.filter(item => item.title.includes(this.keyword));
-      this.doc_resources = this.doc_resources.filter(item => item.title.includes(this.keyword));
+      this.vid_resources = this.backUpVidResources.filter(item => item.title.includes(this.keyword));
+      this.doc_resources = this.backUpDocResources.filter(item => item.title.includes(this.keyword));
     } else {
-      this.vid_resources = this.resources.filter(item => item.type === 'video');
-      this.doc_resources = this.resources.filter(item => item.type === 'document');
+      this.vid_resources = this.backUpVidResources;
+      this.doc_resources = this.backUpDocResources;
     }
   }
 
@@ -90,6 +98,25 @@ export class ResourcesListComponent implements OnInit {
 
   onChoosingVideoResource(resource: Resource) {
     this.choosenResource = resource;
+  }
+
+  viewResourceDetail(resource) {
+    this.showDetail = true;
+    this.selectedResource = resource;
+  }
+
+  cancelResourceDetail() {
+    this.showDetail = false;
+    this.selectedResource = null;
+  }
+
+  createResource() {
+    this.router.navigate(['upload-resources']);
+  }
+
+  getVideoThumbinal(url) {
+    const videoId = url.slice(url.indexOf('?v') + 3 , url.length);
+    return `http://img.youtube.com/vi/${videoId}/0.jpg`;
   }
 
 }

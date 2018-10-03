@@ -13,6 +13,7 @@ import { ModalComponent } from './modal/modal.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {SolveitTeamGuardService} from '../Auth/services/solveit-team-guard.service';
 import {AuthGuardService} from '../Auth/services/auth-guard.service';
+import {MomentModule} from 'angular2-moment';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {AuthGuardService} from '../Auth/services/auth-guard.service';
       animationDuration: 200,
       maxPercent: 100
     }),
-    NgxPaginationModule
+    NgxPaginationModule,
+    MomentModule
   ],
   providers: [ResourcesService, SolveitTeamGuardService, AuthGuardService],
   exports: [],

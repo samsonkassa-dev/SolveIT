@@ -42,8 +42,7 @@ export class CreateResourceComponent implements OnInit {
   }
 
   isResourceFormValid() {
-    this.resource.categories.push('test');
-    if (this.resourceForm.valid && this.resource.categories.length >  0 && this.resource.type !== '') {
+    if (this.resourceForm.valid && /** this.resource.categories.length >  0 && **/  this.resource.type !== '') {
       return this.resource.url !== '' || this.isFileSelected;
     }
     return false;
@@ -62,7 +61,8 @@ export class CreateResourceComponent implements OnInit {
         this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
           console.log(JSON.parse(response).result.files.file[0]);
           this.resource.content = JSON.parse(response).result.files.file[0];
-          this.resource.categories.push('python');
+          this.resource.categories.push('Python');
+          this.resource.createdAt = new Date();
           this.resourceService.createResource(this.resource)
             .subscribe(res => {
               this.router.navigate(['resources']);
@@ -93,6 +93,7 @@ export class CreateResourceComponent implements OnInit {
         };
       } else {
         this.resource.categories.push('python');
+        this.resource.createdAt = new Date();
         this.resourceService.createResource(this.resource)
           .subscribe(res => {
             this.router.navigate(['resources']);

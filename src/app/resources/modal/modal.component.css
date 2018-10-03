@@ -7,13 +7,15 @@
 #myModal .modal-dialog {
   width: 70%;
   height: 50%;
-}
-
-#myModal .modal-content {
-  width: 100%;
-  height: 150%;
+  overflow-y: initial !important;
 }
 
 #myModal .modal-body {
+  height: 35em;
+  overflow-y: auto;
+}
+
+.iframe {
   height: 80%;
+  margin-bottom: 1em;
 }
