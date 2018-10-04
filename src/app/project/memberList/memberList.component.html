@@ -9,7 +9,7 @@
         <div class="panel-body">
             <div *ngIf = "members.length > 0" class="list-group">
                 <a *ngFor = "let member of members | paginate: { itemsPerPage: 20, currentPage: page }" class="list-group-item">
-                    {{ member.email }}
+                    {{ member.username }}
                 </a>
             </div>
             <pagination-controls *ngIf = "members.length > 20" (pageChange)="p = $event"></pagination-controls>

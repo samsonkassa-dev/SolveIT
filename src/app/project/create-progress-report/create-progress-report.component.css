@@ -1,22 +1,22 @@
 form {
   /*width: 50%;*/
   margin: 5em auto;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 2em;
 }
 
-#resource-form {
-  width: 70%;
+#reportForm {
+  width: 60%;
   margin: auto;
   padding: 1em;
 }
 
-#resource-form input, #resource-form select, #resource-form textarea {
+#reportForm input, #type, #reportForm textarea {
   margin-bottom: 2em;
 }
 
-#resource-form select {
+#reportForm select, #type {
   background: white;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #eeeeee;
   padding: 1em;

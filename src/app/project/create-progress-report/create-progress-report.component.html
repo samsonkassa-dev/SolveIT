@@ -7,6 +7,16 @@
           <input type="text" class="input" name="title" placeholder="Report Title" formControlName="title" [(ngModel)]="report.title">
         </div>
         <div class="form-group">
+          <select name="type" id="type" [(ngModel)]="report.type" formControlName="type">
+            <option value="" selected>Report Type</option>
+            <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="report.type == types[1].id">
+          <textarea placeholder="Progress Report Detail" formControlName="report" [(ngModel)]="report.report">
+          </textarea>
+        </div>
+        <div class="form-group" *ngIf="report.type == types[0].id">
           <label id="proposal-label" for="proposal">Project Proposal</label>
           <input id="proposal" type="file" ng2FileSelect [uploader]="uploader" (change)="handleFileSelection($event)">
         </div>
@@ -16,10 +26,10 @@
         </circle-progress>
         </div>
         <div class="form-group" id="resource-upload-btn">
-          <input type="button" [disabled]="!reportForm.valid || !isFileSelected || isUploading" (click)="uploadProgressReport()" class="main-btn" value="Submit">
+          <input type="button"  (click)="uploadProgressReport()" class="main-btn" value="Submit">
         </div>
       </div>
     </form>
-
   </div>
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

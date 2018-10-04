@@ -77,3 +77,17 @@ li {
   margin: 10em auto;
   padding: 3em;
 }
+
+.service {
+  cursor: pointer;
+}
+
+.service:hover {
+  -webkit-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
+  box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
+}
+
+.service:hover h3 {
+  color: #2BA692;
+}

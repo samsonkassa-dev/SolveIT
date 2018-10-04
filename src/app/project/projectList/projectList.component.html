@@ -12,9 +12,9 @@
         <ng-container *ngIf="projects.length > 0">
             <div class="col-md-3 col-sm-6" *ngFor="let project of projects | paginate: { itemsPerPage: 8, currentPage: p }">
                 <div class="about">
-                    <i class="fa fa-briefcase"></i>`
+                    <i class="fa fa-briefcase"></i>
+
                     <h3>{{ project.title }}</h3>
-                    <p>{{ project.description }}</p>
                     <a style="cursor: pointer" (click)="viewProject(project)"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-eye"></i></span>View Project</a>
                 </div>
             </div>

@@ -14,6 +14,8 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
 import {AddProjectMemberComponent} from './addMember/addMember.component';
 import {ProjectMemberList} from './memberList/memberList.component';
 import { CreateProgressReportComponent } from './create-progress-report/create-progress-report.component';
+import { ReportViewComponent } from './report-view/report-view.component';
+import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { CreateProgressReportComponent } from './create-progress-report/create-p
     ProjectContainerComponent,
     AddProjectMemberComponent,
     ProjectMemberList,
-    CreateProgressReportComponent
+    CreateProgressReportComponent,
+    ReportViewComponent
   ],
   imports: [
     NgxPaginationModule,
@@ -32,7 +35,8 @@ import { CreateProgressReportComponent } from './create-progress-report/create-p
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    NgCircleProgressModule
+    NgCircleProgressModule,
+    MomentModule
   ],
   providers: [ProjectService],
   exports: []

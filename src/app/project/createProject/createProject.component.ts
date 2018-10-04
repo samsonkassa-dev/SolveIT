@@ -38,6 +38,7 @@ export class CreateProjectComponent {
     this.uploader.queue[0].upload();
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
       this.project.proposal = JSON.parse(response).result.files.file[0];
+      this.project.createdAt = new Date();
       this.service.createProject(this.project).subscribe(
         res => {
           this.sharedService.addToast('Success', 'Project Created!.', 'success');

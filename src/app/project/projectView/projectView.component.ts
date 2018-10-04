@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectService } from '../project.service';
-import { CompetitionService } from "../../competition/competition.service";
+import { CompetitionService } from '../../competition/competition.service';
 import {ApiService} from '../../shared/services/api.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class ProjectViewComponent implements OnInit {
     public project: any = null;
     public progressReports: any = [];
     public enrolled = false;
+    public selectedProgressReport = null;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
                 public s: CompetitionService, public apiService: ApiService) {
@@ -50,6 +51,7 @@ export class ProjectViewComponent implements OnInit {
     this.service.getAllProgressReport(this.project.id)
       .subscribe(res1 => {
         this.progressReports = res1;
+        console.log(res1);
       });
   }
 
@@ -107,6 +109,15 @@ export class ProjectViewComponent implements OnInit {
               console.log(err);
             });
         });
+  }
+
+  viewProgressReport(report) {
+      this.selectedProgressReport = report;
+      console.log(this.selectedProgressReport);
+  }
+
+  back() {
+      this.selectedProgressReport = null;
   }
 
 }

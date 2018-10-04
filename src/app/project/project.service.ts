@@ -61,7 +61,19 @@ export class ProjectService {
     return this.apiService.download(`storages/proposals/download/${file}`, file);
   }
 
+  downloadProjectReport(file) {
+      return this.apiService.download(`storages/reports/download/${file}`, file);
+  }
+
   getAllProgressReport(projectId) {
       return this.apiService.get(`Solveitprojects/${projectId}/reports`);
+  }
+
+  addPogressReportComment(comment) {
+      return this.apiService.post('progressComments', comment);
+  }
+
+  fetchProjectReportComments(reportId) {
+      return this.apiService.get(`ProgressReports/${reportId}/progressComments?filter={"include": "user"}`);
   }
 }

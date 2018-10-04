@@ -20,7 +20,7 @@
         <p id="status-description" *ngIf="!enrolled" (click)="enrollToCompetition()">Not registered in any competitions yet. <span id="enroll">Enroll</span></p>
         <p id="status-description" *ngIf="enrolled"><span id="enroll">Enrolled</span></p>
       </div>
-      <div class="row progress-reports" *ngIf="selected == views[0]">
+      <div class="row progress-reports" *ngIf="selected == views[0] && !selectedProgressReport">
         <div class="panel panel-default">
           <div id="progress-report-heading">
             <h3 id="progress-report-title">Progress reports</h3>
@@ -30,10 +30,11 @@
           <div class="panel-body" id="progress-report-content">
             <div class="reports" *ngIf="!uploadReport">
               <div *ngIf="progressReports.length > 0">
-                <div class="col-md-4 col-sm-6" *ngFor="let report of progressReports">
-                  <div class="service">
-                    <i class="fa fa-diamond"></i>
+                <div class="col-md-4 col-sm-6" *ngFor="let report of progressReports" (click)="viewProgressReport(report)">
+                  <div class="service" >
+                    <i class="fa fa-file-text"></i>
                     <h3>{{report.title}}</h3>
+                    <p>{{report.createdAt| amTimeAgo }}</p>
                   </div>
                 </div>
               </div>
@@ -51,8 +52,9 @@
             <app-create-progress-report (created)="reportCreated()" [project]="project" *ngIf="uploadReport"></app-create-progress-report>
         </div>
       </div>
+    </div>
       <app-add-project-member *ngIf = "selected == views[2]" [project] = "project"></app-add-project-member>
       <project-member-list *ngIf = "selected == views[1]" [project] = "project"></project-member-list>
+      <app-report-view *ngIf="selectedProgressReport" (back)="back()" [report]="selectedProgressReport"></app-report-view>
     </div>
-  </div>
 </div>
