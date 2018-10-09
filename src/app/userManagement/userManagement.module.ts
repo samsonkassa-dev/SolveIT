@@ -7,12 +7,14 @@ import { UserListComponent } from "./userList/userList.component";
 import { ManageUserComponent } from "./manageUser/manageUser.component";
 import { UserManagementService } from "./userManagament.service";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { UserProfileCompomnent } from "./userProfile/userProfile.component";
 
 @NgModule({
     declarations: [
         AddUserComponent,
         UserListComponent,
-        ManageUserComponent
+        ManageUserComponent,
+        UserProfileCompomnent
     ],
     imports: [
         SharedModule,
