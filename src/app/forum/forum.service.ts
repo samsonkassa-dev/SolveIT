@@ -101,4 +101,12 @@ export class ForumService {
     isUserBlackListedDiscussion(userId, discussionId) {
       return this.apiService.get(`Solveitdiscussions/${discussionId}/blackListed/${userId}`);
     }
+
+    getCommentReplies(commentId) {
+        return this.apiService.get(`SolveIT-Discussion-Comments/${commentId}/replies`);
+    }
+
+    replyToComment(reply) {
+        return this.apiService.post(`replies/`, reply);
+    }
 }
