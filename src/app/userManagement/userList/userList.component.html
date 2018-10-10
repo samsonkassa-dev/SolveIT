@@ -24,6 +24,12 @@
               <option value="2">SolveIT Participants</option>
             </select>
         </div>
+        <div class="col-md-offset-4 col-md-2">
+            <select name="view" id="view-filter" [(ngModel)]="selectedRegion" (change)="toggleView(selected)">
+              <option value="0">All</option>
+              <option *ngFor = "let region of regions" value="{{region.id}}">{{ region.name }}</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -36,6 +42,7 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Activate/Deactivate</th>
+              <th>Profile</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +54,9 @@
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
                     <button *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
+                </td>
+                <td>
+                    <button (click)="viewUserProfile(user)" type="button" class="btn btn-success">View Profile</button>
                 </td>
             </tr>
         </tbody>

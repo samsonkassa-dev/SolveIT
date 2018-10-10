@@ -24,6 +24,7 @@
                         <th>Name</th>
                         <th>Started Date</th>
                         <th>Activate/Deactivate</th>
+                        <th>Projects</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,9 @@
                         <td>
                             <button *ngIf="!competition.active" type="button" (click)="activateCompetition(competition)" class="btn btn-success">Activate</button>
                             <button *ngIf="competition.active" type="button" (click)="deactivateCompetition(competition)" class="btn btn-danger">Deactivate</button>
+                        </td>
+                        <td>
+                            <button type="button" (click)="viewProjects(competition)" class="btn btn-success">View Projects</button>
                         </td>
                     </tr>
                 </tbody>

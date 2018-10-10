@@ -8,12 +8,14 @@ import { CompetitionListComponent } from './competitionList/competitionList.comp
 import { CompetitionCreateComponent } from './competitionCreate/competitionCreate.component';
 import { CompetitionService } from './competition.service';
 import {MomentModule} from 'angular2-moment';
+import { CompetitionProjectsComponent } from './competitionProjects/competitionProjects.component';
 
 @NgModule({
     declarations: [
         CompetitionViewComponent,
         CompetitionListComponent,
-        CompetitionCreateComponent
+        CompetitionCreateComponent,
+        CompetitionProjectsComponent
     ],
     imports: [
         SharedModule,
