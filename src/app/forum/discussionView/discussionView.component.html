@@ -1,43 +1,43 @@
-<div id="blog" class="section">
+<app-header></app-header>
+<div class="container">
+  <div id="blog" class="section">
 
-    <div class="row">
 
-        <!-- Main -->
-        <main id="main" class="col-md-9" *ngIf="discussion.id !== 0">
-            <div class="blog">
-                <div class="blog-content">
-                    <h5>{{ discussion.slung }}</h5>
-                    <div class="pin" *ngIf="authService.isAuthenticated()">
-                        <i *ngIf="isFavorite(discussion)" (click)="removeFromFavorites()" class="fa fa-heart"></i>
-                        <i *ngIf="!isFavorite(discussion)" (click)="addToFavorites()" class="fa fa-heart-o"></i>
-                    </div>
-                  <div class="pin" *ngIf="authService.isAuthenticated()">
-                    <i *ngIf="isBlackListed" (click)="removeFromBlackList(discussion.id)" class="fa fa-flag"></i>
-                    <i *ngIf="!isBlackListed" (click)="blackList(discussion.id)" class="fa fa-flag-o"></i>
-                  </div>
-                    <p id="content">{{ discussion.content }}</p>
-                    <ul class="blog-meta">
-                        <li><i class="fa fa-user"></i>by : {{postedBy.username}}</li>
-                        <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
-                        <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
-                    </ul>
-                </div>
-                <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments"></app-comment-list>
-                <!-- reply form -->
-                <div class="reply-form">
-                    <h6 class="title" *ngIf="authService.isAuthenticated()">Leave a reply</h6>
-                    <h6 class="title" *ngIf="!authService.isAuthenticated()">Please sign in to post a reply. <span id="link" (click)="onSignIn()">here</span></h6>
-                    <form [formGroup]="commentForm" *ngIf="authService.isAuthenticated()">
-                        <textarea placeholder="Add Your Commment" formControlName="content" [(ngModel)]="comment.content"></textarea>
-                        <button [disabled]="!commentForm.valid" type="submit" class="main-btn" (click)="addComment()">Reply</button>
-                    </form>
-                </div>
-                <!-- /reply form -->
+      <!-- Main -->
+      <main id="main" *ngIf="discussion.id !== 0">
+        <div class="blog">
+          <div class="blog-content">
+            <h5>{{ discussion.title }}</h5>
+            <div class="pin" *ngIf="authService.isAuthenticated()">
+              <i *ngIf="isFavorite(discussion)" (click)="removeFromFavorites()" class="fa fa-heart"></i>
+              <i *ngIf="!isFavorite(discussion)" (click)="addToFavorites()" class="fa fa-heart-o"></i>
             </div>
-        </main>
-        <!-- /Main -->
-    </div>
-    <!-- /Row -->
+            <div class="pin" *ngIf="authService.isAuthenticated()">
+              <i *ngIf="isBlackListed" (click)="removeFromBlackList(discussion.id)" class="fa fa-flag"></i>
+              <i *ngIf="!isBlackListed" (click)="blackList(discussion.id)" class="fa fa-flag-o"></i>
+            </div>
+            <p id="content">{{ discussion.content }}</p>
+            <ul class="blog-meta">
+              <li><i class="fa fa-user"></i>by : {{postedBy.username}}</li>
+              <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
+              <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
+            </ul>
+          </div>
+          <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments"></app-comment-list>
+          <!-- reply form -->
+          <div class="reply-form">
+            <h6 class="title" *ngIf="authService.isAuthenticated()">Leave a reply</h6>
+            <h6 class="title" *ngIf="!authService.isAuthenticated()">Please sign in to post a reply. <span id="link" (click)="onSignIn()">here</span></h6>
+            <form [formGroup]="commentForm" *ngIf="authService.isAuthenticated()">
+              <textarea placeholder="Add Your Commment" formControlName="content" [(ngModel)]="comment.content"></textarea>
+              <button [disabled]="!commentForm.valid" type="submit" class="main-btn" (click)="addComment()">Reply</button>
+            </form>
+          </div>
+          <!-- /reply form -->
+        </div>
+      </main>
+      <!-- /Main -->
 
+  </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -15,13 +15,13 @@ export class CreateDiscussionComponent implements OnInit {
 
     @Input() forum;
     @Output() created = new EventEmitter();
-    public discussion = {userAccountId: 0, forumId: 0};
+    public discussion = {userAccountId: 0, forumId: 0, slung: '', title: ''};
     public discussionForm: FormGroup;
 
     constructor(public authService: AuthService, public service: ForumService,
                 public sharedService: SharedService, public router: Router) {
         this.discussionForm = new FormGroup({
-            slung: new FormControl('', Validators.required),
+            title: new FormControl('', Validators.required),
             content: new FormControl('', Validators.required)
         });
     }
@@ -32,6 +32,7 @@ export class CreateDiscussionComponent implements OnInit {
     }
 
     createDiscussion() {
+        this.discussion.slung = this.discussion.title.replace(' ', '-');
         this.service.createDiscussion(this.discussion).subscribe(
             res => {
               this.toggleDiscussionList();

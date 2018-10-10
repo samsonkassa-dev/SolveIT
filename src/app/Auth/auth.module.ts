@@ -10,6 +10,8 @@ import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import { AdressComponent } from './adress/adress.component';
 import { QuestionariesComponent } from './questionaries/questionaries.component';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
+import {NotSignedinGuardService} from './services/not-signedin-guard.service';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { QuestionariesComponent } from './questionaries/questionaries.component'
     LoginComponent,
     AdressComponent,
     QuestionariesComponent,
+    EmailConfirmationComponent,
   ],
   imports: [
     FormsModule,
@@ -26,7 +29,7 @@ import { QuestionariesComponent } from './questionaries/questionaries.component'
     CommonModule,
     SharedModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, NotSignedinGuardService],
   exports: [],
 })
 export class AuthModule { }

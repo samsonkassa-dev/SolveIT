@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="confirmation" *ngIf="!loading">
+
+
+  <p id="info">
+    <i class="fa fa-ban"></i>
+    <br>
+    Your are not registered yet!
+  </p>
+  <p id="link">
+    <a routerLink="/register">Please get registered here.</a>
+  </p>
+</div>
+<div id="preloader" *ngIf="loading">
+  <div class="preloader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+

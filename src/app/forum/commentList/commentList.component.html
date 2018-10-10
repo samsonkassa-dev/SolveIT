@@ -1,6 +1,6 @@
 <!-- blog comments -->
 <div class="blog-comments">
-    <h6 class="title">{{ comments.length }} Comments</h6>
+    <h6 class="title">{{ comments.length }} {{comments.length > 1 ?  'Comments' : 'Comment  ' }}</h6>
 
     <!-- comment -->
     <div class="media" *ngFor="let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">

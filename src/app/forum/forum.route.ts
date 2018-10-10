@@ -8,7 +8,8 @@ export const ForumRoutes: Routes = [
     path: 'forums',
     children: [
       {path: '', component: ForumComponent},
-      {path: ':slung', component: ForumViewComponent}
+      {path: ':slung', component: ForumViewComponent},
     ]
-  }
+  },
+  { path: 'discussions/:slung', component: DiscussionViewComponent }
 ];
