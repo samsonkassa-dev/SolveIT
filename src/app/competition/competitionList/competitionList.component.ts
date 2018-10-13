@@ -73,7 +73,7 @@ export class CompetitionListComponent implements OnInit{
 
     viewProjects(competition) {
         //navigate to projects list in competition
-        this.router.navigate(['/competitions', competition.id]);
+        this.router.navigate(['/competition', competition.id]);
     }
 
     onSearch() {
