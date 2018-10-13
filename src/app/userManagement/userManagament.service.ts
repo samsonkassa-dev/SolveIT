@@ -14,7 +14,7 @@ export class UserManagementService {
     }
 
     getUser(userId) {
-        return this.apiService.get(`UserAccounts/${userId}`);
+        return this.apiService.get(`UserAccounts/${userId}?filter={"include":["role","region"]}`);
     }
 
     activateDeactivateUser(user) {
@@ -27,5 +27,9 @@ export class UserManagementService {
 
     getRegions() {
         return this.apiService.get(`Regions/`);
+    }
+
+    updateStatus(user) {
+        return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
 }

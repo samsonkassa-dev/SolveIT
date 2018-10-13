@@ -34,6 +34,7 @@ export class UserListComponent implements OnInit {
 
     ngOnInit() {
         this.populateUsersList();
+        this.getRegions();
     }
 
     getAllUsers() {
@@ -105,13 +106,19 @@ export class UserListComponent implements OnInit {
     }
 
     filterUsers() {
-        if (this.selectedRegion === 0) {
-            this.selectedUsers = this.allUsers.filter(item => {
-                return item.roleId === this.selectedRole.id;
-            });      
+        if (this.selectedRole.name === 'participant') {
+            if (this.selectedRegion === 0) {
+                this.selectedUsers = this.allUsers.filter(item => {
+                    return item.roleId === this.selectedRole.id;
+                });      
+            } else {
+                this.selectedUsers = this.allUsers.filter(item => {
+                    return (item.roleId === this.selectedRole.id && item.regionId === this.selectedRegion);
+                });
+            }
         } else {
             this.selectedUsers = this.allUsers.filter(item => {
-                return (item.roleId === this.selectedRole.id && item.regionId === this.selectedRegion);
+                return item.roleId === this.selectedRole.id;
             });
         }
         this.backupUsers = this.selectedUsers;
