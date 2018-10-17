@@ -12,6 +12,9 @@ import {SharedModule} from '../shared/shared.module';
 import {UserManagementModule} from '../userManagement/userManagement.module';
 import {DashboardComponent} from './dashboard.component';
 import {CompetitionModule} from '../competition/competition.module';
+import {CategoryModule} from './category/category.module';
+import {TagModule} from './tag/tag.module';
+import {AdminGuardService} from '../Auth/services/admin-guard.service';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,11 @@ import {CompetitionModule} from '../competition/competition.module';
     ToastyModule,
     SharedModule,
     UserManagementModule,
-    CompetitionModule
+    CompetitionModule,
+    CategoryModule,
+    TagModule
   ],
-  providers: [ApiService, ToastyService, SharedService],
+  providers: [ApiService, ToastyService, SharedService, AdminGuardService],
   exports: [HeaderComponent, AppTableComponent],
 })
 export class DashboardModule { }

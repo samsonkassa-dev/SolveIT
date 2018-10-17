@@ -31,3 +31,15 @@ i {
   width: 70%;
   margin: auto;
 }
+
+#content {
+  text-align: justify;
+}
+
+.blog-meta {
+  clear: both;
+}
+
+.blog-tags a {
+  border: 1px solid white;
+}

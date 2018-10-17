@@ -72,7 +72,7 @@
                                 <tbody>
                                     <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: discussionPage  }; let index = index" (click)="discussionDetail(discussion)">
                                         <th scope="row">
-                                            {{ discussion.slung}}
+                                            {{ discussion.title}}
                                         </th>
                                         <td>Python</td>
                                         <td> {{ discussion.createdAt | amTimeAgo }} </td>

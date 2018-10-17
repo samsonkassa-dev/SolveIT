@@ -1,50 +1,56 @@
-<div class="users-list">
+<app-header></app-header>
+<div class="container">
+  <div class="users-list">
     <div class="row">
-        <br>
+      <h4 class="title" *ngIf="competition">Projects registered for <span style="color: teal">{{competition.name}}</span> </h4>
+      <br>
     </div>
     <div class="row">
-        <div id="aside" class="col-md-offset-2 col-md-6">
-            <div class="widget">
-                <div class="widget-search">
-                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="searchProject($event)">
-                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+      <div id="aside" class="col-md-offset-2 col-md-6">
+        <div class="widget">
+          <div class="widget-search">
+            <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="searchProject($event)">
+            <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="row">
+  <div class="row">
     <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Project Title</th>
-                <th>View Project</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let project of projects | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ project.title }}</td>
-                <td>
-                    <button (click)="viewProject(project)" type="button" class="btn btn-success">View Project</button>
-                </td>
-            </tr>
-        </tbody>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Project Title</th>
+        <th>View Project</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let project of projects | paginate: { itemsPerPage: 15, currentPage: page }; let i = index">
+        <th >{{i+1}}</th>
+        <td>{{ project.title }}</td>
+        <td>
+          <button (click)="viewProject(project)" type="button" class="btn btn-success">View Project</button>
+        </td>
+      </tr>
+      </tbody>
     </table>
     <pagination-controls *ngIf="projects.length > 15" (pageChange)="page = $event"></pagination-controls>
     <div class="not-found" *ngIf="backupProjects.length == 0 && keyword === ''">
-        <div class="no-resource-found">
-            <p>
-                <i class="fa  fa-frown-o"></i> No Projects Joined, yet.
-            </p>
-        </div>
+      <div class="no-resource-found">
+        <p>
+          <i class="fa  fa-frown-o"></i> No Projects Joined, yet.
+        </p>
+      </div>
     </div>
     <div class="not-found" *ngIf="projects.length == 0 && keyword !== ''">
-    <div class="no-resource-found">
+      <div class="no-resource-found">
         <p>
-        <i class="fa  fa-frown-o"></i> Project "{{keyword}}" not found.
+          <i class="fa  fa-frown-o"></i> Project "{{keyword}}" not found.
         </p>
+      </div>
     </div>
-    </div>
+  </div>
+
 </div>
-    

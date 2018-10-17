@@ -16,21 +16,26 @@
               <i *ngIf="isBlackListed" (click)="removeFromBlackList(discussion.id)" class="fa fa-flag"></i>
               <i *ngIf="!isBlackListed" (click)="blackList(discussion.id)" class="fa fa-flag-o"></i>
             </div>
-            <p id="content">{{ discussion.content }}</p>
             <ul class="blog-meta">
               <li><i class="fa fa-user"></i>by : {{postedBy.username}}</li>
               <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
               <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
             </ul>
+            <p id="content">{{ discussion.content }}</p>
+            <!-- blog tags -->
+            <div class="blog-tags"  *ngIf="tags.length > 0">
+              <a *ngFor="let tag of tags"><i class="fa fa-tag"></i>{{tag.name}}</a>
+            </div>
+            <!-- blog tags -->
           </div>
           <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments"></app-comment-list>
           <!-- reply form -->
           <div class="reply-form">
-            <h6 class="title" *ngIf="authService.isAuthenticated()">Leave a reply</h6>
-            <h6 class="title" *ngIf="!authService.isAuthenticated()">Please sign in to post a reply. <span id="link" (click)="onSignIn()">here</span></h6>
+            <h5 class="title" *ngIf="authService.isAuthenticated()">Leave a comment</h5>
+            <h6 class="title" *ngIf="!authService.isAuthenticated()">Please sign in to post a comment. <span id="link" (click)="onSignIn()">here</span></h6>
             <form [formGroup]="commentForm" *ngIf="authService.isAuthenticated()">
-              <textarea placeholder="Add Your Commment" formControlName="content" [(ngModel)]="comment.content"></textarea>
-              <button [disabled]="!commentForm.valid" type="submit" class="main-btn" (click)="addComment()">Reply</button>
+              <textarea placeholder="Add Your Comment" formControlName="content" [(ngModel)]="comment.content"></textarea>
+              <button [disabled]="!commentForm.valid" type="submit" class="main-btn" (click)="addComment()">Comment</button>
             </form>
           </div>
           <!-- /reply form -->

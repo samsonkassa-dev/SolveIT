@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-user-list',
@@ -110,7 +111,7 @@ export class UserListComponent implements OnInit {
             if (this.selectedRegion === 0) {
                 this.selectedUsers = this.allUsers.filter(item => {
                     return item.roleId === this.selectedRole.id;
-                });      
+                });
             } else {
                 this.selectedUsers = this.allUsers.filter(item => {
                     return (item.roleId === this.selectedRole.id && item.regionId === this.selectedRegion);

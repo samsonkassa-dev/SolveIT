@@ -106,6 +106,15 @@ export class AuthService {
     }
   }
 
+  isAdmin() {
+    try {
+      const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
+      return data.role === this.ICOG_ROLE[3];
+    } catch (e) {
+      return false;
+    }
+  }
+
   isSolveitTeam() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));

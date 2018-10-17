@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { CompetitionService } from '../../competition/competition.service';
 import {ApiService} from '../../shared/services/api.service';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-project-view',
@@ -24,7 +25,7 @@ export class ProjectViewComponent implements OnInit {
     public selectedProgressReport = null;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
-                public s: CompetitionService, public apiService: ApiService) {
+                public s: CompetitionService, public apiService: ApiService, public authService: AuthService) {
 
     }
 

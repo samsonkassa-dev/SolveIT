@@ -24,3 +24,7 @@ select {
     margin: auto auto 8em auto;
     padding: 2em;
 }
+
+td {
+  cursor: pointer;
+}

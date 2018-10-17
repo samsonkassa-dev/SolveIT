@@ -22,6 +22,9 @@ import {ForumModule} from './forum/forum.module';
 import {SolveitTeamModule} from './solveitTeam/solveitTeam.module';
 import { CompetitionModule } from './competition/competition.module';
 import {DashboardModule} from './dashboard/dashboard.module';
+import {AuthGuardService} from './Auth/services/auth-guard.service';
+import {SolveitTeamGuardService} from './Auth/services/solveit-team-guard.service';
+import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
     BsModalModule,
     DashboardModule
   ],
-  providers: [ApiService, ToastOptions],
+  providers: [ApiService, ToastOptions, AuthGuardService, SolveitTeamGuardService, SolveitMgmtGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

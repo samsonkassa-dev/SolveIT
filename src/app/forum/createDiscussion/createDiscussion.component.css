@@ -64,3 +64,12 @@ form {
   margin: 10em auto;
   padding: 3em;
 }
+
+.selectedTag {
+  background: #2BA692;
+}
+
+.blog-tags a {
+  cursor: pointer;
+  border: 1px solid white;
+}

@@ -1,19 +1,9 @@
 <!-- blog comments -->
 <div class="blog-comments">
     <h6 class="title">{{ comments.length }} {{comments.length > 1 ?  'Comments' : 'Comment  ' }}</h6>
-
-    <!-- comment -->
-    <div class="media" *ngFor="let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">
-        <div class="media-left">
-            <img class="media-object" id="commenter-avatar" src="../../../assets/img/User_Circle.png" alt="">
-        </div>
-        <div class="media-body">
-            <h6 class="media-heading">{{ comment.user.username }}<span class="time">{{ comment.createdAt | amTimeAgo }}</span></h6>
-            <p>{{ comment.content }}</p>
-        </div>
-    </div>
-    <!-- /comment -->
-
+    <ng-container  *ngFor="let comment of comments | paginate: { itemsPerPage: 20, currentPage: page }">
+      <app-single-comment [comment]="comment"></app-single-comment>
+    </ng-container>
     <pagination-controls *ngIf="comments.length > 20" (pageChange)="page = $event"></pagination-controls>
 </div>
 <!-- /blog comments -->

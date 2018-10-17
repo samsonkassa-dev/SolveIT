@@ -9,6 +9,7 @@ import { CompetitionCreateComponent } from './competitionCreate/competitionCreat
 import { CompetitionService } from './competition.service';
 import {MomentModule} from 'angular2-moment';
 import { CompetitionProjectsComponent } from './competitionProjects/competitionProjects.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { CompetitionProjectsComponent } from './competitionProjects/competitionP
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-      MomentModule
+      MomentModule,
+      NgxPaginationModule
     ],
     providers: [CompetitionService],
     exports: [CompetitionViewComponent]

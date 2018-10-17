@@ -24,3 +24,7 @@ select {
     margin: auto auto 8em auto;
     padding: 2em;
 }
+
+.container {
+  margin: 3em auto 15em;
+}

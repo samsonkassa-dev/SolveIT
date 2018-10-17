@@ -63,3 +63,7 @@ input {
 .input[type=password]:first-child {
   margin-top: 1em;
 }
+
+img {
+  width: 7em;
+}

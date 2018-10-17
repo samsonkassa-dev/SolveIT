@@ -15,6 +15,7 @@ export class CompetitionProjectsComponent implements OnInit {
     public backupProjects = [];
     public keyword = '';
     public page = 1;
+    public competition = null;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: CompetitionService) {
 
@@ -23,6 +24,10 @@ export class CompetitionProjectsComponent implements OnInit {
     ngOnInit() {
         this.competitionId = this.route.snapshot.paramMap.get('competitionId');
         this.getProjects();
+        this.service.getActiveCompetition()
+          .subscribe(res => {
+            this.competition = res.Result[0];
+          });
     }
 
     getProjects() {

@@ -1,6 +1,9 @@
 <app-header></app-header>
 
 <div *ngIf="isBasicFormActive" id="registration-form">
+  <div class="section-header text-center">
+    <img src="../../../assets/img/solveit-logo12.png" alt="">
+  </div>
     <!-- Section-header -->
     <div class="section-header text-center">
         <h2 class="title">Register For The Competition</h2>
@@ -91,6 +94,16 @@
                     <div class="error-message" *ngIf="registerForm.controls.sex.invalid && registerForm.controls.sex.touched">
                         <p>* Sex is required.</p>
                     </div>
+                </div>
+                <div class="input-field">
+                  <select name="region" id="region" formControlName="region" [(ngModel)]="user.regionId"
+                          [class.err]="registerForm.controls.region.invalid && registerForm.controls.region.touched">
+                    <option value="">Select Your Region</option>
+                    <option *ngFor="let region of regions" value="{{region.id}}">{{region.name.toUpperCase()}}</option>
+                  </select>
+                  <div class="error-message" *ngIf="registerForm.controls.region.invalid && registerForm.controls.region.touched">
+                    <p>* Region is required.</p>
+                  </div>
                 </div>
                 <div class="input-field">
                     <select name="educationLevel" id="educationLevel" [(ngModel)]="user.educationLevel" formControlName="educationLevel" [class.err]="registerForm.controls.educationLevel.invalid && registerForm.controls.educationLevel.touched">
