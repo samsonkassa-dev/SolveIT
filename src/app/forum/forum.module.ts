@@ -41,7 +41,7 @@ import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.c
       MomentModule
     ],
     providers: [ForumService],
-    exports: []
+    exports: [ReviewDiscussionComponent]
 })
 
 export class ForumModule {
