@@ -29,6 +29,10 @@ export class UserManagementService {
         return this.apiService.get(`Regions/`);
     }
 
+    getCities() {
+        return this.apiService.get(`cities/`);
+    }
+
     updateStatus(user) {
         return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
