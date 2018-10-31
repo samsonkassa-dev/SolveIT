@@ -15,6 +15,7 @@ import {CompetitionModule} from '../competition/competition.module';
 import {CategoryModule} from './category/category.module';
 import {TagModule} from './tag/tag.module';
 import {AdminGuardService} from '../Auth/services/admin-guard.service';
+import { ForumModule } from '../forum/forum.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {AdminGuardService} from '../Auth/services/admin-guard.service';
     UserManagementModule,
     CompetitionModule,
     CategoryModule,
-    TagModule
+    TagModule,
+    ForumModule
   ],
   providers: [ApiService, ToastyService, SharedService, AdminGuardService],
   exports: [HeaderComponent, AppTableComponent],
