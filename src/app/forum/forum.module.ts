@@ -16,6 +16,7 @@ import { MemberList } from './memberList/memberList.component';
 import { AddMember } from './addMember/addMember.component';
 import {MomentModule} from 'angular2-moment';
 import { SingleCommentComponent } from './single-comment/single-comment.component';
+import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { SingleCommentComponent } from './single-comment/single-comment.componen
         CommentListComponent,
         MemberList,
         AddMember,
-        SingleCommentComponent
+        SingleCommentComponent,
+        ReviewDiscussionComponent
     ],
     imports: [
       CommonModule,
