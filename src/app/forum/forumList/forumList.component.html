@@ -1,19 +1,4 @@
 <div class="forum-list">
-    <div *ngIf="selected == 'forum-list-public' || 'forum-list-private'" class="container">
-        <div class="row">
-            <br>
-        </div>
-        <div class="row" *ngIf="forumsBackup.length > 0 || keyword !== ''">
-            <div id="aside" class="col-md-offset-4 col-md-4 col-sm-offset-2 col-sm-8">
-                <div class="widget">
-                    <div class="widget-search">
-                        <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="onSearch($event)">
-                        <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="not-found">
         <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
             <p>
