@@ -9,7 +9,7 @@
     <!-- /Section-header -->
     <div class="form-group">
       <input type="text" class="inpu" name="title" placeholder="Name"
-             formControlName="title" [(ngModel)]="resource.title"
+             formControlName="title"
              [(ngModel)]="resource.title" [class.err]="resourceForm.controls.title.invalid && resourceForm.controls.title.touched">
       <p *ngIf="resourceForm.controls.title.invalid && resourceForm.controls.title.touched" class="error-message">* Name is required.</p>
     </div>

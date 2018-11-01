@@ -9,7 +9,11 @@ import { SolveitTeamRoutes } from './solveitTeam/solveitTeam.route';
 import { ProjectRoutes } from './project/project.route';
 import { UserManagementRoutes } from './userManagement/userManagament.route';
 import { CompetitionRoutes } from './competition/competition.route';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {NEWS_ROUTES} from './news/news.router';
+import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
+import {AuthGuardService} from './Auth/services/auth-guard.service';
+import {DashboardGuardService} from './Auth/services/dashboard-guard.service';
 import { WinnerComponent } from './winnerProject/winner/winner.component';
 
 export const APP_ROUTES: Routes = [
@@ -21,7 +25,8 @@ export const APP_ROUTES: Routes = [
   ...CompetitionRoutes,
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
-  { path: 'dashboard', component: DashboardComponent, canActivate: []},
+  ...NEWS_ROUTES,
+  { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardGuardService]}
   { path: 'winner', component: WinnerComponent, canActivate: []}
 
 ];

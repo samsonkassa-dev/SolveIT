@@ -33,7 +33,6 @@ export class CreateForumComponent {
       this.forum.slung = this.forum.slung.replace(' ', '-');
         this.service.createForum(this.forum).subscribe(
             res => {
-                this.sharedService.addToast('Success', 'Forum Created!.', 'success');
                 const forumId = res.id;
                 this.created.emit();
                 const userId = this.authService.getUserId();

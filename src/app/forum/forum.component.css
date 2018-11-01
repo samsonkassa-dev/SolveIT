@@ -31,3 +31,7 @@
 .button-active {
     color: #e4b1b1;
 }
+
+#aside {
+    float: right;
+}

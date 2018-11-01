@@ -16,6 +16,8 @@ import {ProjectMemberList} from './memberList/memberList.component';
 import { CreateProgressReportComponent } from './create-progress-report/create-progress-report.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import {MomentModule} from 'angular2-moment';
+import { JoinCompetitionComponent } from './join-competition/join-competition.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {MomentModule} from 'angular2-moment';
     AddProjectMemberComponent,
     ProjectMemberList,
     CreateProgressReportComponent,
-    ReportViewComponent
+    ReportViewComponent,
+    JoinCompetitionComponent
   ],
   imports: [
     NgxPaginationModule,
@@ -36,7 +39,8 @@ import {MomentModule} from 'angular2-moment';
     ReactiveFormsModule,
     FileUploadModule,
     NgCircleProgressModule,
-    MomentModule
+    MomentModule,
+    NgMultiSelectDropDownModule
   ],
   providers: [ProjectService],
   exports: []

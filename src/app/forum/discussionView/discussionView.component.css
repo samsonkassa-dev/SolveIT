@@ -43,3 +43,8 @@ i {
 .blog-tags a {
   border: 1px solid white;
 }
+
+.discussionImg {
+  width: 50%;
+  margin-top: 1em;
+}

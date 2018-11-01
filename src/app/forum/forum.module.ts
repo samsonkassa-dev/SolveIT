@@ -17,6 +17,10 @@ import { AddMember } from './addMember/addMember.component';
 import {MomentModule} from 'angular2-moment';
 import { SingleCommentComponent } from './single-comment/single-comment.component';
 import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
+import {NgxWigModule} from 'ngx-wig';
+import {FileUploadModule} from 'ng2-file-upload';
+import {NgCircleProgressModule} from 'ng-circle-progress';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 @NgModule({
     declarations: [
@@ -38,10 +42,14 @@ import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.c
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
-      MomentModule
+      MomentModule,
+      NgxWigModule,
+      FileUploadModule,
+      NgCircleProgressModule,
+      NgMultiSelectDropDownModule
     ],
     providers: [ForumService],
-    exports: []
+    exports: [ReviewDiscussionComponent]
 })
 
 export class ForumModule {

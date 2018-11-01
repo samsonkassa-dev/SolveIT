@@ -4,6 +4,7 @@ import { ForumService } from '../forum.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../Auth/services/auth.service';
 import { SharedService } from '../../shared/services/shared.service';
+import {configs} from '../../app.config';
 
 @Component({
     selector: 'app-discussion-view',
@@ -194,6 +195,10 @@ export class DiscussionViewComponent implements OnInit {
 
   onSignIn() {
       this.router.navigate(['login']);
+  }
+
+  getImageSource(image) {
+    return `${configs.rootUrl}storages/discussions/download/${image}`;
   }
 
 }
