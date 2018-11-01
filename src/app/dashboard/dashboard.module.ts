@@ -16,6 +16,7 @@ import {CategoryModule} from './category/category.module';
 import {TagModule} from './tag/tag.module';
 import {AdminGuardService} from '../Auth/services/admin-guard.service';
 import { ForumModule } from '../forum/forum.module';
+import { CityModule } from './city/city.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ForumModule } from '../forum/forum.module';
     CompetitionModule,
     CategoryModule,
     TagModule,
-    ForumModule
+    ForumModule,
+    CityModule
   ],
   providers: [ApiService, ToastyService, SharedService, AdminGuardService],
   exports: [HeaderComponent, AppTableComponent],

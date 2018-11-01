@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 import { UserManagementService } from "../userManagament.service";
 
@@ -12,13 +13,19 @@ export class ExportDataComponent implements OnInit{
 
     public selectionOptions = {sex:'both', educationLevel: 'none', selectedCity: 0};
     public cities = [];
+    public optionForm: FormGroup;
 
-    constructor(public apiService: ApiService, public service: UserManagementService) {
+    constructor(public apiService: ApiService, public service: UserManagementService, public fb: FormBuilder) {
 
     }
 
     ngOnInit() {
         this.getCities();
+        this.optionForm = this.fb.group({
+            sex: [''],
+            educationLevel: [''],
+            city: ['']
+          });
     }
 
     exportReport() {

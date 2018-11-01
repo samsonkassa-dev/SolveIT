@@ -9,7 +9,8 @@ import { SolveitTeamRoutes } from './solveitTeam/solveitTeam.route';
 import { ProjectRoutes } from './project/project.route';
 import { UserManagementRoutes } from './userManagement/userManagament.route';
 import { CompetitionRoutes } from './competition/competition.route';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { WinnerComponent } from './winnerProject/winner/winner.component';
 
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },
@@ -20,5 +21,7 @@ export const APP_ROUTES: Routes = [
   ...CompetitionRoutes,
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
-  { path: 'dashboard', component: DashboardComponent, canActivate: []}
+  { path: 'dashboard', component: DashboardComponent, canActivate: []},
+  { path: 'winner', component: WinnerComponent, canActivate: []}
+
 ];

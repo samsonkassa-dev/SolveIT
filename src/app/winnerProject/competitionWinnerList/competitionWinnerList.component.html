@@ -1,0 +1,30 @@
+<div class="forum-list">
+    <div class="forums-list-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Competition</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let winner of competitionWinners | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
+                    <th scope="row">
+                        {{winner.competition.name}}
+                    </th>
+                    <td>{{winner.solveitproject.title }}
+                    </td>
+                    <td>
+                        <span *ngIf="!winner.active">INACTIVE</span>
+                        <button *ngIf="winner.active" (click)="removeCompetitionWinnerLabel(winner)" type="button" class="btn btn-danger">Deactivate</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="forum-pagination">
+        <pagination-controls *ngIf="competitionWinners.length > 10" (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+</div>
+        

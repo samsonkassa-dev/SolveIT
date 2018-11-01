@@ -12,7 +12,9 @@ export class DashboardComponent implements OnInit {
     'competitions',
     'categories',
     'tags',
-    'reviewDiscussions'
+    'reviewDiscussions',
+    'city',
+    'exportData'
   ];
   public selected = this.views[0];
 

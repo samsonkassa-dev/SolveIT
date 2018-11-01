@@ -1,0 +1,28 @@
+<form [formGroup]="optionForm" *ngIf="authService.isAuthenticated()">
+    <h4 class="title" id="form-title"> Export Data </h4>
+    <div id="resource-form">
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="city.regionId" formControlName="sex">
+                <option selected value="both">Both</option>
+                <option selected value="M">Male</option>
+                <option selected value="F">Female</option>
+            </select>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="city.regionId" formControlName="educationLevel">
+                <option selected value="none">None</option>
+                <option selected value="elementary">Elementary</option>
+                <option selected value="high school">High school</option>
+            </select>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="city.regionId" formControlName="city">
+                <option selected value="0">Select City</option>
+                <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+            </select>
+        </div>
+        <div class="form-group" id="resource-upload-btn">
+        <input type="button" [disabled]="!optionForm.valid" (click)="exportReport()" class="main-btn" value="Export Data">
+        </div>
+    </div>
+</form>

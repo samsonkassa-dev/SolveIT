@@ -1,0 +1,23 @@
+<form [formGroup]="weeklyWinnerForm" *ngIf="authService.isAuthenticated()">
+    <h4 class="title" id="form-title"> Add Weekly Winner </h4>
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="weeklyWinner.competitionId" formControlName="competition">
+                <option selected value="0">Select Competition</option>
+                <option *ngFor="let competition of competitions" value="{{competition.id}}">{{competition.name}}</option>
+            </select>
+        </div>
+        <div id="resource-form">
+            <input type="text" class="input" name="title" placeholder="Week Name"
+            formControlName="week" [(ngModel)]="weeklyWinner.name">
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="weeklyWinner.projectId" formControlName="project">
+                <option selected value="0">Select Project</option>
+                <option *ngFor="let project of projects" value="{{project.id}}">{{project.title}}</option>
+            </select>
+        </div>
+        <div class="form-group" id="resource-upload-btn">
+        <input type="button" [disabled]="!weeklyWinnerForm.valid" (click)="addWeeklyWinner()" class="main-btn" value="Create">
+        </div>
+    </div>
+</form>

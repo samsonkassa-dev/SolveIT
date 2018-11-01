@@ -26,7 +26,7 @@ import { UserProfileCompomnent } from "./userProfile/userProfile.component";
         NgxPaginationModule
     ],
     providers: [UserManagementService],
-    exports: [ManageUserComponent]
+    exports: [ManageUserComponent, ExportDataComponent]
 })
 
 export class UserManagementModule {
