@@ -13,6 +13,7 @@ import { QuestionariesComponent } from './questionaries/questionaries.component'
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import {NotSignedinGuardService} from './services/not-signedin-guard.service';
 import {AdminGuardService} from './services/admin-guard.service';
+import {DashboardGuardService} from './services/dashboard-guard.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import {AdminGuardService} from './services/admin-guard.service';
     CommonModule,
     SharedModule
   ],
-  providers: [AuthService, NotSignedinGuardService, AdminGuardService],
+  providers: [AuthService, NotSignedinGuardService, AdminGuardService, DashboardGuardService],
   exports: [],
 })
 export class AuthModule { }

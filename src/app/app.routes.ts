@@ -11,6 +11,9 @@ import { UserManagementRoutes } from './userManagement/userManagament.route';
 import { CompetitionRoutes } from './competition/competition.route';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {NEWS_ROUTES} from './news/news.router';
+import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
+import {AuthGuardService} from './Auth/services/auth-guard.service';
+import {DashboardGuardService} from './Auth/services/dashboard-guard.service';
 
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },
@@ -22,5 +25,5 @@ export const APP_ROUTES: Routes = [
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
   ...NEWS_ROUTES,
-  { path: 'dashboard', component: DashboardComponent, canActivate: []}
+  { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardGuardService]}
 ];

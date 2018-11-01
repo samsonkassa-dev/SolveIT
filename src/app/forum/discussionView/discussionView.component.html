@@ -21,7 +21,11 @@
               <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
               <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
             </ul>
-            <p id="content">{{ discussion.content }}</p>
+            <div class="content" [innerHTML]="discussion.content"></div>
+            <div class="content" *ngIf="discussion.imgContent">
+              <img class="discussionImg" [src]="getImageSource(discussion.imgContent.name)" alt="">
+            </div>
+            <hr>
             <!-- blog tags -->
             <div class="blog-tags"  *ngIf="tags.length > 0">
               <a *ngFor="let tag of tags"><i class="fa fa-tag"></i>{{tag.name}}</a>
