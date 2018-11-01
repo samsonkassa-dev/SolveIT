@@ -7,45 +7,23 @@
             <h4 (click)="toggleView('forum-list-private')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'forum-list-private'">Private</h4>
             <button type="button" (click)="toggleView('forum-create')" class="btn main-btn btn-circle-xl" [class.button-active]="selected == 'forum-create'"><i class="fa fa-plus"></i>
       </button>
+            <div id="aside">
+                <div class="widget">
+                    <div class="widget-search">
+                        <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword">
+                        <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <app-forum-create (created)="toggleView('forum-list-public')" *ngIf="selected == 'forum-create'" [categories]="categories"></app-forum-create>
-        <app-forum-list (create)="toggleView('forum-create')" *ngIf="selected == 'forum-list-public'" [categories]="categories" [selected]="selected"></app-forum-list>
+        <app-forum-create (created)="forumCreated()" *ngIf="selected == 'forum-create'" [categories]="categories"></app-forum-create>
+        <app-forum-list [keyword]="keyword" (create)="toggleView('forum-create')" *ngIf="selected == 'forum-list-public'" [categories]="categories" [selected]="selected"></app-forum-list>
         <app-forum-list (create)="toggleView('forum-create')" *ngIf="selected == 'forum-list-private'" [categories]="categories" [selected]="selected"></app-forum-list>
-        <div *ngIf="selected == 'favourite-discussions'" class="container">
-            <div class="row">
-                <br>
-            </div>
-            <div class="row">
-                <div id="aside" class="col-md-offset-4 col-md-4">
-                    <div class="widget">
-                        <div class="widget-search">
-                            <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="onSearch($event)">
-                            <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Favourite Discussions</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div *ngIf="favouriteDiscussions.length > 0" class="list-group">
-                            <a *ngFor="let discussion of favouriteDiscussions | paginate: { itemsPerPage: 20, currentPage: favouritePage }" (click)="viewDiscussion(discussion)" class="list-group-item">
-                                {{ discussion.slung }}
-                                <span class="badge badge-primary badge-pill">{{ countComments(discussion) }} Comments</span>
-                            </a>
-                        </div>
-                        <pagination-controls *ngIf="favouriteDiscussions.length > 5" (pageChange)="p = $event"></pagination-controls>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

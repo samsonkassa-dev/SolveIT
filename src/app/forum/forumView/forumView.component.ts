@@ -111,4 +111,9 @@ export class ForumViewComponent implements OnInit {
       this.selectedDiscussion = discussion.slung;
       this.toggleView('discussion-detail');
     }
+
+    discussionCreated() {
+        this.toggleView('discussion-list');
+        this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
+    }
 }

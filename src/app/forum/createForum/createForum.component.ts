@@ -32,7 +32,6 @@ export class CreateForumComponent {
       this.forum.created = new Date();
         this.service.createForum(this.forum).subscribe(
             res => {
-                this.sharedService.addToast('Success', 'Forum Created!.', 'success');
                 const forumId = res.id;
                 this.created.emit();
                 this.authService.getUserInfo().subscribe(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService } from './forum.service';
 import { AuthService } from '../Auth/services/auth.service';
+import { SharedService } from '../shared/services/shared.service';
 
 @Component({
     selector: 'app-forum',
@@ -17,7 +18,7 @@ export class ForumComponent implements OnInit {
     public favouriteDiscussionsBackup = [];
     public keyword = '';
 
-    constructor(public service: ForumService, public authService: AuthService) {}
+    constructor(public service: ForumService, public authService: AuthService, public sharedService: SharedService) {}
 
     ngOnInit() {
         this.getCategories();
@@ -67,5 +68,9 @@ export class ForumComponent implements OnInit {
             }
         );
         return count;
+    }
+
+    forumCreated() {
+        this.toggleView('forum-list-public');
     }
 }

@@ -35,7 +35,6 @@ export class CreateDiscussionComponent implements OnInit {
         this.service.createDiscussion(this.discussion).subscribe(
             res => {
               this.toggleDiscussionList();
-                this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
             },
             err => {
                 if (err.status = 422) {

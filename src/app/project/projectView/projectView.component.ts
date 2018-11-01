@@ -20,17 +20,27 @@ export class ProjectViewComponent implements OnInit {
     public uploadReport = false;
     public project: any = null;
     public progressReports: any = [];
-    public enrolled = false;
+    public isEnrolled = false;
     public selectedProgressReport = null;
 
+    // for joining competition
+    public  activeCompetitions = [];
+    public isJoinCompetitionSuccessful = null;
+
     constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
-                public s: CompetitionService, public apiService: ApiService) {
+                public competitionService: CompetitionService, public apiService: ApiService) {
 
     }
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
         this.getProject(id);
+        this.competitionService.getCompetitions()
+            .subscribe(res => {
+                this.activeCompetitions = res;
+            }, error => {
+                console.log('Error while fetching competition ,', error);
+            });
     }
 
     toggleView(view) {
@@ -42,7 +52,7 @@ export class ProjectViewComponent implements OnInit {
             res => {
                 this.project = res;
                 this.getProgressReports();
-                console.log(this.project);
+                this.isProjectEnrolledToCompetition(this.project.id);
             }
         );
     }
@@ -94,21 +104,24 @@ export class ProjectViewComponent implements OnInit {
       this.getProgressReports();
   }
 
-  enrollToCompetition() {
-      this.s.getActiveCompetition()
+  onJoinCompetition($event) {
+    this.service.joinCompetition(this.project, $event.data)
+      .subscribe(res => {
+        this.isJoinCompetitionSuccessful = true;
+    }, error => {
+        this.isJoinCompetitionSuccessful = false;
+    });
+  }
+
+  isProjectEnrolledToCompetition(projectId) {
+      this.service.getProjectCompetitions(projectId)
         .subscribe(res => {
-          const temp = {
-            competitionId: res.Result[0].id,
-            projectId: this.project.id
-          };
-          this.apiService.post('CompetitionProjects', temp)
-            .subscribe(res1 => {
-              console.log('enrolled');
-              this.enrolled = true;
-            }, err => {
-              console.log(err);
-            });
-        });
+          if (res.length > 0 ) {
+            this.isEnrolled = true;
+          } else {
+            this.isEnrolled = false;
+          }
+      });
   }
 
   viewProgressReport(report) {
@@ -119,5 +132,4 @@ export class ProjectViewComponent implements OnInit {
   back() {
       this.selectedProgressReport = null;
   }
-
 }

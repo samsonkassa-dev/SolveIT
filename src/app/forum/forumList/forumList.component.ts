@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ForumService } from '../forum.service';
 import { AuthService } from '../../Auth/services/auth.service';
 import { retry } from 'rxjs/operator/retry';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { SimpleChange } from '@angular/core/src/change_detection/change_detection_util';
 
 @Component({
     selector: 'app-forum-list',
@@ -10,7 +12,7 @@ import { retry } from 'rxjs/operator/retry';
     styleUrls: ['./forumList.component.css']
 })
 
-export class ForumListComponent implements OnInit {
+export class ForumListComponent implements OnInit, OnChanges {
 
     @Input() selected;
     @Input() categories;
@@ -19,10 +21,11 @@ export class ForumListComponent implements OnInit {
     public popularforums = [];
     public forumsBackup = [];
     public forums = [];
-    public keyword = '';
+    // public keyword = '';
     public forumType = '';
     public page = 1;
     public discussionCounts = [];
+    @Input() keyword;
 
     constructor(public service: ForumService, public router: Router, public authService: AuthService) {
 
@@ -31,6 +34,10 @@ export class ForumListComponent implements OnInit {
     ngOnInit() {
 
       this.fetchForumsList();
+    }
+
+    ngOnChanges(changes) {
+        this.onSearch();
     }
 
     fetchForumsList() {
@@ -83,7 +90,7 @@ export class ForumListComponent implements OnInit {
         this.router.navigate(['/forums', slung]);
     }
 
-    onSearch($event) {
+    onSearch() {
         if (this.keyword !== '') {
           if (this.forums.length === 0) {
             this.forums = this.forumsBackup;

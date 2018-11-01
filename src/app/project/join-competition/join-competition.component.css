@@ -1,0 +1,34 @@
+#competitionInput, #productType, #regionInput, #sectorInput, #howToParticipateInput, #everBeenInCompetitionInput {
+    padding: .5em;
+    background: white;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.error-message p {
+    font-size: 0.7em;
+    text-align: center;
+    color: #EC4643;
+}
+
+.err {
+    border-color: #EC4643
+}
+
+.input-field {
+  margin-bottom: 1em;
+}
+
+.actions, .info {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.info-text {
+  text-align: center;
+  color: #2BA692;
+}
+

@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div *ngIf="selected == 'discussion-create'" class="row">
-                        <app-discussion-create (created)="toggleView('discussion-list')" [forum]="forum"></app-discussion-create>
+                        <app-discussion-create (created)="discussionCreated()" [forum]="forum"></app-discussion-create>
                     </div>
                     <div *ngIf="selected == 'add-members'" class="row">
                         <add-member [forum]="forum"></add-member>
@@ -103,3 +103,4 @@
         </div>
     </div>
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
