@@ -20,7 +20,9 @@
               <div class="service" id="event">
                 <i class="fa fa-calendar"></i>
                 <h3>{{ event.title }}</h3>
-                <p><b>On</b> {{ getDate(event.date).date }}</p>
+                <p><b>In</b> {{ event.city }}</p>
+                <p><b>Venue</b> {{ event.place + ' , ' + event.venue}}</p>
+                <p><b>On</b> {{ getDate(event.startDate).date }}</p>
                 <p><i id="event-time-icon" class="fa fa-clock-o"></i>{{ getDate(event.date).clock }}</p>
                 <button *ngIf="!isPassed(event)" class="outline-btn" (click)="viewEventDetail(event)" data-toggle="modal" data-target="#myModal">Detail</button>
                 <button id="passed-status" *ngIf="isPassed(event)" class="main-btn">Passed</button>

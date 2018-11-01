@@ -1,0 +1,15 @@
+#news-form {
+  padding: 1.5em;
+  width: 90%;
+  margin: auto;
+}
+
+.error-message{
+  text-align: center;
+  font-size: 0.7em;
+  color: #EC4643;
+}
+
+.err {
+  border-color: #EC4643
+}

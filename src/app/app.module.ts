@@ -25,6 +25,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthGuardService} from './Auth/services/auth-guard.service';
 import {SolveitTeamGuardService} from './Auth/services/solveit-team-guard.service';
 import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
+import {NewsModule} from './news/news.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.servic
     AuthModule,
     SharedModule,
     ResourcesModule,
+    NewsModule,
     NgCircleProgressModule.forRoot({
       radius: 20,
       outerStrokeWidth: 8,

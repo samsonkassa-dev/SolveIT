@@ -14,7 +14,11 @@ export class CreateEventComponent {
     public event = {
       title: '',
       description: '',
-      date: new Date()
+      city: '',
+      place: '',
+      venue: '',
+      startDate: new Date(),
+      endDate: new Date()
     };
     public eventForm: FormGroup;
     @Output() created = new EventEmitter();
@@ -23,7 +27,11 @@ export class CreateEventComponent {
         this.eventForm = new FormGroup({
             title: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
-            date: new FormControl(new Date(), Validators.required)
+            city: new FormControl('', Validators.required),
+            place: new FormControl('', Validators.required),
+            venue: new FormControl('', Validators.required),
+            startDate: new FormControl(new Date(), Validators.required),
+            endDate: new FormControl(new Date(), Validators.required)
         });
     }
 
