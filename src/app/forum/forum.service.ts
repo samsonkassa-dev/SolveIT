@@ -121,4 +121,12 @@ export class ForumService {
     getDiscussionTags(discussionId) {
       return this.apiService.get(`Solveitdiscussions/${discussionId}/tags`);
     }
+
+    getBlacklistedDiscussions() {
+        return this.apiService.get(`BlackListedDiscussions?filter={"include": "solveitdiscussion"}`);
+    }
+
+    removeDiscussion(discussionId) {
+        return this.apiService.delete(`Solveitdiscussions/${discussionId}`);
+    }
 }

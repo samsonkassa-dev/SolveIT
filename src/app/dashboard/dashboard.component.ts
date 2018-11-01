@@ -11,7 +11,8 @@ export class DashboardComponent implements OnInit {
     'users',
     'competitions',
     'categories',
-    'tags'
+    'tags',
+    'reviewDiscussions'
   ];
   public selected = this.views[0];
 

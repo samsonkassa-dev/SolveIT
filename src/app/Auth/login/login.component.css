@@ -1,65 +1,65 @@
 #registration-form {
-  width: 40%;
-  padding: 6em;
-  border: 1px solid rgba(0,0,0,0.2);
-  background-color: white;
-  margin: 7% auto 10%;
+    width: 40%;
+    padding: 6em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin: 7% auto 10%;
 }
 
 form {
-  width: 80%;
-  margin: auto;
+    width: 80%;
+    margin: auto;
 }
 
 input {
-  background: #ffffff;
-  border-bottom: 1px solid #a29a9a;
+    background: #ffffff;
+    border-bottom: 1px solid #a29a9a;
 }
 
 input:focus {
-  background: #fff;
+    background: #fff;
 }
 
 .input-field {
-  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 .login-link {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 .login-link p {
-  text-align: center;
+    text-align: center;
 }
 
 .error-message p {
-  font-size: 0.7em;
-  text-align: center;
-  color: #EC4643;
+    font-size: 0.7em;
+    text-align: center;
+    color: #EC4643;
 }
 
 .err {
-  border-color: #EC4643
+    border-color: #EC4643
 }
 
 .login-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
 }
 
-.login-btn button {
-}
+.login-btn button {}
+
 .login-error {
-  margin-bottom: 2em;
-  background: #e4b1b1;
-  color: white;
-  padding: 1em;
+    margin-bottom: 2em;
+    background: #e4b1b1;
+    color: white;
+    padding: 1em;
 }
 
 .login-error p {
-  text-align: center;
+    text-align: center;
 }
 
 img {

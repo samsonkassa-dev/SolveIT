@@ -35,22 +35,17 @@ export class ProjectService {
         return this.apiService.get(`Solveitprojects/${projectId}/members`);
     }
 
-    joinCompetition(project) {
-        this.competitionService.getActiveCompetition().subscribe(
-            res => {
-                const temp = {
-                  competitionId: res.Result[0].id,
-                  projectId: project.id
-                };
-                return this.apiService.post('CompetitionProjects', temp);
-            },
-          error1 => {
-            const err = new Promise((resolve, reject) => {
-              reject('Error');
-            });
-            return from(err);
-          }
-        );
+    joinCompetition(project, data) {
+      const temp = {
+        competitionId: data.competition,
+        projectId: project.id,
+        questionnaireAnswers: {innovationInfo: data.innovationInfo, furtherInfo: data.furtherInfo}
+      };
+      return this.apiService.post('CompetitionProjects', temp);
+    }
+
+    getProjectCompetitions(projectId) {
+      return this.apiService.get(`Solveitprojects/${projectId}/competitions`);
     }
 
     uploadProgressReport(report) {

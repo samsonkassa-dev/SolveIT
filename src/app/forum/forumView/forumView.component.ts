@@ -113,4 +113,14 @@ export class ForumViewComponent implements OnInit {
       // this.toggleView('discussion-detail');
       this.router.navigate([`discussions/${discussion.slung}`]);
     }
+
+    discussionCreated() {
+        this.toggleView('discussion-list');
+        this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
+    }
+
+    discussionCreated() {
+        this.toggleView('discussion-list');
+        this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
+    }
 }

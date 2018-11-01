@@ -27,12 +27,12 @@
 </form>
 
 <div class="not-found" *ngIf="!authService.isAuthenticated()">
-  <div class="no-resource-found">
-    <p>
-      <i class="fa  fa-frown-o"></i> Please sign in to create a forum.
-    </p>
+    <div class="no-resource-found">
+        <p>
+            <i class="fa  fa-frown-o"></i> Please sign in to create a forum.
+        </p>
 
-    <button class="outline-btn" (click)="onSignIn()">SignIn Here</button>
-  </div>
+        <button class="outline-btn" (click)="onSignIn()">SignIn Here</button>
+    </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
