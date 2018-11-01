@@ -30,6 +30,7 @@
       <!--  Main navigation  -->
       <ul class="main-nav nav navbar-nav navbar-right">
         <li class="active"><a routerLink="">Home</a></li>
+        <li *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()"><a routerLink="/dashboard">Dashboard</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a routerLink="/events">Events</a></li>

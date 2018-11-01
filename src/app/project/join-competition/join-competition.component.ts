@@ -9,12 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class JoinCompetitionComponent implements OnInit {
 
   @Input() activeCompetitions = [];
-  @Input() isJoinCompetitionSuccessful = null;
-  @Output() checkIfEnrolled = new EventEmitter();
+  @Input() isJoinCompetitionSuccessfull = null;
   @Output() join = new EventEmitter();
+  @Output() checkIfJoined = new EventEmitter();
   form: FormGroup;
-  dropdownList = [];
-  selectedItems = [];
+
+  // multiple dropdown properties
   dropdownSettings = {};
 
   // Selected competition
@@ -71,10 +71,10 @@ export class JoinCompetitionComponent implements OnInit {
     { item_id: 3, item_text: 'From iCog Labs Website' },
     { item_id: 4, item_text: 'From Other Websites' },
     { item_id: 5, item_text: 'Word of Mouth (You heard about it from your friends, teachers, parents etc)' },
-    { item_id: 6, item_text: 'Newspapers' },
-    { item_id: 7, item_text: 'Social Media (From iCog\'s Facebook)' },
-    { item_id: 8, item_text: 'Social Media (From US Embassy\'s Facebook)' },
-    { item_id: 9, item_text: 'Other' }
+    { item_id: 7, item_text: 'Newspapers' },
+    { item_id: 8, item_text: 'Social Media (From iCog\'s Facebook)' },
+    { item_id: 9, item_text: 'Social Media (From US Embassy\'s Facebook)' },
+    { item_id: 10, item_text: 'Other' },
   ];
 
   howToParticipate = [
@@ -87,7 +87,7 @@ export class JoinCompetitionComponent implements OnInit {
   // form steps
   formSteps = [
     'step-1',
-    'step-2',
+    'step-2'
   ];
   currentForm = this.formSteps[0];
 
@@ -104,7 +104,7 @@ export class JoinCompetitionComponent implements OnInit {
         otherSector: ['', Validators.required],
         description: ['', Validators.required],
         whatProblem: ['', Validators.required],
-        howToSolve: ['', Validators.required]
+        howToSolve: ['', Validators.required],
       }),
       furtherInfo: this.fb.group({
         whyParticipate: ['', Validators.required],
@@ -116,7 +116,6 @@ export class JoinCompetitionComponent implements OnInit {
         mediaName: ['', Validators.required]
       })
     });
-
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -129,65 +128,48 @@ export class JoinCompetitionComponent implements OnInit {
 
   }
 
-  onItemSelect(item: any) {
-    // console.log(item);
-  }
-  onSelectAll(items: any) {
-    // console.log(items);
-  }
-
-  toggleForm(value) {
-    this.currentForm = this.formSteps[value];
-  }
-
-  isInnovationInfoFormValid() {
+  isInnovationFormValid() {
     const isProductTypeValid = (this.innovationInfo.productType !== '' &&
                                 this.innovationInfo.productType !== this.productTypes[this.productTypes.length - 1]) ||
-                                (this.innovationInfo.productType === this.productTypes[this.productTypes.length - 1] &&
-                                this.innovationInfo.otherProductType !== '');
+                                this.innovationInfo.productType === this.productTypes[this.productTypes.length - 1] &&
+                                this.innovationInfo.otherProductType !== '';
     const isSectorValid = (this.innovationInfo.sector !== '' &&
-      this.innovationInfo.sector !== this.sectors[this.sectors.length - 1]) ||
-      (this.innovationInfo.sector === this.sectors[this.sectors.length - 1] &&
-        this.innovationInfo.otherSector !== '');
-
-    return (
-      this.form.controls.competition.valid &&
-      this.form.controls.innovationInfo['controls'].description.valid &&
-      this.form.controls.innovationInfo['controls'].whatProblem.valid &&
-      this.form.controls.innovationInfo['controls'].howToSolve.valid &&
-      isProductTypeValid && isSectorValid
-    );
+                            this.innovationInfo.sector !== this.sectors[this.sectors.length - 1]) ||
+                          this.innovationInfo.sector === this.sectors[this.sectors.length - 1] &&
+                          this.innovationInfo.otherSector !== '';
+    console.log(isProductTypeValid, isSectorValid);
+    return (isProductTypeValid && isSectorValid && this.form.controls.innovationInfo['controls'].description.valid &&
+            this.form.controls.innovationInfo['controls'].whatProblem.valid &&
+            this.form.controls.innovationInfo['controls'].howToSolve.valid &&
+            this.form.controls.competition.valid);
   }
 
   isFurtherInfoFormValid() {
-    const isEverBeenInCompetitionValid = (
-      (this.furtherInfo.everBeenInCompetition === 'yes' &&
-        this.furtherInfo.competitionEverBeen !== '') ||
-        this.furtherInfo.everBeenInCompetition === 'no'
-    );
-    return (
+    const isCompetitionEverBeenValid = this.furtherInfo.everBeenInCompetition === 'no' ||
+                                      (this.furtherInfo.everBeenInCompetition === 'yes' &&
+                                      this.form.controls.furtherInfo['controls'].competitionEverBeen.valid);
+    return(
       this.form.controls.furtherInfo['controls'].whyParticipate.valid &&
       this.form.controls.furtherInfo['controls'].teamOrNah.valid &&
       this.form.controls.furtherInfo['controls'].teamOrNahReason.valid &&
       this.form.controls.furtherInfo['controls'].mediaResource.valid &&
       this.form.controls.furtherInfo['controls'].mediaName.valid &&
-      isEverBeenInCompetitionValid
+        isCompetitionEverBeenValid
     );
   }
 
   onNext() {
-    if (this.isInnovationInfoFormValid()) {
-      if (this.innovationInfo.productType !== '' &&
-        this.innovationInfo.productType !== this.productTypes[this.productTypes.length - 1] &&
-        this.innovationInfo.otherProductType !== '') {
+    if (this.isInnovationFormValid()) {
+      if (this.innovationInfo.otherProductType !== '' &&
+          this.innovationInfo.productType !== this.productTypes[this.productTypes.length - 1]) {
         this.innovationInfo.otherProductType = '';
       }
-      if (this.innovationInfo.sector !== '' &&
-        this.innovationInfo.sector !== this.sectors[this.sectors.length - 1] &&
-        this.innovationInfo.otherSector !== '') {
+      if (this.innovationInfo.otherSector !== '' &&
+        this.innovationInfo.sector !== this.sectors[this.sectors.length - 1]) {
         this.innovationInfo.otherSector = '';
       }
-     this.toggleForm(1);
+      this.toggleForm(1);
+
     } else {
       this.markFormGroupTouched(this.form.controls.innovationInfo);
       this.form.controls.competition.markAsTouched();
@@ -196,15 +178,17 @@ export class JoinCompetitionComponent implements OnInit {
 
   onJoin() {
     if (this.isFurtherInfoFormValid()) {
-      if (this.furtherInfo.everBeenInCompetition === 'no' &&
-          this.furtherInfo.competitionEverBeen !== '') {
+      if (this.furtherInfo.competitionEverBeen !== '' && this.furtherInfo.everBeenInCompetition === 'no') {
         this.furtherInfo.competitionEverBeen = '';
       }
-      this.join.emit({data: {
-          competitionId: this.competition,
+      console.log(this.furtherInfo);
+      this.join.emit({
+        data: {
+          competition: this.competition,
           innovationInfo: this.innovationInfo,
           furtherInfo: this.furtherInfo
-        }});
+        }
+      });
     } else {
       this.markFormGroupTouched(this.form.controls.furtherInfo);
     }
@@ -224,9 +208,32 @@ export class JoinCompetitionComponent implements OnInit {
     });
   }
 
+  onItemSelect(item: any) {
+    // this.furtherInfo.mediaResource.push(item);
+  }
+  onSelectAll(items: any) {
+    // items.forEach(item => {
+    //   this.furtherInfo.mediaResource.push(item);
+    // });
+  }
+
+  toggleForm(value) {
+    this.currentForm = this.formSteps[value];
+  }
+
+  getSelectedCompetition(competitionId) {
+    if (this.competition !== '') {
+      this.activeCompetitions.filter(item => {
+        return item.id === this.competition;
+      });
+    } else {
+      return null;
+    }
+  }
+
   reset() {
     this.form.reset();
-    this.checkIfEnrolled.emit();
+    this.checkIfJoined.emit();
   }
 
 }

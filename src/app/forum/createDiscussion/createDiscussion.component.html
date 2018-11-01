@@ -2,13 +2,21 @@
   <h4 class="title" id="form-title"> New Discussion </h4>
     <div id="resource-form">
         <div class="form-group">
-            <input type="text" class="inpu" name="slung" placeholder="Slung"
-                formControlName="slung" [(ngModel)]="discussion.slung">
+            <input type="text" class="input" name="title" placeholder="Title"
+                formControlName="title" [(ngModel)]="discussion.title">
         </div>
         <div class="form-group">
-            <textarea placeholder="Content" class="input "
+            <textarea placeholder="Content" class="input"
                 formControlName="content" [(ngModel)]="discussion.content">
             </textarea>
+        </div>
+        <div class="form-group" sear>
+          <!-- blog tags -->
+          <div class="blog-tags">
+            <h5>Select Tags :</h5>
+            <a [class.selectedTag]="discusssionTags.indexOf(tag) != -1" *ngFor="let tag of tags" (click)="selectTag(tag)"><i class="fa fa-tag"></i>{{tag.name.toUpperCase()}}</a>
+          </div>
+          <!-- blog tags -->
         </div>
 
         <div class="form-group" id="resource-upload-btn">

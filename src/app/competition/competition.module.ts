@@ -8,19 +8,23 @@ import { CompetitionListComponent } from './competitionList/competitionList.comp
 import { CompetitionCreateComponent } from './competitionCreate/competitionCreate.component';
 import { CompetitionService } from './competition.service';
 import {MomentModule} from 'angular2-moment';
+import { CompetitionProjectsComponent } from './competitionProjects/competitionProjects.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     declarations: [
         CompetitionViewComponent,
         CompetitionListComponent,
-        CompetitionCreateComponent
+        CompetitionCreateComponent,
+        CompetitionProjectsComponent
     ],
     imports: [
         SharedModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-      MomentModule
+      MomentModule,
+      NgxPaginationModule
     ],
     providers: [CompetitionService],
     exports: [CompetitionViewComponent]

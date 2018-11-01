@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { CompetitionService } from '../../competition/competition.service';
 import {ApiService} from '../../shared/services/api.service';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-project-view',
@@ -11,51 +12,51 @@ import {ApiService} from '../../shared/services/api.service';
 })
 
 export class ProjectViewComponent implements OnInit {
-    public views = [
-      'report',
-      'members',
-      'add-member',
-    ];
-    public selected = this.views[0];
-    public uploadReport = false;
-    public project: any = null;
-    public progressReports: any = [];
-    public isEnrolled = false;
-    public selectedProgressReport = null;
+  public views = [
+    'report',
+    'members',
+    'add-member',
+  ];
+  public selected = this.views[0];
+  public uploadReport = false;
+  public project: any = null;
+  public progressReports: any = [];
+  public selectedProgressReport = null;
+  public isEnrolled = false;
 
-    // for joining competition
-    public  activeCompetitions = [];
-    public isJoinCompetitionSuccessful = null;
+  // for joining cometition
+  public activeCompetitions = [];
+  private isJoinCompetitionSuccessfull = null;
 
-    constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
-                public competitionService: CompetitionService, public apiService: ApiService) {
+  constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
+              public competitionService: CompetitionService, public apiService: ApiService) {
 
-    }
+  }
 
-    ngOnInit() {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.getProject(id);
-        this.competitionService.getCompetitions()
-            .subscribe(res => {
-                this.activeCompetitions = res;
-            }, error => {
-                console.log('Error while fetching competition ,', error);
-            });
-    }
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.getProject(id);
+    this.competitionService.getCompetitions()
+      .subscribe(res => {
+        this.activeCompetitions = res;
+      }, error => {
+        console.log('Error while fetching competition ,', error);
+      });
+  }
 
-    toggleView(view) {
-        this.selected = view;
-    }
+  toggleView(view) {
+    this.selected = view;
+  }
 
-    getProject(projectId) {
-        this.service.getProject(projectId).subscribe(
-            res => {
-                this.project = res;
-                this.getProgressReports();
-                this.isProjectEnrolledToCompetition(this.project.id);
-            }
-        );
-    }
+  getProject(projectId) {
+    this.service.getProject(projectId).subscribe(
+      res => {
+        this.project = res;
+        this.getProgressReports();
+        this.isProjectRegisteredToCompetition();
+      }
+    );
+  }
 
   private getProgressReports() {
     this.service.getAllProgressReport(this.project.id)
@@ -66,20 +67,20 @@ export class ProjectViewComponent implements OnInit {
   }
 
   addProjectMember() {
-        const member = {
-            projectId: this.project.id,
-            userId: 0
-        };
-        this.service.addProjectMember(member).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
-    }
+    const member = {
+      projectId: this.project.id,
+      userId: 0
+    };
+    this.service.addProjectMember(member).subscribe(
+      res => {
+        console.log(res);
+      }
+    );
+  }
 
-    toggleUploadReport(value) {
-      this.uploadReport = value;
-    }
+  toggleUploadReport(value) {
+    this.uploadReport = value;
+  }
 
   downloadProposal(content) {
     this.service.downloadProposal(content)
@@ -100,36 +101,36 @@ export class ProjectViewComponent implements OnInit {
   }
 
   reportCreated() {
-      this.uploadReport = false;
-      this.getProgressReports();
+    this.uploadReport = false;
+    this.getProgressReports();
   }
 
   onJoinCompetition($event) {
     this.service.joinCompetition(this.project, $event.data)
       .subscribe(res => {
-        this.isJoinCompetitionSuccessful = true;
-    }, error => {
-        this.isJoinCompetitionSuccessful = false;
-    });
-  }
-
-  isProjectEnrolledToCompetition(projectId) {
-      this.service.getProjectCompetitions(projectId)
-        .subscribe(res => {
-          if (res.length > 0 ) {
-            this.isEnrolled = true;
-          } else {
-            this.isEnrolled = false;
-          }
+        this.isJoinCompetitionSuccessfull = true;
+      }, error => {
+        this.isJoinCompetitionSuccessfull = false;
       });
   }
 
   viewProgressReport(report) {
-      this.selectedProgressReport = report;
-      console.log(this.selectedProgressReport);
+    this.selectedProgressReport = report;
+    console.log(this.selectedProgressReport);
   }
 
   back() {
-      this.selectedProgressReport = null;
+    this.selectedProgressReport = null;
+  }
+
+  isProjectRegisteredToCompetition() {
+    this.service.getProjectCompetitions(this.project.id)
+      .subscribe(res => {
+        if (res.length == 0) {
+          this.isEnrolled = false;
+        } else {
+          this.isEnrolled = true;
+        }
+      });
   }
 }

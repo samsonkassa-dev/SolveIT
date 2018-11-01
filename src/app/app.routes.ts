@@ -20,5 +20,5 @@ export const APP_ROUTES: Routes = [
   ...CompetitionRoutes,
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
-  { path: 'dashboard', component: DashboardComponent}
+  { path: 'dashboard', component: DashboardComponent, canActivate: []}
 ];

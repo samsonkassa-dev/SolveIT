@@ -10,7 +10,7 @@ export class CompetitionService {
     }
 
     getProjects(competitionId) {
-        return this.apiService.get(`solvieITCompetitions/${competitionId}/solveit-project`);
+        return this.apiService.get(`solvieITCompetitions/${competitionId}/projects`);
     }
 
     getCompetitions() {

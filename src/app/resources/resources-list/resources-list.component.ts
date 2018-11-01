@@ -111,7 +111,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   createResource() {
-    this.router.navigate(['upload-resources']);
+    this.router.navigate(['upload-resource']);
   }
 
   getVideoThumbinal(url) {

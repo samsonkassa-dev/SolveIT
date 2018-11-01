@@ -3,7 +3,7 @@
         <br>
     </div>
     <div class="row">
-        <div id="aside" class="col-md-offset-2 col-md-6">
+        <div id="aside" class="col-md-5">
             <div class="widget">
                 <div class="widget-search">
                     <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="searchUser($event)">
@@ -11,17 +11,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-offset-2 col-sm-offset-2 col-md-2">
             <button (click)="createUser()" class="outline-btn create">Create</button>
         </div>
 
     </div>
     <div class="row filter">
-        <div class="col-md-offset-4 col-md-4">
+        <div class="col-md-offset-2 col-md-4">
             <select name="view" id="view-filter" [(ngModel)]="selected" (change)="toggleView(selected)">
               <option selected="selected" value="0">SolveIT Management Team</option>
               <option value="1">SolveIT Staffs & Mentors Team</option>
               <option value="2">SolveIT Participants</option>
+            </select>
+        </div>
+        <div class="col-md-offset-2 col-md-3" *ngIf = "selectedRole.name == 'participant'">
+            <select name="view" id="view-filter" [(ngModel)]="selectedRegion" (change)="toggleView(selected)">
+              <option value="0">All</option>
+              <option *ngFor = "let region of regions" value="{{region.id}}">{{ region.name }}</option>
             </select>
         </div>
     </div>
@@ -35,15 +41,17 @@
               <th>Middle Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>Activate/Deactivate</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of selectedUsers | paginate: { itemsPerPage: 15, currentPage: page }">
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.middleName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
+                <td (click)="viewUserProfile(user)">{{ user.firstName }}</td>
+                <td (click)="viewUserProfile(user)">{{ user.middleName }}</td>
+                <td (click)="viewUserProfile(user)">{{ user.lastName }}</td>
+                <td (click)="viewUserProfile(user)">{{ user.email }}</td>
+                <td (click)="viewUserProfile(user)">{{user.phoneNumber}}</td>
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
                     <button *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>

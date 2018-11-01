@@ -1,4 +1,5 @@
 import {Component, Input, EventEmitter, Output, OnInit} from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CompetitionService } from '../competition.service';
 import { SharedService } from '../../shared/services/shared.service';
 
@@ -15,7 +16,7 @@ export class CompetitionListComponent implements OnInit{
     public key = '';
     @Output() create = new EventEmitter();
 
-    constructor(public service: CompetitionService, public sharedService: SharedService) {
+    constructor(public service: CompetitionService, public sharedService: SharedService, public route: ActivatedRoute, public router: Router) {
 
     }
 
@@ -68,6 +69,10 @@ export class CompetitionListComponent implements OnInit{
     createCompetition() {
         this.create.emit();
         console.log('Emiting create event');
+    }
+
+    viewProjects(competition) {
+        this.router.navigate(['/competition', competition.id]);
     }
 
     onSearch() {

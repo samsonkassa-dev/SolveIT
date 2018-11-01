@@ -32,6 +32,7 @@ export class ForumViewComponent implements OnInit {
     }
 
     ngOnInit() {
+      console.log('on forum view');
         this.slung = this.route.snapshot.paramMap.get('slung');
         this.getForum(this.slung);
     }
@@ -108,8 +109,14 @@ export class ForumViewComponent implements OnInit {
     }
 
     discussionDetail(discussion) {
-      this.selectedDiscussion = discussion.slung;
-      this.toggleView('discussion-detail');
+      // this.selectedDiscussion = discussion.slung;
+      // this.toggleView('discussion-detail');
+      this.router.navigate([`discussions/${discussion.slung}`]);
+    }
+
+    discussionCreated() {
+        this.toggleView('discussion-list');
+        this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
     }
 
     discussionCreated() {

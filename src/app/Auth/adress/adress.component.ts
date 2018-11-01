@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
+import {UserManagementService} from '../../userManagement/userManagament.service';
 
 
 @Component({
@@ -14,14 +15,19 @@ export class AdressComponent implements OnInit {
   @Output() back = new EventEmitter();
 
   public addressForm: FormGroup;
-  public regions = ['Afar', 'Amhara', 'Benshangul-Gumz', 'Gambela', 'Harari', 'Oromia', 'SNNP', 'Tigray', 'Addis Ababa', 'Dire Dawa'];
+  public regions = [];
   @Input() address;
 
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: FormBuilder, public userService: UserManagementService) { }
 
   ngOnInit() {
+
+    this.userService.getRegions()
+      .subscribe(res => {
+        this.regions = res;
+      });
+
     this.addressForm = this.formBuilder.group({
-      region: ['', Validators.required],
       city: ['', Validators.required],
       wereda: ['', Validators.required],
       houseNo: ['', Validators.required],

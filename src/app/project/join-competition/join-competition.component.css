@@ -22,13 +22,25 @@
 
 .actions, .info {
   display: flex;
+  align-items: center;
   flex-direction: column;
   align-content: center;
-  align-items: center;
+}
+
+.competition-name {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.header {
+  font-size: 1.2em;
+  color: #2BA692;
 }
 
 .info-text {
   text-align: center;
-  color: #2BA692;
 }
 
+.sucessfully-joined {
+  padding: 1em;
+}

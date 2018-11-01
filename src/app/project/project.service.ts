@@ -37,9 +37,9 @@ export class ProjectService {
 
     joinCompetition(project, data) {
       const temp = {
-        competitionId: data.competitionId,
+        competitionId: data.competition,
         projectId: project.id,
-        questionnairesAnswer: {innovationInfo: data.innovationInfo, furtherInfo: data.furtherInfo}
+        questionnaireAnswers: {innovationInfo: data.innovationInfo, furtherInfo: data.furtherInfo}
       };
       return this.apiService.post('CompetitionProjects', temp);
     }

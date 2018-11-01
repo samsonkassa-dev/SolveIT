@@ -36,6 +36,14 @@ export class ApiService {
       .map((res: Response) => res.json());
   }
 
+  public downloadExcel(path: string, body) {
+    this.setHeaders(window.localStorage.getItem(this.TOKEN_KEY));
+    return this.http.post(path, body,{
+        headers:this.headers,
+        responseType: ResponseContentType.Blob
+    }).map(res => new Blob([res.blob()],{ type: 'application/vnd.ms-excel' }));
+}
+
   public delete(path: string): Observable<any> {
     this.setHeaders(this.TOKEN_KEY);
     return this.http.delete(`${this.ROOT_PATH}${path}`, {headers: this.headers})

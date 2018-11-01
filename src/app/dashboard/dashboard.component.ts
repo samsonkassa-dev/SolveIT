@@ -9,7 +9,10 @@ export class DashboardComponent implements OnInit {
 
   public views = [
     'users',
-    'competitions'
+    'competitions',
+    'categories',
+    'tags',
+    'reviewDiscussions'
   ];
   public selected = this.views[0];
 

@@ -1,16 +1,22 @@
 <app-header></app-header>
-<div class="container dashboard">
+<div class="container-fluid dashboard">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-offset-1 col-md-3">
             <ul class="dashboard-menu">
                 <li (click)="toggleView(views[0])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[0]">Users</li>
                 <li (click)="toggleView(views[1])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[1]">Competitions</li>
+                <li (click)="toggleView(views[2])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[2]">Categories</li>
+                <li (click)="toggleView(views[3])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[3]">Tags</li>
+                <li (click)="toggleView(views[4])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[4]">Review Discussion</li>
             </ul>
         </div>
         <div class="col-md-8">
             <div class="dashboard-content">
                 <app-manage-user *ngIf="selected == views[0]"></app-manage-user>
                 <app-competition-view *ngIf="selected == views[1]"></app-competition-view>
+                <app-categories-list *ngIf="selected == views[2]"></app-categories-list>
+                <app-tag-managment *ngIf="selected == views[3]"></app-tag-managment>
+                <app-review-discussion *ngIf="selected == views[4]"></app-review-discussion>
             </div>
         </div>
     </div>

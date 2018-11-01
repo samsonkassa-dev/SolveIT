@@ -1,0 +1,75 @@
+<app-header></app-header>
+
+<div class="container">
+  <h4 class="title">User Profile</h4>
+  <div class="row" *ngIf="user">
+    <table *ngIf = "selected == 'view'" class="table table-bordered">
+      <tbody>
+      <tr>
+        <td>First Name</td>
+        <td>{{ user.firstName }}</td>
+      </tr>
+      <tr>
+        <td>Middle Name</td>
+        <td>{{ user.middleName }}</td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td>{{ user.lastName }}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{ user.email }}</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>{{ user.status }}</td>
+      </tr>
+      <tr>
+        <td>Region</td>
+        <td>{{ user.region.name }}</td>
+      </tr>
+      <tr>
+        <td>User Type</td>
+        <td>{{ user.userType }}</td>
+      </tr>
+      <tr>
+        <td>User Role</td>
+        <td>{{ user.role.name }}</td>
+      </tr>
+      <tr>
+        <td>Phone Number</td>
+        <td>{{ user.phoneNumber }}</td>
+      </tr>
+      <tr>
+        <td>Sex</td>
+        <td>{{ user.sex }}</td>
+      </tr>
+      <tr>
+        <td>Education</td>
+        <td>{{ user.educationLevel }}</td>
+      </tr>
+      <tr>
+        <td>Work</td>
+        <td>{{ user.workStatus }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <!--<button (click)="toggleView('update')" type="button" class="outline-btn">Update Status</button>-->
+  </div>
+  <div *ngIf = "selected == 'update'" id="registration-form">
+    <h4>Update Status</h4>
+    <form>
+      <div class="input-field" style="margin-top: 1em">
+        <select name="type" id="type" [(ngModel)]="user.userType" formControlName="type">
+          <option selected value="">Select Status</option>
+          <option value="Almuni">Almuni</option>
+          <option value="Another">Another</option>
+        </select>
+      </div>
+      <button [disabled]="user.userType == ''" (click)="updateStatus()" type="button" class="main-btn">Update</button>
+      <button (click)="toggleView('view')" type="button" class="outline-btn">Back</button>
+    </form>
+  </div>
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>
+</div>

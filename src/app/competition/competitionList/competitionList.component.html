@@ -17,41 +17,47 @@
     </div>
     <div class="competetion-list-content">
         <div class="row">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Started Date</th>
-                        <th>Activate/Deactivate</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let competition of competitions">
-                        <td>{{ 1 }}</td>
-                        <td>{{ competition.name }}</td>
-                        <td>{{ competition.startingDate | amTimeAgo}}</td>
-                        <td>
-                            <button *ngIf="!competition.active" type="button" (click)="activateCompetition(competition)" class="btn btn-success">Activate</button>
-                            <button *ngIf="competition.active" type="button" (click)="deactivateCompetition(competition)" class="btn btn-danger">Deactivate</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="not-found" *ngIf="backupCompetitions.length == 0">
-                <div class="no-resource-found">
-                    <p>
-                        <i class="fa  fa-frown-o"></i> Competitions are not created yet.
-                    </p>
-                </div>
-            </div>
-          <div class="not-found" *ngIf="competitions.length == 0 && key !== ''">
-            <div class="no-resource-found">
-              <p>
-                <i class="fa  fa-frown-o"></i> Competition "{{key}}" not found.
-              </p>
-            </div>
-          </div>
+           <div class="col-md-10 col-sm-10">
+             <table class="table table-bordered">
+               <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Name</th>
+                 <th>Started Date</th>
+                 <th>Activate/Deactivate</th>
+                 <th>Projects</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr *ngFor="let competition of competitions; let i = index;">
+                 <td>{{ i + 1 }}</td>
+                 <td>{{ competition.name }}</td>
+                 <td>{{ competition.startingDate | amTimeAgo}}</td>
+                 <td>
+                   <button *ngIf="!competition.active" type="button" (click)="activateCompetition(competition)" class="btn btn-success">Activate</button>
+                   <button *ngIf="competition.active" type="button" (click)="deactivateCompetition(competition)" class="btn btn-danger">Deactivate</button>
+                 </td>
+                 <td>
+                   <button type="button" (click)="viewProjects(competition)" class="btn btn-success">View Projects</button>
+                 </td>
+               </tr>
+               </tbody>
+             </table>
+             <div class="not-found" *ngIf="backupCompetitions.length == 0">
+               <div class="no-resource-found">
+                 <p>
+                   <i class="fa  fa-frown-o"></i> Competitions are not created yet.
+                 </p>
+               </div>
+             </div>
+             <div class="not-found" *ngIf="competitions.length == 0 && key !== ''">
+               <div class="no-resource-found">
+                 <p>
+                   <i class="fa  fa-frown-o"></i> Competition "{{key}}" not found.
+                 </p>
+               </div>
+             </div>
+           </div>
         </div>
     </div>
 </div>

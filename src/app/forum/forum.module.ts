@@ -15,6 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MemberList } from './memberList/memberList.component';
 import { AddMember } from './addMember/addMember.component';
 import {MomentModule} from 'angular2-moment';
+import { SingleCommentComponent } from './single-comment/single-comment.component';
+import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,9 @@ import {MomentModule} from 'angular2-moment';
         CreateDiscussionComponent,
         CommentListComponent,
         MemberList,
-        AddMember
+        AddMember,
+        SingleCommentComponent,
+        ReviewDiscussionComponent
     ],
     imports: [
       CommonModule,
@@ -37,7 +41,7 @@ import {MomentModule} from 'angular2-moment';
       MomentModule
     ],
     providers: [ForumService],
-    exports: []
+    exports: [ReviewDiscussionComponent]
 })
 
 export class ForumModule {

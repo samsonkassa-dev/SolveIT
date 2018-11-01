@@ -4,10 +4,11 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Joining Competition</h4>
+                <button type="button" (click)="reset()" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Joining A Competition</h4>
+            </div>
             <div class="modal-body">
-                <form *ngIf="activeCompetitions.length > 0 && !isJoinCompetitionSuccessful" [formGroup]="form" id="join-competititon-form">
+                <form *ngIf="activeCompetitions.length >  0 && !isJoinCompetitionSuccessfull" [formGroup]="form" id="join-competititon-form">
 
                     <div *ngIf="currentForm === formSteps[0]" class="competition">
                         <h6 class="title">Competition</h6>
@@ -109,11 +110,11 @@
                         </div>
 
                         <div class="input-field">
-                            <input *ngIf="furtherInfo.everBeenInCompetition === 'yes'" class="input" type="text" name="competitionEverBeen"
+                            <input *ngIf="furtherInfo.everBeenInCompetition === 'yes'" class="input" type="text" name="everBeenInCompetition"
                             placeholder="If so, which competition and when?"
                             formControlName="competitionEverBeen" [(ngModel)]="furtherInfo.competitionEverBeen" />
-                            <div class="error-message" *ngIf="furtherInfo.everBeenInCompetition === 'yes' &&
-                                                              form.controls.furtherInfo.controls.competitionEverBeen.invalid && form.controls.furtherInfo.controls.competitionEverBeen.touched">
+                            <div class="error-message" *ngIf="furtherInfo.everBeenInCompetition === 'yes' && form.controls.furtherInfo.controls.competitionEverBeen.invalid &&
+                                                              form.controls.furtherInfo.controls.competitionEverBeen.touched">
                                 <p>* This field is required.</p>
                             </div>
                         </div>
@@ -121,7 +122,8 @@
                           <ng-multiselect-dropdown [placeholder]="'How did you find out about this competition'" [data]="infoSources" formControlName="mediaResource"
                                                    [(ngModel)]="furtherInfo.mediaResource" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                           </ng-multiselect-dropdown>
-                          <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaResource.invalid && form.controls.furtherInfo.controls.mediaResource.touched">
+                          <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaResource.invalid &&
+                                                              form.controls.furtherInfo.controls.mediaResource.touched">
                             <p>* This field is required.</p>
                           </div>
                         </div>
@@ -129,7 +131,8 @@
                             <input class="input" type="text" name="mediaName"
                             placeholder="Please specify the exact name of the newspaper, radio station, TV station or website from which you found the information on"
                             [(ngModel)]="furtherInfo.mediaName" formControlName="mediaName" />
-                            <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaName.invalid && form.controls.furtherInfo.controls.mediaName.touched">
+                            <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaName.invalid &&
+                                                              form.controls.furtherInfo.controls.mediaName.touched">
                                 <p>* This field is required.</p>
                             </div>
                         </div>
@@ -137,22 +140,21 @@
                     <div class="actions">
                       <button *ngIf="currentForm === formSteps[0]" (click)="onNext()" class="main-btn">Next</button>
                       <div class="row">
-                        <button *ngIf="currentForm === formSteps[1]" (click)="toggleForm(0)" class="main-btn">Back</button>
-                        <button *ngIf="currentForm === formSteps[1]" (click)="onJoin()" class="main-btn">Next</button>
+                        <button *ngIf="currentForm === formSteps[1]" (click)="toggleForm(0)" class="outline-btn">Back</button>
+                        <button *ngIf="currentForm === formSteps[1]" (click)="onJoin()" class="main-btn">Join</button>
                       </div>
                     </div>
                 </form>
-                <div class="info">
-                  <p *ngIf="activeCompetitions.length === 0">There are no active competitions.</p>
-                  <div class="success-info" *ngIf="isJoinCompetitionSuccessful">
-                    <h5 class="info-text header">Congratulations</h5>
-                    <h6 class="info-text header">You have SuccessFully Joined the competition.</h6>
-                    <h6 class="info-text header">Good Luck !!!</h6>
-                  </div>
+                <div class="info" *ngIf="true">
+                    <p *ngIf="activeCompetitions.length === 0">There are no active competitions.</p>
+                    <div class="sucessfully-joined" *ngIf="isJoinCompetitionSuccessfull">
+                      <h6 class="info-text header">Congratulations, </h6>
+                      <h6 class="info-text header">You have successfully joined <span class="competition-name">Season 2</span> competition.</h6>
+                      <p class="info-text header">Good Luck!!!</p>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-</div>
 </div>

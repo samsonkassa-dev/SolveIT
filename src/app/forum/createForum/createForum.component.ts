@@ -30,24 +30,23 @@ export class CreateForumComponent {
 
     createForum() {
       this.forum.created = new Date();
+      this.forum.slung = this.forum.slung.replace(' ', '-');
         this.service.createForum(this.forum).subscribe(
             res => {
                 const forumId = res.id;
                 this.created.emit();
-                this.authService.getUserInfo().subscribe(
-                    res1 => {
-                        const userId = res1.id;
-                        const member = {
-                            forumId: forumId,
-                            userId: userId
-                        };
-                        this.service.addMember(member).subscribe(
-                            res2 => {
-                                console.log(res2);
-                            }
-                        );
+                const userId = this.authService.getUserId();
+                if (userId) {
+                  const member = {
+                    forumId: forumId,
+                    userId: userId
+                  };
+                  this.service.addMember(member).subscribe(
+                    res2 => {
+                      console.log(res2);
                     }
-                );
+                  );
+                }
             },
             err => {
                 if (err.status = 422) {

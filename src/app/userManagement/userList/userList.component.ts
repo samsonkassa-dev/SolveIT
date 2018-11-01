@@ -1,6 +1,8 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Router } from '@angular/router';
 import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
     selector: 'app-user-list',
@@ -22,15 +24,18 @@ export class UserListComponent implements OnInit {
       { name: 'solveitteam', id: '' },
       { name: 'participant', id: '' }
     ];
+    public regions = [];
     public selectedRole = this.views[0];
+    public selectedRegion = 0;
 
 
-    constructor(public service: UserManagementService, public sharedService: SharedService) {
+    constructor(public service: UserManagementService, public sharedService: SharedService, public router: Router) {
 
     }
 
     ngOnInit() {
         this.populateUsersList();
+        this.getRegions();
     }
 
     getAllUsers() {
@@ -38,6 +43,12 @@ export class UserListComponent implements OnInit {
         .subscribe(res => {
           this.allUsers = res;
           this.filterUsers();
+        });
+    }
+
+    getRegions() {
+        this.service.getRegions().subscribe(res => {
+            this.regions = res;
         });
     }
 
@@ -96,12 +107,24 @@ export class UserListComponent implements OnInit {
     }
 
     filterUsers() {
-      this.selectedUsers = this.allUsers.filter(item => {
-        return item.roleId === this.selectedRole.id;
-      });
-      this.backupUsers = this.selectedUsers;
-      console.log('all users', this.allUsers);
-      console.log('Selected users', this.selectedUsers);
+        if (this.selectedRole.name === 'participant') {
+            if (this.selectedRegion === 0) {
+                this.selectedUsers = this.allUsers.filter(item => {
+                    return item.roleId === this.selectedRole.id;
+                });
+            } else {
+                this.selectedUsers = this.allUsers.filter(item => {
+                    return (item.roleId === this.selectedRole.id && item.regionId === this.selectedRegion);
+                });
+            }
+        } else {
+            this.selectedUsers = this.allUsers.filter(item => {
+                return item.roleId === this.selectedRole.id;
+            });
+        }
+        this.backupUsers = this.selectedUsers;
+        console.log('all users', this.allUsers);
+        console.log('Selected users', this.selectedUsers);
     }
 
     searchUser() {
@@ -116,5 +139,9 @@ export class UserListComponent implements OnInit {
 
     createUser() {
       this.create.emit();
+    }
+
+    viewUserProfile(user) {
+        this.router.navigate(['/manage-user/', user.id]);
     }
 }

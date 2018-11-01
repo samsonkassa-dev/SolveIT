@@ -57,16 +57,8 @@ export class AuthService {
     return this.apiService.get(`${this.user_Path}/${id}/role`);
   }
 
-  getUserInfo() {
-    const temp = window.localStorage.getItem(this.TOKEN);
-    if (temp != null) {
-      const session = JSON.parse(temp);
-      return this.apiService.get(`UserAccounts/${session.userId}`);
-    }
-    const errorResult = new Promise((resolve, reject) => {
-      reject('You are not signed in yet.');
-    });
-    return from(errorResult);
+  getUserInfo(userId) {
+    return this.apiService.get(`UserAccounts/${userId}`);
   }
 
 
@@ -114,6 +106,15 @@ export class AuthService {
     }
   }
 
+  isAdmin() {
+    try {
+      const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
+      return data.role === this.ICOG_ROLE[3];
+    } catch (e) {
+      return false;
+    }
+  }
+
   isSolveitTeam() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
@@ -141,5 +142,9 @@ export class AuthService {
     } else if (role === this.ICOG_ROLE[2]) {
       return this.apiService.post(this.register_path, user);
     }
+  }
+
+  confirmEmail(userId, cid) {
+    return this.apiService.post(`${this.user_Path}/confirmEmail`, {userId, cid});
   }
 }

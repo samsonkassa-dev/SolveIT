@@ -21,7 +21,9 @@ export class DiscussionViewComponent implements OnInit {
     public postedBy = null;
     public isBlackListed = false;
     public favoriteDiscussions = [];
-    @Input() slung = '';
+    // @Input() slung = '';
+    public slung = '';
+    public tags = [];
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
                 public authService: AuthService, public sharedService: SharedService) {
@@ -32,9 +34,19 @@ export class DiscussionViewComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.route.params.subscribe(res => {
+        this.slung = res.slung;
+      });
         if (this.slung !== '') {
           this.getDiscussion(this.slung);
         }
+    }
+
+    getTags(discussionId) {
+      this.service.getDiscussionTags(discussionId)
+        .subscribe(res => {
+          this.tags = res;
+        });
     }
 
     getFavoriteDiscusions() {
@@ -55,6 +67,7 @@ export class DiscussionViewComponent implements OnInit {
             res => {
                 this.postedBy = res.Result.user;
                 this.discussion = res.Result.discussion;
+                this.getTags(this.discussion.id);
                 this.countComments();
                 this.getComments();
                 this.getFavoriteDiscusions();
@@ -74,42 +87,25 @@ export class DiscussionViewComponent implements OnInit {
   addComment() {
       const authenticated = this.authService.isAuthenticated();
       if (authenticated) {
-          this.authService.getUserInfo().subscribe(
-              res => {
-                  const userId = res.id;
-                  this.comment.userId = userId;
-                  this.comment.solveitdiscussionId = this.discussion.id;
+        const userId = this.authService.getUserId();
+        if (userId) {
+          this.comment.userId = userId;
+          this.comment.solveitdiscussionId = this.discussion.id;
 
-                  this.service.addComment(this.comment).subscribe(
-                      res1 => {
-                          this.sharedService.addToast('Success', 'Comment Added!.', 'success');
-                          this.getComments();
-                          this.countComments();
-                          this.commentForm.reset();
-                      },
-                      err => {
-                          if (err.status = 422) {
-                              this.sharedService.addToast('', 'Error occured!', 'error');
-                          }
-                      }
-                  );
-              }
-          );
-      } else {
-          this.comment.userId = 0;
           this.service.addComment(this.comment).subscribe(
-              res => {
-                  this.sharedService.addToast('Success', 'Comment Added!.', 'success');
-                  this.countComments();
-                  this.getComments();
-                  this.commentForm.reset();
-              },
-              err => {
-                  if (err.status = 422) {
-                      this.sharedService.addToast('', 'Error occured!', 'error');
-                  }
+            res1 => {
+              this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+              this.getComments();
+              this.countComments();
+              this.commentForm.reset();
+            },
+            err => {
+              if (err.status = 422) {
+                this.sharedService.addToast('', 'Error occured!', 'error');
               }
+            }
           );
+        }
       }
   }
 
@@ -164,6 +160,7 @@ export class DiscussionViewComponent implements OnInit {
   getComments() {
         this.service.getComments(this.discussion.id)
             .subscribe(res => {
+              console.log(res);
                 this.comments = res;
             });
     }

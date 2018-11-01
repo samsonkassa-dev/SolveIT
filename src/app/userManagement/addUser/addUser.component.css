@@ -3,7 +3,7 @@
     padding: 6em;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: white;
-    margin: 7% auto 10%;
+    margin: 5% auto 10%;
 }
 
 form {
@@ -48,4 +48,7 @@ select {
 
 h4 {
     text-align: center;
+}
+img {
+  width: 7em;
 }

@@ -101,4 +101,32 @@ export class ForumService {
     isUserBlackListedDiscussion(userId, discussionId) {
       return this.apiService.get(`Solveitdiscussions/${discussionId}/blackListed/${userId}`);
     }
+
+    getCommentReplies(commentId) {
+        return this.apiService.get(`SolveIT-Discussion-Comments/${commentId}/replies?filter={"include": "user"}`);
+    }
+
+    replyToComment(reply) {
+        return this.apiService.post(`replies/`, reply);
+    }
+
+    getTags() {
+      return this.apiService.get(`tags`);
+    }
+
+    addTagToDiscussion(discussionId, tagId) {
+      return this.apiService.post(`taggedDiscussions`, {discussionId, tagId});
+    }
+
+    getDiscussionTags(discussionId) {
+      return this.apiService.get(`Solveitdiscussions/${discussionId}/tags`);
+    }
+
+    getBlacklistedDiscussions() {
+        return this.apiService.get(`BlackListedDiscussions?filter={"include": "solveitdiscussion"}`);
+    }
+
+    removeDiscussion(discussionId) {
+        return this.apiService.delete(`Solveitdiscussions/${discussionId}`);
+    }
 }

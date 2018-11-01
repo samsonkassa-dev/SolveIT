@@ -38,18 +38,16 @@ export class ForumComponent implements OnInit {
 
     getFavouriteDiscussions() {
         this.selected = 'favourite-discussions';
+        const userId = this.authService.getUserId();
 
-        this.authService.getUserInfo().subscribe(
+        if (userId) {
+          this.service.getFavouriteDiscussions(userId).subscribe(
             res => {
-                const userId = res.id;
-                this.service.getFavouriteDiscussions(userId).subscribe(
-                    res => {
-                        this.favouriteDiscussions = res;
-                        this.favouriteDiscussionsBackup = res;
-                    }
-                );
+              this.favouriteDiscussions = res;
+              this.favouriteDiscussionsBackup = res;
             }
-        );
+          );
+        }
     }
 
     onSearch($event) {

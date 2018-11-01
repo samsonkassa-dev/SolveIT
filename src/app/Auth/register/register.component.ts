@@ -6,6 +6,7 @@ import {User} from '../models/user';
 import {r} from '../../../../node_modules/@angular/core/src/render3';
 import {PasswordValidation} from '../validator/passwordValidation';
 import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
+import {UserManagementService} from '../../userManagement/userManagament.service';
 
 
 @Component({
@@ -45,10 +46,10 @@ export class RegisterComponent implements OnInit {
     sex: '',
     workStatus: '',
     educationLevel: '',
-    address: {}
+    address: {},
+    regionId: ''
   };
   public address = {
-    region: '',
     city: '',
     wereda: '',
     houseNo: '',
@@ -66,15 +67,20 @@ export class RegisterComponent implements OnInit {
   public isBasicFormActive = true;
   public isAddressFormActive = false;
   public isQuestionariesActive = false;
+  public regions = [];
 
-  constructor(public authService: AuthService, public router: Router, public formBuilder: FormBuilder) {}
+  constructor(public authService: AuthService, public router: Router, public formBuilder: FormBuilder, public userService: UserManagementService) {}
 
   ngOnInit() {
+
+    this.userService.getRegions()
+      .subscribe(res => {
+        this.regions = res;
+      });
 
     for (let i = 10; i < 25; i++) {
       this.ageRange.push(i);
     }
-
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
@@ -87,6 +93,7 @@ export class RegisterComponent implements OnInit {
       sex: ['', Validators.required],
       age: ['', Validators.required],
       status: ['', Validators.required],
+      region: ['', Validators.required],
       educationLevel: ['', Validators.required],
       otherStatus: [''],
       otherEduvationLevel: ['']

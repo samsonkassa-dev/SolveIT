@@ -10,4 +10,5 @@ export interface User {
   age: any;
   password: string;
   address: object;
+  regionId: string;
 }

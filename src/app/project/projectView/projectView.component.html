@@ -59,5 +59,7 @@
         </div>
     </div>
 
-    <app-join-competition [activeCompetitions]="activeCompetitions" [isJoinCompetitionSuccessful]="isJoinCompetitionSuccessful"
-                          (join)="onJoinCompetition($event)" (checkIfEnrolled)="isProjectEnrolledToCompetition(project.id)"></app-join-competition>
+    <app-join-competition [activeCompetitions]="activeCompetitions"
+                          [isJoinCompetitionSuccessfull]="isJoinCompetitionSuccessfull"
+                          (join)="onJoinCompetition($event)"
+                          (checkIfJoined)="isProjectRegisteredToCompetition()"></app-join-competition>

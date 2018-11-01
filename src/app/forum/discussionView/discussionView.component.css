@@ -22,3 +22,24 @@ i {
   color: #2BA692;
   cursor: pointer;
 }
+
+#main {
+  margin: 2em auto  3em;
+}
+
+#main .blog {
+  width: 70%;
+  margin: auto;
+}
+
+#content {
+  text-align: justify;
+}
+
+.blog-meta {
+  clear: both;
+}
+
+.blog-tags a {
+  border: 1px solid white;
+}

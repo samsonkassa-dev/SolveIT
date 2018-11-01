@@ -48,7 +48,7 @@
                                 <tbody>
                                     <tr *ngFor="let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }; let i = index" (click)="discussionDetail(discussion)">
                                         <th scope="row">
-                                            {{ discussion.slung}}
+                                            {{ discussion.title}}
                                         </th>
                                         <td>Python</td>
                                         <td> {{discussion.createdAt | amTimeAgo}} </td>
@@ -72,7 +72,7 @@
                                 <tbody>
                                     <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: discussionPage  }; let index = index" (click)="discussionDetail(discussion)">
                                         <th scope="row">
-                                            {{ discussion.slung}}
+                                            {{ discussion.title}}
                                         </th>
                                         <td>Python</td>
                                         <td> {{ discussion.createdAt | amTimeAgo }} </td>
@@ -96,7 +96,8 @@
                         <member-list [forum]="forum"></member-list>
                     </div>
                     <div *ngIf="selected == 'discussion-detail'">
-                        <app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>
+                        <!--<app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>-->
+                        <app-discussion-view></app-discussion-view>
                     </div>
                 </div>
             </div>
