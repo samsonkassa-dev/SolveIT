@@ -11,8 +11,8 @@ form {
   padding: 1em;
 }
 
-#resource-form input, #resource-form select, #resource-form textarea {
-  margin-bottom: 2em;
+.input-field {
+  margin-bottom: 1em;
 }
 
 #resource-form select {

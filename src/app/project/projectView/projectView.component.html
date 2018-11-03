@@ -4,9 +4,10 @@
     <div class="row main-container">
         <div class="col-md-4 menu-container">
             <ul class="project-menu">
-                <li [class.selected]="selected === views[0]" (click)="toggleView('report')"> Progress Reports</li>
-                <li [class.selected]="selected === views[1]" (click)="toggleView('members')"> Members</li>
-                <li [class.selected]="selected === views[2]" (click)="toggleView('add-member')"> Add Member</li>
+                <li [class.selected]="selected === views[0]" (click)="toggleView('report')"> Progress Reports </li>
+                <li [class.selected]="selected === views[1]" (click)="toggleView('members')"> Members </li>
+                <li [class.selected]="selected === views[2]" (click)="toggleView('add-member')"> Add Member </li>
+                <li data-toggle="modal" data-target="#createProjectModal" data-backdrop="static"> Edit Project </li>
             </ul>
         </div>
         <div class="col-md-8 project-content">
@@ -58,8 +59,12 @@
             <app-report-view *ngIf="selectedProgressReport" (back)="back()" [report]="selectedProgressReport"></app-report-view>
         </div>
     </div>
+</div>
 
-    <app-join-competition [activeCompetitions]="activeCompetitions"
-                          [isJoinCompetitionSuccessfull]="isJoinCompetitionSuccessfull"
-                          (join)="onJoinCompetition($event)"
-                          (checkIfJoined)="isProjectRegisteredToCompetition()"></app-join-competition>
+<app-join-competition [activeCompetitions]="activeCompetitions"
+                      [isJoinCompetitionSuccessfull]="isJoinCompetitionSuccessfull"
+                      (join)="onJoinCompetition($event)"
+                      (checkIfJoined)="isProjectRegisteredToCompetition()"></app-join-competition>
+
+
+<app-project-create [project]="project" [isEdit]="true" (created)="onProjectUpdated()"></app-project-create>

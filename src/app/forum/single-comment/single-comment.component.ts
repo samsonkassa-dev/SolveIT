@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ForumService} from '../forum.service';
 import {AuthService} from '../../Auth/services/auth.service';
 import {SharedService} from '../../shared/services/shared.service';
@@ -12,6 +12,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class SingleCommentComponent implements OnInit {
 
   @Input() comment: any = null;
+  @Input() isOwnerOfDiscussion = false;
+  @Output() remove = new EventEmitter();
+
   public isReplyActive = false;
   public reply = {'solveIT-Discussion-CommentId': !this.comment ? '' : this.comment.id , userId: '', content: ''};
   public replyForm: FormGroup;
@@ -37,6 +40,10 @@ export class SingleCommentComponent implements OnInit {
 
   toggleReplyForm() {
     this.isReplyActive = !this.isReplyActive;
+  }
+
+  removeComment(comment) {
+    this.remove.emit({comment: comment});
   }
 
   replyToComment() {

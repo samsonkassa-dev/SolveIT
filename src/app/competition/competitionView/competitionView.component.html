@@ -1,2 +1,3 @@
-<app-competition-list (create)="toggleView(views[1])" *ngIf="selected == views[0]"></app-competition-list>
-<app-competition-create (back)="toggleView(views[0])" *ngIf="selected == views[1]"></app-competition-create>
+<app-competition-list (viewCompetition)="onViewCompetition($event)" [backupCompetitions]="competitions" [competitions]="competitions" *ngIf="currentView == views[0]"></app-competition-list>
+<app-competition-create (created)="onCreated()" *ngIf="currentView == views[0]"></app-competition-create>
+<app-competition-projects [competition]="selectedCompetition" *ngIf="currentView == views[1]"></app-competition-projects>

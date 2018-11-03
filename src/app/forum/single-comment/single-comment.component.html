@@ -6,6 +6,7 @@
   <div class="media-body">
     <h6 class="media-heading">{{ comment.user.username }}
       <span class="time">{{ comment.createdAt | amTimeAgo }}</span>
+      <a  class="reply remove" *ngIf="isOwnerOfDiscussion" data-toggle="modal" data-target="#myModal">Remove<i class="fa fa-trash"></i></a>
       <a (click)="toggleReplyForm()" class="reply">Replies<i class="fa fa-reply"></i></a>
     </h6>
     <p>{{ comment.content }}</p>
@@ -35,3 +36,26 @@
 
 </div>
 <!-- /comment -->
+
+
+<!-- Confirmation Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to remove this comment ?</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="removeComment(comment)" type="button" class="btn main-btn" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn outline-btn" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->

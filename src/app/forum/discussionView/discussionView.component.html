@@ -21,6 +21,7 @@
               <li><i class="fa fa-clock-o"></i>{{ discussion.createdAt | amTimeAgo }}</li>
               <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
             </ul>
+            <hr>
             <div class="content" [innerHTML]="discussion.content"></div>
             <div class="content" *ngIf="discussion.imgContent">
               <img class="discussionImg" [src]="getImageSource(discussion.imgContent.name)" alt="">
@@ -32,7 +33,7 @@
             </div>
             <!-- blog tags -->
           </div>
-          <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments"></app-comment-list>
+          <app-comment-list *ngIf="discussion.id !== 0" [comments]="comments" [isOwnerOfDiscussion]="isOwnerOfDiscussion()"></app-comment-list>
           <!-- reply form -->
           <div class="reply-form">
             <h5 class="title" *ngIf="authService.isAuthenticated()">Leave a comment</h5>

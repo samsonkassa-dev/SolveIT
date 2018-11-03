@@ -20,6 +20,14 @@
       <p class="error-message" *ngIf="resourceForm.controls.description.invalid && resourceForm.controls.description.touched">* Description is required.</p>
     </div>
     <div class="form-group">
+      <select  style="width: 100%" name="type" id="type" formControlName="category" class="" [(ngModel)]="resource.category"
+               [class.err]="resourceForm.controls.category.invalid && resourceForm.controls.category.touched">
+        <option value="" selected>Select Category</option>
+        <option *ngFor="let category of categories" [value]="category.category">{{category.category}}</option>
+      </select>
+      <p class="error-message" *ngIf="resourceForm.controls.category.invalid && resourceForm.controls.category.touched">* Category is required.</p>
+    </div>
+    <div class="form-group">
       <select  style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="resource.type"
                [class.err]="resourceForm.controls.type.invalid && resourceForm.controls.type.touched">
         <option value="" selected>Select Resource Type</option>
@@ -49,7 +57,7 @@
       ></circle-progress>
     </div>
     <div class="form-group" id="resource-upload-btn">
-      <input type="button" [disabled]="isUploading || !isResourceFormValid()" (click)="onCreateResource()" class="main-btn" value="Upload">
+      <input type="button" (click)="onCreateResource()" class="main-btn" value="Upload">
     </div>
   </div>
 </form>

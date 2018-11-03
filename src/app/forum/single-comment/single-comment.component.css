@@ -22,3 +22,11 @@ i {
 .media {
   margin-top: 1em;
 }
+
+.remove {
+  color: #EC4643;
+}
+
+.reply:hover {
+  text-decoration: underline;
+}

@@ -6,8 +6,8 @@ export interface User {
   email: string;
   workStatus: string;
   educationLevel: string;
-  sex: string;
-  age: any;
+  gender: string;
+  birthDate: any;
   password: string;
   address: object;
   regionId: string;

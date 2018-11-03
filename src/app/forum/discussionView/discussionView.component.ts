@@ -15,7 +15,7 @@ import {configs} from '../../app.config';
 export class DiscussionViewComponent implements OnInit {
 
     public numberOfComments: any;
-    public discussion = {id: 0, isBlackListed: false};
+    public discussion = {id: 0, isBlackListed: false, userAccountId: ''};
     public comment = {solveitdiscussionId: this.discussion.id, userId: 0};
     public commentForm: FormGroup;
     public comments = [];
@@ -42,6 +42,17 @@ export class DiscussionViewComponent implements OnInit {
           this.getDiscussion(this.slung);
         }
     }
+
+  isOwnerOfDiscussion() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      if (this.discussion.userAccountId === userId) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 
     getTags(discussionId) {
       this.service.getDiscussionTags(discussionId)

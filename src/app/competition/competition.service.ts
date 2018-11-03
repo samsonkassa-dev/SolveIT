@@ -36,4 +36,8 @@ export class CompetitionService {
     getWeeklyWinners(){
         return this.apiService.get(`weekTopProjects?filter={where: {active: true}, "include": "solveitproject"}`);
     }
+
+    updateCompetition(competition) {
+      return this.apiService.patch(`solvieITCompetitions/${competition.id}`, competition);
+    }
 }

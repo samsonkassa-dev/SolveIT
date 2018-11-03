@@ -44,6 +44,7 @@ export class AdressComponent implements OnInit {
       this.next.emit();
       console.log('Next');
     } else {
+      this.markFormGroupTouched(this.addressForm);
       console.log('Address Form is not valid');
     }
   }
@@ -51,5 +52,19 @@ export class AdressComponent implements OnInit {
   onBack() {
     this.back.emit();
   }
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
 
 }

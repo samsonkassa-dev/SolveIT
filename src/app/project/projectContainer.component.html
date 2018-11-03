@@ -4,11 +4,11 @@
   <div class="events-list-header">
    <div class="header">
       <h4 (click)="toggleView('project-list')" class="title">Projects</h4>
-     <button type="button" (click)="toggleView('project-create')" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
+     <button type="button" data-toggle="modal" data-target="#createProjectModal" data-backdrop="static" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
      </button>
    </div>
   </div>
 </div>
 
-<app-project-list (create)="toggleView('project-create')" *ngIf = "selected == 'project-list'"></app-project-list>
-<app-project-create (created)="toggleView('project-list')" *ngIf = "selected == 'project-create'"></app-project-create>
+<app-project-list (create)="toggleView('project-create')" [projects]="projects"></app-project-list>
+<app-project-create [isEdit]="false" (created)="projectCreated()"></app-project-create>

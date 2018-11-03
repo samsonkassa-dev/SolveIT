@@ -71,4 +71,8 @@ export class ProjectService {
   fetchProjectReportComments(reportId) {
       return this.apiService.get(`ProgressReports/${reportId}/progressComments?filter={"include": "user"}`);
   }
+
+  updateProject(projectId, data) {
+      return this.apiService.patch(`Solveitprojects/${projectId}`, data);
+  }
 }

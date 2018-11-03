@@ -129,4 +129,8 @@ export class ForumService {
     removeDiscussion(discussionId) {
         return this.apiService.delete(`Solveitdiscussions/${discussionId}`);
     }
+
+    removeComment(commentId) {
+      return this.apiService.delete(`SolveIT-Discussion-Comments/${commentId}`);
+    }
 }

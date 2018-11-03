@@ -25,6 +25,6 @@ select {
     padding: 2em;
 }
 
-.container {
-  margin: 3em auto 15em;
+.content{
+  margin: 0 1.5em 5em;
 }

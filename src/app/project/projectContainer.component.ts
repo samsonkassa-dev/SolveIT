@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from './project.service';
+import {SharedService} from '../shared/services/shared.service';
+import {AuthService} from '../Auth/services/auth.service';
+declare var $: any;
 
 @Component({
     selector: 'app-project-container',
@@ -6,11 +10,41 @@ import { Component } from '@angular/core';
     styleUrls: ['projectContainer.component.css']
 })
 
-export class ProjectContainerComponent {
+export class ProjectContainerComponent implements OnInit {
 
-    private selected = 'project-list';
+  public projects = [];
+  public selected = 'project-list';
 
-    toggleView(view) {
-        this.selected = view;
+  constructor(public service: ProjectService, public sharedService: SharedService, public authService: AuthService) {
+
+  }
+
+  ngOnInit() {
+    this.getProjectList();
+  }
+
+
+  getProjectList() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.getMyProjects(userId)
+        .subscribe(res => {
+          this.projects = res;
+        }, error => {
+          this.sharedService.addToast('', 'Error occurred!', 'error');
+        });
+    } else {
+      console.log('You are not signed in yet.');
     }
+  }
+
+
+  toggleView(view) {
+      this.selected = view;
+  }
+
+  projectCreated() {
+    this.getProjectList();
+    $('#createProjectModal').modal('hide');
+  }
 }

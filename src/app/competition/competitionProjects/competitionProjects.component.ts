@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompetitionService } from '../competition.service';
 
@@ -10,28 +10,23 @@ import { CompetitionService } from '../competition.service';
 
 export class CompetitionProjectsComponent implements OnInit {
 
-    public competitionId: any;
+    @Input() competition = null;
+    public isEdit = false;
     public projects = [];
     public backupProjects = [];
     public keyword = '';
     public page = 1;
-    public competition = null;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: CompetitionService) {
 
     }
 
     ngOnInit() {
-        this.competitionId = this.route.snapshot.paramMap.get('competitionId');
-        this.getProjects();
-        this.service.getActiveCompetition()
-          .subscribe(res => {
-            this.competition = res.Result[0];
-          });
+      this.getProjects();
     }
 
     getProjects() {
-        this.service.getProjects(this.competitionId).subscribe(
+        this.service.getProjects(this.competition.id).subscribe(
             res => {
                 this.projects = res;
                 this.backupProjects = res;
@@ -40,7 +35,7 @@ export class CompetitionProjectsComponent implements OnInit {
     }
 
     viewProject(project) {
-        //navigate to project detail
+        // navigate to project detail
         this.router.navigate(['/my-projects/', project.id]);
     }
 

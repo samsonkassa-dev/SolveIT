@@ -67,3 +67,28 @@ input {
 img {
   width: 7em;
 }
+
+#age {
+  border: none;
+  width: 92%;
+  border-bottom: 1px solid #ccc;
+  padding: .5em;
+
+}
+
+#age::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  margin-left: 1em;
+  padding: .5em;
+}
+#age::-moz-placeholder { /* Firefox 19+ */
+  margin-left: 1em;
+  padding: .5em;
+}
+#age:-ms-input-placeholder { /* IE 10+ */
+  margin-left: 1em;
+  padding: .5em;
+}
+#age:-moz-placeholder { /* Firefox 18- */
+  margin-left: 1em;
+  padding: .5em;
+}

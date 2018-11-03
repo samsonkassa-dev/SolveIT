@@ -56,7 +56,7 @@ export class CreateDiscussionComponent implements OnInit {
       this.service.getTags()
         .subscribe(res => {
           this.tags = res;
-          this.mapTagsToDropDownList(this.tags);
+          console.log(this.tags);
         });
     }
 

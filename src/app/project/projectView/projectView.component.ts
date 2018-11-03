@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { CompetitionService } from '../../competition/competition.service';
 import {ApiService} from '../../shared/services/api.service';
-import {AuthService} from '../../Auth/services/auth.service';
+
+declare var $: any;
 
 @Component({
     selector: 'app-project-view',
@@ -58,7 +59,7 @@ export class ProjectViewComponent implements OnInit {
     );
   }
 
-  private getProgressReports() {
+  public getProgressReports() {
     this.service.getAllProgressReport(this.project.id)
       .subscribe(res1 => {
         this.progressReports = res1;
@@ -133,4 +134,9 @@ export class ProjectViewComponent implements OnInit {
         }
       });
   }
+
+  onProjectUpdated() {
+    $('#createProjectModal').modal('hide');
+  }
+
 }

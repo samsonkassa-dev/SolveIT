@@ -1,8 +1,8 @@
 form {
-    width: 50%;
-    margin: 5em auto;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 2em;
+    /*width: 50%;*/
+    /*margin: 5em auto;*/
+    /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+    /*padding: 2em;*/
   }
 
   #resource-form {
@@ -11,7 +11,7 @@ form {
     padding: 1em;
   }
 
-  #resource-form input, #resource-form select, #resource-form textarea {
+.input-field {
     margin-bottom: 2em;
   }
 
@@ -35,17 +35,15 @@ form {
     align-items: center;
   }
 
-  .error-message{
-    text-align: center;
-    font-size: 1em;
-    color: #EC4643;
-    background: pink;
-    padding: 2em;
-  }
+.error-message p {
+  font-size: 0.7em;
+  text-align: center;
+  color: #EC4643;
+}
 
-  .err {
-    border-color: #EC4643
-  }
+.err {
+  border-color: #EC4643
+}
 
   #proposal-label {
     margin: 1em auto;

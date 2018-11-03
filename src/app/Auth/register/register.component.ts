@@ -16,7 +16,6 @@ import {UserManagementService} from '../../userManagement/userManagament.service
 })
 export class RegisterComponent implements OnInit {
 
-  public ageRange = [];
   public educationLevels = [
     'Elementary',
     'HighSchool',
@@ -42,8 +41,8 @@ export class RegisterComponent implements OnInit {
     email: '',
     phoneNumber: '',
     password: '',
-    age: '',
-    sex: '',
+    birthDate: '',
+    gender: '',
     workStatus: '',
     educationLevel: '',
     address: {},
@@ -78,9 +77,6 @@ export class RegisterComponent implements OnInit {
         this.regions = res;
       });
 
-    for (let i = 10; i < 25; i++) {
-      this.ageRange.push(i);
-    }
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
@@ -104,7 +100,8 @@ export class RegisterComponent implements OnInit {
 
   isFormValid() {
     if (this.registerForm.valid) {
-      if ((this.user.educationLevel === 'Other' && this.extraParams.otherEducationLevel === '') || (this.user.workStatus === 'Other' && this.extraParams.otherStatus === '')) {
+      if ((this.user.educationLevel === 'Other' && this.extraParams.otherEducationLevel === '') ||
+          (this.user.workStatus === 'Other' && this.extraParams.otherStatus === '')) {
         return false;
       } else {
         return true;
@@ -119,7 +116,7 @@ export class RegisterComponent implements OnInit {
       this.isAddressFormActive = true;
       this.isBasicFormActive = false;
     } else {
-      console.log(this.registerForm);
+      this.markFormGroupTouched(this.registerForm);
       console.log('Register form is not valid');
     }
   }
@@ -146,4 +143,17 @@ export class RegisterComponent implements OnInit {
     this.isAddressFormActive = false;
   }
 
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 }

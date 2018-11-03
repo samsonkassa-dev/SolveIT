@@ -1,6 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CompetitionService } from "../competition.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CompetitionService } from '../competition.service';
+
+declare var $: any;
 
 @Component({
     selector: 'app-competition-view',
@@ -8,52 +10,45 @@ import { CompetitionService } from "../competition.service";
     styleUrls: ['competitionView.component.css']
 })
 
-export class CompetitionViewComponent implements OnInit{
+export class CompetitionViewComponent implements OnInit {
 
-    public projects = [];
-    public projectsBackup = [];
-    public keyword = '';
-    public competitionId: any;
-    public views = [
-        'competition-list',
-        'create-competition'
-    ];
-    public selected = this.views[0];
-    
-    constructor(public service: CompetitionService, public route: ActivatedRoute, public router: Router) {
-        
+  public competitions = [];
+  public views = [
+    'competitionList',
+    'competitionDetail'
+  ];
+  public selectedCompetition = null;
+
+  currentView = this.views[0];
+
+  constructor(public service: CompetitionService, public route: ActivatedRoute, public router: Router) {
+
+  }
+
+  ngOnInit() {
+    this.getCompetitions();
+  }
+
+  getCompetitions() {
+    this.service.getCompetitions().subscribe(
+      res => {
+        this.competitions = res;
+      }
+    );
+  }
+
+  toggleView(value) {
+    this.currentView = this.views[value];
+  }
+
+    onCreated() {
+      this.getCompetitions();
+      $('#createCompetitionModal').modal('hide');
     }
 
-    ngOnInit() {
-        this.competitionId = this.route.snapshot.paramMap.get("id");
-        if (this.competitionId) {
-            this.getProjects();   
-        }
-    }
-
-    getProjects() {
-        this.service.getProjects(this.competitionId).subscribe(
-            res => {
-                this.projects = res;
-                this.projectsBackup = res;
-            }
-        )
-    }
-
-    searchProject() {
-        if (this.keyword !== '') {
-            this.projects = this.projectsBackup.filter(item => item.title.includes(this.keyword));
-          } else {
-            this.projects = this.projectsBackup;
-          }
-    }
-
-    toggleView(viewName: string) {
-        this.selected = viewName;
-    }
-
-    debug() {
-        console.log('getting emitted event');
-    }
+  onViewCompetition($event) {
+    this.selectedCompetition = $event.competition;
+    this.currentView = this.views[1];
+  }
 
 }

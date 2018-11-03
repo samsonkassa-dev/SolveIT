@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CompetitionService } from '../competition.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
@@ -11,12 +11,14 @@ import { SharedService } from '../../shared/services/shared.service';
 
 export class CompetitionCreateComponent {
 
-    public competition = {
-      name: '',
-      startingDate: new Date()
-    };
     public competitionForm: FormGroup;
-    @Output() back = new EventEmitter();
+    @Output()  created = new EventEmitter();
+    @Input() competition = {
+      name: '',
+      cities: [],
+      startingDate: ''
+    };
+    @Input() isEdit = false;
 
     constructor(public service: CompetitionService, public sharedService: SharedService) {
         this.competitionForm = new FormGroup({
@@ -26,21 +28,64 @@ export class CompetitionCreateComponent {
     }
 
     createCompetition() {
+      if (this.competitionForm.valid) {
         this.service.createCompetition(this.competition).subscribe(
-            res => {
-                this.sharedService.addToast('Success', 'Competition Created!.', 'success');
-                this.backToList();
-                this.competitionForm.reset();
-            },
-            err => {
-                if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occurred!', 'error');
-                }
+          res => {
+            this.sharedService.addToast('Success', 'Competition created!', 'success');
+            this.created.emit();
+            this.reset();
+          },
+          err => {
+            if (err.status = 422) {
+              this.sharedService.addToast('', 'Error occurred!', 'error');
             }
+          }
         );
+      } else {
+        this.markFormGroupTouched(this.competitionForm);
+      }
     }
 
-    backToList() {
-        this.back.emit();
+    onFormSubmit() {
+      if (this.isEdit) {
+        this.updateCompetition();
+      } else {
+        this.createCompetition();
+      }
     }
+
+    updateCompetition() {
+      if (this.competitionForm.valid) {
+        this.service.updateCompetition(this.competition)
+          .subscribe(res => {
+            this.sharedService.addToast('Success', 'Competition updated successfully!', 'success');
+            this.created.emit();
+            this.reset();
+          }, errorr => {
+            this.sharedService.addToast('', 'Error occurred!', 'error');
+          });
+      } else {
+        this.markFormGroupTouched(this.competitionForm);
+      }
+    }
+
+    reset() {
+      if (!this.isEdit) {
+        this.competitionForm.reset();
+      }
+    }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 }

@@ -76,23 +76,24 @@
             </div>
 
           <div class="col-md-6">
-                <div class="input-field">
-                  <select name="age" id="age" [(ngModel)]="user.age" formControlName="age"  [class.err]="registerForm.controls.age.invalid && registerForm.controls.age.touched">
-                    <option value="" selected>Age</option>
-                    <option *ngFor="let age of ageRange" value="{{age}}" >{{age}}</option>
-                   </select>
+            <div class="input-field">
+              <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Birth Date" class="input" id="age"
+                     name="age" id="age" [(ngModel)]="user.birthDate" formControlName="age"
+                     [class.err]="registerForm.controls.age.invalid && registerForm.controls.age.touched">
+              <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+              <owl-date-time [pickerType]="'calendar'" #dt2 ></owl-date-time>
                     <div class="error-message" *ngIf="registerForm.controls.age.invalid && registerForm.controls.age.touched">
-                        <p>* Age is required.</p>
+                        <p>* Birth date is required.</p>
                     </div>
                 </div>
                 <div class="input-field">
-                    <select name="sex" id="sex" [(ngModel)]="user.sex" formControlName="sex" [class.err]="registerForm.controls.sex.invalid && registerForm.controls.sex.touched">
-            <option value="" selected>Sex</option>
+                    <select name="sex" id="sex" [(ngModel)]="user.gender" formControlName="sex" [class.err]="registerForm.controls.sex.invalid && registerForm.controls.sex.touched">
+            <option value="" selected>Gender</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
           </select>
                     <div class="error-message" *ngIf="registerForm.controls.sex.invalid && registerForm.controls.sex.touched">
-                        <p>* Sex is required.</p>
+                        <p>* Gender is required.</p>
                     </div>
                 </div>
                 <div class="input-field">

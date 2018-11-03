@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {configs} from '../../app.config';
 import {SolveitTeamGuardService} from '../../Auth/services/solveit-team-guard.service';
 import {AuthService} from '../../Auth/services/auth.service';
+import {ForumService} from '../../forum/forum.service';
 
 @Component({
   selector: 'app-resources-list',
@@ -18,6 +19,7 @@ export class ResourcesListComponent implements OnInit {
   public vid_resources: Resource[] = [];
   public filterCategory = '';
   public keyword = '';
+  public categories = [];
   public downloadLink = configs.rootUrl + 'storages/resources/download/';
   public choosenResource: Resource = null;
   docResourcePage = 1;
@@ -29,7 +31,8 @@ export class ResourcesListComponent implements OnInit {
   public backUpDocResources = [];
   public backUpVidResources = [];
 
-  constructor(public resourceService: ResourcesService, public router: Router, public authService: AuthService) { }
+  constructor(public resourceService: ResourcesService, public router: Router,
+              public authService: AuthService, public service: ForumService) { }
 
   ngOnInit() {
     this.resourceService.getResources()
@@ -46,9 +49,13 @@ export class ResourcesListComponent implements OnInit {
           }
         });
 
-        console.log(res);
       }, err => {
         console.log('error while fetching resource', err);
+      });
+
+    this.service.getCategories()
+      .subscribe(res => {
+        this.categories = res;
       });
   }
 
@@ -59,8 +66,12 @@ export class ResourcesListComponent implements OnInit {
   filterResource($event) {
     this.keyword = '';
     if (this.filterCategory !== '') {
-      this.vid_resources = this.backUpVidResources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
-      this.doc_resources = this.backUpDocResources.filter(item => item.categories.indexOf(this.filterCategory) !== -1);
+      this.vid_resources = this.backUpVidResources.filter(item => {
+        return item.category.toUpperCase().indexOf(this.filterCategory.toUpperCase()) !== -1;
+      });
+      this.doc_resources = this.backUpDocResources.filter(item => {
+        return item.category.toUpperCase().indexOf(this.filterCategory.toUpperCase()) !== -1
+      });
     } else {
       this.vid_resources = this.backUpVidResources;
       this.doc_resources = this.backUpDocResources;

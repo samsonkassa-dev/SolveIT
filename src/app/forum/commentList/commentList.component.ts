@@ -13,6 +13,7 @@ import { SharedService } from '../../shared/services/shared.service';
 export class CommentListComponent implements OnInit {
 
     @Input() comments = [];
+    @Input() isOwnerOfDiscussion = false;
     private page = 1;
 
     constructor(public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
@@ -21,5 +22,15 @@ export class CommentListComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    removeComment($event) {
+      this.service.removeComment($event.comment.id)
+        .subscribe(res => {
+          this.comments.splice(this.comments.indexOf($event.comment), 1);
+          this.sharedService.addToast('Success', 'Successfuly deleted a comment.', 'success');
+        }, error => {
+          this.sharedService.addToast('', 'Error occured!', 'error');
+      });
     }
 }

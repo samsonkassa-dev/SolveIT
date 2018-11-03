@@ -3,7 +3,7 @@ export interface Resource {
   url?: string;
   content?: object;
   title: string;
-  categories?: string[];
+  category?: string;
   id?: string;
   description?: string;
   createdAt?: Date;

@@ -14,6 +14,7 @@ import { EmailConfirmationComponent } from './email-confirmation/email-confirmat
 import {NotSignedinGuardService} from './services/not-signedin-guard.service';
 import {AdminGuardService} from './services/admin-guard.service';
 import {DashboardGuardService} from './services/dashboard-guard.service';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -29,7 +30,9 @@ import {DashboardGuardService} from './services/dashboard-guard.service';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [AuthService, NotSignedinGuardService, AdminGuardService, DashboardGuardService],
   exports: [],

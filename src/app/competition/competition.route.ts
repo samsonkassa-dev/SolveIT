@@ -4,10 +4,10 @@ import { CompetitionProjectsComponent } from './competitionProjects/competitionP
 
 export const CompetitionRoutes: Routes = [
 	{
-		path: "competition",
-		children: [
-			{path: '', component: CompetitionListComponent},
-			{path: ':competitionId', component: CompetitionProjectsComponent}
-		]
-	}
+  path: 'competition',
+    children: [
+      {path: '', component: CompetitionListComponent},
+      {path: ':competitionId', component: CompetitionProjectsComponent}
+    ]
+  }
 ];

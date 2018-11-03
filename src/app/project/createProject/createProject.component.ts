@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../project.service';
@@ -13,9 +13,8 @@ import { AuthService } from '../../Auth/services/auth.service';
     styleUrls: ['createProject.component.css']
 })
 
-export class CreateProjectComponent {
+export class CreateProjectComponent implements OnInit{
 
-  public project: any = {};
   public projectForm: FormGroup;
   public URL =  `${configs.rootUrl}storages/proposals/upload`;
   public uploader: FileUploader = new FileUploader({url: this.URL});
@@ -23,7 +22,12 @@ export class CreateProjectComponent {
   public isUploading = false;
   public isFileSelected = false;
   public error = false;
+  public submitted = false;
+
   @Output() created = new EventEmitter();
+  @Input() isEdit = false;
+  @Input() project: any = {};
+
 
   constructor(public service: ProjectService, public router: Router, public sharedService: SharedService, public authService: AuthService) {
       this.projectForm = new FormGroup({
@@ -32,57 +36,137 @@ export class CreateProjectComponent {
       });
   }
 
+  ngOnInit(): void {
+  }
+
   createProject() {
-    this.error = false;
-    this.isUploading = true;
-    this.uploader.queue[0].upload();
-    this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      this.project.proposal = JSON.parse(response).result.files.file[0];
-      this.project.createdAt = new Date();
-      this.service.createProject(this.project).subscribe(
-        res => {
-          this.sharedService.addToast('Success', 'Project Created!.', 'success');
-          const userId = this.authService.getUserId();
-          if (userId) {
-            this.service.addProjectMember({projectId: res.id, userId: userId})
-              .subscribe(res1 => {
-                console.log('project added successfully');
-                this.isUploading = false;
-                this.toggleProjectsList();
-              });
-          }
-        },
-        err => {
-          if (err.status = 422) {
-            this.sharedService.addToast('', 'Error occurred!', 'error');
-          }
-        }
-      );
-      this.uploader.queue.pop();
-    };
-    this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-      console.log('progress => ', progress);
-      this.progress = progress;
-    };
-    this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      console.log('Canceled');
-      this.isUploading = false;
-      this.uploader.queue.pop();
-    };
-    this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      console.log('error');
-      this.error = true;
-      this.isUploading = false;
-      this.uploader.queue.pop();
-    };
+    if (this.projectForm.valid) {
+      if (this.isFileSelected) {
+        this.error = false;
+        this.uploader.queue[0].upload();
+        this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          this.project.proposal = JSON.parse(response).result.files.file[0];
+          this.project.createdAt = new Date();
+          this.service.createProject(this.project).subscribe(
+            res => {
+              const userId = this.authService.getUserId();
+              if (userId) {
+                this.service.addProjectMember({projectId: res.id, userId: userId})
+                  .subscribe(res1 => {
+                    this.isUploading = false;
+                    this.sharedService.addToast('Success', 'Project Created!', 'success');
+                    this.created.emit();
+                  });
+              }
+            },
+            err => {
+              if (err.status = 422) {
+                this.sharedService.addToast('', 'Error occurred!', 'error');
+              }
+            }
+          );
+          this.uploader.queue.pop();
+        };
+        this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+          console.log('progress => ', progress);
+          this.progress = progress;
+        };
+        this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+        this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          this.error = true;
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+      }
+    } else {
+      console.log('form not valid');
+      this.markFormGroupTouched(this.projectForm);
+    }
+  }
+
+  editProject() {
+    if (this.projectForm.valid) {
+      if (this.isFileSelected) {
+        this.uploader.queue[0].upload();
+        this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          this.project.proposal = JSON.parse(response).result.files.file[0];
+          this.updateProject();
+          this.uploader.queue.pop();
+        };
+        this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+          console.log('progress => ', progress);
+          this.progress = progress;
+        };
+        this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          console.log('Canceled');
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+        this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+          console.log('error');
+          this.error = true;
+          this.isUploading = false;
+          this.uploader.queue.pop();
+        };
+      } else {
+        this.updateProject();
+      }
+    } else {
+      this.markFormGroupTouched(this.projectForm);
+    }
+  }
+
+
+  onFormSubmit() {
+    if (this.isEdit) {
+      console.log('Editing');
+      this.editProject();
+    } else {
+      this.submitted = true;
+      console.log('Creating');
+      this.createProject();
+    }
+  }
+
+  private updateProject() {
+    this.service.updateProject(this.project.id, this.project)
+      .subscribe(res => {
+        this.sharedService.addToast('Success', 'Project updated successfully!', 'success');
+        this.created.emit();
+      }, error => {
+        this.sharedService.addToast('', 'Error occurred!', 'error');
+      });
   }
 
   handleFileSelection($event) {
     this.isFileSelected = true;
   }
 
-  toggleProjectsList() {
-    this.created.emit();
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
+
+  reset() {
+    this.submitted = false;
+    if (!this.isEdit) {
+      this.project = {};
+        this.projectForm.reset();
+    }
+  }
+
 
 }
