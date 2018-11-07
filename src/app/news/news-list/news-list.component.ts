@@ -21,6 +21,7 @@ export class NewsListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchAllNews();
+    console.log(" ------------------------------ ", this.router.isActive('news', false));
   }
 
   fetchAllNews() {

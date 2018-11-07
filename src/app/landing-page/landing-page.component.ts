@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../Auth/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,7 +9,7 @@ import {AuthService} from '../Auth/services/auth.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit() {
   }

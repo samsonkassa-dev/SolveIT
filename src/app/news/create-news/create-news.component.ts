@@ -75,8 +75,7 @@ export class CreateNewsComponent implements OnInit {
         this.uploader.queue.pop();
       };
     } else {
-      console.log(this.isFormValid());
-      console.log(this.isFileSelected);
+      this.markFormGroupTouched(this.newsForm);
     }
   }
 
@@ -86,6 +85,20 @@ export class CreateNewsComponent implements OnInit {
 
   ShowNewsList() {
     this.newsList.emit();
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
 }

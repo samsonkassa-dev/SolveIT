@@ -17,8 +17,8 @@ export class CreateEventComponent {
       city: '',
       place: '',
       venue: '',
-      startDate: new Date(),
-      endDate: new Date()
+      startDate: '',
+      endDate: ''
     };
     public eventForm: FormGroup;
     @Output() created = new EventEmitter();
@@ -36,21 +36,39 @@ export class CreateEventComponent {
     }
 
   createEvent() {
-    this.service.createEvent(this.event).subscribe(
-    res => {
-        this.toggleCreated();
-        this.sharedService.addToast("Success", "Event Created!.", 'success');
-      },
-		err => {
-			if (err.status = 422) {
-				this.sharedService.addToast("", "Error occured!", 'error');
-			}
+    if (this.eventForm.valid) {
+      this.service.createEvent(this.event).subscribe(
+        res => {
+          this.toggleCreated();
+          this.sharedService.addToast('Success', 'Event created!', 'success');
+        },
+        err => {
+          if (err.status = 422) {
+            this.sharedService.addToast('', 'Error occurred!', 'error');
+          }
         }
-    );
+      );
+    } else  {
+      this.markFormGroupTouched(this.eventForm);
+    }
   }
 
   toggleCreated() {
       this.created.emit();
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
 }

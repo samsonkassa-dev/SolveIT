@@ -27,17 +27,18 @@ export class EventListComponent implements OnInit {
 
   isPassed(event) {
       const now = new Date();
-      return event.date < now.toISOString();
+      return event.startDate < now.toISOString();
   }
 
-    getEventsList() {
-        this.service.getEventsList().subscribe(
-            res => {
-                this.events = res;
-                this.store = this.events;
-            }
-        );
-    }
+  getEventsList() {
+      this.service.getEventsList().subscribe(
+          res => {
+              this.events = res;
+              this.store = this.events;
+              console.log(this.events);
+          }
+      );
+  }
 
     viewEvent() {
         this.selected = 'view-event';
@@ -52,12 +53,7 @@ export class EventListComponent implements OnInit {
     }
 
     viewEventDetail(event) {
-      this.selectedEvent = {
-        title: event.title,
-        description: event.description,
-        date: new Date(event.date).getDate() + ' - ' + new Date(event.date).getMonth() + ' - ' + new Date(event.date).getFullYear() ,
-        clock: new Date(event.date).getHours() + ' : ' + new Date(event.date).getMinutes()
-      };
+      this.selectedEvent = event;
     }
 
     getDate(date) {

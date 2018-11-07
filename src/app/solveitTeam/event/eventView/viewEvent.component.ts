@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { SolveitTeamService } from '../../solveitTeam.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { SolveitTeamService } from '../../solveitTeam.service';
     styleUrls: ['./viewEvent.component.css']
 })
 
-export class EventViewComponent implements OnInit {
+export class EventViewComponent implements OnInit, OnChanges {
 
     @Input() event = null;
 
@@ -16,7 +16,6 @@ export class EventViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('event detail');
     }
 
     getEvent(eventId) {
@@ -31,5 +30,9 @@ export class EventViewComponent implements OnInit {
       }
         );
     }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      console.log(changes);
+  }
 
 }

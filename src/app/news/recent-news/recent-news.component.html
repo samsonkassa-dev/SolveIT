@@ -7,7 +7,7 @@
     <li class="recent-news-item" *ngFor="let item of recentNews" (click)="viewNewsDetail(item)">
       {{item.title}}
       <br>
-      <span class="recent-news-time">{{item.createdAt}}</span>
+      <span class="recent-news-time">{{item.createdAt | amCalendar:nextDay}}</span>
     </li>
     <li class="back" *ngIf="isBackVisible" (click)="back()">
       Back to news List

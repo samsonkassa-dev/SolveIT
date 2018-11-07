@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from '../Auth/services/auth.service';
 import {SolveitMgmtGuardService} from '../Auth/services/solveit-mgmt-guard.service';
+import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {SolveitMgmtGuardService} from '../Auth/services/solveit-mgmt-guard.servi
     RouterModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MomentModule
   ],
   providers: [SolveitTeamService, AuthService],
   exports: []
