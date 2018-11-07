@@ -46,9 +46,10 @@
                             </div>
                             <table class="table" *ngIf="pinnedDiscussions.length > 0">
                                 <tbody>
-                                    <tr *ngFor="let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }; let i = index" (click)="discussionDetail(discussion)">
-                                        <th scope="row">
-                                            {{ discussion.title}}
+                                    <tr *ngFor="let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }; let i = index"
+                                        (click)="discussionDetail(discussion)" class="row">
+                                        <th scope="row" class="discussionTitle">
+                                            {{ discussion.title.trim()}}
                                         </th>
                                         <td>Python</td>
                                         <td> {{discussion.createdAt | amTimeAgo}} </td>

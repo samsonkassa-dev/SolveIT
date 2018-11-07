@@ -14,19 +14,11 @@
                   [src]="sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + getUrl())" allowfullscreen>
           </iframe>
         </div>
-        <p>
-          <a class="btn main-btn" data-toggle="collapse" href="#description" role="button" aria-expanded="false" aria-controls="description">
-            Description
-          </a>
-        </p>
-        <div class="collapse" id="description">
-          <div class="card card-body">
-           <p>
-             {{resource.description}}
-           </p>
-          </div>
-        </div>
 
+        <h4 class="title">Description</h4>
+        <p>
+          {{resource.description}}
+        </p>
       </div>
     </div>
 

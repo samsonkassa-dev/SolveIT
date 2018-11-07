@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ApiService} from '../../shared/services/api.service';
+import {ApiService} from '../shared/services/api.service';
+
 
 @Injectable()
 
@@ -32,5 +33,5 @@ export class WinnerProjectService {
   removeWeeklyWinnerLabel(winnerId) {
     return this.apiService.patch(`weekTopProjects/${winnerId}`, {active: false});
   }
-  
+
 }

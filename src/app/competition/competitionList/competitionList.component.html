@@ -17,27 +17,30 @@
     <div class="competetion-list-content">
         <div class="row">
            <div class="col-md-10 col-sm-10">
-             <table class="table table-bordered">
+             <table class="table">
                <thead>
                <tr>
                  <th>#</th>
                  <th>Name</th>
                  <th>Started Date</th>
-                 <th>Activate/Deactivate</th>
-                 <th>Projects</th>
+                 <th>Actions</th>
                </tr>
                </thead>
                <tbody>
                <tr *ngFor="let competition of competitions; let i = index;">
-                 <td>{{ i + 1 }}</td>
-                 <td>{{ competition.name }}</td>
-                 <td>{{ competition.startingDate | amTimeAgo}}</td>
+                 <td class="competition-row" (click)="onViewDetail(competition)">{{ i + 1 }}</td>
+                 <td class="competition-row" (click)="onViewDetail(competition)">{{ competition.name }}</td>
+                 <td class="competition-row" (click)="onViewDetail(competition)">{{ competition.startingDate | amTimeAgo}}</td>
                  <td>
-                   <button *ngIf="!competition.active" type="button" (click)="activateCompetition(competition)" class="btn btn-success">Activate</button>
-                   <button *ngIf="competition.active" type="button" (click)="deactivateCompetition(competition)" class="btn btn-danger">Deactivate</button>
-                 </td>
-                 <td>
-                   <button type="button" (click)="onViewDetail(competition)" class="btn btn-success">View Projects</button>
+                   <div class="dropdown">
+                     <button class="btn outline-btn dropdown-toggle" type="button" data-toggle="dropdown"> Actions
+                       <span class="caret"></span></button>
+                     <ul class="dropdown-menu">
+                       <li><a *ngIf="!competition.active" type="button" (click)="activateCompetition(competition)" >Activate</a></li>
+                       <li><a *ngIf="competition.active" type="button" (click)="deactivateCompetition(competition)" >Deactivate</a></li>
+                       <li><a (click)="onEdit(competition)">Edit</a></li>
+                     </ul>
+                   </div>
                  </td>
                </tr>
                </tbody>

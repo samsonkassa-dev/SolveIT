@@ -6,7 +6,7 @@
                 <option *ngFor="let competition of competitions" value="{{competition.id}}">{{competition.name}}</option>
             </select>
         </div>
-        <div id="resource-form">
+        <div id="input-field">
             <input type="text" class="input" name="title" placeholder="Week Name"
             formControlName="week" [(ngModel)]="weeklyWinner.name">
         </div>
@@ -19,5 +19,4 @@
         <div class="form-group" id="resource-upload-btn">
         <input type="button" [disabled]="!weeklyWinnerForm.valid" (click)="addWeeklyWinner()" class="main-btn" value="Create">
         </div>
-    </div>
 </form>

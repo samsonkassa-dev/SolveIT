@@ -20,3 +20,15 @@
 .container {
   margin-bottom: 3em;
 }
+
+.competition-row {
+  cursor: pointer;
+}
+
+.competition-row:hover {
+  background: #e3e3e3;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  text-align: center;
+}

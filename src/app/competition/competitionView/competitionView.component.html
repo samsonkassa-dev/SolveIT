@@ -1,3 +1,6 @@
-<app-competition-list (viewCompetition)="onViewCompetition($event)" [backupCompetitions]="competitions" [competitions]="competitions" *ngIf="currentView == views[0]"></app-competition-list>
+<app-competition-list (viewCompetition)="onViewCompetition($event)" (edit)="onEdit($event)"
+                      [backupCompetitions]="competitions" [competitions]="competitions"
+                      *ngIf="currentView == views[0]"></app-competition-list>
 <app-competition-create (created)="onCreated()" *ngIf="currentView == views[0]"></app-competition-create>
+<app-edit-competition (updated)="onUpdated()" [competition]="competitionToEdit"></app-edit-competition>
 <app-competition-projects [competition]="selectedCompetition" *ngIf="currentView == views[1]"></app-competition-projects>

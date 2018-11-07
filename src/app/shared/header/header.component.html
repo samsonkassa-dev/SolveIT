@@ -36,7 +36,7 @@
         <li><a href="#contact">Contact</a></li>
         <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
         <li *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{ '' }}</a>
-          <ul class="dropdown">
+          <ul class="dropdown1">
             <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Project</a></li>
             <li><a (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
           </ul>

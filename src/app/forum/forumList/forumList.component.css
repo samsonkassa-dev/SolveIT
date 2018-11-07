@@ -1,5 +1,10 @@
 .forum-list {
-  margin-bottom: 8em;
+  margin-bottom: 18em;
+}
+
+.table {
+  width: 80%;
+  margin: auto;
 }
 
 #projects-list-content {
@@ -17,7 +22,7 @@
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 50%;
-  margin: 10em auto;
+  margin: 5em auto;
   padding: 3em;
 }
 
@@ -36,3 +41,19 @@ tr:hover {
 .forums-list-content {
   padding: 1em;
 }
+
+
+th, td {
+  border: none;
+  border-bottom: 1px solid #dddddd6e;
+}
+
+footer {
+  margin-top: 8em;
+}
+
+.table>thead>tr>th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd6;
+}
+

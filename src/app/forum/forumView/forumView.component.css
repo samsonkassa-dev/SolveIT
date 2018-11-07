@@ -1,5 +1,5 @@
 .forum-detail {
-  margin: 3em auto 8em;
+  margin: 3em auto 10em;
 }
 
 .forum-detail-content {
@@ -29,7 +29,7 @@
 .forum-detail-menu {
   padding: .5em;
   cursor: pointer;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
 .forum-detail-menu:hover {
@@ -57,4 +57,12 @@
 
 tr {
   cursor: pointer;
+}
+
+.discussionTitle {
+  text-align: left;
+}
+
+.table>tbody>tr>th, .table>thead>tr>th {
+  text-align: left;
 }

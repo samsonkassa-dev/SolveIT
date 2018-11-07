@@ -18,6 +18,7 @@ export class CompetitionViewComponent implements OnInit {
     'competitionDetail'
   ];
   public selectedCompetition = null;
+  public competitionToEdit = null;
 
   currentView = this.views[0];
 
@@ -41,14 +42,24 @@ export class CompetitionViewComponent implements OnInit {
     this.currentView = this.views[value];
   }
 
-    onCreated() {
-      this.getCompetitions();
-      $('#createCompetitionModal').modal('hide');
-    }
+  onCreated() {
+    this.getCompetitions();
+    $('#createCompetitionModal').modal('hide');
+  }
+
+  onUpdated() {
+    this.getCompetitions();
+    $('#editCompetition').modal('hide');
+  }
 
   onViewCompetition($event) {
     this.selectedCompetition = $event.competition;
     this.currentView = this.views[1];
+  }
+
+  onEdit($event) {
+    this.competitionToEdit = $event.competition;
+    $('#editCompetition').modal('show');
   }
 
 }

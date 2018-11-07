@@ -1,0 +1,14 @@
+.footer-sponsors-logo {
+  margin-bottom: 2em;
+}
+
+.footer-sponsors-logo img {
+  width: 5em;
+}
+
+.footer-sponsors-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}

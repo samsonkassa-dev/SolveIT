@@ -41,7 +41,7 @@ export class CompetitionService {
       return this.apiService.patch(`solvieITCompetitions/${competition.id}`, competition);
     }
 
-    updateCompetition(competition) {
-      return this.apiService.patch(`solvieITCompetitions/${competition.id}`, competition);
+    getCities() {
+      return this.apiService.get('cities');
     }
 }

@@ -17,22 +17,24 @@
     </div>
   </div>
   <h5 class="title">Comments</h5>
-  <div class="media" *ngFor="let comment of reportComments" [class.my-comment]="userId === comment.user.id" [class.other-comment]="userId !== comment.user.id" >
-    <div class="media-left">
-      <img class="media-object" id="commenter-avatar" src="../../../assets/img/User_Circle.png" alt="">
+  <div class="report-comment-container">
+    <div class="media" *ngFor="let comment of reportComments" [class.my-comment]="userId === comment.user.id" [class.other-comment]="userId !== comment.user.id" >
+      <div class="media-left">
+        <img class="media-object" id="commenter-avatar" src="../../../assets/img/User_Circle.png" alt="">
+      </div>
+      <div class="media-body">
+        <h6 class="media-heading">{{comment.user.username}}<span class="time"> a minute ago</span></h6>
+        <p>{{comment.content}}</p>
+      </div>
     </div>
-    <div class="media-body">
-      <h6 class="media-heading">{{comment.user.username}}<span class="time"> a minute ago</span></h6>
-      <p>{{comment.content}}</p>
-    </div>
-  </div>
 
-  <div class="media" *ngIf="reportComments.length === 0">
-    <div class="media-left">
-      <i class="media-object fa fa-frown-o"></i>
-    </div>
-    <div class="media-body">
-      <h6 class="media-heading">No comments found.</h6>
+    <div class="media" *ngIf="reportComments.length === 0">
+      <div class="media-left">
+        <i class="media-object fa fa-frown-o"></i>
+      </div>
+      <div class="media-body">
+        <h6 class="media-heading">No comments found.</h6>
+      </div>
     </div>
   </div>
 

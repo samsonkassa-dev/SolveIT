@@ -40,7 +40,7 @@
         <li><a href="#contact">Contact</a></li>
         <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
         <li *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{''}}</a>
-          <ul class="dropdown">
+          <ul class="dropdown1">
             <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Project</a></li>
             <li><a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
           </ul>
@@ -825,18 +825,6 @@
         </div>
       </div>
       <!-- /contact -->
-
-      <!-- contact form -->
-      <div class="col-md-8 col-md-offset-2">
-        <!--<form class="contact-form">-->
-          <!--<input type="text" class="input" placeholder="Name">-->
-          <!--<input type="email" class="input" placeholder="Email">-->
-          <!--<input type="text" class="input" placeholder="Subject">-->
-          <!--<textarea class="input" placeholder="Message"></textarea>-->
-          <!--<button class="main-btn">Send message</button>-->
-        <!--</form>-->
-      </div>
-      <!-- /contact form -->
 
     </div>
     <!-- /Row -->

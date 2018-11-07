@@ -16,6 +16,7 @@ export class CompetitionListComponent implements OnInit, OnChanges {
   public key = '';
   @Input() competitions = [];
   @Input() backupCompetitions = [];
+  @Output() edit = new EventEmitter();
   @Output() viewCompetition = new EventEmitter();
 
   constructor(public service: CompetitionService, public sharedService: SharedService,
@@ -80,6 +81,10 @@ export class CompetitionListComponent implements OnInit, OnChanges {
 
   onViewDetail(competition) {
     this.viewCompetition.emit({competition: competition});
+  }
+
+  onEdit(competition) {
+    this.edit.emit({competition: competition});
   }
 
 }

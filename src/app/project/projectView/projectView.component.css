@@ -100,3 +100,7 @@ li:hover {
 .service:hover h3 {
   color: #2BA692;
 }
+
+.icon {
+  margin-right: .5em;
+}

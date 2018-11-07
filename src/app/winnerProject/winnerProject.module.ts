@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SharedModule} from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastyModule} from 'ng2-toasty';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -10,6 +9,7 @@ import { AddCompetitionWinnerComponent } from './addCompetitionWinner/addCompeti
 import { AddWeeklyWinnerComponent } from './addWeeklyWinner/addWeeklyWinner.component';
 import { WeeklyWinnerListComponent } from './weeklyWinnerList/weeklyWinnerList.component';
 import { CompetitionWinnerListComponent } from './competitionWinnerList/competitionWinnerList.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
