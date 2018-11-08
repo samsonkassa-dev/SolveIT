@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 import { UserManagementService } from "../userManagament.service";
 import { AuthService } from "../../Auth/services/auth.service";
+import { configs } from '../../app.config';
 
 @Component({
     selector: 'app-export-data',
@@ -31,20 +32,20 @@ export class ExportDataComponent implements OnInit{
 
     exportReport() {
 		let options = {selectionOptions: this.selectionOptions};
-		this.apiService.downloadExcel('http://localhost:3000/api/UserAccounts/exportData', options).subscribe(
+		this.apiService.downloadExcel(`${configs.rootUrl}UserAccounts/exportData`, options).subscribe(
 			res => {
 				this.exportData(res);
 			}
 		);
 	}
 
-	exportData(data){       
+	exportData(data){
         let blob = data;
         let a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = 'fileName.xls';
         document.body.appendChild(a);
-        a.click();        
+        a.click();
     }
 
     getCities() {

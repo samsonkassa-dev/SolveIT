@@ -713,60 +713,19 @@
       <!-- /Section header -->
 
       <!-- blog -->
-      <div class="col-md-4">
+      <div *ngFor="let item of news" class="col-md-4">
         <div class="blog">
           <div class="blog-img">
             <img class="img-responsive" src="../../assets/img/blog1.jpg" alt="">
           </div>
           <div class="blog-content">
             <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
+              <li><i class="fa fa-user"></i>Admin</li>
+              <li><i class="fa fa-clock-o"></i>{{item.createdAt | amDateFormat: 'MMM Do'}}</li>
             </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-
-      <!-- blog -->
-      <div class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img class="img-responsive" src="../../assets/img/blog2.jpg" alt="">
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
-            </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-
-      <!-- blog -->
-      <div class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img class="img-responsive"  src="../../assets/img/blog3.jpg" alt="">
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
-            </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
+            <h3>{{item.title}}</h3>
+            <p>{{getContent(item.content)}}</p>
+            <a [routerLink]="['news', item.id]">Read more</a>
           </div>
         </div>
       </div>
