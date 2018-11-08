@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 import { UserManagementService } from "../userManagament.service";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
     selector: 'app-export-data',
@@ -15,7 +16,7 @@ export class ExportDataComponent implements OnInit{
     public cities = [];
     public optionForm: FormGroup;
 
-    constructor(public apiService: ApiService, public service: UserManagementService, public fb: FormBuilder) {
+    constructor(public apiService: ApiService, public service: UserManagementService, public fb: FormBuilder, public authService: AuthService) {
 
     }
 

@@ -21,7 +21,7 @@ import {SharedModule} from '../shared/shared.module';
     NgxPaginationModule
   ],
   declarations: [WinnerComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent, WeeklyWinnerListComponent, CompetitionWinnerListComponent],
-  exports: [],
+  exports: [WeeklyWinnerListComponent, CompetitionWinnerListComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent],
   providers: [WinnerProjectService]
 })
 export class WinnerProjectModule { }

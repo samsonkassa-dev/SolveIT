@@ -11,11 +11,6 @@ import {MomentModule} from 'angular2-moment';
 import { CompetitionProjectsComponent } from './competitionProjects/competitionProjects.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CompetitionWinnerComponent} from './competitionWinner/competitionWinner.component';
-import {WinnerComponent} from '../winnerProject/winner/winner.component';
-import {WeeklyWinnerListComponent} from '../winnerProject/weeklyWinnerList/weeklyWinnerList.component';
-import {CompetitionWinnerListComponent} from '../winnerProject/competitionWinnerList/competitionWinnerList.component';
-import {AddWeeklyWinnerComponent} from '../winnerProject/addWeeklyWinner/addWeeklyWinner.component';
-import {AddCompetitionWinnerComponent} from '../winnerProject/addCompetitionWinner/addCompetitionWinner.component';
 import { EditCompetitionComponent } from './edit-competition/edit-competition.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
@@ -26,11 +21,6 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
     CompetitionCreateComponent,
     CompetitionProjectsComponent,
     CompetitionWinnerComponent,
-    WinnerComponent,
-    WeeklyWinnerListComponent,
-    CompetitionWinnerListComponent,
-    AddWeeklyWinnerComponent,
-    AddCompetitionWinnerComponent,
     EditCompetitionComponent,
   ],
   imports: [

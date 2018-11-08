@@ -37,14 +37,14 @@
             </tr>
             </tbody>
         </table>
-        <div class="not-found" *ngIf="backUpcategories.length == 0">
+        <div class="not-found" *ngIf="backUpcities.length == 0">
             <div class="no-resource-found">
             <p>
                 <i class="fa  fa-frown-o"></i> Cities are not created yet.
             </p>
             </div>
         </div>
-        <div class="not-found" *ngIf="categories.length == 0 && key !== ''">
+        <div class="not-found" *ngIf="cities.length == 0 && key !== ''">
             <div class="no-resource-found">
             <p>
                 <i class="fa  fa-frown-o"></i> City "{{key}}" not found.
@@ -55,7 +55,7 @@
     </div>
     <div class="row">
         <div class="pagination">
-        <pagination-controls *ngIf="backUpcategories.length > 6" (pageChange)="page = $event"></pagination-controls>
+        <pagination-controls *ngIf="backUpcities.length > 6" (pageChange)="page = $event"></pagination-controls>
         </div>
     </div>
     </div>

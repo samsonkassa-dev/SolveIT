@@ -26,6 +26,7 @@ import {AuthGuardService} from './Auth/services/auth-guard.service';
 import {SolveitTeamGuardService} from './Auth/services/solveit-team-guard.service';
 import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
 import {NewsModule} from './news/news.module';
+import { WinnerProjectModule } from './winnerProject/winnerProject.module';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {NewsModule} from './news/news.module';
     ForumModule,
     SolveitTeamModule,
     BsModalModule,
-    DashboardModule
+    DashboardModule,
+    WinnerProjectModule
   ],
   providers: [ApiService, ToastOptions, AuthGuardService, SolveitTeamGuardService, SolveitMgmtGuardService],
   bootstrap: [AppComponent],

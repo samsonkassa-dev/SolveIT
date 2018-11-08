@@ -7,7 +7,7 @@ import { SolveitTeamService } from '../../solveitTeam.service';
     styleUrls: ['./viewEvent.component.css']
 })
 
-export class EventViewComponent implements OnInit, OnChanges {
+export class EventViewComponent implements OnInit {
 
     @Input() event = null;
 
@@ -31,8 +31,8 @@ export class EventViewComponent implements OnInit, OnChanges {
         );
     }
 
-  ngOnChanges(changes: SimpleChanges): void {
-      console.log(changes);
-  }
+//   ngOnChanges(changes: SimpleChanges): void {
+//       console.log(changes);
+//   }
 
 }

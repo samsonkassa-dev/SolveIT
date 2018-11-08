@@ -23,6 +23,7 @@ export class CityListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRegions();
     this.getCities();
     this.cityForm = this.fb.group({
       name: ['', Validators.required],
@@ -42,6 +43,7 @@ export class CityListComponent implements OnInit {
     this.service.addCity(this.city)
       .subscribe(res => {
         this.sharedService.addToast('Success', 'New City Added!.', 'success');
+        res.region = this.regions.filter((item) => {return item.id == this.city.regionId})[0];
         this.cityForm.reset();
         this.cities.push(res);
       }, err => {
@@ -54,6 +56,7 @@ export class CityListComponent implements OnInit {
       .subscribe(res => {
         this.cities = res;
         this.backUpcities = this.cities;
+        console.log(this.cities);
       });
   }
 
