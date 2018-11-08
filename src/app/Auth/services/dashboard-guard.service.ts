@@ -11,7 +11,7 @@ export class DashboardGuardService implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isAuthenticated() &&
-      (this.authService.isSolveitManager() || this.authService.isSolveitTeam())) {
+      (this.authService.isSolveitManager() || this.authService.isSolveitTeam() || this.authService.isAdmin())) {
       return true;
     } else {
       this.router.navigate(['']);

@@ -8,15 +8,15 @@ export class SolveitTeamService {
     constructor(private apiService: ApiService) {}
 
     createEvent(event) {
-        return this.apiService.post(`/events`, event);
+        return this.apiService.post(`events`, event);
     }
 
     getEventsList() {
-        return this.apiService.get(`/events`);
+        return this.apiService.get(`events`);
     }
 
     getEvent(eventId) {
-        return this.apiService.get(`/events/${eventId}`);
+        return this.apiService.get(`events/${eventId}`);
     }
 
     fetchNews() {
