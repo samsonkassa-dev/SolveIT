@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../news.service';
 import {Router} from '@angular/router';
 import {configs} from '../../app.config';
+import {AuthService} from '../../Auth/services/auth.service';
 
 @Component({
   selector: 'app-news-list',
@@ -17,11 +18,10 @@ export class NewsListComponent implements OnInit {
   public keyword = '';
   public page = 1;
 
-  constructor(public service: NewsService, public router: Router) { }
+  constructor(public service: NewsService, public router: Router, public authService: AuthService) { }
 
   ngOnInit() {
     this.fetchAllNews();
-    console.log(" ------------------------------ ", this.router.isActive('news', false));
   }
 
   fetchAllNews() {

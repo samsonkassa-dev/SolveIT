@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-offset-1 col-md-3">
             <ul class="dashboard-menu">
-                <li (click)="toggleView(views[0])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[0]">
+                <li  *ngIf="this.authService.isAdmin() || this.authService.isSolveitManager()" (click)="toggleView(views[0])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[0]">
                   <span class="icon"><i class="fa fa-users"></i></span> Users
                 </li>
                 <li (click)="toggleView(views[1])" class="dashboard-menu-item" [class.dashboard-menu-item-selected]="selected == views[1]">

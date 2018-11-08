@@ -14,7 +14,7 @@
                 <input class="search-input" id="searchInput" [(ngModel)]="keyword"type="text" placeholder="search">
               </div>
             </div>
-            <div class="col-md-5-col-sm-6">
+            <div class="col-md-5-col-sm-6" *ngIf="authService.isAdmin() || authService.isSolveitManager()">
               <button class="main-btn" (click)="toggleCreateNews(true)" id="createNewsButton">Create</button>
             </div>
           </div>
