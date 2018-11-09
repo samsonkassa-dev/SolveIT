@@ -63,4 +63,12 @@ export class EventListComponent implements OnInit {
       };
     }
 
+    getLimmitedEventTitle(title, limmit) {
+      if (title.length > limmit) {
+        return title.slice(0, limmit) + '...';
+      } else {
+        return title;
+      }
+    }
+
 }
