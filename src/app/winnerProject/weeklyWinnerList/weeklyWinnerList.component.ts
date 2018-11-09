@@ -32,6 +32,7 @@ export class WeeklyWinnerListComponent implements OnInit{
     removeWeeklyWinnerLabel(winner) {
         this.service.removeWeeklyWinnerLabel(winner.id).subscribe(
             res => {
+                winner.active = false;
                 this.sharedService.addToast('Success', 'Weekly Winner Removed!.', 'success');
             }, err => {
                 this.sharedService.addToast('Error', 'Error occurred!', 'error');

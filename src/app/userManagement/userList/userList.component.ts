@@ -24,9 +24,9 @@ export class UserListComponent implements OnInit {
       { name: 'solveitteam', id: '' },
       { name: 'participant', id: '' }
     ];
-    public regions = [];
+    public cities = [];
     public selectedRole = this.views[0];
-    public selectedRegion = 0;
+    public selectedCity = 0;
 
 
     constructor(public service: UserManagementService, public sharedService: SharedService, public router: Router) {
@@ -35,7 +35,7 @@ export class UserListComponent implements OnInit {
 
     ngOnInit() {
         this.populateUsersList();
-        this.getRegions();
+        this.getCities();
     }
 
     getAllUsers() {
@@ -46,9 +46,9 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    getRegions() {
-        this.service.getRegions().subscribe(res => {
-            this.regions = res;
+    getCities() {
+        this.service.getCities().subscribe(res => {
+            this.cities = res;
         });
     }
 
@@ -108,13 +108,13 @@ export class UserListComponent implements OnInit {
 
     filterUsers() {
         if (this.selectedRole.name === 'participant') {
-            if (this.selectedRegion === 0) {
+            if (parseInt(this.selectedCity.toString()) === 0) {
                 this.selectedUsers = this.allUsers.filter(item => {
                     return item.roleId === this.selectedRole.id;
                 });
             } else {
                 this.selectedUsers = this.allUsers.filter(item => {
-                    return (item.roleId === this.selectedRole.id && item.regionId === this.selectedRegion);
+                    return (item.roleId === this.selectedRole.id && item.cityId === parseInt(this.selectedCity.toString()));
                 });
             }
         } else {
@@ -123,8 +123,6 @@ export class UserListComponent implements OnInit {
             });
         }
         this.backupUsers = this.selectedUsers;
-        console.log('all users', this.allUsers);
-        console.log('Selected users', this.selectedUsers);
     }
 
     searchUser() {
@@ -146,5 +144,33 @@ export class UserListComponent implements OnInit {
 
     viewUserProfile(user) {
         this.router.navigate(['/manage-user/', user.id]);
+    }
+
+    processModerator(user) {
+        if (!user.isModerator) {
+            this.service.grantModeratorAccess(user).subscribe(
+                res => {
+                    this.sharedService.addToast('Success', 'Moderator Access Granted!', 'success');
+                    user.isModerator = true;
+                },
+                err => {
+                    if (err.status = 422) {
+                        this.sharedService.addToast('', 'Error occured!', 'error');
+                    }
+                }
+            );
+        }else {
+            this.service.detainModeratorAccess(user).subscribe(
+                res => {
+                    this.sharedService.addToast('Success', 'Moderator Access Detained!', 'success');
+                    user.isModerator = false;
+                },
+                err => {
+                    if (err.status = 422) {
+                        this.sharedService.addToast('', 'Error occured!', 'error');
+                    }
+                }
+            );
+        }
     }
 }

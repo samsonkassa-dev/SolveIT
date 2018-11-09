@@ -1,14 +1,23 @@
 <form [formGroup]="weeklyWinnerForm" *ngIf="authService.isAuthenticated()">
     <h4 class="title" id="form-title"> Add Weekly Winner </h4>
+    <div id="resource-form">
         <div class="input-field" style="margin-top: 1em">
             <select name="role" id="role" [(ngModel)]="weeklyWinner.competitionId" formControlName="competition">
                 <option selected value="0">Select Competition</option>
                 <option *ngFor="let competition of competitions" value="{{competition.id}}">{{competition.name}}</option>
             </select>
         </div>
+        <div class="input-field" style="margin-top: 1em">
+            <select name="role" id="role" [(ngModel)]="weeklyWinner.rank" formControlName="rank">
+                <option selected value="0">Select Rank</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Bronze">Bronze</option>
+            </select>
+        </div>
         <div id="input-field">
             <input type="text" class="input" name="title" placeholder="Week Name"
-            formControlName="week" [(ngModel)]="weeklyWinner.name">
+            formControlName="week" [(ngModel)]="weeklyWinner.week">
         </div>
         <div class="input-field" style="margin-top: 1em">
             <select name="role" id="role" [(ngModel)]="weeklyWinner.projectId" formControlName="project">
@@ -19,4 +28,6 @@
         <div class="form-group" id="resource-upload-btn">
         <input type="button" [disabled]="!weeklyWinnerForm.valid" (click)="addWeeklyWinner()" class="main-btn" value="Create">
         </div>
+    </div>
 </form>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

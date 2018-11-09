@@ -71,14 +71,16 @@
         <div class="modal-body">
             <form [formGroup]="cityForm" *ngIf="authService.isAuthenticated()">
             <div id="resource-form">
-                <div class="input-field" style="margin-top: 1em">
-                    <select name="role" id="role" [(ngModel)]="city.regionId" formControlName="region">
+                <div class="form-group" >
+                    <label>Select Region:</label>
+                    <select class="form-control" name="role" id="role" [(ngModel)]="city.regionId" formControlName="region">
                         <option selected value="">Select Region</option>
                         <option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                <input type="text" class="input" name="title" placeholder="City Name"
+                    <label>City Name:</label>
+                    <input type="text" class="form-control" name="title" placeholder="City Name"
                         formControlName="name" [(ngModel)]="city.name">
                 </div>
                 <div class="form-group" id="resource-upload-btn">

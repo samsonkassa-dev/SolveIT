@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from "../../shared/services/shared.service";
 import { WinnerProjectService } from "../winnerProject.service";
 import { CompetitionService } from "../../competition/competition.service";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
     selector: 'app-add-competition-winner',
@@ -15,9 +16,9 @@ export class AddCompetitionWinnerComponent implements OnInit{
     public competitionWinner = {active: true};
     public competitionWinnerForm: FormGroup;
     public projects = [];
-    public competition: any;
+    public competitions = [];
 
-    constructor(public service: WinnerProjectService, public fb: FormBuilder, public sharedService: SharedService, public competitionService: CompetitionService) {
+    constructor(public service: WinnerProjectService, public fb: FormBuilder, public sharedService: SharedService, public competitionService: CompetitionService, public authService: AuthService) {
         this.competitionWinnerForm = this.fb.group({
             project: ['', Validators.required],
             competition: ['', Validators.required]
@@ -41,8 +42,10 @@ export class AddCompetitionWinnerComponent implements OnInit{
     getCompetition() {
         this.competitionService.getActiveCompetition().subscribe(
             res => {
-                this.competition = res;
-                this.getProjects(this.competition.id);
+                this.competitions = res.Result;
+                if (this.competitions.length != 0) {
+                    this.getProjects(this.competitions[0].id);    
+                }
             }
         )
     }

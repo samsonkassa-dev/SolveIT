@@ -26,10 +26,10 @@
             </select>
         </div>
         <div class="col-md-offset-2 col-md-4" *ngIf = "selectedRole.name == 'participant'">
-          <label for="view-filter">Filter By Region : </label>
-          <select name="view" id="view-filter" [(ngModel)]="selectedRegion" (change)="toggleView(selected)">
-              <option value="0">All</option>
-              <option *ngFor = "let region of regions" value="{{region.id}}">{{ region.name }}</option>
+            <label for="view-filter">Filter By Region : </label>
+            <select name="view" id="view-filter" [(ngModel)]="selectedCity" (change)="toggleView(selected)">
+                <option value="0">All</option>
+                <option *ngFor = "let city of cities" value="{{city.id}}">{{ city.name }}</option>
             </select>
         </div>
     </div>
@@ -45,6 +45,7 @@
               <th>Email</th>
               <th>Phone Number</th>
               <th>Actions</th>
+              <th>Moderator</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +58,10 @@
                 <td>
                     <button *ngIf="user.status == 'INACTIVE'" (click)="activateUser(user)" type="button" class="btn btn-success">Activate</button>
                     <button *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)" type="button" class="btn btn-danger">Deactivate</button>
+                </td>
+                <td>
+                    <button *ngIf="!user.isModerator" (click)="processModerator(user)" type="button" class="btn btn-success">Grant</button>
+                    <button *ngIf="user.isModerator" (click)="processModerator(user)" type="button" class="btn btn-danger">Detain</button>
                 </td>
             </tr>
         </tbody>

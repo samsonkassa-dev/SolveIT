@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let winner of competitionWinners | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
+                <tr *ngFor="let winner of competitionWinners | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
                     <th scope="row">
                         {{winner.competition.name}}
                     </th>
@@ -27,4 +27,5 @@
         <pagination-controls *ngIf="competitionWinners.length > 10" (pageChange)="currentPage = $event"></pagination-controls>
     </div>
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
         

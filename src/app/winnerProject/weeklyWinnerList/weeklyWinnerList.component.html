@@ -5,16 +5,17 @@
                 <tr>
                     <th scope="col">Week</th>
                     <th scope="col">Project</th>
+                    <th scope="col">Rank</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let winner of weeklyWinners | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
+                <tr *ngFor="let winner of weeklyWinners | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
                     <th scope="row">
-                        {{winner.name}}
+                        {{winner.week}}
                     </th>
-                    <td>{{winner.solveitproject.title }}
-                    </td>
+                    <td>{{winner.solveitproject.title }}</td>
+                    <td>{{winner.rank }}</td>
                     <td>
                         <span *ngIf="!winner.active">INACTIVE</span>
                         <button *ngIf="winner.active" (click)="removeWeeklyWinnerLabel(winner)" type="button" class="btn btn-danger">Deactivate</button>
@@ -27,4 +28,5 @@
         <pagination-controls *ngIf="weeklyWinners.length > 10" (pageChange)="currentPage = $event"></pagination-controls>
     </div>
 </div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
     
