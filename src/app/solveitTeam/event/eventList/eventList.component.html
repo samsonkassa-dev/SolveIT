@@ -14,7 +14,7 @@
           <button *ngIf="authService.isSolveitManager() || authService.isAdmin()"  class="outline-btn">create Here</button>
         </div>
         <!-- Event list -->
-        <ng-container *ngIf = "events.length > 0">
+        <ng-container class="row" *ngIf = "events.length > 0">
 
           <div class="col-lg-4 col-md-4 col-sm-6" *ngFor = "let event of events | paginate: { itemsPerPage: 10, currentPage: p }">
               <div class="service" id="event">

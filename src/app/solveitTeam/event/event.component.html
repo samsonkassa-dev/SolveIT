@@ -3,7 +3,7 @@
   <div class="events-list-header">
     <div class="header">
       <h4 (click)="toggleView('events-list')" class="title">Events</h4>
-      <button type="button" (click)="toggleView('create-event')" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
+      <button type="button" *ngIf="authService.isSolveitManager() || authService.isAdmin()" (click)="toggleView('create-event')" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
       </button>
     </div>
   </div>
