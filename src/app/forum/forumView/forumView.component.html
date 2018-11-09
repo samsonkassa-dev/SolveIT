@@ -19,7 +19,7 @@
                     </li>
                 </ul>
               <br>
-              <div id="detail-menu">
+              <div id="detail-menu" *ngIf="allDiscussions.length > 0">
                 <h5 class="title">Filter by tags</h5>
                 <div class="radio-button-group">
                   <label style="margin-left: .7em" (change)="handleRadioButtonChange($event)" class="radio-inline"><input type="radio" name="tagFilter" [checked]="selectedTag === ''" value="">All</label>
