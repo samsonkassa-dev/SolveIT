@@ -11,7 +11,7 @@ export class WinnerProjectService {
   }
 
   labelCompetitionWinner(winner) {
-    return this.apiService.post(`competitionWinner/`, winner);
+    return this.apiService.post(`competitionWinners/`, winner);
   }
 
   labelWeeklyWinner(winner) {
@@ -23,11 +23,11 @@ export class WinnerProjectService {
   }
 
   getCompetitionWinners() {
-    return this.apiService.get(`competitionWinner?filter={"include": ["solveitproject", "competition"]}`);
+    return this.apiService.get(`competitionWinners?filter={"include": ["solveitproject", "competition"]}`);
   }
 
   removeCompetitionWinnerLabel(winnerId) {
-    return this.apiService.patch(`competitionWinner/${winnerId}`, {active: false});
+    return this.apiService.patch(`competitionWinners/${winnerId}`, {active: false});
   }
 
   removeWeeklyWinnerLabel(winnerId) {

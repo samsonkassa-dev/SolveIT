@@ -63,7 +63,8 @@ import { WinnerProjectModule } from './winnerProject/winnerProject.module';
     SolveitTeamModule,
     BsModalModule,
     DashboardModule,
-    WinnerProjectModule
+    WinnerProjectModule,
+    CompetitionModule
   ],
   providers: [ApiService, ToastOptions, AuthGuardService, SolveitTeamGuardService, SolveitMgmtGuardService],
   bootstrap: [AppComponent],
