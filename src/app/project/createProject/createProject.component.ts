@@ -42,6 +42,7 @@ export class CreateProjectComponent implements OnInit{
   createProject() {
     if (this.projectForm.valid) {
       if (this.isFileSelected) {
+        this.isUploading = true;
         this.error = false;
         this.uploader.queue[0].upload();
         this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
@@ -62,6 +63,7 @@ export class CreateProjectComponent implements OnInit{
             err => {
               if (err.status = 422) {
                 this.sharedService.addToast('', 'Error occurred!', 'error');
+                this.isUploading = false;
               }
             }
           );
@@ -82,7 +84,6 @@ export class CreateProjectComponent implements OnInit{
         };
       }
     } else {
-      console.log('form not valid');
       this.markFormGroupTouched(this.projectForm);
     }
   }
@@ -90,6 +91,7 @@ export class CreateProjectComponent implements OnInit{
   editProject() {
     if (this.projectForm.valid) {
       if (this.isFileSelected) {
+        this.isUploading = true;
         this.uploader.queue[0].upload();
         this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
           this.project.proposal = JSON.parse(response).result.files.file[0];
@@ -97,7 +99,6 @@ export class CreateProjectComponent implements OnInit{
           this.uploader.queue.pop();
         };
         this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-          console.log('progress => ', progress);
           this.progress = progress;
         };
         this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
@@ -135,6 +136,7 @@ export class CreateProjectComponent implements OnInit{
     this.service.updateProject(this.project.id, this.project)
       .subscribe(res => {
         this.sharedService.addToast('Success', 'Project updated successfully!', 'success');
+        this.isUploading = false;
         this.created.emit();
       }, error => {
         this.sharedService.addToast('', 'Error occurred!', 'error');
