@@ -14,6 +14,7 @@ import {PhoneNumberValidation} from '../../Auth/validator/phoneNumberValidation'
 export class AddUserComponent implements OnInit{
 
     public user = {
+      gender: ''
     };
     public selected = 'participant';
     public userForm: FormGroup;
@@ -36,6 +37,7 @@ export class AddUserComponent implements OnInit{
         middleName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
+        gender: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         role: ['', Validators.required],
         username: ['', Validators.required],
@@ -55,7 +57,7 @@ export class AddUserComponent implements OnInit{
             this.isPosting = false;
             this.showUsersList();
           }, err => {
-            this.sharedService.addToast('', 'Error occured!', 'error');
+            this.sharedService.addToast('', 'Error occurred!', 'error');
             this.isPosting = false;
           });
       } else {

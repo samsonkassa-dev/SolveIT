@@ -10,16 +10,26 @@
             </div>
         </div>
         <div class="input-field">
-            <input class="input" type="text" name="middleName" formControlName="middleName" placeholder="Middle Name" [(ngModel)]="user.middleName">
+            <input class="input" type="text" name="middleName" formControlName="middleName" placeholder="Father's Name" [(ngModel)]="user.middleName">
             <div class="error-message" *ngIf="userForm.controls.middleName.invalid && userForm.controls.middleName.touched">
-                <p>* Middle Name is required.</p>
+                <p>* Father's Name is required.</p>
             </div>
         </div>
         <div class="input-field">
-            <input class="input" type="text" name="lastName" formControlName="lastName" placeholder="Last Name" [(ngModel)]="user.lastName">
+            <input class="input" type="text" name="lastName" formControlName="lastName" placeholder="Grand Father's Name" [(ngModel)]="user.lastName">
             <div class="error-message" *ngIf="userForm.controls.lastName.invalid && userForm.controls.lastName.touched">
-                <p> * Last Name is required.</p>
+                <p> * Grand Father's Name is required.</p>
             </div>
+        </div>
+        <div class="input-field">
+          <select name="sex" id="sex" [(ngModel)]="user.gender" formControlName="gender">
+            <option value="" selected>Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+          <div class="error-message" *ngIf="userForm.controls.gender.invalid && userForm.controls.gender.touched">
+            <p>* Gender is required.</p>
+          </div>
         </div>
         <div class="input-field">
             <input class="input" type="email" name="email" formControlName="email" placeholder="Email" [(ngModel)]="user.email"
