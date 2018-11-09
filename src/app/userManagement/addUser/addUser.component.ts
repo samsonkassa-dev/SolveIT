@@ -14,6 +14,7 @@ import {PhoneNumberValidation} from '../../Auth/validator/phoneNumberValidation'
 export class AddUserComponent implements OnInit{
 
     public user = {
+      gender: ''
     };
     public selected = 'participant';
     public userForm: FormGroup;
@@ -22,6 +23,7 @@ export class AddUserComponent implements OnInit{
       {id: 'solve-it-team', name: 'Staff & Mentor Team'},
     ];
     public role = '';
+    public isPosting = false;
     @Output() back = new EventEmitter();
     @Output() created = new EventEmitter();
 
@@ -35,6 +37,7 @@ export class AddUserComponent implements OnInit{
         middleName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
+        gender: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         role: ['', Validators.required],
         username: ['', Validators.required],
@@ -46,14 +49,35 @@ export class AddUserComponent implements OnInit{
   }
 
     addUser() {
+      if (this.userForm.valid) {
+        this.isPosting = true;
         this.service.addUser(this.user, this.role)
-            .subscribe(res => {
-                this.sharedService.addToast('Success', 'New User Added!.', 'success');
-                this.showUsersList();
-            }, err => {
-                this.sharedService.addToast('', 'Error occured!', 'error');
-            });
+          .subscribe(res => {
+            this.sharedService.addToast('Success', 'New User Added!', 'success');
+            this.isPosting = false;
+            this.showUsersList();
+          }, err => {
+            this.sharedService.addToast('', 'Error occurred!', 'error');
+            this.isPosting = false;
+          });
+      } else {
+        this.markFormGroupTouched(this.userForm);
+      }
     }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 
     toggleView(view) {
         this.selected = view;

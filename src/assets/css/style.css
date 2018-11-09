@@ -950,6 +950,10 @@ header {
     color: #2BA692;
 }
 
+.pricing:hover .project-title {
+  color: #FFFFFF;
+}
+
 .pricing .price {
     position: relative;
     width: 140px;
@@ -1834,4 +1838,9 @@ header {
 /* tabel */
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
   text-align: center;
+}
+
+/* select input */
+select {
+  -moz-appearance: none;
 }

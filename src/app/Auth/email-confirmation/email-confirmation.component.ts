@@ -24,9 +24,9 @@ export class EmailConfirmationComponent implements OnInit {
       this.authService.confirmEmail(temp[0], temp[1])
         .subscribe(res1 => {
           this.router.navigate(['login']);
+          this.loading = false;
         }, err => {
           this.loading = false;
-          console.log(err);
         });
     });
   }

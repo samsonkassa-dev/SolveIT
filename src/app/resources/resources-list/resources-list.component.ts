@@ -130,4 +130,12 @@ export class ResourcesListComponent implements OnInit {
     return `http://img.youtube.com/vi/${videoId}/0.jpg`;
   }
 
+  getLimittedTitle(title, limit) {
+    if (title.length > limit) {
+      return title.slice(0, limit) + '...';
+    } else {
+      return title;
+    }
+  }
+
 }

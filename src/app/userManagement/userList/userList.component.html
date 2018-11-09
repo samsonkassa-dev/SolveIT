@@ -11,21 +11,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-offset-2 col-sm-offset-2 col-md-2">
+        <div class="col-md-offset-5 col-sm-offset-2 col-md-2">
             <button (click)="createUser()" class="outline-btn create">Create</button>
         </div>
 
     </div>
     <div class="row filter">
-        <div class="col-md-offset-2 col-md-4">
-            <select name="view" id="view-filter" [(ngModel)]="selected" (change)="toggleView(selected)">
+        <div class="col-md-6">
+          <label for="user-fillter">Filter By Role : </label>
+            <select name="view" id="user-fillter" [(ngModel)]="selected" (change)="toggleView(selected)">
               <option selected="selected" value="0">SolveIT Management Team</option>
               <option value="1">SolveIT Staffs & Mentors Team</option>
               <option value="2">SolveIT Participants</option>
             </select>
         </div>
-        <div class="col-md-offset-2 col-md-3" *ngIf = "selectedRole.name == 'participant'">
-            <select name="view" id="view-filter" [(ngModel)]="selectedRegion" (change)="toggleView(selected)">
+        <div class="col-md-offset-2 col-md-4" *ngIf = "selectedRole.name == 'participant'">
+          <label for="view-filter">Filter By Region : </label>
+          <select name="view" id="view-filter" [(ngModel)]="selectedRegion" (change)="toggleView(selected)">
               <option value="0">All</option>
               <option *ngFor = "let region of regions" value="{{region.id}}">{{ region.name }}</option>
             </select>

@@ -13,7 +13,7 @@
                 <option *ngFor="let category of categories" [value]="category.category">{{category.category}}</option>
             </select>
         </div>
-        <div class="col-md-offset-1 col-md-2" *ngIf="(authService.isSolveitTeam() || authService.isSolveitManager()) && resources.length > 0">
+        <div class="col-md-offset-1 col-md-2" *ngIf="(authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()) && resources.length > 0">
             <button id="upload-btn" class="outline-btn" (click)="uploadResource()"> <i class="fa fa-upload"></i> Upload</button>
         </div>
     </div>
@@ -51,7 +51,7 @@
                     <img  class="image" src="../../../assets/img/pdfCover.png" alt="book cover">
                     <div class="info">
                       <p>{{resource.createdAt | amTimeAgo}}</p>
-                      <h5  class="title">{{resource.title}}</h5>
+                      <h5  class="title">{{getLimittedTitle(resource.title, 12)}}</h5>
                     </div>
                   </div>
                 </div>
@@ -102,9 +102,10 @@
           </div>
           <!-- /Section header -->
 
-          <div class="no-resource-found" *ngIf="(backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory == '')">
+          <div class="no-resource-found" *ngIf="((backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory !== ''))">
               <p>
-                  <i class="fa  fa-frown-o"></i> {{ " No video resources are uploaded."}} <i *ngIf="authService.isSolveitTeam() && resources.length === 0" class="link" (click)="createResource()">create here.</i>
+                  <i class="fa  fa-frown-o"></i> {{ " No video resources are uploaded."}}
+                <i *ngIf=" (authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()) && resources.length === 0" class="link" (click)="createResource()">create here.</i>
               </p>
           </div>
 
@@ -119,7 +120,7 @@
               <img [src]="getVideoThumbinal(resource.url)" alt="video thumbinal">
               <div class="info">
                 <p>{{resource.createdAt | amTimeAgo}}</p>
-                <h6 class="title">{{resource.title}}</h6>
+                <h6 class="title">{{getLimittedTitle(resource.title, 28)}}</h6>
               </div>
             </div>
           </div>

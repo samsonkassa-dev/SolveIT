@@ -14,6 +14,7 @@ export class SingleCommentComponent implements OnInit {
   @Input() comment: any = null;
   @Input() isOwnerOfDiscussion = false;
   @Output() remove = new EventEmitter();
+  public isPostingReplyLoading = false;
 
   public isReplyActive = false;
   public reply = {'solveIT-Discussion-CommentId': !this.comment ? '' : this.comment.id , userId: '', content: ''};
@@ -49,6 +50,7 @@ export class SingleCommentComponent implements OnInit {
   replyToComment() {
     const authenticated = this.authService.isAuthenticated();
     if (authenticated) {
+      this.isPostingReplyLoading = true;
       const userId = this.authService.getUserId();
       if (userId) {
         this.reply = {...this.reply, userId: userId, 'solveIT-Discussion-CommentId': this.comment.id};
@@ -57,10 +59,12 @@ export class SingleCommentComponent implements OnInit {
             this.sharedService.addToast('Success', 'Reply Added!.', 'success');
             this.getCommentReplies(this.comment);
             this.replyForm.reset();
+            this.isPostingReplyLoading = false;
           },
           err => {
             if (err.status = 422) {
               this.sharedService.addToast('', 'Error occured!', 'error');
+              this.isPostingReplyLoading = false;
             }
           }
         );

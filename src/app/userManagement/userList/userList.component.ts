@@ -73,7 +73,7 @@ export class UserListComponent implements OnInit {
         updatedUser.status = 'ACTIVE';
         this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
-                this.sharedService.addToast('Success', 'Account Activated!.', 'success');
+                this.sharedService.addToast('Success', 'Account Activated!', 'success');
                 user.status = 'ACTIVE';
             },
             err => {
@@ -89,7 +89,7 @@ export class UserListComponent implements OnInit {
         updatedUser.status = 'INACTIVE';
         this.service.activateDeactivateUser(updatedUser).subscribe(
             res => {
-                this.sharedService.addToast('Success', 'Account Deactivated!.', 'success');
+                this.sharedService.addToast('Success', 'Account Deactivated!', 'success');
                 user.status = 'INACTIVE';
             },
             err => {
@@ -130,7 +130,10 @@ export class UserListComponent implements OnInit {
     searchUser() {
         if (this.keyword !== '') {
             this.selectedUsers = this.backupUsers.filter(item => {
-              return item.email.includes(this.keyword) || item.firstName.includes(this.keyword) || item.middleName.includes(this.keyword) || item.lastName.includes(this.keyword);
+              return item.email.toUpperCase().includes(this.keyword.toUpperCase()) ||
+                item.firstName.toUpperCase().includes(this.keyword.toUpperCase()) ||
+                item.middleName.toUpperCase().includes(this.keyword.toUpperCase()) ||
+                item.lastName.toUpperCase().includes(this.keyword.toUpperCase());
             });
         } else {
           this.selectedUsers = this.backupUsers;

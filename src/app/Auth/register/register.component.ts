@@ -8,6 +8,7 @@ import {PasswordValidation} from '../validator/passwordValidation';
 import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
 import {UserManagementService} from '../../userManagement/userManagament.service';
 
+declare var $: any;
 
 @Component({
   selector: 'app-register',
@@ -46,10 +47,11 @@ export class RegisterComponent implements OnInit {
     workStatus: '',
     educationLevel: '',
     address: {},
-    regionId: ''
+    cityId: ''
   };
   public address = {
-    city: '',
+    regionId: '',
+    cityId: '',
     wereda: '',
     houseNo: '',
     emergencyContact: {
@@ -66,17 +68,12 @@ export class RegisterComponent implements OnInit {
   public isBasicFormActive = true;
   public isAddressFormActive = false;
   public isQuestionariesActive = false;
-  public regions = [];
+  public isLoading = false;
 
-  constructor(public authService: AuthService, public router: Router, public formBuilder: FormBuilder, public userService: UserManagementService) {}
+  constructor(public authService: AuthService, public router: Router, public formBuilder: FormBuilder,
+              public userService: UserManagementService) {}
 
   ngOnInit() {
-
-    this.userService.getRegions()
-      .subscribe(res => {
-        this.regions = res;
-      });
-
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
@@ -89,7 +86,6 @@ export class RegisterComponent implements OnInit {
       sex: ['', Validators.required],
       age: ['', Validators.required],
       status: ['', Validators.required],
-      region: ['', Validators.required],
       educationLevel: ['', Validators.required],
       otherStatus: [''],
       otherEduvationLevel: ['']
@@ -117,25 +113,25 @@ export class RegisterComponent implements OnInit {
       this.isBasicFormActive = false;
     } else {
       this.markFormGroupTouched(this.registerForm);
-      console.log('Register form is not valid');
     }
   }
 
-  debug($event) {
-    console.log(this.registerForm.controls);
-  }
-
   onAdressNext() {
+    this.isLoading = true;
+    this.user.cityId = this.address.cityId;
+    delete this.address['cityId'];
+    delete this.address['regionId'];
     this.user.address = this.address;
-    console.log(this.user);
     this.authService.register({user: this.user})
       .subscribe(res => {
         console.log(res);
+        this.isLoading = false;
         this.router.navigate(['login']);
+        $('#registerationInfo').modal('show');
       }, err => {
+        this.isLoading = false;
         console.log('Error while registering User', err);
       });
-    console.log(this.user);
   }
 
   onAdressBack() {
@@ -147,7 +143,7 @@ export class RegisterComponent implements OnInit {
    * Marks all controls in a form group as touched
    * @param formGroup - The form group to touch
    */
-  private markFormGroupTouched(formGroup: any) {
+  public markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();
 

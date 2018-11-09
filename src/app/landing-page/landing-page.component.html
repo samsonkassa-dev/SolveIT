@@ -3,7 +3,7 @@
 <!-- Header -->
 <header id="home">
   <!-- Background Video -->
-  <video src="../../assets/video/logo.mp4" autoplay="true" loop="true" muted class="bg-video"></video>
+  <video src="../../assets/video/logo.mp4" autoplay="true" muted class="bg-video"></video>
   <!-- /Background Video -->
 
   <!-- Nav -->
@@ -42,7 +42,7 @@
         <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
         <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{''}}</a>
           <ul class="dropdown1">
-            <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Project</a></li>
+            <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Projects</a></li>
             <li><a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
           </ul>
         </li>
@@ -155,11 +155,10 @@
         <img class="img-responsive" src="../../assets/img/work1.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work1.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -170,11 +169,10 @@
         <img class="img-responsive" src="../../assets/img/work2.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work2.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -185,11 +183,10 @@
         <img class="img-responsive" src="../../assets/img/work3.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work3.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -200,11 +197,10 @@
         <img class="img-responsive" src="../../assets/img/work4.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work4.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -215,11 +211,10 @@
         <img class="img-responsive" src="../../assets/img/work5.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work5.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -230,11 +225,10 @@
         <img class="img-responsive" src="../../assets/img/work6.jpg" alt="">
         <div class="overlay"></div>
         <div class="work-content">
-          <span>Category</span>
+          <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a href="#"><i class="fa fa-external-link"></i></a>
-            <a class="lightbox" href="../../assets/img/work6.jpg"><i class="fa fa-search"></i></a>
+            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
           </div>
         </div>
       </div>
@@ -407,27 +401,7 @@
         <div class="number">
           <i class="fa fa-users"></i>
           <h3 class="white-text"><span class="counter">451</span></h3>
-          <span class="white-text">Happy clients</span>
-        </div>
-      </div>
-      <!-- /number -->
-
-      <!-- number -->
-      <div class="col-sm-3 col-xs-6">
-        <div class="number">
-          <i class="fa fa-trophy"></i>
-          <h3 class="white-text"><span class="counter">12</span></h3>
-          <span class="white-text">Awards won</span>
-        </div>
-      </div>
-      <!-- /number -->
-
-      <!-- number -->
-      <div class="col-sm-3 col-xs-6">
-        <div class="number">
-          <i class="fa fa-coffee"></i>
-          <h3 class="white-text"><span class="counter">154</span>K</h3>
-          <span class="white-text">Cups of Coffee</span>
+          <span class="white-text">Participants</span>
         </div>
       </div>
       <!-- /number -->
@@ -437,7 +411,27 @@
         <div class="number">
           <i class="fa fa-file"></i>
           <h3 class="white-text"><span class="counter">45</span></h3>
-          <span class="white-text">Projects completed</span>
+          <span class="white-text">Projects</span>
+        </div>
+      </div>
+      <!-- /number -->
+
+      <!-- number -->
+      <div class="col-sm-3 col-xs-6">
+        <div class="number">
+          <i class="fa fa-trophy"></i>
+          <h3 class="white-text"><span class="counter">5</span></h3>
+          <span class="white-text">Top Projects</span>
+        </div>
+      </div>
+      <!-- /number -->
+
+      <!-- number -->
+      <div class="col-sm-3 col-xs-6">
+        <div class="number">
+          <i class="fa fa-building"></i>
+          <h3 class="white-text"><span class="counter">12</span></h3>
+          <span class="white-text">Cities</span>
         </div>
       </div>
       <!-- /number -->
@@ -462,7 +456,7 @@
 
       <!-- Section header -->
       <div class="section-header text-center">
-        <h2 class="title">Pricing Table</h2>
+        <h2 class="title">Project of the week</h2>
       </div>
       <!-- /Section header -->
 
@@ -470,25 +464,16 @@
       <div class="col-sm-4">
         <div class="pricing">
           <div class="price-head">
-            <span class="price-title">Basic plan</span>
-            <div class="price">
-              <h3>$9<span class="duration">/ month</span></h3>
+            <span class="price-title">Gold Place</span>
+            <div>
+              <h3 class="title project-title text-center">Robot Farming</h3>
             </div>
           </div>
           <ul class="price-content">
             <li>
-              <p>1GB Disk Space</p>
-            </li>
-            <li>
-              <p>100 Email Account</p>
-            </li>
-            <li>
-              <p>24/24 Support</p>
+              <p>From Hawassa</p>
             </li>
           </ul>
-          <div class="price-btn">
-            <button class="outline-btn">Purchase now</button>
-          </div>
         </div>
       </div>
       <!-- /pricing -->
@@ -497,25 +482,16 @@
       <div class="col-sm-4">
         <div class="pricing">
           <div class="price-head">
-            <span class="price-title">Silver plan</span>
-            <div class="price">
-              <h3>$19<span class="duration">/ month</span></h3>
+            <span class="price-title">Silver Place</span>
+            <div>
+              <h3 class="title project-title text-center">Digital School</h3>
             </div>
           </div>
           <ul class="price-content">
             <li>
-              <p>1GB Disk Space</p>
-            </li>
-            <li>
-              <p>100 Email Account</p>
-            </li>
-            <li>
-              <p>24/24 Support</p>
+              <p>From Bahirdar</p>
             </li>
           </ul>
-          <div class="price-btn">
-            <button class="outline-btn">Purchase now</button>
-          </div>
         </div>
       </div>
       <!-- /pricing -->
@@ -524,25 +500,16 @@
       <div class="col-sm-4">
         <div class="pricing">
           <div class="price-head">
-            <span class="price-title">Gold plan</span>
-            <div class="price">
-              <h3>$39<span class="duration">/ month</span></h3>
+            <span class="price-title">Bronze Place</span>
+            <div>
+              <h3 class="title project-title text-center">Online Doctor</h3>
             </div>
           </div>
           <ul class="price-content">
             <li>
-              <p>1GB Disk Space</p>
-            </li>
-            <li>
-              <p>100 Email Account</p>
-            </li>
-            <li>
-              <p>24/24 Support</p>
+              <p>From Jimma</p>
             </li>
           </ul>
-          <div class="price-btn">
-            <button class="outline-btn">Purchase now</button>
-          </div>
         </div>
       </div>
       <!-- /pricing -->
@@ -640,7 +607,7 @@
           </div>
           <div class="team-content">
             <h3>John Doe</h3>
-            <span>Web Designer</span>
+            <span>Project Manager</span>
           </div>
         </div>
       </div>
@@ -661,7 +628,7 @@
           </div>
           <div class="team-content">
             <h3>John Doe</h3>
-            <span>Web Designer</span>
+            <span>Assistant Manager</span>
           </div>
         </div>
       </div>
@@ -682,7 +649,7 @@
           </div>
           <div class="team-content">
             <h3>John Doe</h3>
-            <span>Web Designer</span>
+            <span>Consultant</span>
           </div>
         </div>
       </div>
@@ -713,60 +680,19 @@
       <!-- /Section header -->
 
       <!-- blog -->
-      <div class="col-md-4">
+      <div *ngFor="let item of news" class="col-md-4">
         <div class="blog">
           <div class="blog-img">
-            <img class="img-responsive" src="../../assets/img/blog1.jpg" alt="">
+            <img class="img-responsive" [src]="getImageSource(item.img.name)" alt="">
           </div>
           <div class="blog-content">
             <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
+              <li><i class="fa fa-user"></i>{{item.user.username}}</li>
+              <li><i class="fa fa-clock-o"></i>{{item.createdAt | amDateFormat: 'MMM Do'}}</li>
             </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-
-      <!-- blog -->
-      <div class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img class="img-responsive" src="../../assets/img/blog2.jpg" alt="">
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
-            </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-
-      <!-- blog -->
-      <div class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img class="img-responsive"  src="../../assets/img/blog3.jpg" alt="">
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>John doe</li>
-              <li><i class="fa fa-clock-o"></i>18 Oct</li>
-              <li><i class="fa fa-comments"></i>57</li>
-            </ul>
-            <h3>Molestie at elementum eu facilisis sed odio</h3>
-            <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-            <a href="blog-single.html">Read more</a>
+            <h3>{{item.title}}</h3>
+            <p>{{getContent(item.content)}}</p>
+            <a [routerLink]="['news', item.id]">Read more</a>
           </div>
         </div>
       </div>
@@ -801,8 +727,7 @@
         <div class="contact">
           <i class="fa fa-phone"></i>
           <h3>Phone</h3>
-          <p>512-421-3940</p>
-          {{user}}
+          <p> 093 041 1443</p>
         </div>
       </div>
       <!-- /contact -->
@@ -812,7 +737,7 @@
         <div class="contact">
           <i class="fa fa-envelope"></i>
           <h3>Email</h3>
-          <p>email@support.com</p>
+          <p>info@solveit.com</p>
         </div>
       </div>
       <!-- /contact -->
@@ -822,22 +747,11 @@
         <div class="contact">
           <i class="fa fa-map-marker"></i>
           <h3>Address</h3>
-          <p>1739 Bubby Drive</p>
+          <p>Angola St, Addis Ababa</p>
         </div>
       </div>
       <!-- /contact -->
 
-      <!-- contact form -->
-      <div class="col-md-8 col-md-offset-2">
-        <!--<form class="contact-form">-->
-          <!--<input type="text" class="input" placeholder="Name">-->
-          <!--<input type="email" class="input" placeholder="Email">-->
-          <!--<input type="text" class="input" placeholder="Subject">-->
-          <!--<textarea class="input" placeholder="Message"></textarea>-->
-          <!--<button class="main-btn">Send message</button>-->
-        <!--</form>-->
-      </div>
-      <!-- /contact form -->
 
     </div>
     <!-- /Row -->
@@ -847,3 +761,6 @@
 
 </div>
 <!-- /Contact -->
+
+
+<app-alumunni-detail></app-alumunni-detail>

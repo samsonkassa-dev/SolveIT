@@ -26,6 +26,6 @@ import {MomentModule} from 'angular2-moment';
     MomentModule
   ],
   declarations: [CreateNewsComponent, NewsListComponent, NewsDetailComponent, RecentNewsComponent],
-  providers: [NewsService]
+  providers: [NewsService],
 })
 export class NewsModule { }

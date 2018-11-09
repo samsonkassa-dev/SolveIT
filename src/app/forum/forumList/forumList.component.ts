@@ -95,7 +95,7 @@ export class ForumListComponent implements OnInit, OnChanges {
           if (this.forums.length === 0) {
             this.forums = this.forumsBackup;
           }
-          this.forums = this.forums.filter(item => item.slung.includes(this.keyword));
+          this.forums = this.forums.filter(item => item.slung.toUpperCase().includes(this.keyword.toUpperCase()));
         } else {
           this.forums = this.forumsBackup;
         }

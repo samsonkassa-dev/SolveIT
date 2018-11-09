@@ -25,6 +25,8 @@ export class ForumViewComponent implements OnInit {
     public slung = null;
     public allDiscussionCommentCount = [];
     public pinnedDiscussionCommentCount = [];
+    public tags = [];
+    public selectedTag = '';
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
                 public authService: AuthService, public sharedService: SharedService) {
@@ -35,6 +37,10 @@ export class ForumViewComponent implements OnInit {
       console.log('on forum view');
         this.slung = this.route.snapshot.paramMap.get('slung');
         this.getForum(this.slung);
+        this.service.getTags()
+          .subscribe(res => {
+            this.tags = res;
+          });
     }
 
     toggleView(view) {
@@ -100,8 +106,14 @@ export class ForumViewComponent implements OnInit {
 
     onSearch($event) {
         if (this.keyword !== '') {
-          this.pinnedDiscussions = this.pinnedDiscussions.filter(item => item.content.includes(this.keyword));
-          this.discussions = this.discussions.filter(item => item.content.includes(this.keyword));
+          this.pinnedDiscussions = this.pinnedDiscussions.filter(item => {
+            return item.content.toUpperCase().includes(this.keyword.toUpperCase()) ||
+                    item.titel.toUpperCase().includes(this.keyword.toUpperCase());
+          });
+          this.discussions = this.discussions.filter(item => {
+            return item.content.toUpperCase().includes(this.keyword.toUpperCase()) ||
+                    item.title.toUpperCase().includes(this.keyword.toUpperCase());
+          });
         } else {
           this.pinnedDiscussions = this.allDiscussions.filter(item => item.pinned);
           this.discussions = this.allDiscussions.filter(item => !item.pinned);
@@ -109,13 +121,27 @@ export class ForumViewComponent implements OnInit {
     }
 
     discussionDetail(discussion) {
-      // this.selectedDiscussion = discussion.slung;
-      // this.toggleView('discussion-detail');
       this.router.navigate([`discussions/${discussion.slung}`]);
     }
 
     discussionCreated() {
         this.toggleView('discussion-list');
         this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
+    }
+
+    handleRadioButtonChange($evnt) {
+      this.selectedTag = $evnt.target.value;
+      this.filterDiscussionByTag(this.selectedTag);
+    }
+
+    filterDiscussionByTag(tagId) {
+      if (tagId !== '') {
+        this.service.filterDiscussionByTag(tagId)
+          .subscribe(res => {
+            this.discussions = res;
+          });
+      } else {
+        this.discussions = this.allDiscussions;
+      }
     }
 }

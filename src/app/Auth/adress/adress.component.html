@@ -5,22 +5,33 @@
     </div>
     <h3 class="title">Personal Address</h3>
     <div class="input-field">
-      <input type="text" class="input" name="city" placeholder="City" formControlName="city" [(ngModel)]="address.city"
-              [class.err]="addressForm.controls.city.invalid && addressForm.controls.city.touched">
+      <select name="region" id="region" formControlName="region" [(ngModel)]="address.regionId" (change)="onRegionChange()">
+        <option value="">Select Your Region</option>
+        <option *ngFor="let region of regions" value="{{region.id}}">{{region.name.toUpperCase()}}</option>
+      </select>
+      <div class="error-message" *ngIf="addressForm.controls.region.invalid && addressForm.controls.region.touched">
+        <p>* Region is required.</p>
+      </div>
+    </div>
+    <div class="input-field">
+      <select name="city" id="city" formControlName="city" [(ngModel)]="address.cityId" (change)="onCityChange()">
+        <option value="">Select Your City</option>
+        <option *ngFor="let city of cities" value="{{city.id}}">{{city.name.toUpperCase()}}</option>
+      </select>
       <div class="error-message" *ngIf="addressForm.controls.city.invalid && addressForm.controls.city.touched">
         <p>* City is required.</p>
       </div>
     </div>
     <div class="input-field">
       <input type="text" class="input" name="Woreda" placeholder="Woreda/Kebele" formControlName="wereda"
-             [(ngModel)]="address.wereda" [class.err]="addressForm.controls.wereda.invalid && addressForm.controls.wereda.touched">
+             [(ngModel)]="address.wereda" >
       <div class="error-message" *ngIf="addressForm.controls.wereda.invalid && addressForm.controls.wereda.touched">
         <p> * Woreda/Kebele is required.</p>
       </div>
     </div>
     <div class="input-field">
       <input type="text" class="input" name="houseNo" placeholder="House Number" formControlName="houseNo"
-             [(ngModel)]="address.houseNo" [class.err]="addressForm.controls.houseNo.invalid && addressForm.controls.houseNo.touched">
+             [(ngModel)]="address.houseNo">
       <div class="error-message" *ngIf="addressForm.controls.houseNo.invalid && addressForm.controls.houseNo.touched">
         <p> * House Number is required. </p>
       </div>
@@ -28,7 +39,7 @@
     <h3 class="title">Emergecy Address</h3>
     <div class="input-field">
       <input type="text" name="emergency-fullname" placeholder="Contact Full Name" formControlName="fullName"
-             [(ngModel)]="address.emergencyContact.fullName" [class]="addressForm.controls.fullName.invalid && addressForm.controls.fullName.touched">
+             [(ngModel)]="address.emergencyContact.fullName">
       <div class="error-message" *ngIf="addressForm.controls.fullName.invalid && addressForm.controls.fullName.touched">
         <p> * Emergency Name is required. </p>
       </div>
@@ -36,7 +47,7 @@
     <div class="input-group">
       <span class="input-group-addon"><b>+251</b></span>
       <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" formControlName="phoneNumber"
-             [(ngModel)]="address.emergencyContact.phoneNumber" [class]="addressForm.controls.phoneNumber.invalid && addressForm.controls.phoneNumber.touched">
+             [(ngModel)]="address.emergencyContact.phoneNumber">
     </div>
     <div class="error-message" *ngIf="addressForm.controls.phoneNumber.touched && addressForm.controls.phoneNumber.errors?.required">
       <p> * Emergency Phone Number is required </p>
@@ -51,7 +62,10 @@
           <button (click)="onBack()" type="button" id="" class="main-btn">Back</button>
         </div>
         <div class="col-md-6">
-          <button [disabled]="addressForm.invalid" (click)="onDone()" type="button" id="" class="main-btn">Done</button>
+          <button (click)="onDone()" type="button" id="" class="main-btn">
+            Done
+            <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
+          </button>
         </div>
       </div>
     </div>

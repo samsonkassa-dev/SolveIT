@@ -27,11 +27,14 @@ import {SolveitTeamGuardService} from './Auth/services/solveit-team-guard.servic
 import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.service';
 import {NewsModule} from './news/news.module';
 import { WinnerProjectModule } from './winnerProject/winnerProject.module';
+import {MomentModule} from 'angular2-moment';
+import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
+    AlumunniDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,8 +66,9 @@ import { WinnerProjectModule } from './winnerProject/winnerProject.module';
     SolveitTeamModule,
     BsModalModule,
     DashboardModule,
-    WinnerProjectModule,
     CompetitionModule
+    MomentModule
+    WinnerProjectModule,
   ],
   providers: [ApiService, ToastOptions, AuthGuardService, SolveitTeamGuardService, SolveitMgmtGuardService],
   bootstrap: [AppComponent],

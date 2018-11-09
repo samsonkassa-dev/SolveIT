@@ -8,13 +8,13 @@
     <div class="col-md-8 col-sm-9">
       <div class="content">
         <div *ngIf="!isCreateNewsActive" class="tools">
-          <div class="row">
+          <div class="row"> 
             <div class="col-md-7 col-sm-6">
               <div class="widget-search">
-                <input class="search-input" id="searchInput" [(ngModel)]="keyword"type="text" placeholder="search">
+                <input class="search-input" id="searchInput" [(ngModel)]="keyword" (keyup)="onSearch($event)" type="text" placeholder="search">
               </div>
             </div>
-            <div class="col-md-5-col-sm-6">
+            <div class="col-md-5-col-sm-6" *ngIf="authService.isAdmin() || authService.isSolveitManager()">
               <button class="main-btn" (click)="toggleCreateNews(true)" id="createNewsButton">Create</button>
             </div>
           </div>

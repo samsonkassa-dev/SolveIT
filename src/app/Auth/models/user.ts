@@ -10,5 +10,5 @@ export interface User {
   birthDate: any;
   password: string;
   address: object;
-  regionId: string;
+  cityId: string;
 }

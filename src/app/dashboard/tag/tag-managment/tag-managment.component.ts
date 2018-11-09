@@ -29,7 +29,7 @@ export class TagManagmentComponent implements OnInit {
 
   onSearch($event) {
     if (this.key !== '' && this.backUpTags.length > 0) {
-      this.tags = this.backUpTags.filter(item => item.name.indexOf(this.key) !== -1);
+      this.tags = this.backUpTags.filter(item => item.name.toUpperCase().indexOf(this.key.toUpperCase()) !== -1);
     } else if (this.key === '') {
       this.tags = this.backUpTags;
     }

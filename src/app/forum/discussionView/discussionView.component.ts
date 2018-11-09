@@ -25,6 +25,7 @@ export class DiscussionViewComponent implements OnInit {
     // @Input() slung = '';
     public slung = '';
     public tags = [];
+    public isPostingCommentLoading = false;
 
     constructor(public route: ActivatedRoute, public router: Router, public service: ForumService,
                 public authService: AuthService, public sharedService: SharedService) {
@@ -97,6 +98,7 @@ export class DiscussionViewComponent implements OnInit {
   }
 
   addComment() {
+      this.isPostingCommentLoading = true;
       const authenticated = this.authService.isAuthenticated();
       if (authenticated) {
         const userId = this.authService.getUserId();
@@ -107,6 +109,7 @@ export class DiscussionViewComponent implements OnInit {
           this.service.addComment(this.comment).subscribe(
             res1 => {
               this.sharedService.addToast('Success', 'Comment Added!.', 'success');
+              this.isPostingCommentLoading = false;
               this.getComments();
               this.countComments();
               this.commentForm.reset();
@@ -114,6 +117,7 @@ export class DiscussionViewComponent implements OnInit {
             err => {
               if (err.status = 422) {
                 this.sharedService.addToast('', 'Error occured!', 'error');
+                this.isPostingCommentLoading = false;
               }
             }
           );

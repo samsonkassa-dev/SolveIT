@@ -22,41 +22,58 @@ export class CreateForumComponent {
                  public sharedService: SharedService, public router: Router) {
         this.forumForm = new FormGroup({
             name: new FormControl('', Validators.required),
-            slung: new FormControl('', Validators.required),
             category: new FormControl('', Validators.required),
             type: new FormControl('', Validators.required),
         });
     }
 
     createForum() {
-      this.forum.created = new Date();
-      this.forum.slung = this.forum.slung.replace(' ', '-');
+      if (this.forumForm.valid) {
+        this.forum.created = new Date();
+        this.forum.slung = this.forum.name.trim().split(' ').join('-');
         this.service.createForum(this.forum).subscribe(
-            res => {
-                const forumId = res.id;
-                this.created.emit();
-                const userId = this.authService.getUserId();
-                if (userId) {
-                  const member = {
-                    forumId: forumId,
-                    userId: userId
-                  };
-                  this.service.addMember(member).subscribe(
-                    res2 => {
-                      console.log(res2);
-                    }
-                  );
+          res => {
+            const forumId = res.id;
+            this.created.emit();
+            const userId = this.authService.getUserId();
+            if (userId) {
+              const member = {
+                forumId: forumId,
+                userId: userId
+              };
+              this.service.addMember(member).subscribe(
+                res2 => {
+                  console.log(res2);
                 }
-            },
-            err => {
-                if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occured!', 'error');
-                }
+              );
             }
+          },
+          err => {
+            if (err.status = 422) {
+              this.sharedService.addToast('', 'Error occured!', 'error');
+            }
+          }
         );
+      } else {
+        this.markFormGroupTouched(this.forumForm);
+      }
     }
 
   onSignIn() {
       this.router.navigate(['login']);
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

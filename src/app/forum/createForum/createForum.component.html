@@ -3,15 +3,18 @@
     <div id="resource-form">
         <div class="form-group">
             <input type="text" class="inpu" name="name" placeholder="Name" formControlName="name" [(ngModel)]="forum.name">
-        </div>
-        <div class="form-group">
-            <input type="text" class="inpu" name="slung" placeholder="slung" formControlName="slung" [(ngModel)]="forum.slung">
+          <div class="error-message" *ngIf="forumForm.controls.name.invalid && forumForm.controls.name.touched">
+            <p>* Forum name is required.</p>
+          </div>
         </div>
         <div class="form-group">
             <select style="width: 100%" name="category" id="category" formControlName="category" class="" [(ngModel)]="forum.categoryId">
               <option selected value="">Category</option>
               <option value="{{category.id}}" *ngFor = "let category of categories">{{ category.category }}</option>
             </select>
+          <div class="error-message" *ngIf="forumForm.controls.category.invalid && forumForm.controls.category.touched">
+            <p>* Forum category is required.</p>
+          </div>
         </div>
         <div class="form-group">
             <select style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
@@ -19,9 +22,12 @@
               <option value=0>Public</option>
               <option value=1>Private</option>
             </select>
+          <div class="error-message" *ngIf="forumForm.controls.type.invalid && forumForm.controls.type.touched">
+            <p>* Forum type is required.</p>
+          </div>
         </div>
         <div class="form-group" id="resource-upload-btn">
-            <input type="button" [disabled]="!forumForm.valid" (click)="createForum()" class="main-btn" value="Submit">
+            <input type="button" (click)="createForum()" class="main-btn" value="Submit">
         </div>
     </div>
 </form>

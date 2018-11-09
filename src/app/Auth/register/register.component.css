@@ -16,7 +16,7 @@ input {
     border-bottom: 1px solid #a29a9a;
 }
 
-.input-field {
+.input-field, .input-group {
     margin-bottom: 1.5em;
 }
 

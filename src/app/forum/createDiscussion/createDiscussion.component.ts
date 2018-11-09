@@ -56,12 +56,11 @@ export class CreateDiscussionComponent implements OnInit {
       this.service.getTags()
         .subscribe(res => {
           this.tags = res;
-          console.log(this.tags);
         });
     }
 
     mapTagsToDropDownList(tags) {
-      let list = [];
+      const list = [];
       tags.forEach(item => {
         list.push({item_id: item.id, item_text: item.name});
       });
@@ -72,10 +71,13 @@ export class CreateDiscussionComponent implements OnInit {
       if (this.discussionTags.indexOf(item.item_id) === -1) {
         this.discussionTags.push(item.item_id);
       }
+      console.log(this.discussionTags);
     }
 
     onTagDeselected(item) {
       this.discussionTags.slice(this.dropDownListTags.indexOf(item), 1);
+      console.log(this.discussionTags);
+
     }
 
     onAllTagSelected(items) {
@@ -84,10 +86,14 @@ export class CreateDiscussionComponent implements OnInit {
           this.discussionTags.push(item.item_id);
         }
       });
+      console.log(this.discussionTags);
+
     }
 
     onAllTagsDeselected(items) {
       this.discussionTags = [];
+      console.log(this.discussionTags);
+
     }
 
     selectTag(tag) {
@@ -101,50 +107,43 @@ export class CreateDiscussionComponent implements OnInit {
     addTag(discussionId, tagId) {
       this.service.addTagToDiscussion(discussionId, tagId)
         .subscribe(res => {
-          console.log('tag added');
         });
     }
 
     createDiscussion() {
-        if (this.discussionForm.valid) {
-          if (this.isFileSelected) {
-            alert('uploading file');
-            this.uploader.queue[0].upload();
-            this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-              console.log('uploding successful');
-              this.discussion.imgContent = JSON.parse(response).result.files.file[0];
-              this.onCreateDiscussion();
-              this.uploader.queue.pop();
-            };
-            this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-              console.log('progress => ', progress);
-              this.progress = progress;
-            };
-            this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-              console.log('Canceled');
-              this.uploader.queue.pop();
-            };
-            this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-              console.log('error');
-              this.uploader.queue.pop();
-            };
-          } else {
+      if (this.discussionForm.valid) {
+        if (this.isFileSelected) {
+          this.uploader.queue[0].upload();
+          this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+            this.discussion.imgContent = JSON.parse(response).result.files.file[0];
             this.onCreateDiscussion();
-          }
-         } else {
-          console.log(this.discussionForm);
+            this.uploader.queue.pop();
+          };
+          this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+            this.progress = progress;
+          };
+          this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+            this.uploader.queue.pop();
+          };
+          this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+            this.uploader.queue.pop();
+          };
+        } else {
+          this.onCreateDiscussion();
         }
+       } else {
+        this.mapTagsToDropDownList(this.discussionForm);
+      }
 
     }
 
-  private onCreateDiscussion() {
-      alert('creating discussion');
+  public onCreateDiscussion() {
     this.discussion.slung = this.discussion.title.replace(' ', '-');
     this.service.createDiscussion(this.discussion).subscribe(
       res => {
         this.toggleDiscussionList();
         this.discussionTags.forEach(tag => {
-          this.addTag(res.id, tag.id);
+          this.addTag(res.id, tag);
         });
         this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
       },
@@ -166,5 +165,19 @@ export class CreateDiscussionComponent implements OnInit {
 
   handleFileSelection($event) {
     this.isFileSelected = true;
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  private markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

@@ -12,3 +12,19 @@
 #item:hover {
   background: rgba(0,0,0,0.1);
 }
+
+table {
+  width: 40%;
+}
+
+@media screen and (max-width: 400px) {
+  table {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 720px) {
+  table {
+    width: 100%;
+  }
+}

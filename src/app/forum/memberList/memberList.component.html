@@ -8,7 +8,7 @@
     <tbody>
     <tr *ngFor="let member of members | paginate: { itemsPerPage: 20, currentPage: page }">
       <th id="item" scope="row">
-        <i id="user-icon" class="fa fa-user-circle"></i> <p>{{ member.username }}</p>
+        <i id="user-icon" class="fa fa-user-circle"></i> <p style="float: left;">{{ member.username }}</p>
       </th>
     </tr>
     </tbody>

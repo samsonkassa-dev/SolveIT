@@ -198,7 +198,7 @@ export class JoinCompetitionComponent implements OnInit {
    * Marks all controls in a form group as touched
    * @param formGroup - The form group to touch
    */
-  private markFormGroupTouched(formGroup: any) {
+  public markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();
 
@@ -234,6 +234,17 @@ export class JoinCompetitionComponent implements OnInit {
   reset() {
     this.form.reset();
     this.checkIfJoined.emit();
+  }
+
+  getSelectedCompetitionInfo(competitionId) {
+    if (competitionId !== '') {
+      let competition = null;
+      competition = this.activeCompetitions.filter(item => item.id === competitionId);
+      console.log(competition);
+      return competition[0].name;
+    } else {
+      return 'not selected';
+    }
   }
 
 }

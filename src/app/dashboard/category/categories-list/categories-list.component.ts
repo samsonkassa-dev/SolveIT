@@ -30,7 +30,7 @@ export class CategoriesListComponent implements OnInit {
 
   onSearch($event) {
     if (this.key !== '' && this.backUpcategories.length > 0) {
-      this.categories = this.backUpcategories.filter(item => item.category.indexOf(this.key) !== -1);
+      this.categories = this.backUpcategories.filter(item => item.category.toUpperCase().indexOf(this.key.toUpperCase()) !== -1);
   } else if (this.key === '') {
       this.categories = this.backUpcategories;
     }

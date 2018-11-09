@@ -2,9 +2,9 @@
 
 <div id="registration-form">
     <!-- Section-header -->
-    <div class="section-header text-center">
-        <img src="../../../assets/img/logo.png" alt="">
-    </div>
+  <div class="section-header text-center">
+    <img src="../../../assets/img/solveit-logo12.png" alt="">
+  </div>
     <!-- /Section-header -->
     <div class="login-error" *ngIf="loginError">
         <p>
@@ -29,7 +29,10 @@
             </div>
         </div>
         <div class="login-btn">
-            <button (click)="onLogin()" [disabled]="!loginForm.valid" type="submit" class="main-btn">Login</button>
+            <button (click)="onLogin()"  type="submit" class="main-btn">
+              Login
+              <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
+            </button>
         </div>
     </form>
     <div class="login-link">

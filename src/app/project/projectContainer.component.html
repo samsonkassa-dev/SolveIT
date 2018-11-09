@@ -10,5 +10,5 @@
   </div>
 </div>
 
-<app-project-list (create)="toggleView('project-create')" [projects]="projects"></app-project-list>
+<app-project-list [projects]="projects"></app-project-list>
 <app-project-create [isEdit]="false" (created)="projectCreated()"></app-project-create>
