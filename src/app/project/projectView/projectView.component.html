@@ -34,7 +34,7 @@
                                 <div class="col-md-4 col-sm-6" *ngFor="let report of progressReports" (click)="viewProgressReport(report)">
                                     <div class="service">
                                         <i class="fa fa-file-text"></i>
-                                        <h3>{{report.title}}</h3>
+                                        <h4>{{limitProjectProposalTitle(report.title, 10)}}</h4>
                                         <p>{{report.createdAt| amTimeAgo }}</p>
                                     </div>
                                 </div>

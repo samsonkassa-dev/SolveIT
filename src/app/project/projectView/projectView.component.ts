@@ -142,4 +142,12 @@ export class ProjectViewComponent implements OnInit {
     $('#createProjectModal').modal('hide');
   }
 
+  limitProjectProposalTitle(title, limit) {
+    if (title.length > limit) {
+      return title.slice(0, limit) + '...';
+    } else {
+      return title;
+    }
+  }
+
 }
