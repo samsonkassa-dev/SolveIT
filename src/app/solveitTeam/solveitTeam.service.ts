@@ -12,7 +12,7 @@ export class SolveitTeamService {
     }
 
     getEventsList() {
-        return this.apiService.get(`events`);
+        return this.apiService.get(`events?filter={"order": "order": "startDate DESC"}`);
     }
 
     getEvent(eventId) {
