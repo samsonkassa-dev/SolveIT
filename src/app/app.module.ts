@@ -66,8 +66,9 @@ import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.compo
     SolveitTeamModule,
     BsModalModule,
     DashboardModule,
-    WinnerProjectModule,
+    CompetitionModule
     MomentModule
+    WinnerProjectModule,
   ],
   providers: [ApiService, ToastOptions, AuthGuardService, SolveitTeamGuardService, SolveitMgmtGuardService],
   bootstrap: [AppComponent],
