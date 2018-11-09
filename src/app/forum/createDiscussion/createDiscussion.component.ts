@@ -60,7 +60,7 @@ export class CreateDiscussionComponent implements OnInit {
     }
 
     mapTagsToDropDownList(tags) {
-      let list = [];
+      const list = [];
       tags.forEach(item => {
         list.push({item_id: item.id, item_text: item.name});
       });
@@ -71,10 +71,13 @@ export class CreateDiscussionComponent implements OnInit {
       if (this.discussionTags.indexOf(item.item_id) === -1) {
         this.discussionTags.push(item.item_id);
       }
+      console.log(this.discussionTags);
     }
 
     onTagDeselected(item) {
       this.discussionTags.slice(this.dropDownListTags.indexOf(item), 1);
+      console.log(this.discussionTags);
+
     }
 
     onAllTagSelected(items) {
@@ -83,10 +86,14 @@ export class CreateDiscussionComponent implements OnInit {
           this.discussionTags.push(item.item_id);
         }
       });
+      console.log(this.discussionTags);
+
     }
 
     onAllTagsDeselected(items) {
       this.discussionTags = [];
+      console.log(this.discussionTags);
+
     }
 
     selectTag(tag) {
@@ -130,13 +137,13 @@ export class CreateDiscussionComponent implements OnInit {
 
     }
 
-  private onCreateDiscussion() {
+  public onCreateDiscussion() {
     this.discussion.slung = this.discussion.title.replace(' ', '-');
     this.service.createDiscussion(this.discussion).subscribe(
       res => {
         this.toggleDiscussionList();
         this.discussionTags.forEach(tag => {
-          this.addTag(res.id, tag.id);
+          this.addTag(res.id, tag);
         });
         this.sharedService.addToast('Success', 'Discussion Created!.', 'success');
       },

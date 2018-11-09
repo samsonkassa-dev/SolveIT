@@ -28,7 +28,7 @@
             <ng-multiselect-dropdown [placeholder]="'Select tags'" [data]="mapTagsToDropDownList(tags)" formControlName="tags"
                                      (onSelect)="onTagSelected($event)" (onDeSelect)="onTagDeselected($event)"
                                      (onDeSelectAll)="onAllTagsDeselected($event)" (onSelectAll)="onAllTagSelected($event)"
-                                     [(ngModel)]="discussionTags" [settings]="dropdownSettings">
+                                      [settings]="dropdownSettings">
             </ng-multiselect-dropdown>
             <div class="error-message" *ngIf="discussionForm.controls.tags.invalid && discussionForm.controls.tags.touched">
               <p>* Discussion tag is required.</p>

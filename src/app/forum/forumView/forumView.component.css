@@ -66,3 +66,7 @@ tr {
 .table>tbody>tr>th, .table>thead>tr>th {
   text-align: left;
 }
+
+.radio-inline {
+  margin-bottom: .5em;
+}

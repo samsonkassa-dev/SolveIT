@@ -18,6 +18,14 @@
                         <p (click)="toggleView('add-members')"><i class="fa fa-user-plus"><p class="menu-title">Add Members</p></i></p>
                     </li>
                 </ul>
+              <br>
+              <div id="detail-menu">
+                <h5 class="title">Filter by tags</h5>
+                <div class="radio-button-group">
+                  <label style="margin-left: .7em" (change)="handleRadioButtonChange($event)" class="radio-inline"><input type="radio" name="tagFilter" [checked]="selectedTag === ''" value="">All</label>
+                  <label *ngFor="let tag of tags" (change)="handleRadioButtonChange($event)" class="radio-inline" ><input type="radio" [checked]="selectedTag === tag.id" [value]="tag.id" name="tagFilter">{{tag.name}}</label>
+                </div>
+              </div>
             </div>
             <div class="col-md-8">
                 <div *ngIf="selected == 'discussion-list'">

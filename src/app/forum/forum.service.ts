@@ -115,7 +115,7 @@ export class ForumService {
     }
 
     addTagToDiscussion(discussionId, tagId) {
-      return this.apiService.post(`taggedDiscussions`, {discussionId, tagId});
+      return this.apiService.post(`taggedDiscussions`, {discussionId: discussionId, tagId: tagId});
     }
 
     getDiscussionTags(discussionId) {
@@ -132,5 +132,8 @@ export class ForumService {
 
     removeComment(commentId) {
       return this.apiService.delete(`SolveIT-Discussion-Comments/${commentId}`);
+    }
+    filterDiscussionByTag(tagId) {
+      return this.apiService.get(`tags/${tagId}/discussions`);
     }
 }
