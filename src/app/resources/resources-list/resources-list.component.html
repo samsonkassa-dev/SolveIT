@@ -51,7 +51,7 @@
                     <img  class="image" src="../../../assets/img/pdfCover.png" alt="book cover">
                     <div class="info">
                       <p>{{resource.createdAt | amTimeAgo}}</p>
-                      <h5  class="title">{{resource.title}}</h5>
+                      <h5  class="title">{{getLimittedTitle(resource.title, 12)}}</h5>
                     </div>
                   </div>
                 </div>
@@ -120,7 +120,7 @@
               <img [src]="getVideoThumbinal(resource.url)" alt="video thumbinal">
               <div class="info">
                 <p>{{resource.createdAt | amTimeAgo}}</p>
-                <h6 class="title">{{resource.title}}</h6>
+                <h6 class="title">{{getLimittedTitle(resource.title, 28)}}</h6>
               </div>
             </div>
           </div>
