@@ -28,11 +28,13 @@ import {SolveitMgmtGuardService} from './Auth/services/solveit-mgmt-guard.servic
 import {NewsModule} from './news/news.module';
 import { WinnerProjectModule } from './winnerProject/winnerProject.module';
 import {MomentModule} from 'angular2-moment';
+import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
+    AlumunniDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,7 @@ export class CommentListComponent implements OnInit {
 
     @Input() comments = [];
     @Input() isOwnerOfDiscussion = false;
-    private page = 1;
+    public page = 1;
 
     constructor(public service: ForumService, public authService: AuthService, public sharedService: SharedService) {
 

@@ -1,3 +1,11 @@
 #about {
   margin-top: 10em;
 }
+
+.blog-img img {
+  width: 100%;
+}
+
+.work-link a {
+  cursor: pointer;
+}

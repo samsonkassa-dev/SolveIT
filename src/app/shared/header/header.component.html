@@ -25,8 +25,8 @@
       <!--  Main navigation  -->
       <ul class="main-nav nav navbar-nav navbar-right">
         <li [class.active]="router.isActive('', true)"><a routerLink="">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
+        <li *ngIf="router.isActive('', true)" ><a href="#about">About</a></li>
+        <li *ngIf="router.isActive('', true)" ><a href="#portfolio">Portfolio</a></li>
         <li [class.active]="router.isActive('dashboard', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
           <a routerLink="/dashboard">Dashboard</a>
         </li>

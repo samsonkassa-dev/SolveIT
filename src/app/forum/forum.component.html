@@ -3,9 +3,11 @@
 <div class="container" id="project-list-header">
     <div class="events-list-header">
         <div class="header">
-            <h4 (click)="toggleView('forum-list-public')" class="title" [class.active]="selected == 'forum-list-public'">Public</h4>
-            <h4 (click)="toggleView('forum-list-private')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'forum-list-private'">Private</h4>
-            <button type="button" (click)="toggleView('forum-create')" class="btn main-btn btn-circle-xl" [class.button-active]="selected == 'forum-create'"><i class="fa fa-plus"></i>
+            <h4 (click)="toggleView('forum-list-public')" [class.active]="selected == 'forum-list-public'">Public</h4>
+            <h4 (click)="toggleView('forum-list-private')" *ngIf="authService.isAuthenticated()" [class.active]="selected == 'forum-list-private'">Private</h4>
+            <button type="button" (click)="toggleView('forum-create')" class="btn main-btn btn-circle-xl"
+                    data-toggle="tooltip" data-placement="top" title="Create forum"
+                    [class.button-active]="selected == 'forum-create'"><i class="fa fa-plus"></i>
       </button>
             <div id="aside">
                 <div class="widget">

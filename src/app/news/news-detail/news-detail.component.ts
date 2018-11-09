@@ -40,7 +40,6 @@ export class NewsDetailComponent implements OnInit {
   fetchNews(id) {
     this.servce.fetchNews(id)
       .subscribe(res => {
-        console.log(res);
         this.news = res;
       });
   }

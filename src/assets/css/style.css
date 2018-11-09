@@ -950,6 +950,10 @@ header {
     color: #2BA692;
 }
 
+.pricing:hover .project-title {
+  color: #FFFFFF;
+}
+
 .pricing .price {
     position: relative;
     width: 140px;

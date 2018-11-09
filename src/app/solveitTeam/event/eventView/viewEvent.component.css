@@ -17,3 +17,12 @@
   line-height: 1.5em;
   padding: 1.5em;
 }
+
+.title-container {
+  float: left;
+  margin-left: 1em;
+}
+
+.time-container {
+  float: right;
+}

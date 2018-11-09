@@ -12,11 +12,11 @@ export class NewsService {
   }
 
   fetchAllNews() {
-    return this.apiService.get(`${this.newsUrl}?filter={"order": "createdAt DESC"}`);
+    return this.apiService.get(`${this.newsUrl}?filter={"order": "createdAt DESC", "include": "user"}`);
   }
 
   fetchNews(id) {
-    return this.apiService.get(`${this.newsUrl}/${id}`);
+    return this.apiService.get(`${this.newsUrl}/${id}?filter={"include": "user"}`);
   }
 
   createNews(news) {

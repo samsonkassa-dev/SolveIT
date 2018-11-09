@@ -102,7 +102,7 @@
           </div>
           <!-- /Section header -->
 
-          <div class="no-resource-found" *ngIf="(backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory == '')">
+          <div class="no-resource-found" *ngIf="((backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory !== ''))">
               <p>
                   <i class="fa  fa-frown-o"></i> {{ " No video resources are uploaded."}}
                 <i *ngIf=" (authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()) && resources.length === 0" class="link" (click)="createResource()">create here.</i>

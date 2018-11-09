@@ -33,7 +33,7 @@ export class CityListComponent implements OnInit {
 
   onSearch($event) {
     if (this.key !== '' && this.backUpcities.length > 0) {
-      this.cities = this.backUpcities.filter(item => item.name.indexOf(this.key) !== -1);
+      this.cities = this.backUpcities.filter(item => item.name.toUpperCase().indexOf(this.key.toUpperCase()) !== -1);
   } else if (this.key === '') {
       this.cities = this.backUpcities;
     }

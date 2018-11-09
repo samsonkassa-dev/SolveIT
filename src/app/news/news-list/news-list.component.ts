@@ -62,4 +62,15 @@ export class NewsListComponent implements OnInit {
     this.router.navigate(['news', news.id]);
   }
 
+  onSearch() {
+    if (this.keyword !== '') {
+      if (this.news.length === 0) {
+        this.news = this.newsBackup;
+      }
+      this.news = this.newsBackup.filter(item => item.title.toUpperCase().includes(this.keyword.toUpperCase()));
+    } else {
+      this.news = this.newsBackup;
+    }
+  }
+
 }

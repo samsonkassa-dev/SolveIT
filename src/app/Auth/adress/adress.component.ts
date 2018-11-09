@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
 import {UserManagementService} from '../../userManagement/userManagament.service';
@@ -9,14 +9,19 @@ import {UserManagementService} from '../../userManagement/userManagament.service
   templateUrl: './adress.component.html',
   styleUrls: ['./adress.component.css']
 })
-export class AdressComponent implements OnInit {
+export class AdressComponent implements OnInit, OnChanges {
 
   @Output() next = new EventEmitter();
   @Output() back = new EventEmitter();
 
   public addressForm: FormGroup;
   public regions = [];
+  public cities = [];
+  public citiesBackup = [];
   @Input() address;
+  @Input() isLoading = false;
+
+
 
   constructor(public formBuilder: FormBuilder, public userService: UserManagementService) { }
 
@@ -27,7 +32,14 @@ export class AdressComponent implements OnInit {
         this.regions = res;
       });
 
+    this.userService.getCities()
+      .subscribe(res => {
+        this.cities = res;
+        this.citiesBackup = res;
+      });
+
     this.addressForm = this.formBuilder.group({
+      region: ['', Validators.required],
       city: ['', Validators.required],
       wereda: ['', Validators.required],
       houseNo: ['', Validators.required],
@@ -38,14 +50,39 @@ export class AdressComponent implements OnInit {
     });
   }
 
+  onRegionChange() {
+    if (this.address.regionId !== '') {
+      this.cities = this.citiesBackup.filter(item => {
+        return item.regionId === this.address.regionId;
+      });
+    } else {
+      this.cities = this.citiesBackup;
+    }
+  }
+
+  getRegionFromCity(cityId): any {
+    let city = null;
+    this.citiesBackup.forEach(item => {
+      if (item.id === cityId) {
+        city = item;
+      }
+    });
+    return city;
+  }
+
+  onCityChange() {
+    if (this.address.regionId === '') {
+      const city = this.getRegionFromCity(this.address.cityId);
+      this.address.regionId = city.regionId;
+    }
+  }
+
   onDone() {
     console.log(this.addressForm);
     if (this.addressForm.valid) {
       this.next.emit();
-      console.log('Next');
     } else {
       this.markFormGroupTouched(this.addressForm);
-      console.log('Address Form is not valid');
     }
   }
 
@@ -56,7 +93,7 @@ export class AdressComponent implements OnInit {
    * Marks all controls in a form group as touched
    * @param formGroup - The form group to touch
    */
-  private markFormGroupTouched(formGroup: any) {
+  public markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();
 
@@ -64,6 +101,10 @@ export class AdressComponent implements OnInit {
         this.markFormGroupTouched(control);
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isLoading = changes.isLoading.currentValue;
   }
 
 

@@ -18,8 +18,11 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     this.newsService.fetchAllNews()
       .subscribe(res => {
-        this.news = res;
-        console.log(res);
+        if (res.length > 3) {
+          this.news = res.slice(0, 3);
+        } else {
+          this.news = res;
+        }
       });
   }
 

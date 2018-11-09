@@ -149,7 +149,7 @@
                     <p *ngIf="activeCompetitions.length === 0">There are no active competitions.</p>
                     <div class="sucessfully-joined" *ngIf="isJoinCompetitionSuccessfull">
                       <h6 class="info-text header">Congratulations, </h6>
-                      <h6 class="info-text header">You have successfully joined <span class="competition-name">Season 2</span> competition.</h6>
+                      <h6 class="info-text header">You have successfully joined <span class="competition-name">{{getSelectedCompetitionInfo(competition)}}</span> competition.</h6>
                       <p class="info-text header">Good Luck!!!</p>
                     </div>
                 </div>

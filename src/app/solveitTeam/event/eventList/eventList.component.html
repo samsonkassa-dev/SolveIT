@@ -11,7 +11,7 @@
             <i class="fa  fa-frown-o"></i>
             No event is created, yet.
             </p>
-          <button *ngIf="authService.isSolveitManager()"  class="outline-btn">create Here</button>
+          <button *ngIf="authService.isSolveitManager() || authService.isAdmin()"  class="outline-btn">create Here</button>
         </div>
         <!-- Event list -->
         <ng-container *ngIf = "events.length > 0">

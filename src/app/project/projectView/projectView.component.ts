@@ -40,6 +40,9 @@ export class ProjectViewComponent implements OnInit {
     this.competitionService.getCompetitions()
       .subscribe(res => {
         this.activeCompetitions = res;
+        this.activeCompetitions = this.activeCompetitions.filter(item => {
+          return item.active;
+        });
       }, error => {
         console.log('Error while fetching competition ,', error);
       });

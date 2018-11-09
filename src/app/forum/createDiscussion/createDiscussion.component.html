@@ -4,12 +4,17 @@
         <div class="form-group">
             <input type="text" class="input" name="title" placeholder="Title"
                 formControlName="title" [(ngModel)]="discussion.title">
+          <div class="error-message" *ngIf="discussionForm.controls.title.invalid && discussionForm.controls.title.touched">
+            <p>* Discussion title is required.</p>
+          </div>
         </div>
         <div class="form-group">
           <ngx-wig  [buttons]="'bold, italic, link'" [placeholder]="'Enter your content here.'" [(ngModel)]="discussion.content"
                     formControlName="content" class="input">
-
           </ngx-wig>
+          <div class="error-message" *ngIf="discussionForm.controls.content.invalid && discussionForm.controls.content.touched">
+            <p>* Discussion content is required.</p>
+          </div>
         </div>
         <div class="form-group">
           <!-- discussion photos -->
@@ -25,6 +30,9 @@
                                      (onDeSelectAll)="onAllTagsDeselected($event)" (onSelectAll)="onAllTagSelected($event)"
                                      [(ngModel)]="discussionTags" [settings]="dropdownSettings">
             </ng-multiselect-dropdown>
+            <div class="error-message" *ngIf="discussionForm.controls.tags.invalid && discussionForm.controls.tags.touched">
+              <p>* Discussion tag is required.</p>
+            </div>
           </div>
           <!-- blog tags -->
         </div>
