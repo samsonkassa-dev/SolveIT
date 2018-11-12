@@ -1,47 +1,55 @@
-import { Injectable } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
+import { Injectable } from "@angular/core";
+import { ApiService } from "../shared/services/api.service";
 
 @Injectable()
-
 export class CompetitionService {
+  constructor(private apiService: ApiService) {}
 
-    constructor(private apiService: ApiService) {
+  getProjects(competitionId) {
+    return this.apiService.get(
+      `solvieITCompetitions/${competitionId}/projects`
+    );
+  }
 
-    }
+  getCompetitions() {
+    return this.apiService.get(`solvieITCompetitions/`);
+  }
 
-    getProjects(competitionId) {
-        return this.apiService.get(`solvieITCompetitions/${competitionId}/projects`);
-    }
+  createCompetition(competition) {
+    return this.apiService.post(`solvieITCompetitions/`, competition);
+  }
 
-    getCompetitions() {
-        return this.apiService.get(`solvieITCompetitions/`);
-    }
+  getActiveCompetition() {
+    return this.apiService.get(`solvieITCompetitions/active`);
+  }
 
-    createCompetition(competition) {
-        return this.apiService.post(`solvieITCompetitions/`, competition);
-    }
+  activateDeactivateCompetition(competition) {
+    return this.apiService.put(
+      `solvieITCompetitions/${competition.id}`,
+      competition
+    );
+  }
 
-    getActiveCompetition() {
-        return this.apiService.get(`solvieITCompetitions/active`);
-    }
+  getWinnerProject() {
+    return this.apiService.get(
+      `competitionWinners?filter={"where": {"active": true}, "include": ["solveitproject", "competition"]}`
+    );
+  }
 
-    activateDeactivateCompetition(competition) {
-        return this.apiService.put(`solvieITCompetitions/${competition.id}`, competition);
-    }
+  getWeeklyWinners() {
+    return this.apiService.get(
+      `weekTopProjects?filter={"where": {"active": true}, "include": "solveitproject"}`
+    );
+  }
 
-    getWinnerProject() {
-        return this.apiService.get(`competitionWinners?filter={"where": {"active": true}, "include": ["solveitproject", "competition"]}`);
-    }
+  updateCompetition(competition) {
+    return this.apiService.patch(
+      `solvieITCompetitions/${competition.id}`,
+      competition
+    );
+  }
 
-    getWeeklyWinners(){
-        return this.apiService.get(`weekTopProjects?filter={"where": {"active": true}, "include": "solveitproject"}`);
-    }
-
-    updateCompetition(competition) {
-      return this.apiService.patch(`solvieITCompetitions/${competition.id}`, competition);
-    }
-
-    getCities() {
-      return this.apiService.get('cities');
-    }
+  getCities() {
+    return this.apiService.get("cities");
+  }
 }

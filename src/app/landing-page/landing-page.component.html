@@ -1,57 +1,113 @@
-
-
 <!-- Header -->
 <header id="home">
   <!-- Background Video -->
-  <video src="../../assets/video/logo.mp4" autoplay="true" muted class="bg-video"></video>
+  <video
+    src="../../assets/video/logo.mp4"
+    autoplay="true"
+    muted
+    class="bg-video"
+  ></video>
   <!-- /Background Video -->
 
   <!-- Nav -->
   <nav id="nav" class="navbar nav-transparent">
     <div class="container">
-
       <div class="navbar-header">
         <!-- Logo -->
         <div class="navbar-brand">
           <a href="index.html">
-            <img style="padding: 0.1em" class="logo" src="../../assets/img/solveit-logo12.png" alt="logo">
-            <img  class="logo-alt" src="../../assets/img/solveit-logo11.png" alt="logo">
+            <img
+              style="padding: 0.1em"
+              class="logo"
+              src="../../assets/img/solveit-logo12.png"
+              alt="logo"
+            />
+            <img
+              class="logo-alt"
+              src="../../assets/img/solveit-logo11.png"
+              alt="logo"
+            />
           </a>
         </div>
         <!-- /Logo -->
 
         <!-- Collapse nav button -->
-        <div class="nav-collapse">
-          <span></span>
-        </div>
+        <div class="nav-collapse"><span></span></div>
         <!-- /Collapse nav button -->
       </div>
 
-      <!--  Main navigation  -->
+      <!-- Main navigation -->
       <ul class="main-nav nav navbar-nav navbar-right">
-        <li [class.active]="router.isActive('', true)"><a routerLink="">Home</a></li>
+        <li [class.active]="router.isActive('', true)">
+          <a routerLink="">Home</a>
+        </li>
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
-        <li [class.active]="router.isActive('dashboard', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
+        <li
+          [class.active]="router.isActive('dashboard', false)"
+          *ngIf="
+            authService.isSolveitTeam() ||
+            authService.isSolveitManager() ||
+            authService.isAdmin()
+          "
+        >
           <a routerLink="/dashboard">Dashboard</a>
         </li>
-        <li [class.active]="router.isActive('winner', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
-            <a routerLink="/winner">Winner</a>
+        <li
+          [class.active]="router.isActive('winner', false)"
+          *ngIf="
+            authService.isSolveitTeam() ||
+            authService.isSolveitManager() ||
+            authService.isAdmin()
+          "
+        >
+          <a routerLink="/winner">Winner</a>
         </li>
-        <li [class.active]="router.isActive('events', false)"><a routerLink="/events" >Events</a></li>
-        <li [class.active]="router.isActive('forums', false)"><a routerLink="/forums">Forums</a></li>
-        <li [class.active]="router.isActive('news', false)"><a routerLink="/news">News</a></li>
-        <li [class.active]="router.isActive('resources', false)"><a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a></li>
-        <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
-        <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{''}}</a>
+        <li [class.active]="router.isActive('events', false)">
+          <a routerLink="/events">Events</a>
+        </li>
+        <li [class.active]="router.isActive('forums', false)">
+          <a routerLink="/forums">Forums</a>
+        </li>
+        <li [class.active]="router.isActive('news', false)">
+          <a routerLink="/news">News</a>
+        </li>
+        <li [class.active]="router.isActive('resources', false)">
+          <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
+            >Resources</a
+          >
+        </li>
+        <li
+          [class.active]="router.isActive('login', false)"
+          *ngIf="!authService.isAuthenticated()"
+        >
+          <a routerLink="/login">SignIn/SignUp</a>
+        </li>
+        <li
+          [class.active]="router.isActive('my-projects', false)"
+          *ngIf="authService.isAuthenticated()"
+          class="has-dropdown"
+        >
+          <a
+            ><span style="margin-right: .5em;"><i class="fa fa-user"></i></span
+            >{{ "" }}</a
+          >
           <ul class="dropdown1">
-            <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Projects</a></li>
-            <li><a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
+            <li *ngIf="authService.isSolveitParticipant()">
+              <a routerLink="/my-projects">My Projects</a>
+            </li>
+            <li>
+              <a
+                routerLink=""
+                (click)="authService.signOut()"
+                style="cursor: pointer;"
+                >Logout</a
+              >
+            </li>
           </ul>
         </li>
       </ul>
       <!-- /Main navigation -->
-
     </div>
   </nav>
   <!-- /Nav -->
@@ -60,36 +116,32 @@
   <div class="home-wrapper">
     <div class="container">
       <div class="row">
-
         <!-- home content -->
         <div class="col-md-10 col-md-offset-1">
           <div class="home-content">
-            <!--<h1 class="white-text">We Are Creative Agency</h1>-->
-            <!--<p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.-->
-            <!--</p>-->
-            <!--<button class="white-btn">Be A Part & Compete</button>-->
-            <!--<button class="main-btn">Winner Projects</button>-->
+            <!-- <h1 class="white-text">We Are Creative Agency</h1> -->
+            <!--
+              <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
+            -->
+            <!-- </p> -->
+            <!-- <button class="white-btn">Be A Part & Compete</button> -->
+            <!-- <button class="main-btn">Winner Projects</button> -->
           </div>
         </div>
         <!-- /home content -->
-
       </div>
     </div>
   </div>
   <!-- /home wrapper -->
-
 </header>
 <!-- /Header -->
 
 <!-- About -->
 <div id="about" class="section md-padding">
-
   <!-- Container -->
   <div class="container">
-
     <!-- Row -->
     <div class="row">
-
       <!-- Section header -->
       <div class="section-header text-center">
         <h2 class="title">Welcome to SolveIT</h2>
@@ -101,7 +153,10 @@
         <div class="about">
           <i class="fa fa-cogs"></i>
           <h3>Fully Customizible</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero sit amet.
+          </p>
           <a href="#">Read more</a>
         </div>
       </div>
@@ -112,7 +167,10 @@
         <div class="about">
           <i class="fa fa-magic"></i>
           <h3>Awesome Features</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero sit amet.
+          </p>
           <a href="#">Read more</a>
         </div>
       </div>
@@ -123,30 +181,27 @@
         <div class="about">
           <i class="fa fa-mobile"></i>
           <h3>Fully Responsive</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero sit amet.
+          </p>
           <a href="#">Read more</a>
         </div>
       </div>
       <!-- /about -->
-
     </div>
     <!-- /Row -->
-
   </div>
   <!-- /Container -->
-
 </div>
 <!-- /About -->
 
 <!-- Portfolio -->
 <div id="portfolio" class="section md-padding bg-grey">
-
   <!-- Container -->
   <div class="container">
-
     <!-- Row -->
     <div class="row">
-
       <!-- Section header -->
       <div class="section-header text-center">
         <h2 class="title">Alumni Projects</h2>
@@ -155,13 +210,18 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work1.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work1.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -169,13 +229,18 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work2.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work2.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -183,13 +248,18 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work3.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work3.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -197,13 +267,18 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work4.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work4.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -211,13 +286,18 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work5.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work5.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -225,36 +305,35 @@
 
       <!-- Work -->
       <div class="col-md-4 col-xs-6 work">
-        <img class="img-responsive" src="../../assets/img/work6.jpg" alt="">
+        <img class="img-responsive" src="../../assets/img/work6.jpg" alt="" />
         <div class="overlay"></div>
         <div class="work-content">
           <span>Project Title</span>
           <h3>Lorem ipsum dolor</h3>
           <div class="work-link">
-            <a class="lightbox"  data-toggle="modal" data-target="#alumunni-project-modal"><i class="fa fa-external-link"></i></a>
+            <a
+              class="lightbox"
+              data-toggle="modal"
+              data-target="#alumunni-project-modal"
+              ><i class="fa fa-external-link"></i
+            ></a>
           </div>
         </div>
       </div>
       <!-- /Work -->
-
     </div>
     <!-- /Row -->
-
   </div>
   <!-- /Container -->
-
 </div>
 <!-- /Portfolio -->
 
 <!-- Service -->
 <div id="service" class="section md-padding">
-
   <!-- Container -->
   <div class="container">
-
     <!-- Row -->
     <div class="row">
-
       <!-- Section header -->
       <div class="section-header text-center">
         <h2 class="title">What we offer</h2>
@@ -266,7 +345,10 @@
         <div class="service">
           <i class="fa fa-diamond"></i>
           <h3>App Development</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
@@ -276,7 +358,10 @@
         <div class="service">
           <i class="fa fa-rocket"></i>
           <h3>Graphic Design</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
@@ -286,7 +371,10 @@
         <div class="service">
           <i class="fa fa-cogs"></i>
           <h3>Creative Idea</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
@@ -296,7 +384,10 @@
         <div class="service">
           <i class="fa fa-diamond"></i>
           <h3>Marketing</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
@@ -306,7 +397,10 @@
         <div class="service">
           <i class="fa fa-pencil"></i>
           <h3>Awesome Support</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
@@ -316,35 +410,36 @@
         <div class="service">
           <i class="fa fa-flask"></i>
           <h3>Brand Design</h3>
-          <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+          <p>
+            Maecenas tempus tellus eget condimentum rhoncus sem quam semper
+            libero.
+          </p>
         </div>
       </div>
       <!-- /service -->
-
     </div>
     <!-- /Row -->
-
   </div>
   <!-- /Container -->
-
 </div>
 <!-- /Service -->
 
 <!-- Why Choose Us -->
 <div id="features" class="section md-padding bg-grey">
-
   <!-- Container -->
   <div class="container">
-
     <!-- Row -->
     <div class="row">
-
       <!-- why choose us content -->
       <div class="col-md-6">
         <div class="section-header">
           <h2 class="title">Why ChooswinnerUs</h2>
         </div>
-        <p>Molestie at elementum eu fwinnerilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris. Ultrices sagittis orci a scelerisque purus.</p>
+        <p>
+          Molestie at elementum eu fwinnerilisis sed odio. Scelerisque in dictum
+          non consectetur a erat. Aliquam id diam maecenas ultricies mi eget
+          mauris. Ultrices sagittis orci a scelerisque purus.
+        </p>
         <div class="feature">
           <i class="fa fa-check"></i>winner
           <p>Quis varius quam quisque id diam vel quam elementum.</p>
@@ -367,38 +462,51 @@
       <!-- About slider -->
       <div class="col-md-6">
         <div id="about-slider" class="owl-carousel owl-theme">
-          <img class="img-responsive" src="../../assets/img/about1.jpg" alt="">
-          <img class="img-responsive" src="../../assets/img/about2.jpg" alt="">
-          <img class="img-responsive" src="../../assets/img/about1.jpg" alt="">
-          <img class="img-responsive" src="../../assets/img/about2.jpg" alt="">
+          <img
+            class="img-responsive"
+            src="../../assets/img/about1.jpg"
+            alt=""
+          />
+          <img
+            class="img-responsive"
+            src="../../assets/img/about2.jpg"
+            alt=""
+          />
+          <img
+            class="img-responsive"
+            src="../../assets/img/about1.jpg"
+            alt=""
+          />
+          <img
+            class="img-responsive"
+            src="../../assets/img/about2.jpg"
+            alt=""
+          />
         </div>
       </div>
       <!-- /About slider -->
-
     </div>
     <!-- /Row -->
-
   </div>
   <!-- /Container -->
-
 </div>
 <!-- /Why Choose Us -->
 
 <!-- Numbers -->
 <div id="numbers" class="section sm-padding">
-
   <!-- Background Image -->
-  <div class="bg-img" style="background-image: url('../../assets/img/background2.jpg');">
+  <div
+    class="bg-img"
+    style="background-image: url('../../assets/img/background2.jpg');"
+  >
     <div class="overlay"></div>
   </div>
   <!-- /Background Image -->
 
   <!-- Container -->
   <div class="container">
-
     <!-- Row -->
     <div class="row">
-
       <!-- number -->
       <div class="col-sm-3 col-xs-6">
         <div class="number">
@@ -438,258 +546,259 @@
         </div>
       </div>
       <!-- /number -->
-
     </div>
     <!-- /Row -->
-
-  </div>winner
+  </div>
+  winner
   <!-- /Container -->
-
 </div>
 <!-- /Numbers -->
 
 <!-- Pricing -->
 <app-weekly-winner>
-<!-- /Pricing -->
+  <!-- /Pricing -->
 
-<!-- Testimonial -->
-<div id="testimonial" class="section md-padding">
-
-  <!-- Background Image -->
-  <div class="bg-img" style="background-image: url('../../assets/img/background3.jpg');">
-    <div class="overlay"></div>
-  </div>
-  <!-- /Background Image -->
-
-  <!-- Container -->
-  <div class="container">
-
-    <!-- Row -->
-    <div class="row">
-
-      <!-- Testimonial slider -->
-      <div class="col-md-10 col-md-offset-1">
-        <div id="testimonial-slider" class="owl-carousel owl-theme">
-
-          <!-- testimonial -->
-          <div class="testimonial">
-            <div class="testimonial-meta">
-              <img src="../../assets/img/perso1.jpg" alt="">
-              <h3 class="white-text">John Doe</h3>
-              <span>Web Designer</span>
-            </div>
-            <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
-          </div>
-          <!-- /testimonial -->
-
-          <!-- testimonial -->
-          <div class="testimonial">
-            <div class="testimonial-meta">
-              <img src="../../assets/img/perso2.jpg" alt="">
-              <h3 class="white-text">John Doe</h3>
-              <span>Web Designer</span>
-            </div>
-            <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
-          </div>
-          <!-- /testimonial -->
-
-        </div>
-      </div>
-      <!-- /Testimonial slider -->
-
+  <!-- Testimonial -->
+  <div id="testimonial" class="section md-padding">
+    <!-- Background Image -->
+    <div
+      class="bg-img"
+      style="background-image: url('../../assets/img/background3.jpg');"
+    >
+      <div class="overlay"></div>
     </div>
-    <!-- /Row -->
+    <!-- /Background Image -->
 
-  </div>
-  <!-- /Container -->
+    <!-- Container -->
+    <div class="container">
+      <!-- Row -->
+      <div class="row">
+        <!-- Testimonial slider -->
+        <div class="col-md-10 col-md-offset-1">
+          <div id="testimonial-slider" class="owl-carousel owl-theme">
+            <!-- testimonial -->
+            <div class="testimonial">
+              <div class="testimonial-meta">
+                <img src="../../assets/img/perso1.jpg" alt="" />
+                <h3 class="white-text">John Doe</h3>
+                <span>Web Designer</span>
+              </div>
+              <p class="white-text">
+                Molestie at elementum eu facilisis sed odio. Scelerisque in
+                dictum non consectetur a erat. Aliquam id diam maecenas
+                ultricies mi eget mauris.
+              </p>
+            </div>
+            <!-- /testimonial -->
 
-</div>
-<!-- /Testimonial -->
-
-<!-- Team -->
-<div id="team" class="section md-padding">
-
-  <!-- Container -->
-  <div class="container">
-
-    <!-- Row -->
-    <div class="row">
-
-      <!-- Section header -->
-      <div class="section-header text-center">
-        <h2 class="title">Our Team</h2>
+            <!-- testimonial -->
+            <div class="testimonial">
+              <div class="testimonial-meta">
+                <img src="../../assets/img/perso2.jpg" alt="" />
+                <h3 class="white-text">John Doe</h3>
+                <span>Web Designer</span>
+              </div>
+              <p class="white-text">
+                Molestie at elementum eu facilisis sed odio. Scelerisque in
+                dictum non consectetur a erat. Aliquam id diam maecenas
+                ultricies mi eget mauris.
+              </p>
+            </div>
+            <!-- /testimonial -->
+          </div>
+        </div>
+        <!-- /Testimonial slider -->
       </div>
-      <!-- /Section header -->
+      <!-- /Row -->
+    </div>
+    <!-- /Container -->
+  </div>
+  <!-- /Testimonial -->
 
-      <!-- team -->
-      <div class="col-sm-4">
-        <div class="team">
-          <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/team1.jpg" alt="">
-            <div class="overlay">
-              <div class="team-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
+  <!-- Team -->
+  <div id="team" class="section md-padding">
+    <!-- Container -->
+    <div class="container">
+      <!-- Row -->
+      <div class="row">
+        <!-- Section header -->
+        <div class="section-header text-center">
+          <h2 class="title">Our Team</h2>
+        </div>
+        <!-- /Section header -->
+
+        <!-- team -->
+        <div class="col-sm-4">
+          <div class="team">
+            <div class="team-img">
+              <img
+                class="img-responsive"
+                src="../../assets/img/team1.jpg"
+                alt=""
+              />
+              <div class="overlay">
+                <div class="team-social">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-google-plus"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="team-content">
-            <h3>John Doe</h3>
-            <span>Project Manager</span>
-          </div>
-        </div>
-      </div>
-      <!-- /team -->
-
-      <!-- team -->
-      <div class="col-sm-4">
-        <div class="team">
-          <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/team2.jpg" alt="">
-            <div class="overlay">
-              <div class="team-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-              </div>
+            <div class="team-content">
+              <h3>John Doe</h3>
+              <span>Project Manager</span>
             </div>
           </div>
-          <div class="team-content">
-            <h3>John Doe</h3>
-            <span>Assistant Manager</span>
-          </div>
         </div>
-      </div>
-      <!-- /team -->
+        <!-- /team -->
 
-      <!-- team -->
-      <div class="col-sm-4">
-        <div class="team">
-          <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/team3.jpg" alt="">
-            <div class="overlay">
-              <div class="team-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
+        <!-- team -->
+        <div class="col-sm-4">
+          <div class="team">
+            <div class="team-img">
+              <img
+                class="img-responsive"
+                src="../../assets/img/team2.jpg"
+                alt=""
+              />
+              <div class="overlay">
+                <div class="team-social">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-google-plus"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="team-content">
-            <h3>John Doe</h3>
-            <span>Consultant</span>
+            <div class="team-content">
+              <h3>John Doe</h3>
+              <span>Assistant Manager</span>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- /team -->
+        <!-- /team -->
 
+        <!-- team -->
+        <div class="col-sm-4">
+          <div class="team">
+            <div class="team-img">
+              <img
+                class="img-responsive"
+                src="../../assets/img/team3.jpg"
+                alt=""
+              />
+              <div class="overlay">
+                <div class="team-social">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-google-plus"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="team-content">
+              <h3>John Doe</h3>
+              <span>Consultant</span>
+            </div>
+          </div>
+        </div>
+        <!-- /team -->
+      </div>
+      <!-- /Row -->
     </div>
-    <!-- /Row -->
-
+    <!-- /Container -->
   </div>
-  <!-- /Container -->
+  <!-- /Team -->
 
-</div>
-<!-- /Team -->
+  <!-- Blog -->
+  <div id="blog" class="section md-padding bg-grey">
+    <!-- Container -->
+    <div class="container">
+      <!-- Row -->
+      <div class="row">
+        <!-- Section header -->
+        <div class="section-header text-center">
+          <h2 class="title">Recents news</h2>
+        </div>
+        <!-- /Section header -->
 
-<!-- Blog -->
-<div id="blog" class="section md-padding bg-grey">
-
-  <!-- Container -->
-  <div class="container">
-
-    <!-- Row -->
-    <div class="row">
-
-      <!-- Section header -->
-      <div class="section-header text-center">
-        <h2 class="title">Recents news</h2>
-      </div>
-      <!-- /Section header -->
-
-      <!-- blog -->
-      <div *ngFor="let item of news" class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img class="img-responsive" [src]="getImageSource(item.img.name)" alt="">
+        <!-- blog -->
+        <div *ngFor="let item of news" class="col-md-4">
+          <div class="blog">
+            <div class="blog-img">
+              <img
+                class="img-responsive"
+                [src]="getImageSource(item.img.name)"
+                alt=""
+              />
+            </div>
+            <div class="blog-content">
+              <ul class="blog-meta">
+                <li><i class="fa fa-user"></i>{{ item.user.username }}</li>
+                <li>
+                  <i class="fa fa-clock-o"></i
+                  >{{ item.createdAt | amDateFormat: "MMM Do" }}
+                </li>
+              </ul>
+              <h3>{{ item.title }}</h3>
+              <p>{{ getContent(item.content) }}</p>
+              <a [routerLink]="['news', item.id]">Read more</a>
+            </div>
           </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>{{item.user.username}}</li>
-              <li><i class="fa fa-clock-o"></i>{{item.createdAt | amDateFormat: 'MMM Do'}}</li>
-            </ul>
-            <h3>{{item.title}}</h3>
-            <p>{{getContent(item.content)}}</p>
-            <a [routerLink]="['news', item.id]">Read more</a>
+        </div>
+        <!-- /blog -->
+      </div>
+      <!-- /Row -->
+    </div>
+    <!-- /Container -->
+  </div>
+  <!-- /Blog -->
+
+  <!-- Contact -->
+  <div id="contact" class="section md-padding">
+    <!-- Container -->
+    <div class="container">
+      <!-- Row -->
+      <div class="row">
+        <!-- Section-header -->
+        <div class="section-header text-center">
+          <h2 class="title">Get in touch</h2>
+        </div>
+        <!-- /Section-header -->
+
+        <!-- contact -->
+        <div class="col-sm-4">
+          <div class="contact">
+            <i class="fa fa-phone"></i>
+            <h3>Phone</h3>
+            <p>093 041 1443</p>
           </div>
         </div>
-      </div>
-      <!-- /blog -->
+        <!-- /contact -->
 
+        <!-- contact -->
+        <div class="col-sm-4">
+          <div class="contact">
+            <i class="fa fa-envelope"></i>
+            <h3>Email</h3>
+            <p>info@solveit.com</p>
+          </div>
+        </div>
+        <!-- /contact -->
+
+        <!-- contact -->
+        <div class="col-sm-4">
+          <div class="contact">
+            <i class="fa fa-map-marker"></i>
+            <h3>Address</h3>
+            <p>Angola St, Addis Ababa</p>
+          </div>
+        </div>
+        <!-- /contact -->
+      </div>
+      <!-- /Row -->
     </div>
-    <!-- /Row -->
-
+    <!-- /Container -->
   </div>
-  <!-- /Container -->
+  <!-- /Contact -->
 
-</div>
-<!-- /Blog -->
-
-<!-- Contact -->
-<div id="contact" class="section md-padding">
-
-  <!-- Container -->
-  <div class="container">
-
-    <!-- Row -->
-    <div class="row">
-
-      <!-- Section-header -->
-      <div class="section-header text-center">
-        <h2 class="title">Get in touch</h2>
-      </div>
-      <!-- /Section-header -->
-
-      <!-- contact -->
-      <div class="col-sm-4">
-        <div class="contact">
-          <i class="fa fa-phone"></i>
-          <h3>Phone</h3>
-          <p> 093 041 1443</p>
-        </div>
-      </div>
-      <!-- /contact -->
-
-      <!-- contact -->
-      <div class="col-sm-4">
-        <div class="contact">
-          <i class="fa fa-envelope"></i>
-          <h3>Email</h3>
-          <p>info@solveit.com</p>
-        </div>
-      </div>
-      <!-- /contact -->
-
-      <!-- contact -->
-      <div class="col-sm-4">
-        <div class="contact">
-          <i class="fa fa-map-marker"></i>
-          <h3>Address</h3>
-          <p>Angola St, Addis Ababa</p>
-        </div>
-      </div>
-      <!-- /contact -->
-
-
-    </div>
-    <!-- /Row -->
-
-  </div>
-  <!-- /Container -->
-
-</div>
-<!-- /Contact -->
-
-
-<app-alumunni-detail></app-alumunni-detail>
+  <app-alumunni-detail></app-alumunni-detail>
+</app-weekly-winner>

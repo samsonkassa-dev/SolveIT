@@ -1,41 +1,39 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../Auth/services/auth.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../Auth/services/auth.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.css"]
 })
-export class DashboardComponent implements OnInit{
-
+export class DashboardComponent implements OnInit {
   public views = [
-    'users',
-    'competitions',
-    'categories',
-    'tags',
-    'reviewDiscussions',
-    'city',
-    'exportData'
+    "users",
+    "competitions",
+    "categories",
+    "tags",
+    "reviewDiscussions",
+    "city",
+    "exportData"
   ];
   public selected = this.views[0];
   public isModerator: any;
 
-  constructor(public authService: AuthService) { }
-
-
+  constructor(public authService: AuthService) {}
 
   toggleView(view) {
     this.selected = view;
   }
 
   ngOnInit(): void {
-    this.authService.getUserInfo(this.authService.getUserId()).subscribe(
-      res => {
+    this.authService
+      .getUserInfo(this.authService.getUserId())
+      .subscribe(res => {
         this.isModerator = res.isModerator;
-      }
-    );
-    this.selected = this.authService.isAdmin() || this.authService.isSolveitManager() ? this.views[0] : this.views[1];
+      });
+    this.selected =
+      this.authService.isAdmin() || this.authService.isSolveitManager()
+        ? this.views[0]
+        : this.views[1];
   }
 }
-
-

@@ -1,32 +1,34 @@
 form {
-    width: 90%;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 2em;
-  }
+  width: 90%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 2em;
+}
 
-  #resource-form {
-    width: 70%;
-    margin: auto;
-    padding: 1em;
-  }
+#resource-form {
+  width: 70%;
+  margin: auto;
+  padding: 1em;
+}
 
-  #resource-form input, #resource-form select, #resource-form textarea {
-    margin-bottom: 2em;
-  }
+#resource-form input,
+#resource-form select,
+#resource-form textarea {
+  margin-bottom: 2em;
+}
 
-  #resource-form select {
-    background: white;
-    border: none;
-    border-bottom: 2px solid #eeeeee;
-    width: 50%;
-  }
+#resource-form select {
+  background: white;
+  border: none;
+  border-bottom: 2px solid #eeeeee;
+  width: 50%;
+}
 
-  #progress {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-  }
+#progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
 
 #resource-upload-btn {
   display: flex;
@@ -34,14 +36,14 @@ form {
   width: 50%;
 }
 
-.error-message{
+.error-message {
   text-align: center;
   font-size: 0.7em;
-  color: #EC4643;
+  color: #ec4643;
 }
 
 .err {
-  border-color: #EC4643
+  border-color: #ec4643;
 }
 
 #form-title:after {
@@ -65,7 +67,7 @@ form {
 }
 
 .selectedTag {
-  background: #2BA692;
+  background: #2ba692;
 }
 
 .blog-tags a {
