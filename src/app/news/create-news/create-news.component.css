@@ -4,12 +4,16 @@
   margin: auto;
 }
 
-.error-message{
+.error-message {
   text-align: center;
   font-size: 0.7em;
-  color: #EC4643;
+  color: #ec4643;
 }
 
 .err {
-  border-color: #EC4643
+  border-color: #ec4643;
+}
+
+textarea {
+  height: 15em;
 }

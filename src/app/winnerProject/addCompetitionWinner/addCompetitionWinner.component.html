@@ -8,13 +8,22 @@
         [(ngModel)]="competitionWinner.competitionId"
         formControlName="competition"
       >
-        <option selected value="0">Select Competition</option>
+        <option selected value="">Select Competition</option>
         <option
           *ngFor="let competition of competitions"
           value="{{competition.id}}"
           >{{ competition.name }}</option
         >
       </select>
+      <div
+        class="error-message"
+        *ngIf="
+          competitionWinnerForm.controls.competition.invalid &&
+          competitionWinnerForm.controls.competition.touched
+        "
+      >
+        <p>* Competition is required.</p>
+      </div>
     </div>
     <div class="input-field" style="margin-top: 1em">
       <select
@@ -23,16 +32,24 @@
         [(ngModel)]="competitionWinner.projectId"
         formControlName="project"
       >
-        <option selected value="0">Select Project</option>
+        <option selected value="">Select Project</option>
         <option *ngFor="let project of projects" value="{{project.id}}">{{
           project.title
         }}</option>
       </select>
+      <div
+        class="error-message"
+        *ngIf="
+          competitionWinnerForm.controls.project.invalid &&
+          competitionWinnerForm.controls.project.touched
+        "
+      >
+        <p>* Project is required.</p>
+      </div>
     </div>
     <div class="form-group" id="resource-upload-btn">
       <input
         type="button"
-        [disabled]="!competitionWinnerForm.valid"
         (click)="addCompetitionWinner()"
         class="main-btn"
         value="Create"

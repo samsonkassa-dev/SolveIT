@@ -1,51 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ProjectService } from '../project.service';
-import { CompetitionService } from '../../competition/competition.service';
-import {ApiService} from '../../shared/services/api.service';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
+import { ProjectService } from "../project.service";
+import { CompetitionService } from "../../competition/competition.service";
+import { ApiService } from "../../shared/services/api.service";
 
 declare var $: any;
 
 @Component({
-    selector: 'app-project-view',
-    templateUrl: 'projectView.component.html',
-    styleUrls: ['projectView.component.css']
+  selector: "app-project-view",
+  templateUrl: "projectView.component.html",
+  styleUrls: ["projectView.component.css"]
 })
-
 export class ProjectViewComponent implements OnInit {
-  public views = [
-    'report',
-    'members',
-    'add-member',
-  ];
+  public views = ["report", "members", "add-member"];
   public selected = this.views[0];
   public uploadReport = false;
   public project: any = null;
   public progressReports: any = [];
   public selectedProgressReport = null;
   public isEnrolled = false;
+  public count = 0;
 
   // for joining cometition
   public activeCompetitions = [];
-  private isJoinCompetitionSuccessfull = null;
+  public isJoinCompetitionSuccessfull = null;
 
-  constructor(public route: ActivatedRoute, public router: Router, public service: ProjectService,
-              public competitionService: CompetitionService, public apiService: ApiService) {
-
-  }
+  constructor(
+    public route: ActivatedRoute,
+    public router: Router,
+    public service: ProjectService,
+    public competitionService: CompetitionService,
+    public apiService: ApiService
+  ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get("id");
     this.getProject(id);
-    this.competitionService.getCompetitions()
-      .subscribe(res => {
+    this.competitionService.getCompetitions().subscribe(
+      res => {
         this.activeCompetitions = res;
         this.activeCompetitions = this.activeCompetitions.filter(item => {
           return item.active;
         });
-      }, error => {
-        console.log('Error while fetching competition ,', error);
-      });
+      },
+      error => {
+        console.log("Error while fetching competition ", error);
+      }
+    );
   }
 
   toggleView(view) {
@@ -53,21 +54,18 @@ export class ProjectViewComponent implements OnInit {
   }
 
   getProject(projectId) {
-    this.service.getProject(projectId).subscribe(
-      res => {
-        this.project = res;
-        this.getProgressReports();
-        this.isProjectRegisteredToCompetition();
-      }
-    );
+    this.service.getProject(projectId).subscribe(res => {
+      this.project = res;
+      this.getProgressReports();
+      this.isProjectRegisteredToCompetition();
+    });
   }
 
   public getProgressReports() {
-    this.service.getAllProgressReport(this.project.id)
-      .subscribe(res1 => {
-        this.progressReports = res1;
-        console.log(res1);
-      });
+    this.service.getAllProgressReport(this.project.id).subscribe(res1 => {
+      this.progressReports = res1;
+      console.log(res1);
+    });
   }
 
   addProjectMember() {
@@ -75,11 +73,9 @@ export class ProjectViewComponent implements OnInit {
       projectId: this.project.id,
       userId: 0
     };
-    this.service.addProjectMember(member).subscribe(
-      res => {
-        console.log(res);
-      }
-    );
+    this.service.addProjectMember(member).subscribe(res => {
+      console.log(res);
+    });
   }
 
   toggleUploadReport(value) {
@@ -87,21 +83,23 @@ export class ProjectViewComponent implements OnInit {
   }
 
   downloadProposal(content) {
-    this.service.downloadProposal(content)
-      .subscribe(res => {
+    this.service.downloadProposal(content).subscribe(
+      res => {
         console.log(res);
         const url = window.URL.createObjectURL(res.data);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         document.body.appendChild(a);
-        a.setAttribute('style', 'display: none');
+        a.setAttribute("style", "display: none");
         a.href = url;
         a.download = res.fileName;
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove(); // remove the element
-      }, error => {
-        console.log('error', error);
-      });
+      },
+      error => {
+        console.log("error", error);
+      }
+    );
   }
 
   reportCreated() {
@@ -110,12 +108,14 @@ export class ProjectViewComponent implements OnInit {
   }
 
   onJoinCompetition($event) {
-    this.service.joinCompetition(this.project, $event.data)
-      .subscribe(res => {
+    this.service.joinCompetition(this.project, $event.data).subscribe(
+      res => {
         this.isJoinCompetitionSuccessfull = true;
-      }, error => {
+      },
+      error => {
         this.isJoinCompetitionSuccessfull = false;
-      });
+      }
+    );
   }
 
   viewProgressReport(report) {
@@ -128,26 +128,28 @@ export class ProjectViewComponent implements OnInit {
   }
 
   isProjectRegisteredToCompetition() {
-    this.service.getProjectCompetitions(this.project.id)
-      .subscribe(res => {
-        if (res.length == 0) {
-          this.isEnrolled = false;
-        } else {
-          this.isEnrolled = true;
-        }
-      });
+    this.service.getProjectCompetitions(this.project.id).subscribe(res => {
+      if (res.length == 0) {
+        this.isEnrolled = false;
+      } else {
+        this.isEnrolled = true;
+      }
+      if (!this.isEnrolled && this.count === 0) {
+        $("#myModal").modal("show");
+        this.count += 1;
+      }
+    });
   }
 
   onProjectUpdated() {
-    $('#createProjectModal').modal('hide');
+    $("#createProjectModal").modal("hide");
   }
 
   limitProjectProposalTitle(title, limit) {
     if (title.length > limit) {
-      return title.slice(0, limit) + '...';
+      return title.slice(0, limit) + "...";
     } else {
       return title;
     }
   }
-
 }

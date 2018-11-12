@@ -11,7 +11,15 @@ import { AuthService } from "../../Auth/services/auth.service";
   styleUrls: ["addWeeklyWinner.component.css"]
 })
 export class AddWeeklyWinnerComponent implements OnInit {
-  public weeklyWinner = { active: true };
+  public weeklyWinner = {
+    active: true,
+    week: "",
+    rank: "",
+    competition: "",
+    project: "",
+    competitionId: "",
+    projectId: ""
+  };
   public weeklyWinnerForm: FormGroup;
   public projects = [];
   public competitions = [];
@@ -36,18 +44,22 @@ export class AddWeeklyWinnerComponent implements OnInit {
   }
 
   addWeeklyWinner() {
-    this.service.labelWeeklyWinner(this.weeklyWinner).subscribe(
-      res => {
-        this.sharedService.addToast(
-          "Success",
-          "New Weekly Winner Added!.",
-          "success"
-        );
-      },
-      err => {
-        this.sharedService.addToast("Error", "Error occurred!", "error");
-      }
-    );
+    if (this.weeklyWinnerForm.valid) {
+      this.service.labelWeeklyWinner(this.weeklyWinner).subscribe(
+        res => {
+          this.sharedService.addToast(
+            "Success",
+            "New Weekly Winner Added!",
+            "success"
+          );
+        },
+        err => {
+          this.sharedService.addToast("Error", "Error occurred!", "error");
+        }
+      );
+    } else {
+      this.markFormGroupTouched(this.weeklyWinnerForm);
+    }
   }
 
   getCompetition() {
@@ -62,6 +74,20 @@ export class AddWeeklyWinnerComponent implements OnInit {
   getProjects(competitionId) {
     this.competitionService.getProjects(competitionId).subscribe(res => {
       this.projects = res;
+    });
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  public markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
     });
   }
 }

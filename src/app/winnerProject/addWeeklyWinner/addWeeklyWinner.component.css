@@ -1,6 +1,6 @@
 form {
   width: 90%;
-  margin: 5em auto;
+  margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 2em;
 }
@@ -14,7 +14,18 @@ form {
 #resource-form input,
 #resource-form select,
 #resource-form textarea {
+  width: 100%;
+}
+
+.input-group,
+.input-field {
   margin-bottom: 2em;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearence: none;
 }
 
 #resource-form select {

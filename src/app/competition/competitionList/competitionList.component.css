@@ -1,17 +1,17 @@
 .create {
-    margin-left: 1em;
-    padding: 0.3em 2em;
+  margin-left: 1em;
+  padding: 0.3em 2em;
 }
 
 .no-resource-found {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    width: 90%;
-    margin: auto auto 8em auto;
-    padding: 2em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 90%;
+  margin: auto auto 8em auto;
+  padding: 2em;
 }
 
 .competetion-list {
@@ -29,6 +29,11 @@
   background: #e3e3e3;
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
   text-align: center;
 }

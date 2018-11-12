@@ -8,13 +8,22 @@
         [(ngModel)]="weeklyWinner.competitionId"
         formControlName="competition"
       >
-        <option selected value="0">Select Competition</option>
+        <option selected value="" [selected]="true">Select Competition</option>
         <option
           *ngFor="let competition of competitions"
           value="{{competition.id}}"
           >{{ competition.name }}</option
         >
       </select>
+      <div
+        class="error-message"
+        *ngIf="
+          weeklyWinnerForm.controls.competition.invalid &&
+          weeklyWinnerForm.controls.competition.touched
+        "
+      >
+        <p>* Competition is required.</p>
+      </div>
     </div>
     <div class="input-field" style="margin-top: 1em">
       <select
@@ -23,11 +32,20 @@
         [(ngModel)]="weeklyWinner.rank"
         formControlName="rank"
       >
-        <option selected value="0">Select Rank</option>
+        <option selected value="" [selected]="true">Select Rank</option>
         <option value="Gold">Gold</option>
         <option value="Silver">Silver</option>
         <option value="Bronze">Bronze</option>
       </select>
+      <div
+        class="error-message"
+        *ngIf="
+          weeklyWinnerForm.controls.rank.invalid &&
+          weeklyWinnerForm.controls.rank.touched
+        "
+      >
+        <p>* Rank is required.</p>
+      </div>
     </div>
     <div id="input-field">
       <input
@@ -38,6 +56,15 @@
         formControlName="week"
         [(ngModel)]="weeklyWinner.week"
       />
+      <div
+        class="error-message"
+        *ngIf="
+          weeklyWinnerForm.controls.week.invalid &&
+          weeklyWinnerForm.controls.week.touched
+        "
+      >
+        <p>* Week is required.</p>
+      </div>
     </div>
     <div class="input-field" style="margin-top: 1em">
       <select
@@ -46,16 +73,24 @@
         [(ngModel)]="weeklyWinner.projectId"
         formControlName="project"
       >
-        <option selected value="0">Select Project</option>
+        <option selected value="" [selected]="true">Select Project</option>
         <option *ngFor="let project of projects" value="{{project.id}}">{{
           project.title
         }}</option>
       </select>
+      <div
+        class="error-message"
+        *ngIf="
+          weeklyWinnerForm.controls.project.invalid &&
+          weeklyWinnerForm.controls.project.touched
+        "
+      >
+        <p>* Project is required.</p>
+      </div>
     </div>
     <div class="form-group" id="resource-upload-btn">
       <input
         type="button"
-        [disabled]="!weeklyWinnerForm.valid"
         (click)="addWeeklyWinner()"
         class="main-btn"
         value="Create"

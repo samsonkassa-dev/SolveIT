@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container-fluid dashboard">
+<div class="container-fluid dashboard dashboard-container">
   <div class="row">
     <div class="col-md-offset-1 col-md-3">
       <ul class="dashboard-menu">
@@ -42,7 +42,7 @@
           <span class="icon"><i class="fa fa-building"></i></span> City
         </li>
         <li
-          *ngIf="isModerator"
+          *ngIf="isModerator || authService.isAdmin()"
           (click)="toggleView(views[4])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="selected == views[4]"

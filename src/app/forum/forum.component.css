@@ -5,7 +5,7 @@
 .header h4 {
   float: left;
   margin-right: 4em;
-  padding: 2px
+  padding: 2px;
 }
 
 .header button {
@@ -22,7 +22,6 @@
   cursor: pointer;
   background: #e3e3e352;
   padding: 1em 2em 1em 1em;
-
 }
 
 .header .active {
@@ -36,4 +35,8 @@
 
 #aside {
   float: right;
+}
+
+.container {
+  margin-bottom: 8em;
 }

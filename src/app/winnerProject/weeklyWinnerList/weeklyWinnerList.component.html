@@ -35,6 +35,11 @@
       </tbody>
     </table>
   </div>
+
+  <div class="no-resource-found" *ngIf="weeklyWinners.length === 0">
+    <p><i class="fa  fa-frown-o"></i> {{ " No recoded uploaded yet." }}</p>
+  </div>
+
   <div class="forum-pagination">
     <pagination-controls
       *ngIf="weeklyWinners.length > 10"

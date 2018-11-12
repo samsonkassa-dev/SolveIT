@@ -29,9 +29,15 @@ import { NewsModule } from "./news/news.module";
 import { WinnerProjectModule } from "./winnerProject/winnerProject.module";
 import { MomentModule } from "angular2-moment";
 import { AlumunniDetailComponent } from "./alumunni-detail/alumunni-detail.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 @NgModule({
-  declarations: [AppComponent, LandingPageComponent, AlumunniDetailComponent],
+  declarations: [
+    AppComponent,
+    LandingPageComponent,
+    AlumunniDetailComponent,
+    PageNotFoundComponent
+  ],
   imports: [
     BrowserModule,
     Ng2TableModule,

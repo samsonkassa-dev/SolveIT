@@ -11,7 +11,7 @@ import { AuthService } from "../../Auth/services/auth.service";
   styleUrls: ["addCompetitionWinner.component.css"]
 })
 export class AddCompetitionWinnerComponent implements OnInit {
-  public competitionWinner = { active: true };
+  public competitionWinner = { active: true, competitionId: "", projectId: "" };
   public competitionWinnerForm: FormGroup;
   public projects = [];
   public competitions = [];
@@ -34,18 +34,22 @@ export class AddCompetitionWinnerComponent implements OnInit {
   }
 
   addCompetitionWinner() {
-    this.service.labelCompetitionWinner(this.competitionWinner).subscribe(
-      res => {
-        this.sharedService.addToast(
-          "Success",
-          "New Competition Winner Added!.",
-          "success"
-        );
-      },
-      err => {
-        this.sharedService.addToast("Error", "Error occurred!", "error");
-      }
-    );
+    if (this.competitionWinnerForm.valid) {
+      this.service.labelCompetitionWinner(this.competitionWinner).subscribe(
+        res => {
+          this.sharedService.addToast(
+            "Success",
+            "New Competition Winner Added!.",
+            "success"
+          );
+        },
+        err => {
+          this.sharedService.addToast("Error", "Error occurred!", "error");
+        }
+      );
+    } else {
+      this.markFormGroupTouched(this.competitionWinnerForm);
+    }
   }
 
   getCompetition() {
@@ -60,6 +64,20 @@ export class AddCompetitionWinnerComponent implements OnInit {
   getProjects(competitionId) {
     this.competitionService.getProjects(competitionId).subscribe(res => {
       this.projects = res;
+    });
+  }
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  public markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
     });
   }
 }
