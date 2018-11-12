@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
 import { ForumService } from '../../forum/forum.service';
 import { SharedService } from '../../shared/services/shared.service';
@@ -9,15 +9,20 @@ import { SharedService } from '../../shared/services/shared.service';
     styleUrls: ['./addMember.component.css']
 })
 
-export class AddProjectMemberComponent {
+export class AddProjectMemberComponent implements OnInit{
 
     @Input() project;
     private users = [];
     private page = 1;
     private keyword = '';
+    private members = [];
 
     constructor(private service: ProjectService, private forumService: ForumService, private sharedService: SharedService) {
 
+    }
+
+    ngOnInit() {
+        this.getMembers();
     }
 
     addMember(user) {
@@ -27,6 +32,7 @@ export class AddProjectMemberComponent {
         };
         this.service.addProjectMember(member).subscribe(
             res => {
+                this.members.push(user);
                 this.users.splice(this.users.indexOf(user), 1);
                 this.sharedService.addToast('Success', 'New Member Added!.', 'success');
             },
@@ -38,11 +44,21 @@ export class AddProjectMemberComponent {
         );
     }
 
+    getMembers() {
+        this.service.getMembers(this.project.id).subscribe(
+            res => {
+                this.members = res;
+            }
+        );
+    }
+
     searchUser() {
         if (this.keyword.trim() !== '') {
           this.forumService.searchUser(this.keyword.trim()).subscribe(
             res => {
-              this.users = res.Result;
+                this.users = res.Result.filter((item) => {
+                    return this.members.findIndex(x => x.id == item.id) == -1;
+                });
             }
           );
         } else {

@@ -32,6 +32,7 @@ export class CompetitionWinnerListComponent implements OnInit{
     removeCompetitionWinnerLabel(winner) {
         this.service.removeCompetitionWinnerLabel(winner.id).subscribe(
             res => {
+                winner.active = false;
                 this.sharedService.addToast('Success', 'Competition Winner Removed!.', 'success');
             }, err => {
                 this.sharedService.addToast('Error', 'Error occurred!', 'error');

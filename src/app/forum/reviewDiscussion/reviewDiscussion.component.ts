@@ -14,6 +14,7 @@ export class ReviewDiscussionComponent implements OnInit{
     public blackList = [];
     public discussions = [];
     public page = 1;
+    public h = [{hd:'fdsf'}];
 
     constructor(public service: ForumService, public sharedService: SharedService, public router: Router) { }
 
@@ -36,8 +37,8 @@ export class ReviewDiscussionComponent implements OnInit{
             res => {
                 this.blackList = res;
                 for (const item of res) {
-                    if (this.discussions.indexOf(item.solveitdiscussion) == -1) {
-                        this.discussions.push(item.solveitdiscussion);
+                    if (this.discussions.findIndex(x => x.id == item.Solveitdiscussion.id) == -1) {
+                        this.discussions.push(item.Solveitdiscussion);
                     }
                 }
             }
@@ -45,7 +46,7 @@ export class ReviewDiscussionComponent implements OnInit{
     }
 
     removeDiscussion(discussion) {
-        this.service.removeFromBlackList(discussion.id).subscribe(
+        this.service.removeFromBlackList({discussionId: discussion.id}).subscribe(
             res => {
                 this.service.removeDiscussion(discussion.id).subscribe(
                     res1 => {
@@ -68,7 +69,7 @@ export class ReviewDiscussionComponent implements OnInit{
     }
 
     relieveDiscussion(discussion) {       
-        this.service.removeFromBlackList(discussion.id).subscribe(
+        this.service.removeFromBlackList({discussionId: discussion.id}).subscribe(
             res => {
                 this.discussions.splice(this.discussions.indexOf(discussion), 1);
                 this.sharedService.addToast('Success', 'Discussion Relieved!.', 'success');

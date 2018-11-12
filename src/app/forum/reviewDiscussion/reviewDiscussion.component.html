@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: page  }; let index = index" (click)="discussionDetail(discussion)">
+            <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: page  }; let index = index">
                 <th (click)="viewDiscussion(discussion)" scope="row">
                     {{ discussion.title}}
                 </th>

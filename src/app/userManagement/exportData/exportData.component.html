@@ -1,22 +1,25 @@
 <form [formGroup]="optionForm" *ngIf="authService.isAuthenticated()">
     <h4 class="title" id="form-title"> Export Data </h4>
     <div id="resource-form">
-        <div class="input-field" style="margin-top: 1em">
-            <select name="role" id="role" [(ngModel)]="selectionOptions.sex" formControlName="sex">
+        <div class="form-group" style="margin-top: 1em">
+            <label>Gender:</label>
+            <select class="form-control" name="role" id="role" [(ngModel)]="selectionOptions.sex" formControlName="sex">
                 <option selected value="both">Both</option>
-                <option selected value="M">Male</option>
-                <option selected value="F">Female</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
             </select>
         </div>
-        <div class="input-field" style="margin-top: 1em">
-            <select name="role" id="role" [(ngModel)]="selectionOptions.educationLevel" formControlName="educationLevel">
+        <div class="form-group" style="margin-top: 1em">
+            <label>Education Level:</label>
+            <select class="form-control" name="role" id="role" [(ngModel)]="selectionOptions.educationLevel" formControlName="educationLevel">
                 <option selected value="none">None</option>
-                <option selected value="elementary">Elementary</option>
-                <option selected value="high school">High school</option>
+                <option value="elementary">Elementary</option>
+                <option value="high school">High school</option>
             </select>
         </div>
-        <div class="input-field" style="margin-top: 1em">
-            <select name="role" id="role" [(ngModel)]="selectionOptions.selectedCity" formControlName="city">
+        <div class="form-group" style="margin-top: 1em">
+            <label>City:</label>
+            <select class="form-control" name="role" id="role" [(ngModel)]="selectionOptions.selectedCity" formControlName="city">
                 <option selected value="0">Select City</option>
                 <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
             </select>

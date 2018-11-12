@@ -30,6 +30,9 @@
         <li [class.active]="router.isActive('dashboard', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
           <a routerLink="/dashboard">Dashboard</a>
         </li>
+        <li [class.active]="router.isActive('winner', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
+            <a routerLink="/winner">Winner</a>
+        </li>
         <li [class.active]="router.isActive('events', false)"><a routerLink="/events" >Events</a></li>
         <li [class.active]="router.isActive('forums', false)"><a routerLink="/forums">Forums</a></li>
         <li [class.active]="router.isActive('news', false)"><a routerLink="/news">News</a></li>

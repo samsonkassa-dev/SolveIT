@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit{
     'exportData'
   ];
   public selected = this.views[0];
+  public isModerator: any;
 
   constructor(public authService: AuthService) { }
 
@@ -28,9 +29,12 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    this.authService.getUserInfo(this.authService.getUserId()).subscribe(
+      res => {
+        this.isModerator = res.isModerator;
+      }
+    );
     this.selected = this.authService.isAdmin() || this.authService.isSolveitManager() ? this.views[0] : this.views[1];
-
   }
 }
 

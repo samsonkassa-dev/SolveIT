@@ -30,11 +30,11 @@ export class CompetitionService {
     }
 
     getWinnerProject() {
-        return this.apiService.get(`competitionWinners?filter={where: {active: true}, "include": ["solveitproject", "competition"]}`);
+        return this.apiService.get(`competitionWinners?filter={"where": {"active": true}, "include": ["solveitproject", "competition"]}`);
     }
 
     getWeeklyWinners(){
-        return this.apiService.get(`weekTopProjects?filter={where: {active: true}, "include": "solveitproject"}`);
+        return this.apiService.get(`weekTopProjects?filter={"where": {"active": true}, "include": "solveitproject"}`);
     }
 
     updateCompetition(competition) {

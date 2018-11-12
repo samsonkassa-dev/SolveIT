@@ -36,4 +36,12 @@ export class UserManagementService {
     updateStatus(user) {
         return this.apiService.put(`UserAccounts/${user.id}`, user);
     }
+
+    grantModeratorAccess(user) {
+        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: true});
+    }
+
+    detainModeratorAccess(user) {
+        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: false});
+    }
 }

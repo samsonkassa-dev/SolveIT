@@ -94,8 +94,8 @@ export class ForumService {
       return this.apiService.post('BlackListedDiscussions', content);
     }
 
-    removeFromBlackList(content) {
-      return this.apiService.post('BlackListedDiscussions/removeFromBlackList', content);
+    removeFromBlackList(discussionId) {
+      return this.apiService.post('BlackListedDiscussions/removeFromBlackList', discussionId);
     }
 
     isUserBlackListedDiscussion(userId, discussionId) {
@@ -123,7 +123,7 @@ export class ForumService {
     }
 
     getBlacklistedDiscussions() {
-        return this.apiService.get(`BlackListedDiscussions?filter={"include": "solveitdiscussion"}`);
+        return this.apiService.get(`BlackListedDiscussions?filter={"include": "Solveitdiscussion"}`);
     }
 
     removeDiscussion(discussionId) {
