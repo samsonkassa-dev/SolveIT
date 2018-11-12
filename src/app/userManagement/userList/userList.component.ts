@@ -143,7 +143,7 @@ export class UserListComponent implements OnInit {
     }
 
     viewUserProfile(user) {
-        this.router.navigate(['/manage-user/', user.id]);
+        this.router.navigate(['/userProfile/', user.id]);
     }
 
     processModerator(user) {
