@@ -168,21 +168,41 @@ export class UserListComponent implements OnInit {
             this.sharedService.addToast("", "Error occured!", "error");
           }
         }
-      );
-    } else {
-      this.service.detainModeratorAccess(user).subscribe(
-        res => {
-          this.sharedService.addToast(
-            "Success",
-            "Moderator Access Detained!",
-            "success"
-          );
-          user.isModerator = false;
-        },
-        err => {
-          if ((err.status = 422)) {
-            this.sharedService.addToast("", "Error occured!", "error");
-          }
+    }
+
+    createUser() {
+      this.create.emit();
+    }
+
+    viewUserProfile(user) {
+        this.router.navigate(['/userProfile/', user.id]);
+    }
+
+    processModerator(user) {
+        if (!user.isModerator) {
+            this.service.grantModeratorAccess(user).subscribe(
+                res => {
+                    this.sharedService.addToast('Success', 'Moderator Access Granted!', 'success');
+                    user.isModerator = true;
+                },
+                err => {
+                    if (err.status = 422) {
+                        this.sharedService.addToast('', 'Error occured!', 'error');
+                    }
+                }
+            );
+        }else {
+            this.service.detainModeratorAccess(user).subscribe(
+                res => {
+                    this.sharedService.addToast('Success', 'Moderator Access Detained!', 'success');
+                    user.isModerator = false;
+                },
+                err => {
+                    if (err.status = 422) {
+                        this.sharedService.addToast('', 'Error occured!', 'error');
+                    }
+                }
+            );
         }
       );
     }

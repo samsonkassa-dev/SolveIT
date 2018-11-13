@@ -1,13 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "../shared/services/api.service";
+import { Injectable } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../Auth/services/auth.service';
 
 @Injectable()
 export class UserManagementService {
   constructor(private apiService: ApiService) {}
 
-  getUserList() {
-    return this.apiService.get(`UserAccounts/`);
-  }
+    constructor(private apiService: ApiService, private authService: AuthService) {
 
   getUser(userId) {
     return this.apiService.get(
@@ -41,9 +40,15 @@ export class UserManagementService {
     });
   }
 
-  detainModeratorAccess(user) {
-    return this.apiService.patch(`UserAccounts/${user.id}`, {
-      isModerator: false
-    });
-  }
+    updateStatus(patch) {
+        return this.apiService.patch(`UserAccounts/${this.authService.getUserId()}`, patch);
+    }
+
+    grantModeratorAccess(user) {
+        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: true});
+    }
+
+    detainModeratorAccess(user) {
+        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: false});
+    }
 }
