@@ -3,43 +3,79 @@
 <div class="container news">
   <div class="row">
     <div class="col-md-4 col-sm-3">
-     <app-recent-news [recentNews]="recentNews"></app-recent-news>
+      <app-recent-news [recentNews]="recentNews"></app-recent-news>
     </div>
     <div class="col-md-8 col-sm-9">
       <div class="content">
         <div *ngIf="!isCreateNewsActive" class="tools">
-          <div class="row"> 
-            <div class="col-md-7 col-sm-6">
+          <div class="row">
+            <div class="col-md-7 col-sm-6" *ngIf="news.length > 0">
               <div class="widget-search">
-                <input class="search-input" id="searchInput" [(ngModel)]="keyword" (keyup)="onSearch($event)" type="text" placeholder="search">
+                <input
+                  class="search-input"
+                  id="searchInput"
+                  [(ngModel)]="keyword"
+                  (keyup)="onSearch($event)"
+                  type="text"
+                  placeholder="search"
+                />
               </div>
             </div>
-            <div class="col-md-5-col-sm-6" *ngIf="authService.isAdmin() || authService.isSolveitManager()">
-              <button class="main-btn" (click)="toggleCreateNews(true)" id="createNewsButton">Create</button>
+            <div
+              class="col-md-5-col-sm-6"
+              *ngIf="authService.isAdmin() || authService.isSolveitManager()"
+            >
+              <button
+                class="main-btn"
+                (click)="toggleCreateNews(true)"
+                id="createNewsButton"
+              >
+                Create
+              </button>
             </div>
           </div>
         </div>
         <ng-container *ngIf="!isCreateNewsActive">
           <div class="news-item  no-news" *ngIf="newsBackup.length === 0">
-            <p id="no-news-content"><i class="fa  fa-frown-o"></i> No news found.</p>
+            <p id="no-news-content">
+              <i class="fa  fa-frown-o"></i> No news found.
+            </p>
           </div>
-          <div class="news-item" *ngFor="let item of news | paginate: { itemsPerPage: 10, currentPage: page }" (click)="showNewsDetail(item)">
+          <div
+            class="news-item"
+            *ngFor="
+              let item of (news
+                | paginate: { itemsPerPage: 10, currentPage: page })
+            "
+            (click)="showNewsDetail(item)"
+          >
             <div class="row">
               <div class="col-sm-3">
-                <img class="news-img" [src]="getImageSource(item.img.name)" alt="">
+                <img
+                  class="news-img"
+                  [src]="getImageSource(item.img.name)"
+                  alt=""
+                />
               </div>
               <div class="col-sm-9">
-                <h6 class="news-title">{{item.title}}</h6>
-                <p class="createdAt">{{item.createdAt | amTimeAgo}}</p>
+                <h6 class="news-title">{{ item.title }}</h6>
+                <p class="createdAt">{{ item.createdAt | amTimeAgo }}</p>
               </div>
             </div>
           </div>
-          <pagination-controls *ngIf="news.length > 10" (pageChange)="page = $event"></pagination-controls>
+          <pagination-controls
+            *ngIf="news.length > 10"
+            (pageChange)="page = $event"
+          ></pagination-controls>
         </ng-container>
 
-        <app-create-news (created)="handleNewsCreated()" (newsList)="toggleCreateNews(false)" *ngIf="isCreateNewsActive"></app-create-news>
+        <app-create-news
+          (created)="handleNewsCreated()"
+          (newsList)="toggleCreateNews(false)"
+          *ngIf="isCreateNewsActive"
+        ></app-create-news>
+      </div>
     </div>
   </div>
-</div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

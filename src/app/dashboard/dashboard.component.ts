@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
 
   toggleView(view) {
     this.selected = view;
+    console.log(this.selected);
   }
 
   ngOnInit(): void {

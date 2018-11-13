@@ -2,7 +2,7 @@
 <header id="home">
   <!-- Background Video -->
   <video
-    src="../../assets/video/logo.mp4"
+    src="../../assets/video/solveit-animated-logo.mp4"
     autoplay="true"
     muted
     class="bg-video"
@@ -15,7 +15,7 @@
       <div class="navbar-header">
         <!-- Logo -->
         <div class="navbar-brand">
-          <a href="index.html">
+          <a routerLink="">
             <img
               style="padding: 0.1em"
               class="logo"
@@ -294,23 +294,16 @@
 <!-- /Service -->
 
 <!-- Testimonial -->
-<div id="testimonial" class="section md-padding">
+<div
+  id="testimonial"
+  class="section md-padding"
+  *ngIf="!authService.isAuthenticated()"
+>
   <!-- Container -->
   <div class="container">
     <!-- Row -->
-    <!-- Background Image -->
-    <div
-      *ngIf="authService.isAuthenticated()"
-      class="bg-img"
-      style="background-image: url('../../assets/img/background3.jpg');"
-    >
-      <div class="overlay"></div>
-    </div>
     <!-- /Background Image -->
-    <div
-      class="row register-now-container"
-      *ngIf="!authService.isAuthenticated()"
-    >
+    <div class="row register-now-container">
       <h2>Register For SolveIT 2019 Now</h2>
       <a routerLink="/register" class="outline-btn">Register</a>
     </div>
@@ -636,7 +629,7 @@
 <!-- /Team -->
 
 <!-- Blog -->
-<div id="blog" class="section md-padding bg-grey">
+<div id="blog" class="section md-padding bg-grey" *ngIf="news.length > 0">
   <!-- Container -->
   <div class="container">
     <!-- Row -->
