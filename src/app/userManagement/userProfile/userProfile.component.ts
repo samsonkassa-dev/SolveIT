@@ -9,34 +9,37 @@ import { AuthService } from "../../Auth/services/auth.service";
   templateUrl: "userProfile.component.html",
   styleUrls: ["userProfile.component.css"]
 })
-export class UserProfileCompomnent implements OnInit {
+export class UserProfileComponent implements OnInit {
   public userId: any;
   public user: any;
   public selected = "view";
+
+  public userId: any;
+  public user: any;
+  public selected = "view";
+  public disabled = true;
 
   constructor(
     public service: UserManagementService,
     public sharedService: SharedService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public authService: AuthService
   ) {}
 
-    public userId: any;
-    public user: any;
-    public selected = 'view';
-    public disabled = true;
+  ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get("userId");
+    this.getUser();
+  }
 
-    constructor(public service: UserManagementService, public sharedService: SharedService, public route: ActivatedRoute, public router: Router, public authService: AuthService) {
-        
-    }
-
-  updateStatus() {
-    this.service.updateStatus(this.user).subscribe(
+  getUser() {
+    this.service.getUser(this.userId).subscribe(
       res => {
-        this.sharedService.addToast("Success", "Status Updated!.", "success");
+        this.user = res;
+        console.log(this.user);
       },
       err => {
-        this.sharedService.addToast("", "Error occured!", "error");
+        this.router.navigate(["/404"]);
       }
     );
   }
@@ -44,21 +47,17 @@ export class UserProfileCompomnent implements OnInit {
   toggleView(view) {
     this.selected = view;
   }
-}
 
-    updateStatus(status) {
-        let patch = {userType: status};
-        this.service.updateStatus(patch).subscribe(
-            res => {
-                this.sharedService.addToast('Success', 'Status Updated!.', 'success');
-                this.user.userType = status;
-            }, err => {
-                this.sharedService.addToast('', 'Error occured!', 'error');
-            }
-        );
-    }
-
-    toggleView(view) {
-        this.selected = view;
-    }
+  updateStatus(status) {
+    const patch = { userType: status };
+    this.service.updateStatus(patch).subscribe(
+      res => {
+        this.sharedService.addToast("Success", "Status Updated!.", "success");
+        this.user.userType = status;
+      },
+      err => {
+        this.sharedService.addToast("", "Error occured!", "error");
+      }
+    );
+  }
 }

@@ -238,7 +238,7 @@ export class DiscussionViewComponent implements OnInit {
       const content = { userId: userId, discussionId: this.discussion.id };
       this.service.blackList(content).subscribe(
         res => {
-          this.sharedService.addToast("Success", "Black Listed!.", "success");
+          this.sharedService.addToast("Reported", "Black Listed!.", "error");
           this.isBlackListed = true;
         },
         error => {

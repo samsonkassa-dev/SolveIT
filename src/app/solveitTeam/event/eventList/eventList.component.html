@@ -43,7 +43,12 @@
           >
             {{ isOngoing(event) ? "OnGoing" : "Detail" }}
           </button>
-          <button id="passed-status" *ngIf="isPassed(event)" class="main-btn">
+          <button
+            (click)="viewEventDetail(event)"
+            id="passed-status"
+            *ngIf="isPassed(event)"
+            class="main-btn"
+          >
             Passed
           </button>
         </div>

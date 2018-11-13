@@ -9,16 +9,23 @@
       <div class="content">
         <div *ngIf="!isCreateNewsActive" class="tools">
           <div class="row">
-            <div class="col-md-7 col-sm-6" *ngIf="news.length > 0">
-              <div class="widget-search">
-                <input
-                  class="search-input"
-                  id="searchInput"
-                  [(ngModel)]="keyword"
-                  (keyup)="onSearch($event)"
-                  type="text"
-                  placeholder="search"
-                />
+            <div class="col-md-7 col-sm-6" *ngIf="newsBackup.length > 0">
+              <div id="aside">
+                <div class="widget">
+                  <div class="widget-search">
+                    <input
+                      class="search-input"
+                      id="searchInput"
+                      type="text"
+                      placeholder="Search"
+                      [(ngModel)]="keyword"
+                      (keyup)="onSearch($event)"
+                    />
+                    <button class="search-btn" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -39,6 +46,16 @@
           <div class="news-item  no-news" *ngIf="newsBackup.length === 0">
             <p id="no-news-content">
               <i class="fa  fa-frown-o"></i> No news found.
+            </p>
+          </div>
+          <div
+            class="news-item  no-news"
+            *ngIf="news.length === 0 && keyword !== ''"
+          >
+            <p id="no-news-content">
+              <i class="fa  fa-frown-o"></i> Search not found for "{{
+                keyword
+              }}"
             </p>
           </div>
           <div
