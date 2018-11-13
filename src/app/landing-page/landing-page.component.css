@@ -32,3 +32,13 @@
 .outline-btn {
   color: #ffffff !important;
 }
+
+#about-slide {
+  display: flex;
+  align-items: center;
+  margin-top: 8em;
+}
+
+.sponsor-logo {
+  float: left;
+}

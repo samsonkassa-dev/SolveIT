@@ -54,11 +54,16 @@ export class ProjectViewComponent implements OnInit {
   }
 
   getProject(projectId) {
-    this.service.getProject(projectId).subscribe(res => {
-      this.project = res;
-      this.getProgressReports();
-      this.isProjectRegisteredToCompetition();
-    });
+    this.service.getProject(projectId).subscribe(
+      res => {
+        this.project = res;
+        this.getProgressReports();
+        this.isProjectRegisteredToCompetition();
+      },
+      error1 => {
+        this.router.navigate(["/404"]);
+      }
+    );
   }
 
   public getProgressReports() {

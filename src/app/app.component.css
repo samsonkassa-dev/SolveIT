@@ -3,7 +3,7 @@
 }
 
 .footer-sponsors-logo img {
-  width: 5em;
+  width: 30%;
 }
 
 .footer-sponsors-logo-container {
@@ -11,4 +11,14 @@
   flex-direction: column;
   align-items: center;
   align-content: center;
+}
+
+.sponsor-logo {
+  float: left;
+}
+
+#sponsor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -11,10 +11,8 @@ import { UserManagementRoutes } from "./userManagement/userManagament.route";
 import { CompetitionRoutes } from "./competition/competition.route";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NEWS_ROUTES } from "./news/news.router";
-import { SolveitMgmtGuardService } from "./Auth/services/solveit-mgmt-guard.service";
-import { AuthGuardService } from "./Auth/services/auth-guard.service";
-import { DashboardGuardService } from "./Auth/services/dashboard-guard.service";
 import { WinnerComponent } from "./winnerProject/winner/winner.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 export const APP_ROUTES: Routes = [
   { path: "", component: LandingPageComponent },
@@ -27,5 +25,7 @@ export const APP_ROUTES: Routes = [
   ...RESOURCES_ROUTES,
   ...NEWS_ROUTES,
   { path: "dashboard", component: DashboardComponent, canActivate: [] },
-  { path: "winner", component: WinnerComponent, canActivate: [] }
+  { path: "winner", component: WinnerComponent, canActivate: [] },
+  { path: "404", component: PageNotFoundComponent },
+  { path: "**", redirectTo: "/404" }
 ];
