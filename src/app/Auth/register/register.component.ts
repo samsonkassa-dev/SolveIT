@@ -136,9 +136,15 @@ export class RegisterComponent implements OnInit {
   onAdressNext() {
     this.isLoading = true;
     this.user.cityId = this.address.cityId;
-    delete this.address["cityId"];
-    delete this.address["regionId"];
-    this.user.address = this.address;
+    const temp = {
+      wereda: this.address.wereda,
+      houseNo: this.address.houseNo,
+      emergencyContact: {
+        fullName: this.address.emergencyContact.fullName,
+        phoneNumber: this.address.emergencyContact.phoneNumber
+      }
+    };
+    this.user.address = temp;
     this.authService.register({ user: this.user }).subscribe(
       res => {
         console.log(res);

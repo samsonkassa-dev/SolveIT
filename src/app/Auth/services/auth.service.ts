@@ -1,37 +1,33 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import { ApiService } from '../../shared/services/api.service';
-import {from} from '../../../../node_modules/rxjs/observable/from';
-
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { ApiService } from "../../shared/services/api.service";
+import { from } from "../../../../node_modules/rxjs/observable/from";
 
 @Injectable()
 export class AuthService {
-
-  public TOKEN = 'access_token';
-  public SESSION = 'session';
-  public user_Path = 'UserAccounts';
-  public login_path = 'UserAccounts/login';
-  public logout_path = 'UserAccounts/logout';
-  public register_path = 'UserAccounts/register-participants';
-  public register_mgt_path = 'UserAccounts/register-solveit-mgt';
-  public register_team_path = 'UserAccounts/register-solveit-team';
+  public TOKEN = "access_token";
+  public SESSION = "session";
+  public user_Path = "UserAccounts";
+  public login_path = "UserAccounts/login";
+  public logout_path = "UserAccounts/logout";
+  public register_path = "UserAccounts/register-participants";
+  public register_mgt_path = "UserAccounts/register-solveit-mgt";
+  public register_team_path = "UserAccounts/register-solveit-team";
 
   public ICOG_ROLE = [
-    'solve-it-mgt',
-    'solve-it-team',
-    'solve-it-participants',
-    'admin'
+    "solve-it-mgt",
+    "solve-it-team",
+    "solve-it-participants",
+    "admin"
   ];
 
-  constructor (public router: Router, public apiService: ApiService) {
-  }
+  constructor(public router: Router, public apiService: ApiService) {}
 
   setSession(data: any) {
-    this.getUserRole(data.userId)
-      .subscribe(res => {
-        data['role'] = res.name;
-        window.localStorage.setItem(this.TOKEN, JSON.stringify(data));
-      });
+    this.getUserRole(data.userId).subscribe(res => {
+      data["role"] = res.name;
+      window.localStorage.setItem(this.TOKEN, JSON.stringify(data));
+    });
   }
 
   isTokenExpired(key: string) {
@@ -61,7 +57,6 @@ export class AuthService {
     return this.apiService.get(`UserAccounts/${userId}`);
   }
 
-
   getUserId() {
     const temp = window.localStorage.getItem(this.TOKEN);
     if (temp != null) {
@@ -73,15 +68,14 @@ export class AuthService {
 
   signOut() {
     if (this.isAuthenticated()) {
-     // this.apiService.post(`${this.logout_path}`, {})
-     //   .subscribe(res => {
-     //     this.router.navigate(['']);
-     //   }, err => {
-     //     console.log('Error while loging out', err);
-     //  });
+      // this.apiService.post(`${this.logout_path}`, {})
+      //   .subscribe(res => {
+      //     this.router.navigate(['']);
+      //   }, err => {
+      //     console.log('Error while loging out', err);
+      //  });
       window.localStorage.removeItem(this.TOKEN);
-      this.router.navigate(['']);
-
+      this.router.navigate([""]);
     }
   }
 
@@ -91,7 +85,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     try {
-     return !this.isTokenExpired(this.TOKEN);
+      return !this.isTokenExpired(this.TOKEN);
     } catch (e) {
       return false;
     }
@@ -134,8 +128,8 @@ export class AuthService {
   }
 
   addUser(user, role) {
-    console.log('adding user', role);
-    if(role === this.ICOG_ROLE[0]) {
+    console.log("adding user", role);
+    if (role === this.ICOG_ROLE[0]) {
       return this.apiService.post(this.register_mgt_path, user);
     } else if (role === this.ICOG_ROLE[1]) {
       return this.apiService.post(this.register_team_path, user);
@@ -145,6 +139,30 @@ export class AuthService {
   }
 
   confirmEmail(userId, cid) {
-    return this.apiService.post(`${this.user_Path}/confirmEmail`, {userId, cid});
+    return this.apiService.post(`${this.user_Path}/confirmEmail`, {
+      userId,
+      cid
+    });
+  }
+
+  requestPasswordChange(email) {
+    return this.apiService.post(`${this.user_Path}/request-password-change`, {
+      email: email
+    });
+  }
+
+  restPassword(id, password) {
+    const temp = {
+      id: id,
+      password: password
+    };
+
+    return this.apiService.post(`${this.user_Path}/update-password`, temp);
+  }
+
+  checkPasswordChangeRequest(key) {
+    return this.apiService.post(`${this.user_Path}/change-password`, {
+      key: key
+    });
   }
 }

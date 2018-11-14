@@ -16,6 +16,7 @@ import { AdminGuardService } from "./services/admin-guard.service";
 import { DashboardGuardService } from "./services/dashboard-guard.service";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { ForgetPasswordComponent } from "./forget-password/forget-password.component";
+import { NewPasswordComponent } from "./new-password/new-password.component";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ForgetPasswordComponent } from "./forget-password/forget-password.compo
     AdressComponent,
     QuestionariesComponent,
     EmailConfirmationComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    NewPasswordComponent
   ],
   imports: [
     FormsModule,

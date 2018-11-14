@@ -13,10 +13,6 @@ export class UserProfileComponent implements OnInit {
   public userId: any;
   public user: any;
   public selected = "view";
-
-  public userId: any;
-  public user: any;
-  public selected = "view";
   public disabled = true;
 
   constructor(

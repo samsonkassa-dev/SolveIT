@@ -1,11 +1,4 @@
 <div class="container" id="projects-list-content">
-  <div class="not-found">
-    <div class="no-resource-found" *ngIf="projects.length === 0">
-      <p>
-        <i class="fa  fa-frown-o"></i> You haven't created any project, yet.
-      </p>
-    </div>
-  </div>
   <div class="info">
     <p>
       <span><i class="fa fa-info"></i></span> Click the plus button to create a
@@ -15,6 +8,15 @@
       After you create your project click on enroll button and follow the steps.
     </p>
   </div>
+
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="projects.length === 0">
+      <p>
+        <i class="fa  fa-frown-o"></i> You haven't created any project, yet.
+      </p>
+    </div>
+  </div>
+
   <div class="row">
     <!-- Projects list -->
     <ng-container *ngIf="projects.length > 0">
