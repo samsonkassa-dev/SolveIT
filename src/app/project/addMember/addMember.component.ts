@@ -10,15 +10,15 @@ import { SharedService } from "../../shared/services/shared.service";
 })
 export class AddProjectMemberComponent implements OnInit {
   @Input() project;
-  private users = [];
-  private page = 1;
-  private keyword = "";
-  private members = [];
+  public users = [];
+  public page = 1;
+  public keyword = "";
+  public members = [];
 
   constructor(
-    private service: ProjectService,
-    private forumService: ForumService,
-    private sharedService: SharedService
+    public service: ProjectService,
+    public forumService: ForumService,
+    public sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class AddProjectMemberComponent implements OnInit {
     });
   }
 
-  searchUser() {
+  searchUser($event) {
     if (this.keyword.trim() !== "") {
       this.forumService.searchUser(this.keyword.trim()).subscribe(res => {
         this.users = res.Result.filter(item => {

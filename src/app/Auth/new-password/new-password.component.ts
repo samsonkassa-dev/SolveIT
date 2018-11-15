@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SharedService } from "../../shared/services/shared.service";
+import { PasswordValidation } from "../validator/passwordValidation";
 
 @Component({
   selector: "app-new-password",
@@ -51,10 +52,15 @@ export class NewPasswordComponent implements OnInit {
         this.router.navigate(["/login"]);
       }
     );
-    this.newPasswordForm = this.fb.group({
-      password: ["", Validators.required],
-      rePassword: ["", Validators.required]
-    });
+    this.newPasswordForm = this.fb.group(
+      {
+        password: ["", Validators.required],
+        rePassword: ["", Validators.required]
+      },
+      {
+        validator: Validators.compose([PasswordValidation.MatchPassword])
+      }
+    );
   }
 
   resetPassword(id, password) {

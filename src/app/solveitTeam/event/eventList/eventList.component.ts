@@ -8,7 +8,7 @@ import { AuthService } from "../../../Auth/services/auth.service";
   styleUrls: ["./eventList.component.css"]
 })
 export class EventListComponent implements OnInit {
-  private events = [];
+  public events = [];
   public store = [];
   public selected = "events-list";
   public searchKey = "";

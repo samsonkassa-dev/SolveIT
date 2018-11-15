@@ -12,6 +12,7 @@ export class ForgetPasswordComponent implements OnInit {
   public email = "";
   public isLoading = false;
   public requestSucess = false;
+  public error = false;
 
   constructor(public authService: AuthService, public fb: FormBuilder) {}
 
@@ -31,11 +32,14 @@ export class ForgetPasswordComponent implements OnInit {
             //  new password form
             this.isLoading = false;
             this.requestSucess;
+          } else {
+            this.error = true;
           }
         },
         error => {
           console.log("error ", error);
           this.isLoading = false;
+          this.error = true;
         }
       );
     } else {

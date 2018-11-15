@@ -129,7 +129,7 @@ export class UserListComponent implements OnInit {
     this.backupUsers = this.selectedUsers;
   }
 
-  searchUser() {
+  searchUser($event) {
     if (this.keyword !== "") {
       this.selectedUsers = this.backupUsers.filter(item => {
         return (

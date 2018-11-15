@@ -9,14 +9,14 @@ import { SharedService } from "../../shared/services/shared.service";
 })
 export class AddMember implements OnInit {
   @Input() forum;
-  private users = [];
-  private members = [];
-  private page = 1;
-  private keyword = "";
+  public users = [];
+  public members = [];
+  public page = 1;
+  public keyword = "";
 
   constructor(
-    private service: ForumService,
-    private sharedService: SharedService
+    public service: ForumService,
+    public sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class AddMember implements OnInit {
     });
   }
 
-  searchUser() {
+  searchUser($event) {
     if (this.keyword.trim() !== "") {
       this.service.searchUser(this.keyword).subscribe(res => {
         this.users = res.Result.filter(item => {

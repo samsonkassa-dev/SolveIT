@@ -37,7 +37,7 @@ export class CompetitionProjectsComponent implements OnInit {
     this.router.navigate(["/my-projects/", project.id]);
   }
 
-  searchProject() {
+  searchProject($event) {
     if (this.keyword !== "") {
       this.projects = this.backupProjects.filter(item => {
         return item.title.toUpperCase().includes(this.keyword.toUpperCase());
