@@ -154,15 +154,16 @@ ol {
 
 /* --  background image section  -- */
 
-.bg-video {
+.bg-img {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .bg-img .overlay {
@@ -171,8 +172,8 @@ ol {
   top: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.8;
-  background: #1c1d21;
+  opacity: 0.1;
+  background: rgba(109, 194, 98, 0.96);
 }
 
 /* --  section header  -- */

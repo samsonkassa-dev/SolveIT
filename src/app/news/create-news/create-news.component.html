@@ -27,17 +27,14 @@
       </p>
     </div>
     <div class="form-group">
-      <textarea
-        placeholder="Content"
-        class="input "
-        [class.err]="
-          newsForm.controls.content.invalid && newsForm.controls.content.touched
-        "
-        formControlName="content"
+      <ngx-wig
+        [buttons]="'bold, italic, link'"
+        [placeholder]="'Enter your content here.'"
         [(ngModel)]="news.content"
-        rows="30"
+        formControlName="content"
+        class="input"
       >
-      </textarea>
+      </ngx-wig>
       <p
         class="error-message"
         *ngIf="

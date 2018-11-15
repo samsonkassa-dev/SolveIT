@@ -13,6 +13,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NEWS_ROUTES } from "./news/news.router";
 import { WinnerComponent } from "./winnerProject/winner/winner.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { DashboardGuardService } from "./Auth/services/dashboard-guard.service";
 
 export const APP_ROUTES: Routes = [
   { path: "", component: LandingPageComponent },
@@ -24,8 +25,16 @@ export const APP_ROUTES: Routes = [
   ...SolveitTeamRoutes,
   ...RESOURCES_ROUTES,
   ...NEWS_ROUTES,
-  { path: "dashboard", component: DashboardComponent, canActivate: [] },
-  { path: "winner", component: WinnerComponent, canActivate: [] },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [DashboardGuardService]
+  },
+  {
+    path: "winner",
+    component: WinnerComponent,
+    canActivate: [DashboardGuardService]
+  },
   { path: "404", component: PageNotFoundComponent },
   { path: "**", redirectTo: "/404" }
 ];

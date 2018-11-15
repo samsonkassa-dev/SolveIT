@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CreateNewsComponent } from './create-news/create-news.component';
-import { NewsListComponent } from './news-list/news-list.component';
-import { NewsDetailComponent } from './news-detail/news-detail.component';
-import {NewsService} from './news.service';
-import {SharedModule} from '../shared/shared.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FileUploadModule} from 'ng2-file-upload';
-import {NgCircleProgressModule} from 'ng-circle-progress';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {ToastyModule} from 'ng2-toasty';
-import { RecentNewsComponent } from './recent-news/recent-news.component';
-import {MomentModule} from 'angular2-moment';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { CreateNewsComponent } from "./create-news/create-news.component";
+import { NewsListComponent } from "./news-list/news-list.component";
+import { NewsDetailComponent } from "./news-detail/news-detail.component";
+import { NewsService } from "./news.service";
+import { SharedModule } from "../shared/shared.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FileUploadModule } from "ng2-file-upload";
+import { NgCircleProgressModule } from "ng-circle-progress";
+import { NgxPaginationModule } from "ngx-pagination";
+import { ToastyModule } from "ng2-toasty";
+import { RecentNewsComponent } from "./recent-news/recent-news.component";
+import { MomentModule } from "angular2-moment";
+import { NgxWigModule } from "ngx-wig";
 
 @NgModule({
   imports: [
@@ -23,9 +24,15 @@ import {MomentModule} from 'angular2-moment';
     ReactiveFormsModule,
     FileUploadModule,
     NgCircleProgressModule,
-    MomentModule
+    MomentModule,
+    NgxWigModule
   ],
-  declarations: [CreateNewsComponent, NewsListComponent, NewsDetailComponent, RecentNewsComponent],
-  providers: [NewsService],
+  declarations: [
+    CreateNewsComponent,
+    NewsListComponent,
+    NewsDetailComponent,
+    RecentNewsComponent
+  ],
+  providers: [NewsService]
 })
-export class NewsModule { }
+export class NewsModule {}
