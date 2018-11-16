@@ -1,6 +1,6 @@
 form {
   width: 90%;
-  margin: 5em auto;
+  margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 2em;
 }
@@ -11,8 +11,21 @@ form {
   padding: 1em;
 }
 
-#resource-form input, #resource-form select, #resource-form textarea {
+#resource-form input,
+#resource-form select,
+#resource-form textarea {
+  width: 100%;
+}
+
+.input-group,
+.input-field {
   margin-bottom: 2em;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearence: none;
 }
 
 #resource-form select {
@@ -30,46 +43,46 @@ form {
 }
 
 #resource-upload-btn {
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.error-message{
-text-align: center;
-font-size: 0.7em;
-color: #EC4643;
+.error-message {
+  text-align: center;
+  font-size: 0.7em;
+  color: #ec4643;
 }
 
 .err {
-border-color: #EC4643
+  border-color: #ec4643;
 }
 
 #form-title:after {
-width: 2em;
-margin: 1em auto;
+  width: 2em;
+  margin: 1em auto;
 }
 
 #form-title {
-text-align: center;
+  text-align: center;
 }
 
 .no-resource-found {
-display: flex;
-align-items: center;
-align-content: center;
-flex-direction: column;
-border: 1px solid rgba(0, 0, 0, 0.2);
-width: 50%;
-margin: 10em auto;
-padding: 3em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 50%;
+  margin: 10em auto;
+  padding: 3em;
 }
 
 .selectedTag {
-background: #2BA692;
+  background: #2ba692;
 }
 
 .blog-tags a {
-cursor: pointer;
-border: 1px solid white;
+  cursor: pointer;
+  border: 1px solid white;
 }

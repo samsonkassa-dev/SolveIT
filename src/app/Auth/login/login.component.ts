@@ -1,48 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-
   public loginForm: FormGroup;
   public loginError = false;
   public user = {
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   };
+  public ICOG_ROLE = [
+    "solve-it-mgt",
+    "solve-it-team",
+    "solve-it-participants",
+    "admin"
+  ];
   public isLoading = false;
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public authService: AuthService, public router: Router) {}
 
   ngOnInit() {
-    console.log('Authenticated', this.authService.isAuthenticated());
-    console.log('isSolveitParticipant', this.authService.isSolveitParticipant());
-    console.log('isSolveitTeam', this.authService.isSolveitTeam());
-    console.log('isSolveitManagement', this.authService.isSolveitManager());
+    console.log("Authenticated", this.authService.isAuthenticated());
+    console.log(
+      "isSolveitParticipant",
+      this.authService.isSolveitParticipant()
+    );
+    console.log("isSolveitTeam", this.authService.isSolveitTeam());
+    console.log("isSolveitManagement", this.authService.isSolveitManager());
     this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      email: new FormControl("", Validators.required),
+      password: new FormControl("", Validators.required)
     });
   }
 
   onLogin() {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      this.authService.login(this.user)
-        .subscribe(res => {
+      this.authService.login(this.user).subscribe(
+        res => {
           this.authService.setSession(res);
           this.isLoading = false;
-          this.router.navigate(['']);
-        }, error1 => {
+          this.authService.getUserRole(res.userId).subscribe(res1 => {
+            if (res1.name === this.ICOG_ROLE[2]) {
+              this.router.navigate(["/my-projects"]);
+            } else {
+              this.router.navigate([""]);
+            }
+          });
+        },
+        error1 => {
           this.loginError = true;
           this.isLoading = false;
-        });
+        }
+      );
     } else {
       this.markFormGroupTouched(this.loginForm);
     }
@@ -62,4 +78,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  forgetPassword() {
+    this.router.navigate(["/forget-password"]);
+  }
 }

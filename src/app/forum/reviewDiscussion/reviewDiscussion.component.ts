@@ -4,81 +4,100 @@ import { SharedService } from "../../shared/services/shared.service";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-review-discussion',
-    templateUrl: 'reviewDiscussion.component.html',
-    styleUrls: ['reviewDiscussion.component.css']
+  selector: "app-review-discussion",
+  templateUrl: "reviewDiscussion.component.html",
+  styleUrls: ["reviewDiscussion.component.css"]
 })
+export class ReviewDiscussionComponent implements OnInit {
+  public blackList = [];
+  public discussions = [];
+  public page = 1;
+  public h = [{ hd: "fdsf" }];
 
-export class ReviewDiscussionComponent implements OnInit{
+  constructor(
+    public service: ForumService,
+    public sharedService: SharedService,
+    public router: Router
+  ) {}
 
-    public blackList = [];
-    public discussions = [];
-    public page = 1;
-    public h = [{hd:'fdsf'}];
+  ngOnInit() {
+    this.getBlackListedDiscussions();
+  }
 
-    constructor(public service: ForumService, public sharedService: SharedService, public router: Router) { }
+  countFlags(discussionId) {
+    return this.blackList.filter(item => {
+      return item.discussionId == discussionId;
+    }).length;
+  }
 
-    ngOnInit() {
-        this.getBlackListedDiscussions();
-    }
+  viewDiscussion(discussion) {
+    this.router.navigate(["/forums/discussion", discussion.slung]);
+  }
 
-    countFlags(discussionId) {
-        return this.blackList.filter((item) => {
-            return item.discussionId == discussionId;
-        }).length;
-    }
+  getBlackListedDiscussions() {
+    this.service.getBlacklistedDiscussions().subscribe(res => {
+      this.blackList = res;
+      for (const item of res) {
+        if (
+          this.discussions.findIndex(x => x.id == item.Solveitdiscussion.id) ==
+          -1
+        ) {
+          this.discussions.push(item.Solveitdiscussion);
+        }
+      }
+    });
+  }
 
-    viewDiscussion(discussion) {
-        this.router.navigate(['/forums/discussion', discussion.slung]);
-    }
-
-    getBlackListedDiscussions() {
-        this.service.getBlacklistedDiscussions().subscribe(
-            res => {
-                this.blackList = res;
-                for (const item of res) {
-                    if (this.discussions.findIndex(x => x.id == item.Solveitdiscussion.id) == -1) {
-                        this.discussions.push(item.Solveitdiscussion);
-                    }
-                }
+  removeDiscussion(discussion) {
+    this.service.removeFromBlackList({ discussionId: discussion.id }).subscribe(
+      res => {
+        this.service.removeDiscussion(discussion.id).subscribe(
+          res1 => {
+            this.discussions.splice(this.discussions.indexOf(discussion), 1);
+            this.sharedService.addToast(
+              "Success",
+              "Discussion Deleted!.",
+              "success"
+            );
+          },
+          err => {
+            if ((err.status = 422)) {
+              this.sharedService.addToast(
+                "",
+                "Error occured while deleting discussion!",
+                "error"
+              );
             }
-        )
-    }
+          }
+        );
+      },
+      err => {
+        if ((err.status = 422)) {
+          this.sharedService.addToast(
+            "",
+            "Error occured while removing from blacklist!",
+            "error"
+          );
+        }
+      }
+    );
+  }
 
-    removeDiscussion(discussion) {
-        this.service.removeFromBlackList({discussionId: discussion.id}).subscribe(
-            res => {
-                this.service.removeDiscussion(discussion.id).subscribe(
-                    res1 => {
-                        this.discussions.splice(this.discussions.indexOf(discussion), 1);
-                        this.sharedService.addToast('Success', 'Discussion Deleted!.', 'success');
-                    },
-                    err => {
-                        if (err.status = 422) {
-                            this.sharedService.addToast('', 'Error occured while deleting discussion!', 'error');
-                        }
-                    }
-                );
-            },
-            err => {
-                if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occured while removing from blacklist!', 'error');
-                }
-            }
-        )
-    }
-
-    relieveDiscussion(discussion) {       
-        this.service.removeFromBlackList({discussionId: discussion.id}).subscribe(
-            res => {
-                this.discussions.splice(this.discussions.indexOf(discussion), 1);
-                this.sharedService.addToast('Success', 'Discussion Relieved!.', 'success');
-            },
-            err => {
-                if (err.status = 422) {
-                    this.sharedService.addToast('', 'Error occured!', 'error');
-                }
-            }
-        )
-    }
+  relieveDiscussion(discussion) {
+    this.service.removeFromBlackList({ discussionId: discussion.id }).subscribe(
+      res => {
+        this.discussions.splice(this.discussions.indexOf(discussion), 1);
+        this.sharedService.addToast(
+          "Success",
+          "Discussion Relieved!.",
+          "success"
+        );
+      },
+      err => {
+        if ((err.status = 422)) {
+          this.sharedService.addToast("", "Error occured!", "error");
+        }
+      }
+    );
+  }
 }

@@ -10,11 +10,14 @@ form {
   padding: 1em;
 }
 
-#reportForm input, #type, #reportForm textarea {
+#reportForm input,
+#type,
+#reportForm textarea {
   margin-bottom: 2em;
 }
 
-#reportForm select, #type {
+#reportForm select,
+#type {
   background: white;
   width: 100%;
   border: none;
@@ -35,24 +38,27 @@ form {
   align-items: center;
 }
 
-.error-message{
+.error-message {
   text-align: center;
   font-size: 1em;
-  color: #EC4643;
+  color: #ec4643;
   background: pink;
   padding: 2em;
 }
 
 .err {
-  border-color: #EC4643
+  border-color: #ec4643;
 }
 
 #proposal-label {
   margin: 1em auto;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 #form-title {
   text-align: center;
 }
 
+textarea {
+  height: 25em;
+}

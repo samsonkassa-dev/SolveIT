@@ -1,41 +1,83 @@
 <app-header></app-header>
 
 <div id="registration-form">
-    <!-- Section-header -->
+  <!-- Section-header -->
   <div class="section-header text-center">
-    <img src="../../../assets/img/solveit-logo12.png" alt="">
+    <img src="../../../assets/img/solveit-logo12.png" alt="" />
   </div>
-    <!-- /Section-header -->
-    <div class="login-error" *ngIf="loginError">
-        <p>
-            Incorrect email or password.
-        </p>
+  <div class="title-container"><h5 class="title">Sign In</h5></div>
+  <!-- /Section-header -->
+  <div class="login-error" *ngIf="loginError">
+    <p>Incorrect email or password.</p>
+  </div>
+  <form [formGroup]="loginForm">
+    <div class="input-field">
+      <input
+        class="input"
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+        [(ngModel)]="user.email"
+        [class.err]="
+          loginForm.controls.email.invalid && loginForm.controls.email.touched
+        "
+        email
+        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.email.touched &&
+          loginForm.controls.email.errors?.required
+        "
+      >
+        <p>* Email is required.</p>
+      </div>
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.email.touched &&
+          loginForm.controls.email.errors?.pattern
+        "
+      >
+        <p>* invalid email address.</p>
+      </div>
     </div>
-    <form [formGroup]="loginForm">
-
-        <div class="input-field">
-            <input class="input" type="email" placeholder="Email" formControlName="email" [(ngModel)]="user.email" [class.err]="loginForm.controls.email.invalid && loginForm.controls.email.touched" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
-            <div class="error-message" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">
-                <p> * Email is required. </p>
-            </div>
-            <div class="error-message" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.pattern">
-                <p> * invalid email address. </p>
-            </div>
-        </div>
-        <div class="input-field">
-            <input class="input" type="password" placeholder="Password" formControlName="password" [(ngModel)]="user.password" [class.err]="loginForm.controls.password.invalid && loginForm.controls.password.touched">
-            <div class="error-message" *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
-                <p> Password is required! </p>
-            </div>
-        </div>
-        <div class="login-btn">
-            <button (click)="onLogin()"  type="submit" class="main-btn">
-              Login
-              <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
-            </button>
-        </div>
-    </form>
-    <div class="login-link">
-        <p>If you haven't registered yet, <a routerLink="/register">SignUp here.</a></p>
+    <div class="input-field">
+      <input
+        class="input"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        [(ngModel)]="user.password"
+        [class.err]="
+          loginForm.controls.password.invalid &&
+          loginForm.controls.password.touched
+        "
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.password.invalid &&
+          loginForm.controls.password.touched
+        "
+      >
+        <p>Password is required!</p>
+      </div>
     </div>
+    <div class="forget-password">
+      <a routerLink="/forget-password">Forget Password ?</a>
+    </div>
+    <div class="login-btn">
+      <button (click)="onLogin()" type="submit" class="main-btn">
+        Login
+        <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
+      </button>
+    </div>
+  </form>
+  <div class="login-link">
+    <p>
+      If you haven't registered yet, <a routerLink="/register">SignUp here.</a>
+    </p>
+  </div>
 </div>

@@ -3,40 +3,42 @@ import { WinnerProjectService } from "../winnerProject.service";
 import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
-    selector: 'app-competition-winner-list',
-    templateUrl: 'competitionWinnerList.component.html',
-    styleUrls: ['competitionWinnerList.component.css']
+  selector: "app-competition-winner-list",
+  templateUrl: "competitionWinnerList.component.html",
+  styleUrls: ["competitionWinnerList.component.css"]
 })
+export class CompetitionWinnerListComponent implements OnInit {
+  public competitionWinners = [];
+  public page: number = 1;
 
-export class CompetitionWinnerListComponent implements OnInit{
+  constructor(
+    public service: WinnerProjectService,
+    public sharedService: SharedService
+  ) {}
 
-    public competitionWinners = [];
-    public page: number = 1;
+  ngOnInit() {
+    this.getCompetitionWinners();
+  }
 
-    constructor(public service: WinnerProjectService, public sharedService: SharedService) {
-        
-    }
+  getCompetitionWinners() {
+    this.service.getCompetitionWinners().subscribe(res => {
+      this.competitionWinners = res;
+    });
+  }
 
-    ngOnInit() {
-        this.getCompetitionWinners();
-    }
-
-    getCompetitionWinners() {
-        this.service.getCompetitionWinners().subscribe(
-            res => {
-                this.competitionWinners = res;
-            }
-        )
-    }
-
-    removeCompetitionWinnerLabel(winner) {
-        this.service.removeCompetitionWinnerLabel(winner.id).subscribe(
-            res => {
-                winner.active = false;
-                this.sharedService.addToast('Success', 'Competition Winner Removed!.', 'success');
-            }, err => {
-                this.sharedService.addToast('Error', 'Error occurred!', 'error');
-            }
+  removeCompetitionWinnerLabel(winner) {
+    this.service.removeCompetitionWinnerLabel(winner.id).subscribe(
+      res => {
+        winner.active = false;
+        this.sharedService.addToast(
+          "Success",
+          "Competition Winner Removed!.",
+          "success"
         );
-    }
+      },
+      err => {
+        this.sharedService.addToast("Error", "Error occurred!", "error");
+      }
+    );
+  }
 }

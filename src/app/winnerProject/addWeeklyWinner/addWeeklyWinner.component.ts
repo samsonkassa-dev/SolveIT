@@ -1,62 +1,93 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { WinnerProjectService } from "../winnerProject.service";
 import { SharedService } from "../../shared/services/shared.service";
 import { CompetitionService } from "../../competition/competition.service";
 import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
-    selector: 'app-add-weekly-winner',
-    templateUrl: 'addWeeklyWinner.component.html',
-    styleUrls: ['addWeeklyWinner.component.css']
+  selector: "app-add-weekly-winner",
+  templateUrl: "addWeeklyWinner.component.html",
+  styleUrls: ["addWeeklyWinner.component.css"]
 })
+export class AddWeeklyWinnerComponent implements OnInit {
+  public weeklyWinner = {
+    active: true,
+    week: "",
+    rank: "",
+    competition: "",
+    project: "",
+    competitionId: "",
+    projectId: ""
+  };
+  public weeklyWinnerForm: FormGroup;
+  public projects = [];
+  public competitions = [];
 
-export class AddWeeklyWinnerComponent implements OnInit{
-    
-    public weeklyWinner = {active: true};
-    public weeklyWinnerForm: FormGroup;
-    public projects = [];
-    public competitions = [];
+  constructor(
+    public service: WinnerProjectService,
+    public fb: FormBuilder,
+    public sharedService: SharedService,
+    public competitionService: CompetitionService,
+    public authService: AuthService
+  ) {
+    this.weeklyWinnerForm = this.fb.group({
+      week: ["", Validators.required],
+      rank: ["", Validators.required],
+      competition: ["", Validators.required],
+      project: ["", Validators.required]
+    });
+  }
 
-    constructor(public service: WinnerProjectService, public fb: FormBuilder, public sharedService: SharedService, public competitionService: CompetitionService, public authService: AuthService) {
-        this.weeklyWinnerForm = this.fb.group({
-            week: ['', Validators.required],
-            rank: ['', Validators.required],
-            competition: ['', Validators.required],
-            project: ['', Validators.required]
-        });
+  ngOnInit() {
+    this.getCompetition();
+  }
+
+  addWeeklyWinner() {
+    if (this.weeklyWinnerForm.valid) {
+      this.service.labelWeeklyWinner(this.weeklyWinner).subscribe(
+        res => {
+          this.sharedService.addToast(
+            "Success",
+            "New Weekly Winner Added!",
+            "success"
+          );
+        },
+        err => {
+          this.sharedService.addToast("Error", "Error occurred!", "error");
+        }
+      );
+    } else {
+      this.markFormGroupTouched(this.weeklyWinnerForm);
     }
+  }
 
-    ngOnInit() {
-        this.getCompetition();
-    }
+  getCompetition() {
+    this.competitionService.getActiveCompetition().subscribe(res => {
+      this.competitions = res.Result;
+      if (this.competitions.length != 0) {
+        this.getProjects(this.competitions[0].id);
+      }
+    });
+  }
 
-    addWeeklyWinner() {
-        this.service.labelWeeklyWinner(this.weeklyWinner).subscribe(
-            res => {
-                this.sharedService.addToast('Success', 'New Weekly Winner Added!.', 'success');
-            }, err => {
-                this.sharedService.addToast('Error', 'Error occurred!', 'error');
-            }
-        );
-    }
+  getProjects(competitionId) {
+    this.competitionService.getProjects(competitionId).subscribe(res => {
+      this.projects = res;
+    });
+  }
 
-    getCompetition() {
-        this.competitionService.getActiveCompetition().subscribe(
-            res => {
-                this.competitions = res.Result;
-                if (this.competitions.length != 0) {
-                    this.getProjects(this.competitions[0].id);    
-                }
-            }
-        )
-    }
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+  public markFormGroupTouched(formGroup: any) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
 
-    getProjects(competitionId) {
-        this.competitionService.getProjects(competitionId).subscribe(
-            res => {
-                this.projects = res;
-            }
-        )
-    }
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 }

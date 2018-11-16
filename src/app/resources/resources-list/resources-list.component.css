@@ -5,7 +5,7 @@
 
 #searchbar input {
   padding: 1em;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .resource-list-title {
@@ -19,7 +19,12 @@
 }
 
 .resource-list-icons {
+}
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 #videos {
@@ -27,7 +32,7 @@
 }
 
 #category {
-  padding: .8em;
+  padding: 0.8em;
   background: #ffffff;
   border: none;
   border-bottom: 1px solid #a29a9a;
@@ -59,15 +64,16 @@
   cursor: pointer;
 }
 
-#resource:hover, .video-resource:hover {
-  -webkit-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
-  -moz-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
-  box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
+#resource:hover,
+.video-resource:hover {
+  -webkit-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
 }
 
 .info {
   border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .image {
@@ -81,7 +87,7 @@
 
 .resource-detail {
   padding: 1em;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 #close {
@@ -91,8 +97,8 @@
 }
 
 .link {
-  font-size: .8em;
-  color: #2BA692;
+  font-size: 0.8em;
+  color: #2ba692;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -102,7 +108,7 @@
 }
 
 .video-resource h6 {
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .video-resource {
@@ -113,7 +119,3 @@
 #upload-btn-container {
   float: right;
 }
-
-
-
-

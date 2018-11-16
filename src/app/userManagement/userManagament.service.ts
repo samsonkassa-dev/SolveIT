@@ -1,48 +1,56 @@
-import { Injectable } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
-import { AuthService } from '../Auth/services/auth.service';
+import { Injectable } from "@angular/core";
+import { ApiService } from "../shared/services/api.service";
+import { AuthService } from "../Auth/services/auth.service";
 
 @Injectable()
-
 export class UserManagementService {
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {}
 
-    constructor(private apiService: ApiService, private authService: AuthService) {
+  getUser(userId) {
+    return this.apiService.get(
+      `UserAccounts/${userId}?filter={"include":["role","city"]}`
+    );
+  }
 
-    }
+  activateDeactivateUser(user) {
+    return this.apiService.put(`UserAccounts/${user.id}`, user);
+  }
 
-    getUserList() {
-        return this.apiService.get(`UserAccounts/`);
-    }
+  getRoles() {
+    return this.apiService.get(`Icog-Roles/`);
+  }
 
-    getUser(userId) {
-        return this.apiService.get(`UserAccounts/${userId}?filter={"include":["role","city"]}`);
-    }
+  getRegions() {
+    return this.apiService.get(`Regions/`);
+  }
 
-    activateDeactivateUser(user) {
-        return this.apiService.put(`UserAccounts/${user.id}`, user);
-    }
+  getCities() {
+    return this.apiService.get(`cities/`);
+  }
 
-    getRoles() {
-        return this.apiService.get(`Icog-Roles/`);
-    }
+  updateStatus(patch) {
+    return this.apiService.patch(
+      `UserAccounts/${this.authService.getUserId()}`,
+      patch
+    );
+  }
 
-    getRegions() {
-        return this.apiService.get(`Regions/`);
-    }
+  grantModeratorAccess(user) {
+    return this.apiService.patch(`UserAccounts/${user.id}`, {
+      isModerator: true
+    });
+  }
 
-    getCities() {
-        return this.apiService.get(`cities/`);
-    }
+  detainModeratorAccess(user) {
+    return this.apiService.patch(`UserAccounts/${user.id}`, {
+      isModerator: false
+    });
+  }
 
-    updateStatus(patch) {
-        return this.apiService.patch(`UserAccounts/${this.authService.getUserId()}`, patch);
-    }
-
-    grantModeratorAccess(user) {
-        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: true});
-    }
-
-    detainModeratorAccess(user) {
-        return this.apiService.patch(`UserAccounts/${user.id}`, {isModerator: false});
-    }
+  getUserList() {
+    return this.apiService.get(`UserAccounts`);
+  }
 }

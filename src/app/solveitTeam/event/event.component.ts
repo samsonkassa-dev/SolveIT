@@ -1,22 +1,17 @@
-import { Component } from '@angular/core';
-import {AuthService} from '../../Auth/services/auth.service';
+import { Component } from "@angular/core";
+import { AuthService } from "../../Auth/services/auth.service";
 
 @Component({
-    selector: 'app-event',
-    templateUrl: './event.component.html',
-    styleUrls: ['./event.component.css']
+  selector: "app-event",
+  templateUrl: "./event.component.html",
+  styleUrls: ["./event.component.css"]
 })
-
 export class EventsComponent {
+  public selected = "events-list";
 
-    private selected = 'events-list';
+  constructor(public authService: AuthService) {}
 
-    constructor(public authService: AuthService) {
-
-    }
-
-    toggleView(view) {
-        this.selected = view;
-    }
-
+  toggleView(view) {
+    this.selected = view;
+  }
 }

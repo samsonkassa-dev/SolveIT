@@ -7,28 +7,25 @@ import { UserListComponent } from "./userList/userList.component";
 import { ExportDataComponent } from "./exportData/exportData.component";
 import { ManageUserComponent } from "./manageUser/manageUser.component";
 import { UserManagementService } from "./userManagament.service";
-import { NgxPaginationModule } from 'ngx-pagination';
-import { UserProfileCompomnent } from "./userProfile/userProfile.component";
+import { NgxPaginationModule } from "ngx-pagination";
+import { UserProfileComponent } from "./userProfile/userProfile.component";
 
 @NgModule({
-    declarations: [
-        AddUserComponent,
-        UserListComponent,
-        ExportDataComponent,
-        ManageUserComponent,
-        UserProfileCompomnent
-    ],
-    imports: [
-        SharedModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxPaginationModule
-    ],
-    providers: [UserManagementService],
-    exports: [ManageUserComponent, ExportDataComponent]
+  declarations: [
+    AddUserComponent,
+    UserListComponent,
+    ExportDataComponent,
+    ManageUserComponent,
+    UserProfileComponent
+  ],
+  imports: [
+    SharedModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
+  ],
+  providers: [UserManagementService],
+  exports: [ManageUserComponent, ExportDataComponent]
 })
-
-export class UserManagementModule {
-
-}
+export class UserManagementModule {}

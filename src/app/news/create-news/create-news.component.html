@@ -6,19 +6,52 @@
     </div>
     <!-- /Section-header -->
     <div class="form-group">
-      <input type="text" class="input" name="title" placeholder="Title"
-             formControlName="title" [(ngModel)]="news.title"
-            [class.err]="newsForm.controls.title.invalid && newsForm.controls.title.touched">
-      <p *ngIf="newsForm.controls.title.invalid && newsForm.controls.title.touched" class="error-message">* Title is required.</p>
+      <input
+        type="text"
+        class="input"
+        name="title"
+        placeholder="Title"
+        formControlName="title"
+        [(ngModel)]="news.title"
+        [class.err]="
+          newsForm.controls.title.invalid && newsForm.controls.title.touched
+        "
+      />
+      <p
+        *ngIf="
+          newsForm.controls.title.invalid && newsForm.controls.title.touched
+        "
+        class="error-message"
+      >
+        * Title is required.
+      </p>
     </div>
     <div class="form-group">
-      <textarea placeholder="Content" class="input " [class.err]="newsForm.controls.content.invalid && newsForm.controls.content.touched"
-                formControlName="content" [(ngModel)]="news.content">
-            </textarea>
-      <p class="error-message" *ngIf="newsForm.controls.content.invalid && newsForm.controls.content.touched">* Content is required.</p>
+      <ngx-wig
+        [buttons]="'bold, italic, link'"
+        [placeholder]="'Enter your content here.'"
+        [(ngModel)]="news.content"
+        formControlName="content"
+        class="input"
+      >
+      </ngx-wig>
+      <p
+        class="error-message"
+        *ngIf="
+          newsForm.controls.content.invalid && newsForm.controls.content.touched
+        "
+      >
+        * Content is required.
+      </p>
     </div>
     <div class="form-group">
-      <input ng2FileSelect  [uploader]="uploader" type="file" (change)="handleFileSelection($event)" class="">
+      <input
+        ng2FileSelect
+        [uploader]="uploader"
+        type="file"
+        (change)="handleFileSelection($event)"
+        class=""
+      />
     </div>
     <div id="progress" *ngIf="isUploading">
       <circle-progress
@@ -34,7 +67,12 @@
       ></circle-progress>
     </div>
     <div class="form-group" id="news-upload-btn">
-      <input type="button" (click)="onCreateNews()" class="main-btn" value="Create">
+      <input
+        type="button"
+        (click)="onCreateNews()"
+        class="main-btn"
+        value="Create"
+      />
       <button class="outline-btn" (click)="ShowNewsList()">Back</button>
     </div>
   </div>

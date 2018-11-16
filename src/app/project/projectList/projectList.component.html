@@ -1,28 +1,65 @@
 <div class="container" id="projects-list-content">
-    <div class="not-found">
-        <div class="no-resource-found" *ngIf="projects.length === 0">
-            <p>
-                <i class="fa  fa-frown-o"></i> You haven't created any project, yet.
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <!-- Projects list -->
-        <ng-container *ngIf="projects.length > 0">
-            <div class="col-md-3 col-sm-6" *ngFor="let project of projects | paginate: { itemsPerPage: 8, currentPage: p }">
-                <div class="about">
-                    <i class="fa fa-briefcase"></i>
+  <div class="info">
+    <p>
+      <span><i class="fa fa-info"></i></span> Click the plus button to create a
+      project and while filling the form if you don't have a proposal ready just
+      upload a document with 1 paragraph about the project and you can edit it
+      latter. <br />
+      After you create your project click on enroll button and follow the steps.
+    </p>
+  </div>
 
-                    <h3>{{ project.title }}</h3>
-                    <a style="cursor: pointer" (click)="viewProject(project)"><span><i style="font-size: 1em; padding: .5em;" class="fa fa-eye"></i></span>View Project</a>
-                </div>
-            </div>
-        </ng-container>
-        <!--  Projects list -->
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="projects.length === 0">
+      <p>
+        <i class="fa  fa-frown-o"></i> You haven't created any project, yet.
+      </p>
     </div>
-    <div *ngIf="projects.length > 0" class="row">
-        <div class="projects-pagination">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+  <div class="row">
+    <!-- Projects list -->
+    <ng-container *ngIf="projects.length > 0">
+      <div
+        class="col-md-3 col-sm-6"
+        *ngFor="
+          let project of (projects
+            | paginate: { itemsPerPage: 8, currentPage: p });
+          let i;
+          of: index
+        "
+      >
+        <div class="about">
+          <i class="fa fa-briefcase"></i>
+
+          <h3>{{ project.title }}</h3>
+          <a
+            style="cursor: pointer"
+            *ngIf="project.isEnrolled"
+            (click)="viewProject(project)"
+          >
+            <span
+              ><i
+                style="font-size: 1em; padding: .5em;"
+                class="fa fa-eye"
+              ></i></span
+            >View Project
+          </a>
+          <button
+            (click)="viewProject(project)"
+            class="main-btn"
+            *ngIf="!project.isEnrolled"
+          >
+            Enroll
+          </button>
         </div>
+      </div>
+    </ng-container>
+    <!-- Projects list -->
+  </div>
+  <div *ngIf="projects.length > 0" class="row">
+    <div class="projects-pagination">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
+  </div>
 </div>
