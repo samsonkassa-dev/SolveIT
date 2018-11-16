@@ -165,4 +165,10 @@ export class AuthService {
       key: key
     });
   }
+
+  isEmailUnique(email) {
+    return this.apiService.post(`${this.user_Path}/is-email-unique`, {
+      email: email
+    });
+  }
 }

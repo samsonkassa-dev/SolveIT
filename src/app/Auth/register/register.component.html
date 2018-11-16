@@ -9,6 +9,7 @@
     <h2 class="title">Register For The Competition</h2>
   </div>
   <!-- /Section-header -->
+
   <form [formGroup]="registerForm">
     <div class="row">
       <div class="col-md-6">
@@ -88,6 +89,15 @@
             "
           >
             <p>* Email is required.</p>
+          </div>
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.controls.email.touched &&
+              registerForm.controls.email.errors?.isEmailUnique
+            "
+          >
+            <p>* Email address must be unique.</p>
           </div>
           <div
             class="error-message"

@@ -88,7 +88,7 @@ export class RegisterComponent implements OnInit {
         middleName: ["", Validators.required],
         lastName: ["", Validators.required],
         username: ["", Validators.required],
-        email: ["", Validators.required],
+        email: ["", Validators.required, this.isEmailUnique.bind(this)],
         phoneNumber: ["", Validators.required],
         password: ["", Validators.required],
         rePassword: ["", Validators.required],
@@ -129,6 +129,7 @@ export class RegisterComponent implements OnInit {
       this.isAddressFormActive = true;
       this.isBasicFormActive = false;
     } else {
+      this.emailNotUniqueError = false;
       this.markFormGroupTouched(this.registerForm);
     }
   }
@@ -176,5 +177,25 @@ export class RegisterComponent implements OnInit {
         this.markFormGroupTouched(control);
       }
     });
+  }
+
+  isEmailUnique(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.authService.isEmailUnique(this.user.email).subscribe(
+          res => {
+            if (res) {
+              resolve(null);
+            } else {
+              resolve({ isEmailUnique: true });
+            }
+          },
+          () => {
+            resolve({ isEmailUnique: true });
+          }
+        );
+      }, 1000);
+    });
+    return q;
   }
 }
