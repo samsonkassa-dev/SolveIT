@@ -5,8 +5,10 @@
         <div class="header">
             <h4 (click)="toggleView('winner-list-weekly')" class="title" [class.active]="selected == 'winner-list-weekly'">Weekly</h4>
             <h4 (click)="toggleView('winner-list-competition')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'winner-list-competition'">Competition</h4>
+            <h4 (click)="toggleView('almuni-project-list')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'almuni-project-list'">Almuni Projects</h4>
             <h4 (click)="toggleView('add-competition-winner')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'add-competition-winner'">Add Competition winner</h4>
             <h4 (click)="toggleView('add-weekly-winner')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'add-weekly-winner'">Add Weekly winner</h4>
+            <h4 (click)="toggleView('add-almuni-project')" *ngIf="authService.isAuthenticated()" class="title" [class.active]="selected == 'add-almuni-project'">Add Almuni Project</h4>
         </div>
     </div>
 </div>
@@ -15,8 +17,10 @@
     <div class="row">
         <app-weekly-winner-list *ngIf = "selected == 'winner-list-weekly'"></app-weekly-winner-list>
         <app-competition-winner-list *ngIf = "selected == 'winner-list-competition'"></app-competition-winner-list>
+        <app-almuni-project-list *ngIf = "selected == 'almuni-project-list'"></app-almuni-project-list>
         <app-add-weekly-winner *ngIf = "selected == 'add-weekly-winner'"></app-add-weekly-winner>
         <app-add-competition-winner *ngIf = "selected == 'add-competition-winner'"></app-add-competition-winner>
+        <app-add-almuni-project *ngIf = "selected == 'add-almuni-project'"></app-add-almuni-project>
     </div>
 </div>
 

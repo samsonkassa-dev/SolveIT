@@ -21,36 +21,39 @@
         <!-- /Logo -->
 
         <!-- Collapse nav button -->
-        <div class="nav-collapse">
+        <div (click)="toggleMenu()" class="nav-collapse navbar-toggle" data-toggle="collapse" data-target="#menus">
           <span></span>
         </div>
         <!-- /Collapse nav button -->
       </div>
 
       <!--  Main navigation  -->
-      <ul class="main-nav nav navbar-nav navbar-right">
-        <li [class.active]="router.isActive('', true)"><a routerLink="">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li [class.active]="router.isActive('dashboard', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
-          <a routerLink="/dashboard">Dashboard</a>
-        </li>
-        <li [class.active]="router.isActive('winner', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
-            <a routerLink="/winner">Winner</a>
-        </li>
-        <li [class.active]="router.isActive('events', false)"><a routerLink="/events" >Events</a></li>
-        <li [class.active]="router.isActive('forums', false)"><a routerLink="/forums">Forums</a></li>
-        <li [class.active]="router.isActive('news', false)"><a routerLink="/news">News</a></li>
-        <li [class.active]="router.isActive('resources', false)"><a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a></li>
-        <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
-        <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{''}}</a>
-          <ul class="dropdown1">
-            <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Projects</a></li>
-            <li *ngIf="authService.isSolveitParticipant()"><a [routerLink]="['/userProfile', authService.getUserId()]">Profile</a></li>
-            <li><a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
+      <div id="menus" class="collapse navbar-collapse">
+          <ul class="main-nav nav navbar-nav navbar-right">
+            <li [class.active]="router.isActive('', true)"><a routerLink="">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li [class.active]="router.isActive('dashboard', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
+              <a routerLink="/dashboard">Dashboard</a>
+            </li>
+            <li [class.active]="router.isActive('winner', false)" *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()">
+                <a routerLink="/winner">Winner</a>
+            </li>
+            <li [class.active]="router.isActive('events', false)"><a routerLink="/events" >Events</a></li>
+            <li [class.active]="router.isActive('forums', false)"><a routerLink="/forums">Forums</a></li>
+            <li [class.active]="router.isActive('news', false)"><a routerLink="/news">News</a></li>
+            <li [class.active]="router.isActive('resources', false)"><a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a></li>
+            <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()"><a routerLink="/login">SignIn/SignUp</a></li>
+            <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()" class="has-dropdown"><a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{''}}</a>
+              <ul class="dropdown1">
+                <li *ngIf="authService.isSolveitParticipant()"><a routerLink="/my-projects">My Projects</a></li>
+                <li *ngIf="authService.isSolveitParticipant()"><a [routerLink]="['/userProfile', authService.getUserId()]">Profile</a></li>
+                <li><a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-      </ul>
+      </div>
+      
       <!-- /Main navigation -->
 
     </div>

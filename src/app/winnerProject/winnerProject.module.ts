@@ -10,6 +10,8 @@ import { AddWeeklyWinnerComponent } from './addWeeklyWinner/addWeeklyWinner.comp
 import { WeeklyWinnerListComponent } from './weeklyWinnerList/weeklyWinnerList.component';
 import { CompetitionWinnerListComponent } from './competitionWinnerList/competitionWinnerList.component';
 import {SharedModule} from '../shared/shared.module';
+import { AlmuniProjectListComponent } from './almuniProjectList/almuniProjectList.component';
+import { AddAlmuniProjectComponent } from './addAlmuniProject/addAlmuniProject.component';
 
 @NgModule({
   imports: [
@@ -20,8 +22,8 @@ import {SharedModule} from '../shared/shared.module';
     ToastyModule,
     NgxPaginationModule
   ],
-  declarations: [WinnerComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent, WeeklyWinnerListComponent, CompetitionWinnerListComponent],
-  exports: [WeeklyWinnerListComponent, CompetitionWinnerListComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent],
+  declarations: [WinnerComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent, WeeklyWinnerListComponent, CompetitionWinnerListComponent, AlmuniProjectListComponent, AddAlmuniProjectComponent],
+  exports: [WeeklyWinnerListComponent, CompetitionWinnerListComponent, AddCompetitionWinnerComponent, AddWeeklyWinnerComponent, AlmuniProjectListComponent, AddAlmuniProjectComponent],
   providers: [WinnerProjectService]
 })
 export class WinnerProjectModule { }

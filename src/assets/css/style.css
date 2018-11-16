@@ -457,7 +457,7 @@ textarea:focus {
 
 /* -- mobile nav -- */
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 100px) {
     #nav {
         padding: 0px 0px;
     }
