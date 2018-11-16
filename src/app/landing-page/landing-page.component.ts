@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {NewsService} from '../news/news.service';
 import {configs} from '../app.config';
 
+declare var $: any;
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -35,6 +37,15 @@ export class LandingPageComponent implements OnInit {
       return content.slice(0, 122);
     } else {
       return content;
+    }
+  }
+
+  toggleMenu() {
+    if ($("#menus").css("display") == "none") {
+      $("#menus").css("display", "block");
+      $("#menus").css("background", "white");
+    } else {
+      $("#menus").css("display", "none");
     }
   }
 

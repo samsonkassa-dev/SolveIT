@@ -14,6 +14,10 @@ export class WinnerProjectService {
     return this.apiService.post(`competitionWinners/`, winner);
   }
 
+  labelAlmuniProject(almuni) {
+    return this.apiService.post(`almuniProjects/`, almuni);
+  }
+
   labelWeeklyWinner(winner) {
     return this.apiService.post(`weekTopProjects/`, winner);
   }
@@ -26,8 +30,16 @@ export class WinnerProjectService {
     return this.apiService.get(`competitionWinners?filter={"include": ["solveitproject", "competition"]}`);
   }
 
+  getAlmuniProjects() {
+    return this.apiService.get(`almuniProjects?filter={"include": ["solveitproject", "competition"]}`);
+  }
+
   removeCompetitionWinnerLabel(winnerId) {
     return this.apiService.patch(`competitionWinners/${winnerId}`, {active: false});
+  }
+
+  removeAlmuniProjectLabel(almuniId) {
+    return this.apiService.patch(`almuniProjects/${almuniId}`, {active: false});
   }
 
   removeWeeklyWinnerLabel(winnerId) {
