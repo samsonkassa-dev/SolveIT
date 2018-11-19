@@ -174,9 +174,21 @@
 
   <body>
     <app-root></app-root>
-    <!--
-      <script src="../assets/bootstrap/dist/js/bootstrap.min.js"></script>
-    -->
+
+    <!-- Google analytic -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-129320736-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+    </script>
+    <!-- Google analytic -->
 
     <!-- jQuery Plugins -->
     <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
