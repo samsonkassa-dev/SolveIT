@@ -1,9 +1,9 @@
 form {
-    width: 50%;
-    margin: 5em auto;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1em;
-  }
+  width: 50%;
+  margin: 5em auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1em;
+}
 
 @media screen and (max-width: 400px) {
   #resource-form {
@@ -13,12 +13,11 @@ form {
   }
 
   form {
-    width: 90%;
+    width: 100%;
     margin: 2em auto;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1em;
   }
-
 }
 
 @media screen and (min-width: 401px) and (max-width: 720px) {
@@ -29,12 +28,11 @@ form {
   }
 
   form {
-    width: 90%;
+    width: 100%;
     margin: 2em auto;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1em;
   }
-
 }
 
 #resource-form {
@@ -67,14 +65,14 @@ form {
   align-items: center;
 }
 
-.error-message{
+.error-message {
   text-align: center;
   font-size: 0.7em;
-  color: #EC4643;
+  color: #ec4643;
 }
 
 .err {
-  border-color: #EC4643
+  border-color: #ec4643;
 }
 
 h5 {
@@ -82,5 +80,5 @@ h5 {
 }
 
 .owl-dt-calendar-table .owl-dt-calendar-cell-selected {
-  background-color: #2BA692;
+  background-color: #2ba692;
 }

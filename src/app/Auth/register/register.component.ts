@@ -129,7 +129,6 @@ export class RegisterComponent implements OnInit {
       this.isAddressFormActive = true;
       this.isBasicFormActive = false;
     } else {
-      this.emailNotUniqueError = false;
       this.markFormGroupTouched(this.registerForm);
     }
   }

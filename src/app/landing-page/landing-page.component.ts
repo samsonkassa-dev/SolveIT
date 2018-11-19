@@ -1,31 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../Auth/services/auth.service';
-import {Router} from '@angular/router';
-import {NewsService} from '../news/news.service';
-import {configs} from '../app.config';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../Auth/services/auth.service";
+import { Router } from "@angular/router";
+import { NewsService } from "../news/news.service";
+import { configs } from "../app.config";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  selector: "app-landing-page",
+  templateUrl: "./landing-page.component.html",
+  styleUrls: ["./landing-page.component.css"]
 })
 export class LandingPageComponent implements OnInit {
-
   news: any = [];
 
-  constructor(public authService: AuthService, public router: Router, public newsService: NewsService) { }
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    public newsService: NewsService
+  ) {}
 
   ngOnInit() {
-    this.newsService.fetchAllNews()
-      .subscribe(res => {
-        if (res.length > 3) {
-          this.news = res.slice(0, 3);
-        } else {
-          this.news = res;
-        }
-      });
+    this.newsService.fetchAllNews().subscribe(res => {
+      if (res.length > 3) {
+        this.news = res.slice(0, 3);
+      } else {
+        this.news = res;
+      }
+    });
   }
 
   getImageSource(image) {
@@ -48,5 +50,4 @@ export class LandingPageComponent implements OnInit {
       $("#menus").css("display", "none");
     }
   }
-
 }

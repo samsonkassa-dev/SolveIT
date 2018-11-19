@@ -102,6 +102,11 @@ img {
 */
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  form {
+    width: 90%;
+    margin: auto;
+  }
+
   #registration-form {
     width: 80%;
     padding: 6em;
@@ -117,6 +122,10 @@ img {
 */
 
 @media (min-width: 481px) and (max-width: 767px) {
+  form {
+    width: 99%;
+    margin: auto;
+  }
   #registration-form {
     width: 90%;
     padding: 6em;

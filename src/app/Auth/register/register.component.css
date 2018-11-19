@@ -133,6 +133,10 @@ img {
 */
 
 @media (min-width: 481px) and (max-width: 767px) {
+  form {
+    width: 90%;
+    margin: auto;
+  }
   #registration-form {
     width: 90%;
     padding: 3em;
@@ -148,6 +152,11 @@ img {
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
+  form {
+    width: 99%;
+    margin: auto;
+  }
+
   #registration-form {
     width: 95%;
     padding: 3em;
