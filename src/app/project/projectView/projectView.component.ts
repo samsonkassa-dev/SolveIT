@@ -43,9 +43,7 @@ export class ProjectViewComponent implements OnInit {
           return item.active;
         });
       },
-      error => {
-        console.log("Error while fetching competition ", error);
-      }
+      error => {}
     );
   }
 
@@ -78,9 +76,7 @@ export class ProjectViewComponent implements OnInit {
       projectId: this.project.id,
       userId: 0
     };
-    this.service.addProjectMember(member).subscribe(res => {
-      console.log(res);
-    });
+    this.service.addProjectMember(member).subscribe(res => {});
   }
 
   toggleUploadReport(value) {
@@ -90,7 +86,6 @@ export class ProjectViewComponent implements OnInit {
   downloadProposal(content) {
     this.service.downloadProposal(content).subscribe(
       res => {
-        console.log(res);
         const url = window.URL.createObjectURL(res.data);
         const a = document.createElement("a");
         document.body.appendChild(a);
@@ -101,9 +96,7 @@ export class ProjectViewComponent implements OnInit {
         window.URL.revokeObjectURL(url);
         a.remove(); // remove the element
       },
-      error => {
-        console.log("error", error);
-      }
+      error => {}
     );
   }
 
@@ -125,7 +118,6 @@ export class ProjectViewComponent implements OnInit {
 
   viewProgressReport(report) {
     this.selectedProgressReport = report;
-    console.log(this.selectedProgressReport);
   }
 
   back() {

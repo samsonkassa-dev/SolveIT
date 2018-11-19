@@ -1,62 +1,64 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { CompetitionService } from '../competition.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SharedService } from '../../shared/services/shared.service';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { CompetitionService } from "../competition.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { SharedService } from "../../shared/services/shared.service";
 
 @Component({
-    selector: 'app-competition-create',
-    templateUrl: 'competitionCreate.component.html',
-    styleUrls: ['competitionCreate.component.css']
+  selector: "app-competition-create",
+  templateUrl: "competitionCreate.component.html",
+  styleUrls: ["competitionCreate.component.css"]
 })
-
 export class CompetitionCreateComponent {
-
   public competitionForm: FormGroup;
   public cities = [];
-  @Output()  created = new EventEmitter();
+  @Output() created = new EventEmitter();
   @Input() competition = {
-    name: '',
+    name: "",
     cities: [],
-    startingDate: ''
+    startingDate: ""
   };
   @Input() isEdit = false;
 
   dropdownSettings = {
     singleSelection: false,
-    idField: 'item_id',
-    textField: 'item_text',
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
+    idField: "item_id",
+    textField: "item_text",
+    selectAllText: "Select All",
+    unSelectAllText: "UnSelect All",
     itemsShowLimit: 3,
     allowSearchFilter: true
   };
 
-  constructor(public service: CompetitionService, public sharedService: SharedService) {
-      this.competitionForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        startingDate: new FormControl('', Validators.required),
-        cities: new FormControl('', Validators.required)
-      });
+  constructor(
+    public service: CompetitionService,
+    public sharedService: SharedService
+  ) {
+    this.competitionForm = new FormGroup({
+      name: new FormControl("", Validators.required),
+      startingDate: new FormControl("", Validators.required),
+      cities: new FormControl("", Validators.required)
+    });
 
-      this.service.getCities()
-        .subscribe(res => {
-          this.cities = res;
-          console.log(res);
-          console.log(this.mapCitiesToDropDownList(this.cities));
-        });
+    this.service.getCities().subscribe(res => {
+      this.cities = res;
+    });
   }
 
   createCompetition() {
     if (this.competitionForm.valid) {
       this.service.createCompetition(this.competition).subscribe(
         res => {
-          this.sharedService.addToast('Success', 'Competition created!', 'success');
+          this.sharedService.addToast(
+            "Success",
+            "Competition created!",
+            "success"
+          );
           this.created.emit();
           this.reset();
         },
         err => {
-          if (err.status = 422) {
-            this.sharedService.addToast('', 'Error occurred!', 'error');
+          if ((err.status = 422)) {
+            this.sharedService.addToast("", "Error occurred!", "error");
           }
         }
       );
@@ -68,7 +70,7 @@ export class CompetitionCreateComponent {
   mapCitiesToDropDownList(cities) {
     let cityList = [];
     this.cities.forEach(item => {
-      cityList.push({item_id: item.id, item_text: item.name});
+      cityList.push({ item_id: item.id, item_text: item.name });
     });
 
     return cityList;
@@ -81,7 +83,10 @@ export class CompetitionCreateComponent {
   }
 
   onItemDeselected(item) {
-    this.competition.cities.splice(this.competition.cities.indexOf(item.item_id), 1);
+    this.competition.cities.splice(
+      this.competition.cities.indexOf(item.item_id),
+      1
+    );
   }
 
   onSelectAll(items) {
@@ -104,14 +109,20 @@ export class CompetitionCreateComponent {
 
   updateCompetition() {
     if (this.competitionForm.valid) {
-      this.service.updateCompetition(this.competition)
-        .subscribe(res => {
-          this.sharedService.addToast('Success', 'Competition updated successfully!', 'success');
+      this.service.updateCompetition(this.competition).subscribe(
+        res => {
+          this.sharedService.addToast(
+            "Success",
+            "Competition updated successfully!",
+            "success"
+          );
           this.created.emit();
           this.reset();
-        }, errorr => {
-          this.sharedService.addToast('', 'Error occurred!', 'error');
-        });
+        },
+        errorr => {
+          this.sharedService.addToast("", "Error occurred!", "error");
+        }
+      );
     } else {
       this.markFormGroupTouched(this.competitionForm);
     }

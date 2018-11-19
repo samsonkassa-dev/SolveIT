@@ -206,7 +206,6 @@ export class DiscussionViewComponent implements OnInit {
 
   getComments() {
     this.service.getComments(this.discussion.id).subscribe(res => {
-      console.log(res);
       this.comments = res;
     });
   }

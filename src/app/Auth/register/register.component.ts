@@ -147,14 +147,12 @@ export class RegisterComponent implements OnInit {
     this.user.address = temp;
     this.authService.register({ user: this.user }).subscribe(
       res => {
-        console.log(res);
         this.isLoading = false;
         this.router.navigate(["login"]);
         $("#registerationInfo").modal("show");
       },
       err => {
         this.isLoading = false;
-        console.log("Error while registering User", err);
       }
     );
   }

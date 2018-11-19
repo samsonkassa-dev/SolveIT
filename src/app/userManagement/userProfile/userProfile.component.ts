@@ -32,7 +32,6 @@ export class UserProfileComponent implements OnInit {
     this.service.getUser(this.userId).subscribe(
       res => {
         this.user = res;
-        console.log(this.user);
       },
       err => {
         this.router.navigate(["/404"]);

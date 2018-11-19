@@ -32,7 +32,6 @@ export class ForumListComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    console.log(this.authService.isSolveitParticipant());
     this.fetchForumsList();
   }
 
@@ -51,7 +50,6 @@ export class ForumListComponent implements OnInit, OnChanges {
           this.getForumDiscussionCount(item.id);
         });
         this.forums = this.forumsBackup;
-        console.log("Public backup", this.forumsBackup);
       });
     } else if (this.selected === "forum-list-private") {
       const userId = this.authService.getUserId();
@@ -72,16 +70,12 @@ export class ForumListComponent implements OnInit, OnChanges {
   getForumDiscussionCount(forumId) {
     this.service.getDiscussionCount(forumId).subscribe(
       res => {
-        console.log("discussion count ", res.count);
         this.discussionCounts.push(res.count);
-        console.log(this.discussionCounts);
       },
       error => {
-        console.log("error while fetching discussion count", error);
         this.discussionCounts.push(0);
       }
     );
-    console.log("finished");
   }
 
   viewForum(slung) {
