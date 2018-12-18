@@ -188,7 +188,7 @@ export class RegisterComponent implements OnInit {
             }
           },
           () => {
-            resolve({ isEmailUnique: true });
+            resolve(null);
           }
         );
       }, 1000);
