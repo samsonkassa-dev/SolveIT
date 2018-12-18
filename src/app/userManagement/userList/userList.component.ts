@@ -117,7 +117,7 @@ export class UserListComponent implements OnInit {
         this.selectedUsers = this.allUsers.filter(item => {
           return (
             item.roleId === this.selectedRole.id &&
-            item.cityId === parseInt(this.selectedCity.toString())
+            item.cityId === this.selectedCity.toString()
           );
         });
       }

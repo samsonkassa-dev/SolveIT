@@ -2,11 +2,25 @@
 <div class="container" id="project-list-header">
   <div class="events-list-header">
     <div class="header">
-      <h4 (click)="toggleView('events-list')" class="title">Events</h4>
-      <button type="button" *ngIf="authService.isSolveitManager() || authService.isAdmin()" (click)="toggleView('create-event')" class="btn main-btn btn-circle-xl"><i class="fa fa-plus"></i>
+      <h4 (click)="showList()" class="title">Events</h4>
+      <button
+        type="button"
+        *ngIf="authService.isSolveitManager() || authService.isAdmin()"
+        (click)="toggleView('create-event')"
+        class="btn main-btn btn-circle-xl"
+      >
+        <i class="fa fa-plus"></i>
       </button>
     </div>
   </div>
 </div>
-<app-event-list *ngIf = "selected == 'events-list'"></app-event-list>
-<app-event-create (created)="toggleView('events-list')" *ngIf = "selected == 'create-event'"></app-event-create>
+<app-event-list
+  (edit)="editEvent($event)"
+  *ngIf="selected == 'events-list'"
+></app-event-list>
+<app-event-create
+  [event]="event"
+  [isEdit]="isEdit"
+  (created)="toggleView('events-list')"
+  *ngIf="selected == 'create-event'"
+></app-event-create>

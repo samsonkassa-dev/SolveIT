@@ -1,26 +1,25 @@
-import { Injectable } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
+import { Injectable } from "@angular/core";
+import { ApiService } from "../shared/services/api.service";
 
 @Injectable()
-
 export class SolveitTeamService {
+  constructor(private apiService: ApiService) {}
 
-    constructor(private apiService: ApiService) {}
+  createEvent(event) {
+    return this.apiService.post(`events`, event);
+  }
 
-    createEvent(event) {
-        return this.apiService.post(`events`, event);
-    }
+  getEventsList() {
+    return this.apiService.get(`events?filter={"order": "startDate DESC"}`);
+  }
 
-    getEventsList() {
-        return this.apiService.get(`events?filter={"order": "startDate DESC"}`);
-    }
+  getEvent(eventId) {
+    return this.apiService.get(`events/${eventId}`);
+  }
 
-    getEvent(eventId) {
-        return this.apiService.get(`events/${eventId}`);
-    }
+  fetchNews() {}
 
-    fetchNews() {
-
-    }
-
+  updateEvent(event) {
+    return this.apiService.patch(`events/${event.id}`, event);
+  }
 }

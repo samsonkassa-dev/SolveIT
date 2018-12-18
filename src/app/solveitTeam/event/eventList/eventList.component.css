@@ -1,12 +1,12 @@
 #searchbar {
-    margin-bottom: 2em;
-    margin-top: 3em;
-  }
+  margin-bottom: 2em;
+  margin-top: 3em;
+}
 
-  #searchbar input {
-    padding: 1em;
-    font-size: 1.5em;
-  }
+#searchbar input {
+  padding: 1em;
+  font-size: 1.5em;
+}
 
 .no-resource-found {
   display: flex;
@@ -38,14 +38,14 @@
   font-size: 1.5em;
   position: relative;
   left: 0;
-  padding-right: .5em;
+  padding-right: 0.5em;
 }
 
-#event > p:nth-child(3),#event > p:nth-child(4) {
+#event > p:nth-child(3),
+#event > p:nth-child(4) {
   padding-bottom: 1em;
 }
 
 #passed-status {
-  background: #F3675E;
-  cursor: not-allowed;
+  background: #f3675e;
 }

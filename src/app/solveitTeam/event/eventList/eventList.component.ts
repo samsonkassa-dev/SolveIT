@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { SolveitTeamService } from "../../solveitTeam.service";
 import { AuthService } from "../../../Auth/services/auth.service";
 
@@ -14,6 +14,7 @@ export class EventListComponent implements OnInit {
   public searchKey = "";
   public p = 1;
   public selectedEvent = null;
+  @Output() edit = new EventEmitter();
 
   constructor(
     public service: SolveitTeamService,
@@ -40,7 +41,6 @@ export class EventListComponent implements OnInit {
     this.service.getEventsList().subscribe(res => {
       this.events = res;
       this.store = this.events;
-      console.log(this.events);
     });
   }
 
@@ -49,11 +49,9 @@ export class EventListComponent implements OnInit {
   }
 
   onSearch($event) {
-    console.log($event);
     this.events = this.events.filter(event => {
       return event.title.indexOf(this.searchKey) !== -1;
     });
-    console.log(this.events);
   }
 
   viewEventDetail(event) {
@@ -78,5 +76,9 @@ export class EventListComponent implements OnInit {
     } else {
       return title;
     }
+  }
+
+  onEdit(event) {
+    this.edit.emit({ event: event });
   }
 }

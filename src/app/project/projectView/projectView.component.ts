@@ -67,7 +67,6 @@ export class ProjectViewComponent implements OnInit {
   public getProgressReports() {
     this.service.getAllProgressReport(this.project.id).subscribe(res1 => {
       this.progressReports = res1;
-      console.log(res1);
     });
   }
 
