@@ -4,7 +4,7 @@
     <div class="form-group">
       <input
         type="text"
-        class="inpu"
+        class="input"
         name="name"
         placeholder="Name"
         formControlName="name"
@@ -20,14 +20,15 @@
       </div>
     </div>
     <div class="form-group">
-      <input
-        type="text"
-        class="inpu"
+      <textarea
+        class="input"
         name="descrioption"
         placeholder="Description"
         formControlName="description"
         [(ngModel)]="forum.description"
-      />
+        rows="7"
+      >
+      </textarea>
       <div
         class="error-message"
         *ngIf="
