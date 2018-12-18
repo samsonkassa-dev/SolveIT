@@ -15,7 +15,7 @@ export class ForumViewComponent implements OnInit {
   public discussions = [];
   public pinnedDiscussions = [];
   public allDiscussions = [];
-  public forum = { private: false };
+  public forum = { private: false, description: null };
   public discussionPage = 1;
   public pinnedPage = 1;
   public keyword = "";
