@@ -1,116 +1,214 @@
 <app-header></app-header>
 
 <div class="forum-detail">
-    <div class="container">
-        <div class="row forum-detail-content">
-            <div class="col-md-4 forum-detail-side-menu">
-                <ul id="detail-menu">
-                    <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'discussion-list'">
-                        <p (click)="toggleView('discussion-list')"><i class="fa fa-envelope"><p class="menu-title">Discussions</p></i></p>
-                    </li>
-                    <li class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'discussion-create'">
-                        <p (click)="toggleView('discussion-create')"><i class="fa fa-plus"><p class="menu-title">Create Discussion</p></i></p>
-                    </li>
-                    <li *ngIf="forum.private" class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'members-list'">
-                        <p (click)="toggleView('members-list')"><i class="fa fa-users"><p class="menu-title">Members</p></i></p>
-                    </li>
-                    <li *ngIf="forum.private" class="forum-detail-menu" [class.forum-detail-menu-selected]="selected == 'add-members'">
-                        <p (click)="toggleView('add-members')"><i class="fa fa-user-plus"><p class="menu-title">Add Members</p></i></p>
-                    </li>
-                </ul>
-              <br>
-              <div id="detail-menu" *ngIf="allDiscussions.length > 0">
-                <h5 class="title">Filter by tags</h5>
-                <div class="radio-button-group">
-                  <label style="margin-left: .7em" (change)="handleRadioButtonChange($event)" class="radio-inline"><input type="radio" name="tagFilter" [checked]="selectedTag === ''" value="">All</label>
-                  <label *ngFor="let tag of tags" (change)="handleRadioButtonChange($event)" class="radio-inline" ><input type="radio" [checked]="selectedTag === tag.id" [value]="tag.id" name="tagFilter">{{tag.name}}</label>
+  <div class="container">
+    <div class="row forum-detail-content">
+      <div class="col-md-4 forum-detail-side-menu">
+        <ul id="detail-menu">
+          <li
+            class="forum-detail-menu"
+            [class.forum-detail-menu-selected]="selected == 'discussion-list'"
+          >
+            <p (click)="toggleView('discussion-list')">
+              <i class="fa fa-envelope"
+                ><p class="menu-title">Discussions</p></i
+              >
+            </p>
+          </li>
+          <li
+            class="forum-detail-menu"
+            [class.forum-detail-menu-selected]="selected == 'discussion-create'"
+          >
+            <p (click)="toggleView('discussion-create')">
+              <i class="fa fa-plus"
+                ><p class="menu-title">Create Discussion</p></i
+              >
+            </p>
+          </li>
+          <li
+            *ngIf="forum.private"
+            class="forum-detail-menu"
+            [class.forum-detail-menu-selected]="selected == 'members-list'"
+          >
+            <p (click)="toggleView('members-list')">
+              <i class="fa fa-users"><p class="menu-title">Members</p></i>
+            </p>
+          </li>
+          <li
+            *ngIf="forum.private"
+            class="forum-detail-menu"
+            [class.forum-detail-menu-selected]="selected == 'add-members'"
+          >
+            <p (click)="toggleView('add-members')">
+              <i class="fa fa-user-plus"
+                ><p class="menu-title">Add Members</p></i
+              >
+            </p>
+          </li>
+        </ul>
+        <br />
+        <div id="detail-menu" *ngIf="allDiscussions.length > 0">
+          <h5 class="title">Filter by tags</h5>
+          <div class="radio-button-group">
+            <label
+              style="margin-left: .7em"
+              (change)="handleRadioButtonChange($event)"
+              class="radio-inline"
+              ><input
+                type="radio"
+                name="tagFilter"
+                [checked]="selectedTag === ''"
+                value=""
+              />All</label
+            >
+            <label
+              *ngFor="let tag of tags"
+              (change)="handleRadioButtonChange($event)"
+              class="radio-inline"
+              ><input
+                type="radio"
+                [checked]="selectedTag === tag.id"
+                [value]="tag.id"
+                name="tagFilter"
+              />{{ tag.name }}</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div *ngIf="selected == 'discussion-list'">
+          <div class="row"><br /></div>
+          <div class="row" *ngIf="allDiscussions.length > 0">
+            <div
+              id="aside"
+              class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8"
+            >
+              <div class="widget">
+                <div class="widget-search">
+                  <input
+                    class="search-input"
+                    type="text"
+                    placeholder="search"
+                    [(ngModel)]="keyword"
+                    (keyup)="onSearch($event)"
+                  />
+                  <button class="search-btn" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
-                <div *ngIf="selected == 'discussion-list'">
-                    <div class="row">
-                        <br>
-                    </div>
-                    <div class="row" *ngIf="allDiscussions.length > 0">
-                        <div id="aside" class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8">
-                            <div class="widget">
-                                <div class="widget-search">
-                                    <input class="search-input" type="text" placeholder="search" [(ngModel)]="keyword" (keyup)="onSearch($event)">
-                                    <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div *ngIf="selected == 'discussion-list'" class="row">
-                        <div class="pinned-discussions">
-                            <h4 class="title">Favorite Discussions</h4>
-                            <div class="no-discussion" *ngIf="pinnedDiscussions.length==0">
-                                <p>
-                                    <i class="fa fa-frown-o"></i> You have no favorite discussions.
-                                </p>
-                            </div>
-                            <table class="table" *ngIf="pinnedDiscussions.length > 0">
-                                <tbody>
-                                    <tr *ngFor="let discussion of pinnedDiscussions | paginate: { itemsPerPage: 5, currentPage: pinnedPage }; let i = index"
-                                        (click)="discussionDetail(discussion)" class="row">
-                                        <th scope="row" class="discussionTitle">
-                                            {{ discussion.title.trim()}}
-                                        </th>
-                                        <td>Python</td>
-                                        <td> {{discussion.createdAt | amTimeAgo}} </td>
-                                        <td><span class="badge badge-secondary">{{ pinnedDiscussionCommentCount[i] }}</span> Comments</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row discussion-pagination">
-                                <pagination-controls *ngIf="pinnedDiscussions.length > 5" (pageChange)="pinnedPage = $event"></pagination-controls>
-                            </div>
-                        </div>
-                        <div class="discussions">
-                            <h4 class="title">Discussions</h4>
-                            <div class="no-discussion" *ngIf="discussions.length==0">
-                                <p>
-                                    <i class="fa fa-frown-o"></i> You have no discussions.
-                                </p>
-                            </div>
-
-                            <table class="table" *ngIf="discussions.length > 0">
-                                <tbody>
-                                    <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: discussionPage  }; let index = index" (click)="discussionDetail(discussion)">
-                                        <th scope="row">
-                                            {{ discussion.title}}
-                                        </th>
-                                        <td>Python</td>
-                                        <td> {{ discussion.createdAt | amTimeAgo }} </td>
-                                        <td><span class="badge badge-secondary">{{allDiscussionCommentCount[index]}}</span> Comments</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="row discussion-pagination">
-                                <pagination-controls *ngIf="discussions.length > 5" (pageChange)="discussionPage = $event"></pagination-controls>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="selected == 'discussion-create'" class="row">
-                        <app-discussion-create (created)="discussionCreated()" [forum]="forum"></app-discussion-create>
-                    </div>
-                    <div *ngIf="selected == 'add-members'" class="row">
-                        <add-member [forum]="forum"></add-member>
-                    </div>
-                    <div *ngIf="selected == 'members-list'" class="row">
-                        <member-list [forum]="forum"></member-list>
-                    </div>
-                    <div *ngIf="selected == 'discussion-detail'">
-                        <!--<app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>-->
-                        <app-discussion-view></app-discussion-view>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="alert alert-primary forum-description" role="alert">
+          {{
+            forum.description
+              ? forum.description
+              : "Post discussions that have related topics to this forum."
+          }}
+        </div>
+        <div>
+          <div *ngIf="selected == 'discussion-list'" class="row">
+            <div class="pinned-discussions">
+              <h4 class="title">Favorite Discussions</h4>
+              <div class="no-discussion" *ngIf="pinnedDiscussions.length == 0">
+                <p>
+                  <i class="fa fa-frown-o"></i> You have no favorite
+                  discussions.
+                </p>
+              </div>
+              <table class="table" *ngIf="pinnedDiscussions.length > 0">
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let discussion of (pinnedDiscussions
+                        | paginate
+                          : { itemsPerPage: 5, currentPage: pinnedPage });
+                      let i = index
+                    "
+                    (click)="discussionDetail(discussion)"
+                    class="row"
+                  >
+                    <th scope="row" class="discussionTitle">
+                      {{ discussion.title.trim() }}
+                    </th>
+                    <td>Python</td>
+                    <td>{{ discussion.createdAt | amTimeAgo }}</td>
+                    <td>
+                      <span class="badge badge-secondary">{{
+                        pinnedDiscussionCommentCount[i]
+                      }}</span>
+                      Comments
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row discussion-pagination">
+                <pagination-controls
+                  *ngIf="pinnedDiscussions.length > 5"
+                  (pageChange)="pinnedPage = $event"
+                ></pagination-controls>
+              </div>
+            </div>
+            <div class="discussions">
+              <h4 class="title">Discussions</h4>
+              <div class="no-discussion" *ngIf="discussions.length == 0">
+                <p><i class="fa fa-frown-o"></i> You have no discussions.</p>
+              </div>
+
+              <table class="table" *ngIf="discussions.length > 0">
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let discussion of (discussions
+                        | paginate
+                          : { itemsPerPage: 5, currentPage: discussionPage });
+                      let index = index
+                    "
+                    (click)="discussionDetail(discussion)"
+                  >
+                    <th scope="row">{{ discussion.title }}</th>
+                    <td>Python</td>
+                    <td>{{ discussion.createdAt | amTimeAgo }}</td>
+                    <td>
+                      <span class="badge badge-secondary">{{
+                        allDiscussionCommentCount[index]
+                      }}</span>
+                      Comments
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="row discussion-pagination">
+                <pagination-controls
+                  *ngIf="discussions.length > 5"
+                  (pageChange)="discussionPage = $event"
+                ></pagination-controls>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="selected == 'discussion-create'" class="row">
+            <app-discussion-create
+              (created)="discussionCreated()"
+              [forum]="forum"
+            ></app-discussion-create>
+          </div>
+          <div *ngIf="selected == 'add-members'" class="row">
+            <add-member [forum]="forum"></add-member>
+          </div>
+          <div *ngIf="selected == 'members-list'" class="row">
+            <member-list [forum]="forum"></member-list>
+          </div>
+          <div *ngIf="selected == 'discussion-detail'">
+            <!--
+              <app-discussion-view [slung]="selectedDiscussion"></app-discussion-view>
+            -->
+            <app-discussion-view></app-discussion-view>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -1,44 +1,105 @@
 <form [formGroup]="forumForm" *ngIf="authService.isAuthenticated()">
-    <h4 class="title2">New Forum</h4>
-    <div id="resource-form">
-        <div class="form-group">
-            <input type="text" class="inpu" name="name" placeholder="Name" formControlName="name" [(ngModel)]="forum.name">
-          <div class="error-message" *ngIf="forumForm.controls.name.invalid && forumForm.controls.name.touched">
-            <p>* Forum name is required.</p>
-          </div>
-        </div>
-        <div class="form-group">
-            <select style="width: 100%" name="category" id="category" formControlName="category" class="" [(ngModel)]="forum.categoryId">
-              <option selected value="">Category</option>
-              <option value="{{category.id}}" *ngFor = "let category of categories">{{ category.category }}</option>
-            </select>
-          <div class="error-message" *ngIf="forumForm.controls.category.invalid && forumForm.controls.category.touched">
-            <p>* Forum category is required.</p>
-          </div>
-        </div>
-        <div class="form-group">
-            <select style="width: 100%" name="type" id="type" formControlName="type" class="" [(ngModel)]="forum.private">
-              <option value="" selected>Type</option>
-              <option value=0>Public</option>
-              <option value=1>Private</option>
-            </select>
-          <div class="error-message" *ngIf="forumForm.controls.type.invalid && forumForm.controls.type.touched">
-            <p>* Forum type is required.</p>
-          </div>
-        </div>
-        <div class="form-group" id="resource-upload-btn">
-            <input type="button" (click)="createForum()" class="main-btn" value="Submit">
-        </div>
+  <h4 class="title2">New Forum</h4>
+  <div id="resource-form">
+    <div class="form-group">
+      <input
+        type="text"
+        class="inpu"
+        name="name"
+        placeholder="Name"
+        formControlName="name"
+        [(ngModel)]="forum.name"
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          forumForm.controls.name.invalid && forumForm.controls.name.touched
+        "
+      >
+        <p>* Forum name is required.</p>
+      </div>
     </div>
+    <div class="form-group">
+      <input
+        type="text"
+        class="inpu"
+        name="descrioption"
+        placeholder="Description"
+        formControlName="description"
+        [(ngModel)]="forum.description"
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          forumForm.controls.description.invalid &&
+          forumForm.controls.description.touched
+        "
+      >
+        <p>* Forum description is required.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <select
+        style="width: 100%"
+        name="category"
+        id="category"
+        formControlName="category"
+        class=""
+        [(ngModel)]="forum.categoryId"
+      >
+        <option selected value="">Category</option>
+        <option value="{{category.id}}" *ngFor="let category of categories">{{
+          category.category
+        }}</option>
+      </select>
+      <div
+        class="error-message"
+        *ngIf="
+          forumForm.controls.category.invalid &&
+          forumForm.controls.category.touched
+        "
+      >
+        <p>* Forum category is required.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <select
+        style="width: 100%"
+        name="type"
+        id="type"
+        formControlName="type"
+        class=""
+        [(ngModel)]="forum.private"
+      >
+        <option value="" selected>Type</option>
+        <option value="0">Public</option>
+        <option value="1">Private</option>
+      </select>
+      <div
+        class="error-message"
+        *ngIf="
+          forumForm.controls.type.invalid && forumForm.controls.type.touched
+        "
+      >
+        <p>* Forum type is required.</p>
+      </div>
+    </div>
+    <div class="form-group" id="resource-upload-btn">
+      <input
+        type="button"
+        (click)="createForum()"
+        class="main-btn"
+        value="Submit"
+      />
+    </div>
+  </div>
 </form>
 
 <div class="not-found" *ngIf="!authService.isAuthenticated()">
-    <div class="no-resource-found">
-        <p>
-            <i class="fa  fa-frown-o"></i> Please sign in to create a forum.
-        </p>
+  <div class="no-resource-found">
+    <p><i class="fa  fa-frown-o"></i> Please sign in to create a forum.</p>
 
-        <button class="outline-btn" (click)="onSignIn()">SignIn Here</button>
-    </div>
+    <button class="outline-btn" (click)="onSignIn()">SignIn Here</button>
+  </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
