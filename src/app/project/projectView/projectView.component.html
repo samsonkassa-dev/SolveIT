@@ -20,6 +20,7 @@
         <li
           [class.selected]="selected === views[2]"
           (click)="toggleView('add-member')"
+          *ngIf="isMember(authService.getUserId())"
         >
           <span class="icon"><i class="fa fa-user-plus"></i></span> Add Member
         </li>
@@ -27,6 +28,7 @@
           data-toggle="modal"
           data-target="#createProjectModal"
           data-backdrop="static"
+          *ngIf="isMember(authService.getUserId())"
         >
           <span class="icon"><i class="fa fa-pencil-square"></i></span> Edit
           Project

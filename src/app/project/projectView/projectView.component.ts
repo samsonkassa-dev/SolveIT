@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { ProjectService } from "../project.service";
 import { CompetitionService } from "../../competition/competition.service";
 import { ApiService } from "../../shared/services/api.service";
+import { AuthService } from "../../Auth/services/auth.service";
 
 declare var $: any;
 
@@ -20,6 +21,7 @@ export class ProjectViewComponent implements OnInit {
   public selectedProgressReport = null;
   public isEnrolled = false;
   public count = 0;
+  public members = [];
 
   // for joining cometition
   public activeCompetitions = [];
@@ -30,7 +32,8 @@ export class ProjectViewComponent implements OnInit {
     public router: Router,
     public service: ProjectService,
     public competitionService: CompetitionService,
-    public apiService: ApiService
+    public apiService: ApiService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -45,6 +48,11 @@ export class ProjectViewComponent implements OnInit {
       },
       error => {}
     );
+    this.service.getMembers(id).subscribe(res => {
+      res.forEach(item => {
+        this.members.push(item.id);
+      });
+    });
   }
 
   toggleView(view) {
@@ -146,6 +154,14 @@ export class ProjectViewComponent implements OnInit {
       return title.slice(0, limit) + "...";
     } else {
       return title;
+    }
+  }
+
+  isMember(id) {
+    if (id !== false) {
+      return this.members.indexOf(id) !== -1;
+    } else {
+      return false;
     }
   }
 }
