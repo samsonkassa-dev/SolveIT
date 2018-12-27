@@ -30,6 +30,7 @@ import { WinnerProjectModule } from "./winnerProject/winnerProject.module";
 import { MomentModule } from "angular2-moment";
 import { AlumunniDetailComponent } from "./alumunni-detail/alumunni-detail.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
     DashboardModule,
     CompetitionModule,
     MomentModule,
-    WinnerProjectModule
+    WinnerProjectModule,
+    NgxSpinnerModule
   ],
   providers: [
     ApiService,

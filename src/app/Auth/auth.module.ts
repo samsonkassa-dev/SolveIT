@@ -17,6 +17,7 @@ import { DashboardGuardService } from "./services/dashboard-guard.service";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { ForgetPasswordComponent } from "./forget-password/forget-password.component";
 import { NewPasswordComponent } from "./new-password/new-password.component";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NewPasswordComponent } from "./new-password/new-password.component";
     CommonModule,
     SharedModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthService,
