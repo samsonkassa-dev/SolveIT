@@ -33,7 +33,7 @@
                         </th>
                         <td>{{forum.category.category }}
                         </td>
-                        <td>2 days ago</td>
+                        <td>{{ forum.created | amTimeAgo }}</td>
                         <td><span class="badge badge-secondary">{{discussionCounts[i]}}</span> Discussions</td>
                     </tr>
                 </tbody>
