@@ -132,7 +132,6 @@ export class CreateProjectComponent implements OnInit {
           status: number,
           headers: ParsedResponseHeaders
         ) => {
-          console.log("Canceled");
           this.isUploading = false;
           this.uploader.queue.pop();
         };
@@ -142,7 +141,6 @@ export class CreateProjectComponent implements OnInit {
           status: number,
           headers: ParsedResponseHeaders
         ) => {
-          console.log("error");
           this.error = true;
           this.isUploading = false;
           this.uploader.queue.pop();
@@ -157,11 +155,9 @@ export class CreateProjectComponent implements OnInit {
 
   onFormSubmit() {
     if (this.isEdit) {
-      console.log("Editing");
       this.editProject();
     } else {
       this.submitted = true;
-      console.log("Creating");
       this.createProject();
     }
   }

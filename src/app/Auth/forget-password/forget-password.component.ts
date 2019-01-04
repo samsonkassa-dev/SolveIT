@@ -26,7 +26,7 @@ export class ForgetPasswordComponent implements OnInit {
     if (this.forgetPasswordForm.valid) {
       //  request password change
       this.isLoading = true;
-      this.authService.requestPasswordChange(this.email).subscribe(
+      this.authService.requestPasswordChange(this.email.toLowerCase()).subscribe(
         res => {
           if (res.result && res.result.sucess) {
             //  new password form

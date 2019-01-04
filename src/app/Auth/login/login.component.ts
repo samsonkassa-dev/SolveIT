@@ -26,13 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router) {}
 
   ngOnInit() {
-    console.log("Authenticated", this.authService.isAuthenticated());
-    console.log(
-      "isSolveitParticipant",
-      this.authService.isSolveitParticipant()
-    );
-    console.log("isSolveitTeam", this.authService.isSolveitTeam());
-    console.log("isSolveitManagement", this.authService.isSolveitManager());
     this.loginForm = new FormGroup({
       email: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required)
@@ -42,6 +35,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     if (this.loginForm.valid) {
       this.isLoading = true;
+      this.user.email = this.user.email.toLowerCase();
       this.authService.login(this.user).subscribe(
         res => {
           this.authService.setSession(res);

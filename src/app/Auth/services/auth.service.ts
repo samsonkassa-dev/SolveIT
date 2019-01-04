@@ -128,7 +128,6 @@ export class AuthService {
   }
 
   addUser(user, role) {
-    console.log("adding user", role);
     if (role === this.ICOG_ROLE[0]) {
       return this.apiService.post(this.register_mgt_path, user);
     } else if (role === this.ICOG_ROLE[1]) {
