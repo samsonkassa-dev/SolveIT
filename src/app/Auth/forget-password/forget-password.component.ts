@@ -31,7 +31,7 @@ export class ForgetPasswordComponent implements OnInit {
           if (res.result && res.result.sucess) {
             //  new password form
             this.isLoading = false;
-            this.requestSucess;
+            this.requestSucess = true;
           } else {
             this.error = true;
           }
