@@ -22,7 +22,7 @@ export class ForumListComponent implements OnInit, OnChanges {
   // public keyword = '';
   public forumType = "";
   public page = 1;
-  public discussionCounts = [];
+  public discussionCounts = {};
   @Input() keyword;
 
   constructor(
@@ -70,10 +70,10 @@ export class ForumListComponent implements OnInit, OnChanges {
   getForumDiscussionCount(forumId) {
     this.service.getDiscussionCount(forumId).subscribe(
       res => {
-        this.discussionCounts.push(res.count);
+        this.discussionCounts[forumId] = res.count;
       },
       error => {
-        this.discussionCounts.push(0);
+        this.discussionCounts[forumId] = 0;
       }
     );
   }

@@ -51,7 +51,7 @@
                 <div [class.col-md-3]="showDetail" [class.col-sm-3]="showDetail" [class.col-md-2]="!showDetail" [class.col-sm-2]="!showDetail"
                      *ngFor="let resource of doc_resources | paginate: { itemsPerPage: 6, currentPage: docResourcePage }">
                   <div id="resource" (click)="viewResourceDetail(resource)">
-                    <img  class="image" src="../../../assets/img/pdfCover.webp" alt="book cover">
+                    <img  class="image" src="../../../assets/img/pdfCover.jpg" alt="book cover">
                     <div class="info">
                       <p>{{resource.createdAt | amTimeAgo}}</p>
                       <h5  class="title">{{getLimittedTitle(resource.title, 12)}}</h5>
@@ -67,7 +67,7 @@
               <div class="col-md-4" *ngIf="showDetail">
                 <div class="resource-detail">
                   <i id="close" class="fa fa-close" (click)="cancelResourceDetail()"></i>
-                  <img class="resource-detail-img" src="../../../assets/img/pdfCover.webp" alt="book cover">
+                  <img class="resource-detail-img" src="../../../assets/img/pdfCover.jpg" alt="book cover">
                   <p>{{selectedResource.createdAt | amTimeAgo}}</p>
                   <h4 class="title">{{selectedResource.title}}</h4>
                   <p>

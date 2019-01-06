@@ -136,7 +136,7 @@
                     <td>{{ discussion.createdAt | amTimeAgo }}</td>
                     <td>
                       <span class="badge badge-secondary">{{
-                        pinnedDiscussionCommentCount[i]
+                        pinnedDiscussionCommentCount[discussion.id]
                       }}</span>
                       Comments
                     </td>
@@ -172,7 +172,7 @@
                     <td>{{ discussion.createdAt | amTimeAgo }}</td>
                     <td>
                       <span class="badge badge-secondary">{{
-                        allDiscussionCommentCount[index]
+                        allDiscussionCommentCount[discussion.id]
                       }}</span>
                       Comments
                     </td>

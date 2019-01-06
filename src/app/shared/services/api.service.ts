@@ -61,7 +61,7 @@ export class ApiService {
     if (temp != null) {
       try {
         const session = JSON.parse(temp);
-        this.headers.set('Authorization', 'Bearer ' + session.id);
+        this.headers.set('Authorization', session.id);
       } catch (e) {
         return;
       }

@@ -15,14 +15,14 @@ export class ForumViewComponent implements OnInit {
   public discussions = [];
   public pinnedDiscussions = [];
   public allDiscussions = [];
-  public forum = { private: false, description: null };
+  public forum = { private: false, description: null, id: '' };
   public discussionPage = 1;
   public pinnedPage = 1;
   public keyword = "";
   public selectedDiscussion = "";
   public slung = null;
-  public allDiscussionCommentCount = [];
-  public pinnedDiscussionCommentCount = [];
+  public allDiscussionCommentCount = {};
+  public pinnedDiscussionCommentCount = {};
   public tags = [];
   public selectedTag = "";
 
@@ -88,6 +88,11 @@ export class ForumViewComponent implements OnInit {
     if (userId) {
       this.service.getFavouriteDiscussions(userId).subscribe(res => {
         this.pinnedDiscussions = res;
+        if (this.pinnedDiscussions.length > 0) {
+          this.pinnedDiscussions = this.pinnedDiscussions.filter(d => {
+            return d.forumId === this.forum.id;
+          });
+        }
         this.pinnedDiscussions.forEach(item => {
           this.countComments(item, this.pinnedDiscussionCommentCount);
         });
@@ -98,10 +103,10 @@ export class ForumViewComponent implements OnInit {
   countComments(discussion, store) {
     this.service.countComments(discussion.id).subscribe(
       res => {
-        store.push(res.count);
+        store[discussion.id] = res.count;
       },
       error => {
-        store.push(0);
+        store[discussion.id] = 0;
       }
     );
   }
