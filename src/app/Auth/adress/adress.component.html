@@ -12,6 +12,9 @@
       <div class="error-message" *ngIf="addressForm.controls.region.invalid && addressForm.controls.region.touched">
         <p>* Region is required.</p>
       </div>
+      <div class="error-message" *ngIf="cities.length == 0 && addressForm.controls.region.touched">
+        <p>* Selected region have no active cities.</p>
+      </div>
     </div>
     <div class="input-field">
       <select name="city" id="city" formControlName="city" [(ngModel)]="address.cityId" (change)="onCityChange()">

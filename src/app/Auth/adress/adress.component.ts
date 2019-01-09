@@ -18,6 +18,8 @@ export class AdressComponent implements OnInit, OnChanges {
   public regions = [];
   public cities = [];
   public citiesBackup = [];
+  public blockedRegions = [];
+  public blockedCities = ["bahir dar", "jimma", "addis ababa", "jijiga"];
   @Input() address;
   @Input() isLoading = false;
 
@@ -34,8 +36,13 @@ export class AdressComponent implements OnInit, OnChanges {
 
     this.userService.getCities()
       .subscribe(res => {
-        this.cities = res;
-        this.citiesBackup = res;
+
+        const filtteredCities = res.filter(item => {
+          return this.blockedCities.indexOf(item.name.toLowerCase()) == -1;
+        });
+
+        this.cities = filtteredCities;
+        this.citiesBackup = filtteredCities;
       });
 
     this.addressForm = this.formBuilder.group({
