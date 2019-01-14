@@ -38,6 +38,10 @@ export class UserManagementService {
     );
   }
 
+  updateProfile(user) {
+    return this.apiService.patch(`UserAccounts/${user.id}`, user);
+  }
+
   grantModeratorAccess(user) {
     return this.apiService.patch(`UserAccounts/${user.id}`, {
       isModerator: true

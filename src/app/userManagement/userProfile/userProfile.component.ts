@@ -12,8 +12,10 @@ import { AuthService } from "../../Auth/services/auth.service";
 export class UserProfileComponent implements OnInit {
   public userId: any;
   public user: any;
-  public selected = "view";
   public disabled = true;
+  views = ['profile', 'editProfile'];
+  public selected = this.views[0];
+  public updatedUser = null;
 
   constructor(
     public service: UserManagementService,
@@ -28,10 +30,37 @@ export class UserProfileComponent implements OnInit {
     this.getUser();
   }
 
+  toggleProfileView() {
+    // console.log(this.updatedUser, this.user);
+    this.selected = this.views[0];
+    this.updatedUser = {
+      firstName: this.user.firstName,
+      middleName: this.user.middleName,
+      lastName: this.user.lastName,
+      phoneNumber: this.user.phoneNumber,
+      username: this.user.username,
+      cityId: this.user.cityId,
+      id: this.user.id,
+      birthDate: this.user.birthDate,
+      gender: this.user.gender
+    };
+  }
+
   getUser() {
     this.service.getUser(this.userId).subscribe(
       res => {
         this.user = res;
+        this.updatedUser =  {
+          firstName: this.user.firstName,
+          middleName: this.user.middleName,
+          lastName: this.user.lastName,
+          phoneNumber: this.user.phoneNumber,
+          username: this.user.username,
+          cityId: this.user.cityId,
+          id: this.user.id,
+          birthDate: this.user.birthDate,
+          gender: this.user.gender
+        };
       },
       err => {
         this.router.navigate(["/404"]);

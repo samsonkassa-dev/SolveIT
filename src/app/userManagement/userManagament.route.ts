@@ -7,5 +7,5 @@ export const UserManagementRoutes: Routes = [
     path: "manage-user",
     children: [{ path: "", component: ManageUserComponent }]
   },
-  { path: "userProfile/:userId", component: UserProfileComponent }
+  { path: "userProfile/:userId", component: UserProfileComponent },
 ];

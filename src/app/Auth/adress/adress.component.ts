@@ -19,11 +19,9 @@ export class AdressComponent implements OnInit, OnChanges {
   public cities = [];
   public citiesBackup = [];
   public blockedRegions = [];
-  public blockedCities = ["bahir dar", "jimma", "addis ababa", "jijiga"];
+  public blockedCities = ["jimma", "addis ababa", "jijiga"];
   @Input() address;
   @Input() isLoading = false;
-
-
 
   constructor(public formBuilder: FormBuilder, public userService: UserManagementService) { }
 

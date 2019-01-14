@@ -9,30 +9,41 @@
       </div>
       <div class="col-md-6">
         <div class="profile-head">
-          <h5>{{ user.firstName }} {{ user.lastName }}</h5>
+          <h5>{{ user.firstName.toUpperCase() }} {{ user.middleName.toUpperCase() }}</h5>
           <h6>SolveIT User</h6>
           <p class="proile-rating">
             Birthday : <span>{{ user.birthDate.substr(0, 10) }}</span>
           </p>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
+          <ul class="nav nav-tabs" id="myTab" role="tablist" >
+            <li class="nav-item" [ngClass]="{activeView: selected === views[0]}" *ngIf="this.user.id === this.authService.getUserId()">
               <a
                 class="nav-link active"
                 id="home-tab"
                 role="tab"
                 aria-selected="true"
-                >About User</a
+                (click)="toggleProfileView()"
+                >View Profile</a
+              >
+            </li>
+            <li class="nav-item" [ngClass]="{activeView: selected === views[1]}" *ngIf="this.user.id === this.authService.getUserId()">
+              <a
+                class="nav-link active"
+                id="home-tab"
+                role="tab"
+                aria-selected="true"
+                (click)="selected = views[1]"
+                >Edit Profile</a
               >
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="selected === views[0]">
       <div class="col-md-4"></div>
-      <div class="col-md-8">
+      <div class="col-md-8" >
         <div class="tab-content profile-tab" id="myTabContent">
-          <div *ngIf="selected == 'view'" role="tabpanel">
+          <div role="tabpanel">
             <div class="row">
               <div class="col-md-6"><label>First Name</label></div>
               <div class="col-md-6">
@@ -118,3 +129,4 @@
   </form>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
+<app-edit-profile (updated)="getUser()" [user]="updatedUser" *ngIf="selected === views[1]"></app-edit-profile>

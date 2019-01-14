@@ -9,6 +9,8 @@ import { ManageUserComponent } from "./manageUser/manageUser.component";
 import { UserManagementService } from "./userManagament.service";
 import { NgxPaginationModule } from "ngx-pagination";
 import { UserProfileComponent } from "./userProfile/userProfile.component";
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,17 @@ import { UserProfileComponent } from "./userProfile/userProfile.component";
     UserListComponent,
     ExportDataComponent,
     ManageUserComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [UserManagementService],
   exports: [ManageUserComponent, ExportDataComponent]
