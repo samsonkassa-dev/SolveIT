@@ -108,7 +108,7 @@
           }}
         </div>
         <div>
-          <div *ngIf="selected == 'discussion-list'" class="row">
+          <div *ngIf="selected == 'discussion-list'" class="row content">
             <div class="pinned-discussions">
               <h4 class="title">Favorite Discussions</h4>
               <div class="no-discussion" *ngIf="pinnedDiscussions.length == 0">
@@ -187,7 +187,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="selected == 'discussion-create'" class="row">
+          <div *ngIf="selected == 'discussion-create'" class="row content">
             <app-discussion-create
               (created)="discussionCreated()"
               [forum]="forum"

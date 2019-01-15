@@ -60,7 +60,7 @@ select {
 }
 
 #resource {
-  margin-top: 1.5em;
+  margin-top: 1em;
   cursor: pointer;
 }
 
@@ -118,4 +118,8 @@ select {
 
 #upload-btn-container {
   float: right;
+}
+
+.content {
+  margin: 0 1em;
 }

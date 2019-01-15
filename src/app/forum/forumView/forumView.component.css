@@ -77,3 +77,7 @@ tr {
 .forum-description {
   background-color: #ecfdfa;
 }
+
+.content {
+  margin: .5em;
+}

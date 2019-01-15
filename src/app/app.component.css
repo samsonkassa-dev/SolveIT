@@ -3,7 +3,7 @@
 }
 
 .footer-sponsors-logo img {
-  width: 50%;
+  width: 100%;
 }
 
 .footer-sponsors-logo-container {
@@ -21,5 +21,66 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 4em;
 }
+
+ul.dropdown1 {
+  background: #2ba692;
+  padding: 1.5em;
+}
+
+
+/*
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  .footer-sponsors-logo img {
+    width: 60%;
+  }
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .footer-sponsors-logo img {
+    width: 60%;
+  }
+}
+
+/*
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .footer-sponsors-logo img {
+    width: 70%;
+  }
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .footer-sponsors-logo img {
+    width: 100%;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .footer-sponsors-logo img {
+    width: 200%;
+  }
+}
+

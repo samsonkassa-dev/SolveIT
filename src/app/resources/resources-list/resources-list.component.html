@@ -3,8 +3,8 @@
 
 <!-- Search bar and filters -->
 <div class="container">
-    <div id="searchbar" class="row">
-        <div class="col-md-4" *ngIf="resources.length>0">
+    <div id="searchbar" class="row" *ngIf="resources.length>0">
+        <div class="col-md-4" >
             <input type="text" class="input" placeholder="Search" [(ngModel)]="keyword" (keyup)="onSearch($event)">
         </div>
         <div class="col-md-1" *ngIf="resources.length>0">
@@ -21,121 +21,124 @@
 </div>
 <!-- About -->
 
-<div id="about" class="section md-padding">
+<div class="content">
+  <div id="about" class="section md-padding">
 
     <!-- Container -->
     <div class="container">
 
-        <!-- Row -->
-        <div class="row">
+      <!-- Row -->
+      <div class="row">
 
-            <!-- Section header -->
-            <div>
-                <p id="resource-list-title" class="title">Documents</p>
-            </div>
-            <!-- /Section header -->
-
-            <div class="row">
-              <div [class.col-md-8]="showDetail" [class.col-md-12]="!showDetail">
-                  <div class="no-resource-found" *ngIf="(backUpDocResources.length === 0 && keyword === '') || (doc_resources.length === 0 && filterCategory !== '')">
-                    <p>
-                      <i class="fa  fa-frown-o"></i> {{ " No document resources are uploaded."}}
-                      <i *ngIf="authService.isSolveitTeam() && resources.length === 0" class="link" (click)="createResource()">create here.</i>
-                    </p>
-                  </div>
-                <div class="no-resource-found" *ngIf="doc_resources.length === 0 && keyword !== '' ">
-                  <p>
-                    <i class="fa  fa-frown-o"></i> Resource "{{keyword}}" not found.
-                  </p>
-                </div>
-                <div [class.col-md-3]="showDetail" [class.col-sm-3]="showDetail" [class.col-md-2]="!showDetail" [class.col-sm-2]="!showDetail"
-                     *ngFor="let resource of doc_resources | paginate: { itemsPerPage: 6, currentPage: docResourcePage }">
-                  <div id="resource" (click)="viewResourceDetail(resource)">
-                    <img  class="image" src="../../../assets/img/pdfCover.jpg" alt="book cover">
-                    <div class="info">
-                      <p>{{resource.createdAt | amTimeAgo}}</p>
-                      <h5  class="title">{{getLimittedTitle(resource.title, 12)}}</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="row pagination-container" *ngIf="doc_resources.length > 0">
-                  <div class="pagination">
-                    <pagination-controls *ngIf="doc_resources.length > 6" (pageChange)="docResourcePage = $event"></pagination-controls>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4" *ngIf="showDetail">
-                <div class="resource-detail">
-                  <i id="close" class="fa fa-close" (click)="cancelResourceDetail()"></i>
-                  <img class="resource-detail-img" src="../../../assets/img/pdfCover.jpg" alt="book cover">
-                  <p>{{selectedResource.createdAt | amTimeAgo}}</p>
-                  <h4 class="title">{{selectedResource.title}}</h4>
-                  <p>
-                    {{selectedResource.description}}
-                  </p>
-                  <div class="row">
-                    <div class="col-sm-offset-3 col-sm-4">
-                      <button class="main-btn download-button" (click)="downloadResource(selectedResource.content)">Download</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Section header -->
+        <div>
+          <p id="resource-list-title" class="title">Documents</p>
         </div>
-        <!-- /Row -->
+        <!-- /Section header -->
 
-    </div>
-    <!-- /Container -->
-
-</div>
-<!-- /About -->
-
-<!-- About -->
-<div id="videos" class="section md-padding">
-
-    <!-- Container -->
-    <div class="container">
-
-        <!-- Row -->
         <div class="row">
-
-          <!-- Section header -->
-          <div>
-              <p id="resource-list-title" class="title">Videos</p>
-          </div>
-          <!-- /Section header -->
-
-          <div class="no-resource-found" *ngIf="((backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory !== ''))">
+          <div [class.col-md-8]="showDetail" [class.col-md-12]="!showDetail">
+            <div class="no-resource-found" *ngIf="(backUpDocResources.length === 0 && keyword === '') || (doc_resources.length === 0 && filterCategory !== '')">
               <p>
-                  <i class="fa  fa-frown-o"></i> {{ " No video resources are uploaded."}}
-                <i *ngIf=" (authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()) && resources.length === 0" class="link" (click)="createResource()">create here.</i>
+                <i class="fa  fa-frown-o"></i> {{ " No document resources are uploaded."}}
+                <i *ngIf="authService.isSolveitTeam() && resources.length === 0" class="link" (click)="createResource()">create here.</i>
               </p>
-          </div>
-
-          <div class="no-resource-found" *ngIf="vid_resources.length === 0 && keyword !== ''">
-            <p>
-              <i class="fa  fa-frown-o"></i> Resource "{{keyword}}" not found.
-            </p>
-          </div>
-
-          <div class="col-md-3 col-sm-2" *ngFor="let resource of vid_resources | paginate: { itemsPerPage: 6, currentPage: vidResourcePage }">
-            <div class="video-resource" (click)="onChoosingVideoResource(resource)"  data-toggle="modal" data-target="#myModal">
-              <img [src]="getVideoThumbinal(resource.url)" alt="video thumbinal">
-              <div class="info">
-                <p>{{resource.createdAt | amTimeAgo}}</p>
-                <h6 class="title">{{getLimittedTitle(resource.title, 28)}}</h6>
+            </div>
+            <div class="no-resource-found" *ngIf="doc_resources.length === 0 && keyword !== '' ">
+              <p>
+                <i class="fa  fa-frown-o"></i> Resource "{{keyword}}" not found.
+              </p>
+            </div>
+            <div [class.col-md-3]="showDetail" [class.col-sm-3]="showDetail" [class.col-md-2]="!showDetail" [class.col-sm-2]="!showDetail"
+                 *ngFor="let resource of doc_resources | paginate: { itemsPerPage: 6, currentPage: docResourcePage }">
+              <div id="resource" (click)="viewResourceDetail(resource)">
+                <img  class="image" src="../../../assets/img/pdfCover.jpg" alt="book cover">
+                <div class="info">
+                  <p>{{resource.createdAt | amTimeAgo}}</p>
+                  <h5  class="title">{{getLimittedTitle(resource.title, 12)}}</h5>
+                </div>
+              </div>
+            </div>
+            <div class="row pagination-container" *ngIf="doc_resources.length > 0">
+              <div class="pagination">
+                <pagination-controls *ngIf="doc_resources.length > 6" (pageChange)="docResourcePage = $event"></pagination-controls>
               </div>
             </div>
           </div>
-          <div class="pagination">
-            <pagination-controls *ngIf="vid_resources.length > 6" (pageChange)="docResourcePage = $event"></pagination-controls>
+          <div class="col-md-4" *ngIf="showDetail">
+            <div class="resource-detail">
+              <i id="close" class="fa fa-close" (click)="cancelResourceDetail()"></i>
+              <img class="resource-detail-img" src="../../../assets/img/pdfCover.jpg" alt="book cover">
+              <p>{{selectedResource.createdAt | amTimeAgo}}</p>
+              <h4 class="title">{{selectedResource.title}}</h4>
+              <p>
+                {{selectedResource.description}}
+              </p>
+              <div class="row">
+                <div class="col-sm-offset-3 col-sm-4">
+                  <button class="main-btn download-button" (click)="downloadResource(selectedResource.content)">Download</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- /Row -->
+      </div>
+      <!-- /Row -->
+
     </div>
     <!-- /Container -->
 
+  </div>
+  <!-- /About -->
+
+  <!-- About -->
+  <div id="videos" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+      <!-- Row -->
+      <div class="row">
+
+        <!-- Section header -->
+        <div>
+          <p id="resource-list-title" class="title">Videos</p>
+        </div>
+        <!-- /Section header -->
+
+        <div class="no-resource-found" *ngIf="((backUpVidResources.length === 0 && keyword === '') || (vid_resources.length === 0 && filterCategory !== ''))">
+          <p>
+            <i class="fa  fa-frown-o"></i> {{ " No video resources are uploaded."}}
+            <i *ngIf=" (authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin()) && resources.length === 0" class="link" (click)="createResource()">create here.</i>
+          </p>
+        </div>
+
+        <div class="no-resource-found" *ngIf="vid_resources.length === 0 && keyword !== ''">
+          <p>
+            <i class="fa  fa-frown-o"></i> Resource "{{keyword}}" not found.
+          </p>
+        </div>
+
+        <div class="col-md-3 col-sm-2" *ngFor="let resource of vid_resources | paginate: { itemsPerPage: 6, currentPage: vidResourcePage }">
+          <div class="video-resource" (click)="onChoosingVideoResource(resource)"  data-toggle="modal" data-target="#myModal">
+            <img [src]="getVideoThumbinal(resource.url)" alt="video thumbinal">
+            <div class="info">
+              <p>{{resource.createdAt | amTimeAgo}}</p>
+              <h6 class="title">{{getLimittedTitle(resource.title, 28)}}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="pagination">
+          <pagination-controls *ngIf="vid_resources.length > 6" (pageChange)="docResourcePage = $event"></pagination-controls>
+        </div>
+      </div>
+      <!-- /Row -->
+    </div>
+    <!-- /Container -->
+
+  </div>
+  <!-- /About -->
+
 </div>
-<!-- /About -->
 
 <app-modal [resource]="choosenResource"></app-modal>
