@@ -6,8 +6,9 @@ export class CompetitionService {
   constructor(private apiService: ApiService) {}
 
   getProjects(competitionId) {
-    return this.apiService.get(
-      `solvieITCompetitions/${competitionId}/projects`
+    return this.apiService.post(
+      `solvieITCompetitions/competition-projects`,
+      {competitionId}
     );
   }
 

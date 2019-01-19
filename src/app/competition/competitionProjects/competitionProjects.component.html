@@ -24,6 +24,17 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="widget">
+          <div class="widget-search">
+            <select name="city" id="city" [(ngModel)]="selectedCity" (change)="filterByCity()">
+              <option value="">Filter By City</option>
+              <option value="">All</option>
+              <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -43,10 +54,10 @@
               | paginate: { itemsPerPage: 15, currentPage: page });
             let i = index
           "
-          (click)="viewProject(project)"
+          (click)="viewProject(project.solveitproject)"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ project.title }}</td>
+          <td>{{ project.solveitproject.title }}</td>
         </tr>
       </tbody>
     </table>

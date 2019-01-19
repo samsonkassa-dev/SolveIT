@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CompetitionService } from "../competition.service";
+import { CityService } from '../../dashboard/city/city.service';
 
 @Component({
   selector: "app-competition-projects",
@@ -12,17 +13,21 @@ export class CompetitionProjectsComponent implements OnInit {
   public isEdit = false;
   public projects = [];
   public backupProjects = [];
-  public keyword = "";
+  public keyword = '';
   public page = 1;
+  public cities = [];
+  selectedCity = '';
 
   constructor(
     public route: ActivatedRoute,
     public router: Router,
-    public service: CompetitionService
+    public service: CompetitionService,
+    public cityService: CityService
   ) {}
 
   ngOnInit() {
     this.getProjects();
+    this.getCities();
   }
 
   getProjects() {
@@ -30,6 +35,15 @@ export class CompetitionProjectsComponent implements OnInit {
       this.projects = res;
       this.backupProjects = res;
     });
+  }
+
+  getCities() {
+    this.cityService.getCities()
+      .subscribe(res => {
+        this.cities = res;
+      }, error => {
+        console.log('Error while fetching cities');
+      });
   }
 
   viewProject(project) {
@@ -46,4 +60,16 @@ export class CompetitionProjectsComponent implements OnInit {
       this.projects = this.backupProjects;
     }
   }
+
+  filterByCity() {
+    if (this.selectedCity !== '') {
+      this.projects = this.backupProjects.filter(project => {
+        console.log(this.selectedCity, project.cities);
+        return project.cities.indexOf(this.selectedCity) !== -1;
+      });
+    } else {
+      this.projects = this.backupProjects;
+    }
+  }
+
 }
