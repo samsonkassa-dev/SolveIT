@@ -22,3 +22,15 @@
   padding-right: 2em;
   cursor: pointer;
 }
+
+.widget {
+  margin: .5em;
+}
+
+select {
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  /*margin-top: 1em;*/
+}

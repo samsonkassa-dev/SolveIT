@@ -25,6 +25,16 @@ export class EventListComponent implements OnInit {
     this.getEventsList();
   }
 
+  filterByCity(city) {
+    if (city !== '') {
+      this.events = this.store.filter(event => {
+        return event.city.toLowerCase() === city.toLowerCase();
+      });
+    } else {
+      this.events = this.store;
+    }
+  }
+
   isOngoing(event) {
     const now = new Date();
     return (
