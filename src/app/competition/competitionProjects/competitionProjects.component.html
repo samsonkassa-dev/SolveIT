@@ -57,7 +57,7 @@
           (click)="viewProject(project.solveitproject)"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ project.solveitproject.title }}</td>
+          <td>{{ project.solveitproject  ? project.solveitproject.title : "Unknown" }}</td>
         </tr>
       </tbody>
     </table>

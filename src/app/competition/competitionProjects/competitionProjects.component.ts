@@ -32,8 +32,8 @@ export class CompetitionProjectsComponent implements OnInit {
 
   getProjects() {
     this.service.getProjects(this.competition.id).subscribe(res => {
-      this.projects = res;
-      this.backupProjects = res;
+      this.backupProjects = res.filter(project => project.solveitproject);
+      this.projects = this.backupProjects;
     });
   }
 
