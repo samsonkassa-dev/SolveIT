@@ -11,6 +11,8 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { UserProfileComponent } from "./userProfile/userProfile.component";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     NgxPaginationModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgxSpinnerModule
   ],
   providers: [UserManagementService],
   exports: [ManageUserComponent, ExportDataComponent]

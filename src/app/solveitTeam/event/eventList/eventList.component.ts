@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { SolveitTeamService } from "../../solveitTeam.service";
 import { AuthService } from "../../../Auth/services/auth.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-event-list",
@@ -18,7 +19,8 @@ export class EventListComponent implements OnInit {
 
   constructor(
     public service: SolveitTeamService,
-    public authService: AuthService
+    public authService: AuthService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -48,9 +50,13 @@ export class EventListComponent implements OnInit {
   }
 
   getEventsList() {
+    this.spinner.show();
     this.service.getEventsList().subscribe(res => {
       this.events = res;
       this.store = this.events;
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
     });
   }
 

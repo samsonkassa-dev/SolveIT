@@ -21,6 +21,7 @@ import {NgxWigModule} from 'ngx-wig';
 import {FileUploadModule} from 'ng2-file-upload';
 import {NgCircleProgressModule} from 'ng-circle-progress';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
       NgxWigModule,
       FileUploadModule,
       NgCircleProgressModule,
-      NgMultiSelectDropDownModule
+      NgMultiSelectDropDownModule,
+      NgxSpinnerModule
     ],
     providers: [ForumService],
     exports: [ReviewDiscussionComponent]

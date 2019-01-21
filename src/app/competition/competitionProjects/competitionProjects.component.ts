@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CompetitionService } from "../competition.service";
 import { CityService } from '../../dashboard/city/city.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-competition-projects",
@@ -19,6 +20,7 @@ export class CompetitionProjectsComponent implements OnInit {
   selectedCity = '';
 
   constructor(
+    private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
     public router: Router,
     public service: CompetitionService,
@@ -31,9 +33,13 @@ export class CompetitionProjectsComponent implements OnInit {
   }
 
   getProjects() {
+    this.spinner.show();
     this.service.getProjects(this.competition.id).subscribe(res => {
       this.backupProjects = res.filter(project => project.solveitproject);
       this.projects = this.backupProjects;
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
     });
   }
 

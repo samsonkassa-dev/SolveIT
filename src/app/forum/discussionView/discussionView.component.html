@@ -85,8 +85,10 @@
           </h6>
           <form [formGroup]="commentForm" *ngIf="authService.isAuthenticated()">
             <textarea
+              style="height: 10em;"
               placeholder="Add Your Comment"
               formControlName="content"
+              [rows]="30"
               [(ngModel)]="comment.content"
             ></textarea>
             <button
@@ -109,3 +111,13 @@
   </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#2ba692"
+  type = "ball-triangle-path"
+>
+  <p style="font-size: 20px; color: white">Loading ...</p>
+
+</ngx-spinner>

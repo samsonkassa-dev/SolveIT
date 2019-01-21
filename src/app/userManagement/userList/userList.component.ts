@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
 import { AuthService } from '../../Auth/services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-list',
@@ -30,7 +31,8 @@ export class UserListComponent implements OnInit {
   constructor(
     public service: UserManagementService,
     public sharedService: SharedService,
-    public router: Router
+    public router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,8 @@ export class UserListComponent implements OnInit {
     this.service.getUserList().subscribe(res => {
       this.allUsers = res;
       this.filterUsers();
+    }, error => {
+      this.spinner.hide();
     });
   }
 
@@ -52,6 +56,7 @@ export class UserListComponent implements OnInit {
   }
 
   populateUsersList() {
+    this.spinner.show();
     this.service.getRoles().subscribe(res => {
       for (let i = 0; i < res.length; ++i) {
         if (res[i].name === 'solve-it-team') {
@@ -148,6 +153,7 @@ export class UserListComponent implements OnInit {
       });
     }
     this.backupUsers = this.selectedUsers;
+    this.spinner.hide();
   }
 
   searchUser($event) {
@@ -176,7 +182,6 @@ export class UserListComponent implements OnInit {
   verifyEmail(user) {
     let verifiedUser = user;
     verifiedUser.emailVerified = true;
-    console.log(verifiedUser);
     this.service.updateProfile(verifiedUser)
       .subscribe(res => {
         if (res.error) {

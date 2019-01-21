@@ -27,7 +27,7 @@
     <div class="reply-form">
       <h6 class="title" >Leave a reply</h6>
       <form [formGroup]="replyForm" *ngIf="authService.isAuthenticated()">
-        <textarea formControlName="content" [(ngModel)]="reply.content"  placeholder="Add Your Reply"></textarea>
+        <textarea style="height: 10em" formControlName="content" [(ngModel)]="reply.content"  placeholder="Add Your Reply"></textarea>
         <button type="submit" class="main-btn" (click)="replyToComment()">Reply
           <span *ngIf="isPostingReplyLoading"><i id="spinner" class="fa fa-spinner fa-spin"></i></span>
         </button>

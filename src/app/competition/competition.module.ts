@@ -14,6 +14,7 @@ import {CompetitionWinnerComponent} from './competitionWinner/competitionWinner.
 import { EditCompetitionComponent } from './edit-competition/edit-competition.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
     ReactiveFormsModule,
     MomentModule,
     NgxPaginationModule,
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    NgxSpinnerModule
 
   ],
   providers: [CompetitionService],

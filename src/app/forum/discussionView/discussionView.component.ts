@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../Auth/services/auth.service";
 import { SharedService } from "../../shared/services/shared.service";
 import { configs } from "../../app.config";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-discussion-view",
@@ -35,7 +36,8 @@ export class DiscussionViewComponent implements OnInit {
     public router: Router,
     public service: ForumService,
     public authService: AuthService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private spinner: NgxSpinnerService
   ) {
     this.commentForm = new FormGroup({
       content: new FormControl("", Validators.required)
@@ -81,6 +83,7 @@ export class DiscussionViewComponent implements OnInit {
   }
 
   getDiscussion(slung) {
+    this.spinner.show();
     this.service.getDiscussion(slung).subscribe(
       res => {
         if (res.Result) {
@@ -91,8 +94,10 @@ export class DiscussionViewComponent implements OnInit {
           this.getComments();
           this.getFavoriteDiscusions();
           this.isUserBlackListedDiscussion(this.discussion.id);
+          this.spinner.hide();
         } else {
           this.router.navigate(["/404"]);
+          this.spinner.hide();
         }
       },
       err => {

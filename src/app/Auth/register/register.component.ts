@@ -12,6 +12,7 @@ import { r } from "../../../../node_modules/@angular/core/src/render3";
 import { PasswordValidation } from "../validator/passwordValidation";
 import { PhoneNumberValidation } from "../validator/phoneNumberValidation";
 import { UserManagementService } from "../../userManagement/userManagament.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
 
@@ -78,7 +79,8 @@ export class RegisterComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     public formBuilder: FormBuilder,
-    public userService: UserManagementService
+    public userService: UserManagementService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -146,14 +148,17 @@ export class RegisterComponent implements OnInit {
       }
     };
     this.user.address = temp;
+    this.spinner.show();
     this.authService.register({ user: this.user }).subscribe(
       res => {
+        this.spinner.hide();
         this.isLoading = false;
         this.router.navigate(["login"]);
         $("#registerationInfo").modal("show");
       },
       err => {
         this.isLoading = false;
+        this.spinner.hide();
       }
     );
   }

@@ -1,34 +1,35 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { AuthService } from "../../Auth/services/auth.service";
-import { SharedService } from "../../shared/services/shared.service";
-import { PasswordValidation } from "../../Auth/validator/passwordValidation";
-import { PhoneNumberValidation } from "../../Auth/validator/phoneNumberValidation";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { AuthService } from '../../Auth/services/auth.service';
+import { SharedService } from '../../shared/services/shared.service';
+import { PasswordValidation } from '../../Auth/validator/passwordValidation';
+import { PhoneNumberValidation } from '../../Auth/validator/phoneNumberValidation';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: "app-add-user",
-  templateUrl: "addUser.component.html",
-  styleUrls: ["addUser.component.css"]
+  selector: 'app-add-user',
+  templateUrl: 'addUser.component.html',
+  styleUrls: ['addUser.component.css']
 })
 export class AddUserComponent implements OnInit {
   public user = {
-    gender: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    phoneNumber: "",
-    password: "",
-    rePassword: ""
+    gender: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    phoneNumber: '',
+    password: '',
+    rePassword: ''
   };
-  public selected = "participant";
+  public selected = 'participant';
   public userForm: FormGroup;
   public roles = [
-    { id: "solve-it-mgt", name: "Management Team" },
-    { id: "solve-it-team", name: "Staff & Mentor Team" }
+    { id: 'solve-it-mgt', name: 'Management Team' },
+    { id: 'solve-it-team', name: 'Staff & Mentor Team' }
   ];
-  public role = "";
+  public role = '';
   public isPosting = false;
   @Output() back = new EventEmitter();
   @Output() created = new EventEmitter();
@@ -36,22 +37,23 @@ export class AddUserComponent implements OnInit {
   constructor(
     public service: AuthService,
     public sharedService: SharedService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
     this.userForm = this.formBuilder.group(
       {
-        firstName: ["", Validators.required],
-        middleName: ["", Validators.required],
-        lastName: ["", Validators.required],
-        email: ["", Validators.required],
-        gender: ["", Validators.required],
-        phoneNumber: ["", Validators.required],
-        role: ["", Validators.required],
-        username: ["", Validators.required],
-        password: ["", Validators.required],
-        rePassword: ["", Validators.required]
+        firstName: ['', Validators.required],
+        middleName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required, this.isEmailUnique.bind(this)],
+        gender: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        role: ['', Validators.required],
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        rePassword: ['', Validators.required]
       },
       {
         validator: Validators.compose([
@@ -64,16 +66,19 @@ export class AddUserComponent implements OnInit {
 
   addUser() {
     if (this.userForm.valid) {
+      this.spinner.show();
       this.isPosting = true;
       this.service.addUser(this.user, this.role).subscribe(
         res => {
-          this.sharedService.addToast("Success", "New User Added!", "success");
+          this.sharedService.addToast('Success', 'New User Added!', 'success');
           this.isPosting = false;
           this.showUsersList();
+          this.spinner.hide();
         },
         err => {
-          this.sharedService.addToast("", "Error occurred!", "error");
+          this.sharedService.addToast('', 'Error occurred!', 'error');
           this.isPosting = false;
+          this.spinner.hide();
         }
       );
     } else {
@@ -105,6 +110,25 @@ export class AddUserComponent implements OnInit {
 
   backToList() {
     this.back.emit();
-    console.log("emmited");
+  }
+
+  isEmailUnique(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.service.isEmailUnique(this.user.email).subscribe(
+          res => {
+            if (res) {
+              resolve(null);
+            } else {
+              resolve({ isEmailUnique: true });
+            }
+          },
+          () => {
+            resolve(null);
+          }
+        );
+      }, 1000);
+    });
+    return q;
   }
 }

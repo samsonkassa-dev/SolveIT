@@ -4,6 +4,7 @@ import { switchMap } from "rxjs/operators";
 import { ForumService } from "../forum.service";
 import { AuthService } from "../../Auth/services/auth.service";
 import { SharedService } from "../../shared/services/shared.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-forum-view",
@@ -31,7 +32,8 @@ export class ForumViewComponent implements OnInit {
     public router: Router,
     public service: ForumService,
     public authService: AuthService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -50,9 +52,11 @@ export class ForumViewComponent implements OnInit {
   }
 
   getForum(slung) {
+    this.spinner.show();
     this.service.getForum(slung).subscribe(
       res => {
         if (res.Result.length === 0) {
+          this.spinner.hide();
           this.router.navigate(["/404"]);
         } else {
           this.forum = res.Result[0];
@@ -80,6 +84,9 @@ export class ForumViewComponent implements OnInit {
         this.countComments(item, this.allDiscussionCommentCount);
       });
       this.discussions = res;
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
     });
   }
 

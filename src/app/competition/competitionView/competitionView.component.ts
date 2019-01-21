@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompetitionService } from '../competition.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
 
@@ -22,7 +23,7 @@ export class CompetitionViewComponent implements OnInit {
 
   currentView = this.views[0];
 
-  constructor(public service: CompetitionService, public route: ActivatedRoute, public router: Router) {
+  constructor(public service: CompetitionService, public route: ActivatedRoute, public router: Router, private spinner: NgxSpinnerService) {
 
   }
 
@@ -31,9 +32,13 @@ export class CompetitionViewComponent implements OnInit {
   }
 
   getCompetitions() {
+    this.spinner.show();
     this.service.getCompetitions().subscribe(
       res => {
         this.competitions = res;
+        this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
       }
     );
   }

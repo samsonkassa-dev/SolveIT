@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-login",
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   ];
   public isLoading = false;
 
-  constructor(public authService: AuthService, public router: Router) {}
+  constructor(public authService: AuthService, public router: Router, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.spinner.show();
       this.isLoading = true;
       this.user.email = this.user.email.toLowerCase();
       this.authService.login(this.user).subscribe(
@@ -44,13 +46,15 @@ export class LoginComponent implements OnInit {
             if (res1.name === this.ICOG_ROLE[2]) {
               this.router.navigate(["/my-projects"]);
             } else {
-              this.router.navigate([""]);
+              this.router.navigate(["/dashboard"]);
             }
           });
+          this.spinner.hide();
         },
         error1 => {
           this.loginError = true;
           this.isLoading = false;
+          this.spinner.hide();
         }
       );
     } else {

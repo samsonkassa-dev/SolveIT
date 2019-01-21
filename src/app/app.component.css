@@ -18,9 +18,9 @@
 }
 
 #sponsor-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*align-items: center;*/
 }
 
 ul.dropdown1 {
@@ -36,7 +36,7 @@ ul.dropdown1 {
 
 @media (min-width: 1281px) {
   .footer-sponsors-logo img {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -47,7 +47,7 @@ ul.dropdown1 {
 
 @media (min-width: 1025px) and (max-width: 1280px) {
   .footer-sponsors-logo img {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -58,7 +58,7 @@ ul.dropdown1 {
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   .footer-sponsors-logo img {
-    width: 70%;
+    width: 40%;
   }
 }
 
@@ -69,7 +69,15 @@ ul.dropdown1 {
 
 @media (min-width: 481px) and (max-width: 767px) {
   .footer-sponsors-logo img {
-    width: 100%;
+    width: 20%;
+  }
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-bottom: .5em;
+
   }
 }
 
@@ -80,7 +88,18 @@ ul.dropdown1 {
 
 @media (min-width: 320px) and (max-width: 480px) {
   .footer-sponsors-logo img {
-    width: 200%;
+    width: 20%;
   }
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;,
+  margin-bottom: .5em;
+  }
+}
+
+.sponsor-container {
+  margin-bottom: 2em;
 }
 

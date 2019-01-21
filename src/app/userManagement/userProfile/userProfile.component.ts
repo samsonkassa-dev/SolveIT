@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { UserManagementService } from "../userManagament.service";
 import { SharedService } from "../../shared/services/shared.service";
 import { AuthService } from "../../Auth/services/auth.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-user-profile",
@@ -18,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   public updatedUser = null;
 
   constructor(
+    private spinner: NgxSpinnerService,
     public service: UserManagementService,
     public sharedService: SharedService,
     public route: ActivatedRoute,
@@ -47,9 +49,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUser() {
+    this.spinner.show();
     this.service.getUser(this.userId).subscribe(
       res => {
         this.user = res;
+        console.log(res);
         this.updatedUser =  {
           firstName: this.user.firstName,
           middleName: this.user.middleName,
@@ -59,11 +63,15 @@ export class UserProfileComponent implements OnInit {
           cityId: this.user.cityId,
           id: this.user.id,
           birthDate: this.user.birthDate,
-          gender: this.user.gender
+          gender: this.user.gender,
+          city: this.user.city
         };
+        this.spinner.hide();
+        this.selected = this.views[0];
       },
       err => {
         this.router.navigate(["/404"]);
+        this.spinner.hide();
       }
     );
   }

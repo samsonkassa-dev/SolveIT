@@ -5,6 +5,7 @@ import { AuthService } from "../../Auth/services/auth.service";
 import { retry } from "rxjs/operator/retry";
 import { OnChanges } from "@angular/core/src/metadata/lifecycle_hooks";
 import { SimpleChange } from "@angular/core/src/change_detection/change_detection_util";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "app-forum-list",
@@ -28,7 +29,8 @@ export class ForumListComponent implements OnInit, OnChanges {
   constructor(
     public service: ForumService,
     public router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class ForumListComponent implements OnInit, OnChanges {
   }
 
   fetchForumsList() {
+    this.spinner.show();
     this.discussionCounts = [];
     if (this.selected === "forum-list-public") {
       this.service.getAllForumList().subscribe(res => {
@@ -50,6 +53,9 @@ export class ForumListComponent implements OnInit, OnChanges {
           this.getForumDiscussionCount(item.id);
         });
         this.forums = this.forumsBackup;
+        this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
       });
     } else if (this.selected === "forum-list-private") {
       const userId = this.authService.getUserId();
@@ -61,7 +67,10 @@ export class ForumListComponent implements OnInit, OnChanges {
           this.forumsBackup = this.forums;
           this.forumsBackup.forEach(item => {
             this.getForumDiscussionCount(item.id);
+            this.spinner.hide();
           });
+        }, error => {
+          this.spinner.hide();
         });
       }
     }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,7 +20,8 @@ export class EditProfileComponent implements OnInit, OnChanges {
   regions = [];
   regionId = '';
 
-  constructor(private fb: FormBuilder, private service: UserManagementService, public sharedService: SharedService) { }
+  constructor(private spinner: NgxSpinnerService, private fb: FormBuilder,
+              private service: UserManagementService, public sharedService: SharedService) { }
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -36,7 +38,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
 
     const regionsPromise = this.service.getRegions();
     const citiesPromise = this.service.getCities();
-
+    this.spinner.show();
     Promise.all([regionsPromise, citiesPromise])
       .then(res => {
         res[0].subscribe(res1 => {
@@ -50,6 +52,9 @@ export class EditProfileComponent implements OnInit, OnChanges {
             this.onRegionChange();
           }
         });
+        this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
       });
 
   }
@@ -72,7 +77,6 @@ export class EditProfileComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.user = changes.user.currentValue;
     this.otherUser = changes.user.currentValue;
-    console.log(this.otherUser);
   }
 
   onRegionChange() {
@@ -87,15 +91,17 @@ export class EditProfileComponent implements OnInit, OnChanges {
 
   onUpdate() {
     if (this.formGroup.valid) {
+      this.spinner.show();
       this.service.updateProfile(this.user)
         .subscribe(res => {
           this.updated.emit();
-          this.sharedService.addToast("Success", "Profile Edited!.", "success");
+          this.sharedService.addToast('Success', 'Profile Edited!.', 'success');
+          this.spinner.hide();
         }, error => {
-          this.sharedService.addToast("Error", "Something Went Wrong!.", "error");
+          this.sharedService.addToast('Error', 'Something Went Wrong!.', 'error');
+          this.spinner.hide();
         });
     } else {
-      console.log("form not valid", this.formGroup);
       this.markFormGroupTouched(this.formGroup);
     }
   }

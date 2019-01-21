@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from '../Auth/services/auth.service';
 import {SolveitMgmtGuardService} from '../Auth/services/solveit-mgmt-guard.service';
 import {MomentModule} from 'angular2-moment';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MomentModule} from 'angular2-moment';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
-    MomentModule
+    MomentModule,
+    NgxSpinnerModule
   ],
   providers: [SolveitTeamService, AuthService],
   exports: []

@@ -1,9 +1,13 @@
 <div class="forum-list">
     <div class="not-found">
         <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
-            <p>
-                <i class="fa  fa-frown-o"></i> There are no forums created, yet.
+            <p *ngIf="selected == 'forum-list-private'">
+                <i class="fa  fa-frown-o"></i> Sorry, no one has added you to a Private Forum. Please make sure that you are included in the forum you are looking for.
             </p>
+
+          <p *ngIf="selected == 'forum-list-public'">
+            <i class="fa  fa-frown-o"></i> There are no forums created, yet.
+          </p>
 
             <button class="outline-btn" (click)="onCreateForum()">create Here</button>
         </div>
@@ -44,3 +48,13 @@
         </div>
     </div>
 </div>
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#2ba692"
+  type = "ball-triangle-path"
+>
+  <p style="font-size: 20px; color: white">Loading ...</p>
+
+</ngx-spinner>
