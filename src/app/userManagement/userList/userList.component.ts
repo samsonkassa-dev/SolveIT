@@ -182,13 +182,21 @@ export class UserListComponent implements OnInit {
   verifyEmail(user) {
     let verifiedUser = user;
     verifiedUser.emailVerified = true;
+    if (verifiedUser.address === 'None') {
+      verifiedUser.address = {};
+    }
+    if (verifiedUser.birthDate === 'None') {
+      verifiedUser.birthDate = null;
+    }
     this.service.updateProfile(verifiedUser)
       .subscribe(res => {
         if (res.error) {
           this.sharedService.addToast('', 'Error occurred!', 'error');
         } else {
           this.sharedService.addToast('', 'Confirmed Successfully!', 'success');
-          this.selectedUsers.splice(this.selectedUsers.indexOf(user), 1);
+          if (this.selectedRole.name === 'participant') {
+            this.selectedUsers.splice(this.selectedUsers.indexOf(user), 1);
+          }
         }
       }, error => {
         this.sharedService.addToast('', 'Error occurred!', 'error');
