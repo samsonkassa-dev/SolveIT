@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ProjectService } from "../project.service";
+import { AuthService } from '../../Auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "project-member-list",
@@ -14,10 +16,16 @@ export class ProjectMemberList implements OnInit {
   public keyword = "";
   public page = 1;
 
-  constructor(public service: ProjectService) {}
+  constructor(public service: ProjectService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.getMembers();
+  }
+
+  showUserProfile(member) {
+    if (this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitTeam()) {
+      this.router.navigate(['/userProfile', member.id]);
+    }
   }
 
   getMembers() {

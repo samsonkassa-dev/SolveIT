@@ -111,7 +111,6 @@ export class CompetitionProjectsComponent implements OnInit {
   filterByCity() {
     if (this.selectedCity !== '') {
       this.projects = this.backupProjects.filter(project => {
-        console.log(this.selectedCity, project.cities);
         return project.cities.indexOf(this.selectedCity) !== -1;
       });
     } else {

@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
             <div *ngIf = "members.length > 0" class="list-group">
-                <a *ngFor = "let member of members | paginate: { itemsPerPage: 20, currentPage: page }" class="list-group-item">
+                <a (click)="showUserProfile(member)" *ngFor = "let member of members | paginate: { itemsPerPage: 20, currentPage: page }" class="list-group-item">
                     {{ member.username }}
                 </a>
             </div>

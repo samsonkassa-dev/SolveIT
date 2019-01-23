@@ -27,7 +27,6 @@ export class AssignRegionComponent implements OnInit, OnChanges {
 
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
-    checkedStyle: 'fontawesome',
     buttonClasses: 'btn btn-default btn-block',
     dynamicTitleMaxItems: 3,
     displayAllSelectedText: true
