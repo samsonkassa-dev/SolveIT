@@ -41,7 +41,7 @@
             <div class="no-resource-found" *ngIf="(backUpDocResources.length === 0 && keyword === '') || (doc_resources.length === 0 && filterCategory !== '')">
               <p>
                 <i class="fa  fa-frown-o"></i> {{ " No document resources are uploaded."}}
-                <i *ngIf="authService.isSolveitTeam() && resources.length === 0" class="link" (click)="createResource()">create here.</i>
+                <i *ngIf="authService.isSolveitTeam() || authService.isSolveitManager() || authService.isAdmin() && resources.length === 0" class="link" (click)="createResource()">create here.</i>
               </p>
             </div>
             <div class="no-resource-found" *ngIf="doc_resources.length === 0 && keyword !== '' ">
