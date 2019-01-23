@@ -23,7 +23,7 @@
                  <th>#</th>
                  <th>Name</th>
                  <th>Started Date</th>
-                 <th>Actions</th>
+                 <th *ngIf="isAccessible()">Actions</th>
                </tr>
                </thead>
                <tbody>
@@ -31,7 +31,7 @@
                  <td class="competition-row" (click)="onViewDetail(competition)">{{ i + 1 }}</td>
                  <td class="competition-row" (click)="onViewDetail(competition)">{{ competition.name }}</td>
                  <td class="competition-row" (click)="onViewDetail(competition)">{{ competition.startingDate | amTimeAgo}}</td>
-                 <td>
+                 <td *ngIf="isAccessible()">
                    <div class="dropdown">
                      <button class="btn outline-btn dropdown-toggle" type="button" data-toggle="dropdown"> Actions
                        <span class="caret"></span></button>

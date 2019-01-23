@@ -12,6 +12,9 @@ import { UserProfileComponent } from "./userProfile/userProfile.component";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AssignRegionComponent } from './assign-region/assign-region.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ExportDataComponent,
     ManageUserComponent,
     UserProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    AssignRegionComponent
   ],
   imports: [
     SharedModule,
@@ -31,7 +35,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxPaginationModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MultiselectDropdownModule
   ],
   providers: [UserManagementService],
   exports: [ManageUserComponent, ExportDataComponent]

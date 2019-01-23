@@ -33,7 +33,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   toggleProfileView() {
-    // console.log(this.updatedUser, this.user);
     this.selected = this.views[0];
     this.updatedUser = {
       firstName: this.user.firstName,
@@ -53,7 +52,6 @@ export class UserProfileComponent implements OnInit {
     this.service.getUser(this.userId).subscribe(
       res => {
         this.user = res;
-        console.log(res);
         this.updatedUser =  {
           firstName: this.user.firstName,
           middleName: this.user.middleName,

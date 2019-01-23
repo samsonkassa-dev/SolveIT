@@ -4,6 +4,7 @@ import { UserManagementService } from '../userManagament.service';
 import { SharedService } from '../../shared/services/shared.service';
 import { AuthService } from '../../Auth/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+declare var $: any;
 
 @Component({
   selector: 'app-user-list',
@@ -27,6 +28,7 @@ export class UserListComponent implements OnInit {
   public selectedRole = this.views[0];
   public selectedCity = 0;
   public selectedStatus = '';
+  public selectedMentorUser = null;
 
   constructor(
     public service: UserManagementService,
@@ -237,5 +239,15 @@ export class UserListComponent implements OnInit {
         }
       );
     }
+  }
+
+  showModal(user) {
+    this.selectedMentorUser = user;
+    $("#assignRegionModal").modal("show");
+  }
+
+  onAssignRegionDone() {
+    this.selectedMentorUser = null;
+    $("#assignRegionModal").modal("hide");
   }
 }

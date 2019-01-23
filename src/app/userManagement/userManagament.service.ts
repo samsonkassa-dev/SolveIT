@@ -57,4 +57,12 @@ export class UserManagementService {
   getUserList() {
     return this.apiService.get(`UserAccounts`);
   }
+
+  assignCities(data) {
+    return this.apiService.post('AssignedCities/assign', {data: data});
+  }
+
+  getAssignedCities(userId) {
+    return this.apiService.get(`UserAccounts/${userId}/get-assigned-cities`);
+  }
 }
