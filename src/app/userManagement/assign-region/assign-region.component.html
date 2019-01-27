@@ -11,7 +11,7 @@
       <div class="modal-body">
         <form [formGroup]="form">
           <div class="input-field">
-            <ss-multiselect-dropdown formControlName="cities" [texts]="myTexts" [settings]="mySettings" [options]="cities" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+            <ss-multiselect-dropdown formControlName="cities" [texts]="myTexts" [settings]="mySettings" [options]="cities" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ss-multiselect-dropdown>
 
             <div class="error-message" *ngIf="form.controls.cities.invalid &&
                                                               form.controls.cities.touched">
