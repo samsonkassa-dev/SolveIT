@@ -25,7 +25,7 @@ export class CompetitionListComponent implements OnInit, OnChanges {
   @Input() backupCompetitions = [];
   @Output() edit = new EventEmitter();
   @Output() viewCompetition = new EventEmitter();
-  user: null;
+  user =  null;
 
   constructor(
     public service: CompetitionService,
