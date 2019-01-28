@@ -79,8 +79,8 @@ export class ResourcesListComponent implements OnInit {
   onSearch($event) {
     this.filterCategory = '';
     if (this.keyword !== '') {
-      this.vid_resources = this.backUpVidResources.filter(item => item.title.includes(this.keyword));
-      this.doc_resources = this.backUpDocResources.filter(item => item.title.includes(this.keyword));
+      this.vid_resources = this.backUpVidResources.filter(item => item.title.toUpperCase().includes(this.keyword.toUpperCase()));
+      this.doc_resources = this.backUpDocResources.filter(item => item.title.toUpperCase().includes(this.keyword.toUpperCase()));
     } else {
       this.vid_resources = this.backUpVidResources;
       this.doc_resources = this.backUpDocResources;
