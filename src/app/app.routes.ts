@@ -13,7 +13,7 @@ import { DashboardGuardService } from './Auth/services/dashboard-guard.service';
 export const APP_ROUTES: Routes = [
   { path: '', component: LandingPageComponent },
   ...AUTH_ROUTES,
-  ...ForumRoutes,
+  { path: 'forums', loadChildren: './forum/forum.module#ForumModule' },
   { path: 'my-projects', loadChildren: './project/project.module#ProjectModule' },
   ...UserManagementRoutes,
   ...CompetitionRoutes,

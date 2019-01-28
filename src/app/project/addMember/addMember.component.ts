@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
-import { ForumService } from '../../forum/forum.service';
 import { SharedService } from '../../shared/services/shared.service';
 import { AuthService } from '../../Auth/services/auth.service';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-add-project-member',
@@ -18,7 +18,7 @@ export class AddProjectMemberComponent implements OnInit {
 
   constructor(
     public service: ProjectService,
-    public forumService: ForumService,
+    public forumService: CommonService,
     public sharedService: SharedService,
     public authService: AuthService
   ) {}

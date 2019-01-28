@@ -5,11 +5,11 @@ import { DiscussionViewComponent } from './discussionView/discussionView.compone
 
 export const ForumRoutes: Routes = [
   {
-    path: 'forums',
+    path: '',
     children: [
       {path: '', component: ForumComponent},
+      { path: 'discussions/:slung', component: DiscussionViewComponent },
       {path: ':slung', component: ForumViewComponent},
     ]
   },
-  { path: 'discussions/:slung', component: DiscussionViewComponent }
 ];

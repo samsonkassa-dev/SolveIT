@@ -18,10 +18,13 @@ import {AdminGuardService} from '../Auth/services/admin-guard.service';
 import { ForumModule } from '../forum/forum.module';
 import { CityModule } from './city/city.module';
 import { DASHBOARD_ROUTES } from './dashboard.routes';
+import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    ReviewDiscussionComponent
   ],
   imports: [
     RouterModule.forChild(DASHBOARD_ROUTES),
@@ -35,8 +38,8 @@ import { DASHBOARD_ROUTES } from './dashboard.routes';
     CompetitionModule,
     CategoryModule,
     TagModule,
-    ForumModule,
-    CityModule
+    CityModule,
+    NgxPaginationModule
   ],
   providers: [ApiService, ToastyService, SharedService, AdminGuardService],
   exports: [HeaderComponent, AppTableComponent],

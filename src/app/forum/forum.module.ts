@@ -16,12 +16,13 @@ import { MemberList } from './memberList/memberList.component';
 import { AddMember } from './addMember/addMember.component';
 import {MomentModule} from 'angular2-moment';
 import { SingleCommentComponent } from './single-comment/single-comment.component';
-import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
 import {NgxWigModule} from 'ngx-wig';
 import {FileUploadModule} from 'ng2-file-upload';
 import {NgCircleProgressModule} from 'ng-circle-progress';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RouterModule } from '@angular/router';
+import { ForumRoutes } from './forum.route';
 
 @NgModule({
     declarations: [
@@ -35,9 +36,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         MemberList,
         AddMember,
         SingleCommentComponent,
-        ReviewDiscussionComponent
     ],
     imports: [
+      RouterModule.forChild(ForumRoutes),
       CommonModule,
       NgxPaginationModule,
       FormsModule,
@@ -51,7 +52,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       NgxSpinnerModule
     ],
     providers: [ForumService],
-    exports: [ReviewDiscussionComponent]
 })
 
 export class ForumModule {

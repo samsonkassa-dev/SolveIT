@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { ForumService } from "../forum.service";
-import { SharedService } from "../../shared/services/shared.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../shared/services/shared.service';
+import { Router } from '@angular/router';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
-  selector: "app-review-discussion",
-  templateUrl: "reviewDiscussion.component.html",
-  styleUrls: ["reviewDiscussion.component.css"]
+  selector: 'app-review-discussion',
+  templateUrl: 'reviewDiscussion.component.html',
+  styleUrls: ['reviewDiscussion.component.css']
 })
 export class ReviewDiscussionComponent implements OnInit {
   public blackList = [];
   public discussions = [];
   public page = 1;
-  public h = [{ hd: "fdsf" }];
+  public h = [{ hd: 'fdsf' }];
 
   constructor(
-    public service: ForumService,
+    public service: CommonService,
     public sharedService: SharedService,
     public router: Router
   ) {}
@@ -31,7 +31,7 @@ export class ReviewDiscussionComponent implements OnInit {
   }
 
   viewDiscussion(discussion) {
-    this.router.navigate(["/forums/discussion", discussion.slung]);
+    this.router.navigate(['forums/discussions', discussion.slung]);
   }
 
   getBlackListedDiscussions() {
@@ -55,17 +55,17 @@ export class ReviewDiscussionComponent implements OnInit {
           res1 => {
             this.discussions.splice(this.discussions.indexOf(discussion), 1);
             this.sharedService.addToast(
-              "Success",
-              "Discussion Deleted!.",
-              "success"
+              'Success',
+              'Discussion Deleted!.',
+              'success'
             );
           },
           err => {
             if ((err.status = 422)) {
               this.sharedService.addToast(
-                "",
-                "Error occured while deleting discussion!",
-                "error"
+                '',
+                'Error occured while deleting discussion!',
+                'error'
               );
             }
           }
@@ -74,9 +74,9 @@ export class ReviewDiscussionComponent implements OnInit {
       err => {
         if ((err.status = 422)) {
           this.sharedService.addToast(
-            "",
-            "Error occured while removing from blacklist!",
-            "error"
+            '',
+            'Error occured while removing from blacklist!',
+            'error'
           );
         }
       }
@@ -88,14 +88,14 @@ export class ReviewDiscussionComponent implements OnInit {
       res => {
         this.discussions.splice(this.discussions.indexOf(discussion), 1);
         this.sharedService.addToast(
-          "Success",
-          "Discussion Relieved!.",
-          "success"
+          'Success',
+          'Discussion Relieved!.',
+          'success'
         );
       },
       err => {
         if ((err.status = 422)) {
-          this.sharedService.addToast("", "Error occured!", "error");
+          this.sharedService.addToast('', 'Error occured!', 'error');
         }
       }
     );

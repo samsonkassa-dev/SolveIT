@@ -6,7 +6,7 @@ import {Resource} from '../models/resource';
 import {configs} from '../../app.config';
 import {Router} from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
-import {ForumService} from '../../forum/forum.service';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-create-resource',
@@ -32,7 +32,7 @@ export class CreateResourceComponent implements OnInit {
   };
 
   constructor(public resourceService: ResourcesService, public router: Router,
-              public sharedService: SharedService, public service: ForumService) { }
+              public sharedService: SharedService, public service: CommonService) { }
 
   ngOnInit() {
     this.resourceForm = new FormGroup({

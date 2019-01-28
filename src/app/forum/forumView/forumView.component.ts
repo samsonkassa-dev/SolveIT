@@ -139,7 +139,7 @@ export class ForumViewComponent implements OnInit {
   }
 
   discussionDetail(discussion) {
-    this.router.navigate([`discussions/${discussion.slung}`]);
+    this.router.navigate([`forums/discussions/${discussion.slung}`]);
   }
 
   discussionCreated() {

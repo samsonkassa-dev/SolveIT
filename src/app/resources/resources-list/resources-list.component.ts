@@ -4,7 +4,7 @@ import {Resource} from '../models/resource';
 import {Router} from '@angular/router';
 import {configs} from '../../app.config';
 import {AuthService} from '../../Auth/services/auth.service';
-import {ForumService} from '../../forum/forum.service';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-resources-list',
@@ -31,7 +31,7 @@ export class ResourcesListComponent implements OnInit {
   public backUpVidResources = [];
 
   constructor(public resourceService: ResourcesService, public router: Router,
-              public authService: AuthService, public service: ForumService) { }
+              public authService: AuthService, public service: CommonService) { }
 
   ngOnInit() {
     this.resourceService.getResources()

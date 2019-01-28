@@ -16,7 +16,6 @@ import { SharedModule } from './shared/shared.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { UserManagementModule } from './userManagement/userManagement.module';
-import { ForumModule } from './forum/forum.module';
 import { CompetitionModule } from './competition/competition.module';
 import { AuthGuardService } from './Auth/services/auth-guard.service';
 import { SolveitTeamGuardService } from './Auth/services/solveit-team-guard.service';
@@ -44,7 +43,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     FormsModule,
     UserManagementModule,
-    CompetitionModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
@@ -57,7 +55,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       animationDuration: 200,
       maxPercent: 100
     }),
-    ForumModule,
     BsModalModule,
     CompetitionModule,
     MomentModule,
