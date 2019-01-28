@@ -21,7 +21,6 @@ import { CompetitionModule } from './competition/competition.module';
 import { AuthGuardService } from './Auth/services/auth-guard.service';
 import { SolveitTeamGuardService } from './Auth/services/solveit-team-guard.service';
 import { SolveitMgmtGuardService } from './Auth/services/solveit-mgmt-guard.service';
-import { NewsModule } from './news/news.module';
 import { WinnerProjectModule } from './winnerProject/winnerProject.module';
 import { MomentModule } from 'angular2-moment';
 import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.component';
@@ -49,7 +48,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
-    NewsModule,
     NgCircleProgressModule.forRoot({
       radius: 20,
       outerStrokeWidth: 8,

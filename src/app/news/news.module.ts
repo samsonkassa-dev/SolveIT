@@ -13,9 +13,12 @@ import { ToastyModule } from "ng2-toasty";
 import { RecentNewsComponent } from "./recent-news/recent-news.component";
 import { MomentModule } from "angular2-moment";
 import { NgxWigModule } from "ngx-wig";
+import { RouterModule } from '@angular/router';
+import { NEWS_ROUTES } from './news.router';
 
 @NgModule({
   imports: [
+    RouterModule.forChild(NEWS_ROUTES),
     CommonModule,
     SharedModule,
     FormsModule,

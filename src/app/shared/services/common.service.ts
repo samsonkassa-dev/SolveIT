@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 @Injectable()
 export class CommonService {
   public endpoint = 'cities';
+  newsUrl = 'news';
 
   constructor(public apiService: ApiService) {
 
@@ -15,5 +16,9 @@ export class CommonService {
 
   getRegions() {
     return this.apiService.get(`Regions/`);
+  }
+
+  fetchAllNews() {
+    return this.apiService.get(`${this.newsUrl}?filter={"order": "createdAt DESC", "include": "user"}`);
   }
 }

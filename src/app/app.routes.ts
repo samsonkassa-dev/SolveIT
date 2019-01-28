@@ -18,7 +18,7 @@ export const APP_ROUTES: Routes = [
   ...UserManagementRoutes,
   ...CompetitionRoutes,
   { path: 'resources', loadChildren: './resources/resources.module#ResourcesModule'},
-  ...NEWS_ROUTES,
+  { path: 'news', loadChildren: './news/news.module#NewsModule' },
   {
     path: 'events', loadChildren: './solveitTeam/solveitTeam.module#SolveitTeamModule'
   },
