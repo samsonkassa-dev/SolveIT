@@ -1,22 +1,24 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ForumService } from "../forum.service";
-import { SharedService } from "../../shared/services/shared.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ForumService } from '../forum.service';
+import { SharedService } from '../../shared/services/shared.service';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Component({
-  selector: "add-member",
-  templateUrl: "./addMember.component.html",
-  styleUrls: ["./addMember.component.css"]
+  selector: 'add-member',
+  templateUrl: './addMember.component.html',
+  styleUrls: ['./addMember.component.css']
 })
 export class AddMember implements OnInit {
   @Input() forum;
   public users = [];
   public members = [];
   public page = 1;
-  public keyword = "";
+  public keyword = '';
 
   constructor(
     public service: ForumService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -32,11 +34,11 @@ export class AddMember implements OnInit {
       res => {
         this.members.push(user);
         this.users.splice(this.users.indexOf(user), 1);
-        this.sharedService.addToast("Success", "New Member Added!.", "success");
+        this.sharedService.addToast('Success', 'New Member Added!.', 'success');
       },
       err => {
         if ((err.status = 422)) {
-          this.sharedService.addToast("", "Error occured!", "error");
+          this.sharedService.addToast('', 'Error occured!', 'error');
         }
       }
     );
@@ -49,10 +51,10 @@ export class AddMember implements OnInit {
   }
 
   searchUser($event) {
-    if (this.keyword.trim() !== "") {
-      this.service.searchUser(this.keyword).subscribe(res => {
+    if (this.keyword.trim() !== '') {
+      this.service.searchUser(this.keyword, this.authService.getUserId()).subscribe(res => {
         this.users = res.Result.filter(item => {
-          return this.members.findIndex(x => x.id == item.id) == -1;
+          return this.members.findIndex(x => x.id === item.id) === -1;
         });
       });
     } else {

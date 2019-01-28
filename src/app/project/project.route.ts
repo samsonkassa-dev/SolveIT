@@ -4,9 +4,9 @@ import { ProjectViewComponent } from './projectView/projectView.component';
 
 export const ProjectRoutes: Routes = [
   {
-    path: 'my-projects',
+    path: '',
     children: [
-      {path: '', component: ProjectContainerComponent},
+      {path: '', pathMatch: 'full', component: ProjectContainerComponent},
       {path: ':id', component: ProjectViewComponent}
     ]
   }

@@ -18,6 +18,8 @@ import { ReportViewComponent } from './report-view/report-view.component';
 import {MomentModule} from 'angular2-moment';
 import { JoinCompetitionComponent } from './join-competition/join-competition.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { RouterModule } from '@angular/router';
+import { ProjectRoutes } from './project.route';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     JoinCompetitionComponent
   ],
   imports: [
+    RouterModule.forChild(ProjectRoutes),
     NgxPaginationModule,
     SharedModule,
     CommonModule,

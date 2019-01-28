@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BsModalModule } from 'ng2-bs3-modal';
-import { ProjectModule } from './project/project.module';
 import { UserManagementModule } from './userManagement/userManagement.module';
 import { ForumModule } from './forum/forum.module';
 import { CompetitionModule } from './competition/competition.module';
@@ -45,7 +44,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       // enableTracing: true
     }),
     FormsModule,
-    ProjectModule,
     UserManagementModule,
     CompetitionModule,
     ReactiveFormsModule,

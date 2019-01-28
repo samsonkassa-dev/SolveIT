@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "../shared/services/api.service";
-import { AuthService } from "../Auth/services/auth.service";
+import { Injectable } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../Auth/services/auth.service';
 
 @Injectable()
 export class ForumService {
@@ -97,17 +97,17 @@ export class ForumService {
     return this.apiService.get(`forumCategories`);
   }
 
-  searchUser(keyword) {
-    return this.apiService.get(`UserAccounts/search/${keyword}`);
+  searchUser(keyword, userId) {
+    return this.apiService.get(`UserAccounts/search/${keyword}/${userId}`);
   }
 
   blackList(content) {
-    return this.apiService.post("BlackListedDiscussions", content);
+    return this.apiService.post('BlackListedDiscussions', content);
   }
 
   removeFromBlackList(discussionId) {
     return this.apiService.post(
-      "BlackListedDiscussions/removeFromBlackList",
+      'BlackListedDiscussions/removeFromBlackList',
       discussionId
     );
   }
