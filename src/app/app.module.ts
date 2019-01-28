@@ -13,7 +13,6 @@ import { ApiService } from './shared/services/api.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { ResourcesModule } from './resources/resources.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { ProjectModule } from './project/project.module';
@@ -52,7 +51,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
-    ResourcesModule,
     NewsModule,
     NgCircleProgressModule.forRoot({
       radius: 20,

@@ -14,6 +14,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {SolveitTeamGuardService} from '../Auth/services/solveit-team-guard.service';
 import {AuthGuardService} from '../Auth/services/auth-guard.service';
 import {MomentModule} from 'angular2-moment';
+import { RouterModule } from '@angular/router';
+import { RESOURCES_ROUTES } from './resources.routes';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import {MomentModule} from 'angular2-moment';
     ModalComponent,
   ],
   imports: [
+    RouterModule.forChild(RESOURCES_ROUTES),
     CommonModule,
     SharedModule,
     FileUploadModule,

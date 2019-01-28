@@ -3,7 +3,6 @@ import {ResourcesService} from '../service/resources.service';
 import {Resource} from '../models/resource';
 import {Router} from '@angular/router';
 import {configs} from '../../app.config';
-import {SolveitTeamGuardService} from '../../Auth/services/solveit-team-guard.service';
 import {AuthService} from '../../Auth/services/auth.service';
 import {ForumService} from '../../forum/forum.service';
 
@@ -37,7 +36,6 @@ export class ResourcesListComponent implements OnInit {
   ngOnInit() {
     this.resourceService.getResources()
       .subscribe(res => {
-        console.log('resoruce list ', res);
         this.resources = res;
         res.filter(item => {
           if (item.type === 'document') {
@@ -60,7 +58,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   uploadResource() {
-    this.router.navigate(['upload-resource']);
+    this.router.navigate(['resources/upload']);
   }
 
   filterResource($event) {
@@ -92,7 +90,6 @@ export class ResourcesListComponent implements OnInit {
   downloadResource(content) {
     this.resourceService.downloadResource(content.name)
       .subscribe(res => {
-        console.log(res);
         const url = window.URL.createObjectURL(res.data);
         let a = document.createElement('a');
         document.body.appendChild(a);
@@ -119,10 +116,6 @@ export class ResourcesListComponent implements OnInit {
   cancelResourceDetail() {
     this.showDetail = false;
     this.selectedResource = null;
-  }
-
-  createResource() {
-    this.router.navigate(['upload-resource']);
   }
 
   getVideoThumbinal(url) {

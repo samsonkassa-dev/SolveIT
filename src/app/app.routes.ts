@@ -20,7 +20,7 @@ export const APP_ROUTES: Routes = [
   ...ProjectRoutes,
   ...UserManagementRoutes,
   ...CompetitionRoutes,
-  ...RESOURCES_ROUTES,
+  { path: 'resources', loadChildren: './resources/resources.module#ResourcesModule'},
   ...NEWS_ROUTES,
   {
     path: 'events', loadChildren: './solveitTeam/solveitTeam.module#SolveitTeamModule'
@@ -33,7 +33,5 @@ export const APP_ROUTES: Routes = [
     path: 'winner',
     component: WinnerComponent,
     canActivate: [DashboardGuardService]
-  },
-  { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/404' }
+  }
 ];
