@@ -10,6 +10,7 @@ import { AppTableComponent } from './app-table/app-table.component';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { SharedService } from './services/shared.service';
 import { ApiService } from './services/api.service';
+import { CommonService } from './services/common.service';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { ApiService } from './services/api.service';
     Ng2TableModule,
     ToastyModule.forRoot()
   ],
-  providers: [ApiService, ToastyService, SharedService],
+  providers: [ApiService, ToastyService, SharedService, CommonService],
   exports: [HeaderComponent, AppTableComponent, ToastyModule],
 })
 export class SharedModule { }

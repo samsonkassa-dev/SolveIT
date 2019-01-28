@@ -19,7 +19,6 @@ import { BsModalModule } from 'ng2-bs3-modal';
 import { ProjectModule } from './project/project.module';
 import { UserManagementModule } from './userManagement/userManagement.module';
 import { ForumModule } from './forum/forum.module';
-import { SolveitTeamModule } from './solveitTeam/solveitTeam.module';
 import { CompetitionModule } from './competition/competition.module';
 import { AuthGuardService } from './Auth/services/auth-guard.service';
 import { SolveitTeamGuardService } from './Auth/services/solveit-team-guard.service';
@@ -65,7 +64,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       maxPercent: 100
     }),
     ForumModule,
-    SolveitTeamModule,
     BsModalModule,
     CompetitionModule,
     MomentModule,

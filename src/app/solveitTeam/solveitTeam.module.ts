@@ -11,11 +11,10 @@ import { SharedModule } from '../shared/shared.module';
 import { EventViewComponent } from './event/eventView/viewEvent.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {RouterModule} from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from '../Auth/services/auth.service';
-import {SolveitMgmtGuardService} from '../Auth/services/solveit-mgmt-guard.service';
 import {MomentModule} from 'angular2-moment';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SolveitTeamRoutes } from './solveitTeam.route';
 
 @NgModule({
   declarations: [
@@ -26,6 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     Newsfeed
   ],
   imports: [
+    RouterModule.forChild(SolveitTeamRoutes),
     CommonModule,
     NgxPaginationModule,
     FormsModule,
@@ -35,7 +35,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     RouterModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule,
     MomentModule,
     NgxSpinnerModule
   ],
