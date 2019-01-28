@@ -17,12 +17,14 @@ import {TagModule} from './tag/tag.module';
 import {AdminGuardService} from '../Auth/services/admin-guard.service';
 import { ForumModule } from '../forum/forum.module';
 import { CityModule } from './city/city.module';
+import { DASHBOARD_ROUTES } from './dashboard.routes';
 
 @NgModule({
   declarations: [
     DashboardComponent,
   ],
   imports: [
+    RouterModule.forChild(DASHBOARD_ROUTES),
     CommonModule,
     RouterModule,
     AppTableModule,
