@@ -16,6 +16,16 @@ export class ExportDataComponent implements OnInit {
     public selectionOptions = {sex: 'both', educationLevel: 'none', selectedCity: 0};
     public cities = [];
     public optionForm: FormGroup;
+    public educationLevels = [
+      'Elementary',
+      'HighSchool',
+      'University Degree',
+      'Post Graduate',
+      'University Dropout',
+      'HighSchool Dropout',
+      'Elementary Dropout',
+      'Other'
+    ];
 
     constructor(public apiService: ApiService, public service: UserManagementService, public fb: FormBuilder, public authService: AuthService) {
 

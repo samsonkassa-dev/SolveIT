@@ -45,6 +45,7 @@ export class ResourcesListComponent implements OnInit {
             this.vid_resources.push(item);
             this.backUpVidResources.push(item);
           }
+          console.log(this.doc_resources);
         });
 
       }, err => {

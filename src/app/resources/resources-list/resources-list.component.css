@@ -32,7 +32,7 @@ select {
 }
 
 #category {
-  padding: 0.8em;
+  padding: 0.5em;
   background: #ffffff;
   border: none;
   border-bottom: 1px solid #a29a9a;
@@ -66,13 +66,12 @@ select {
 
 #resource:hover,
 .video-resource:hover {
-  -webkit-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
-  box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 14px 13px 15px -12px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 14px 13px 15px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 14px 13px 15px -12px rgba(0, 0, 0, 0.5);
 }
 
 .info {
-  border: 1px solid rgba(0, 0, 0, 0.15);
   padding: 0.5em;
 }
 
@@ -87,7 +86,7 @@ select {
 
 .resource-detail {
   padding: 1em;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+
 }
 
 #close {
@@ -122,4 +121,9 @@ select {
 
 .content {
   margin: 0 1em;
+}
+
+#file-container, .resource-detail {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-right: .5em;
 }
