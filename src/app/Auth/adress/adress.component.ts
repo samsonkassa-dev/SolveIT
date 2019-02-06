@@ -19,7 +19,7 @@ export class AdressComponent implements OnInit, OnChanges {
   public cities = [];
   public citiesBackup = [];
   public blockedRegions = [];
-  public blockedCities = ["addis ababa", "jijiga"];
+  public blockedCities = [];
   @Input() address;
   @Input() isLoading = false;
 

@@ -15,6 +15,7 @@ export class AssignRegionComponent implements OnInit, OnChanges {
   form: FormGroup;
   @Input() user = null;
   @Output() exit = new EventEmitter();
+  isLoading = true;
 
   fetchedCities = [];
   selectedCities = [];
@@ -51,7 +52,7 @@ export class AssignRegionComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.cities = [];
     this.form = this.fb.group({
-      cities: ['', Validators.required]
+      cities: ['']
     });
     this.getCities();
   }
@@ -73,6 +74,8 @@ export class AssignRegionComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.user = changes.user.currentValue;
     if (this.user) {
+      this.optionsModel = [];
+      this.isLoading = true;
       this.userService.getAssignedCities(this.user.id)
         .subscribe(res => {
           if (res.length > 0) {
@@ -87,6 +90,9 @@ export class AssignRegionComponent implements OnInit, OnChanges {
               });
             });
           }
+          this.isLoading = false;
+        }, error => {
+          this.isLoading = false;
         });
     }
   }

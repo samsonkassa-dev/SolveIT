@@ -31,6 +31,9 @@ export const APP_ROUTES: Routes = [
     component: WinnerComponent,
     canActivate: [DashboardGuardService]
   },
+  {
+    path: 'sponsors', loadChildren: './sponsors/sponsors.module#SponsorsModule'
+  },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

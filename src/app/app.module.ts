@@ -1,19 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2TableModule } from 'ng2-table/ng2-table';
+  import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ToastOptions } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app.routes';
 import { AuthModule } from './Auth/auth.module';
 import { ApiService } from './shared/services/api.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { UserManagementModule } from './userManagement/userManagement.module';
 import { CompetitionModule } from './competition/competition.module';
@@ -25,6 +23,8 @@ import { MomentModule } from 'angular2-moment';
 import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -37,29 +37,20 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     Ng2TableModule,
     HttpModule,
-    NgxPaginationModule,
     RouterModule.forRoot(APP_ROUTES, {
-      // enableTracing: true
     }),
     FormsModule,
     UserManagementModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
-    NgCircleProgressModule.forRoot({
-      radius: 20,
-      outerStrokeWidth: 8,
-      innerStrokeWidth: 4,
-      outerStrokeColor: '#78C000',
-      innerStrokeColor: '#C7E596',
-      animationDuration: 200,
-      maxPercent: 100
-    }),
     BsModalModule,
+    BrowserAnimationsModule,
     CompetitionModule,
     MomentModule,
     WinnerProjectModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgCircleProgressModule
   ],
   providers: [
     ApiService,

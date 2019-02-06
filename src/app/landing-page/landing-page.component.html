@@ -91,6 +91,11 @@
               >Resources</a
             >
           </li>
+          <li [class.active]="router.isActive('sponsors', false)">
+            <a routerLink="/sponsors"
+            >Sponsors</a
+            >
+          </li>
           <li
             [class.active]="router.isActive('login', false)"
             *ngIf="!authService.isAuthenticated()"

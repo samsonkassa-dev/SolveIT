@@ -9,7 +9,7 @@
         <h4> Assign Region </h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form">
+        <form [formGroup]="form" *ngIf="!isLoading">
           <div class="input-field">
             <ss-multiselect-dropdown formControlName="cities" [texts]="myTexts" [settings]="mySettings" [options]="cities" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ss-multiselect-dropdown>
 
@@ -22,8 +22,12 @@
             <span class="sr-only">Loading...</span>
           </div>
         </form>
+        <div id="spinner-container" *ngIf="isLoading">
+          <i class="fa fa-spinner fa-spin"></i>
+        </div>
       </div>
-      <div class="modal-footer">
+      <div></div>
+      <div class="modal-footer" *ngIf="!isLoading">
         <button type="button" class="btn main-btn" (click)="done()"> Done </button>
         <button type="button" class="btn outline-btn" (click)="exit.emit()" data-dismiss="modal">Cancel</button>
       </div>
