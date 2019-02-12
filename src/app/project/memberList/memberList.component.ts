@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ProjectService } from "../project.service";
 import { AuthService } from '../../Auth/services/auth.service';
 import { Router } from '@angular/router';
+import { SharedService } from "../../shared/services/shared.service";
+
+declare var $: any;
 
 @Component({
   selector: "project-member-list",
@@ -15,8 +18,9 @@ export class ProjectMemberList implements OnInit {
   public membersBackup = [];
   public keyword = "";
   public page = 1;
+  memberToRemove = null;
 
-  constructor(public service: ProjectService, private authService: AuthService, private router: Router) {}
+  constructor(public service: ProjectService, private sharedService: SharedService, public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.getMembers();
@@ -44,4 +48,34 @@ export class ProjectMemberList implements OnInit {
       this.members = this.membersBackup.filter(item => item.pinned);
     }
   }
+
+  removeMember(member) {
+    const temp = {
+      userId: member.id,
+      projectId: this.project.id
+    }
+    this.service.removeProjectMember({member: temp})
+      .subscribe(res => {
+        console.log('removing ', temp);
+        this.members.splice(this.members.indexOf(member), 1);
+        console.log(res);
+        this.toggleModal(null);
+        this.sharedService.addToast(
+          "Success",
+          "Member removed successfully!",
+          "success"
+        );
+      }, error => {
+        console.log(error);
+        this.sharedService.addToast("", "Error occurred!", "error");
+      });
+
+    
+  }
+
+  toggleModal(member) {
+    this.memberToRemove = member;
+    $('#removeMemberModal').modal('toggle');
+  }
+
 }

@@ -101,7 +101,7 @@ export class CompetitionProjectsComponent implements OnInit {
   searchProject($event) {
     if (this.keyword !== "") {
       this.projects = this.backupProjects.filter(item => {
-        return item.title.toUpperCase().includes(this.keyword.toUpperCase());
+        return item.solveitproject.title.toUpperCase().includes(this.keyword.toUpperCase());
       });
     } else {
       this.projects = this.backupProjects;

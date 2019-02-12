@@ -30,6 +30,10 @@ export class ProjectService {
     return this.apiService.post(`/project-members`, member);
   }
 
+  removeProjectMember(member) {
+    return this.apiService.post('/project-members/removeMember', member);
+  }
+
   getMembers(projectId) {
     return this.apiService.get(`Solveitprojects/${projectId}/members`);
   }
