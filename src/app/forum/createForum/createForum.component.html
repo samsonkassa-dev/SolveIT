@@ -73,7 +73,7 @@
         [(ngModel)]="forum.private"
       >
         <option value="" selected>Type</option>
-        <option value="0">Public</option>
+        <option value="0" *ngIf="authService.isAdmin() || authService.isSolveitManager()">Public</option>
         <option value="1">Private</option>
       </select>
       <div
@@ -83,6 +83,12 @@
         "
       >
         <p>* Forum type is required.</p>
+      </div>
+      <div class="alert" id="alert-primary" role="alert" *ngIf="!(authService.isAdmin() || authService.isSolveitManager())">
+        Sorry, you cannot create public forums. You can create a private forum which will be visible
+        only for users you have invited. Look through the already running forums first and look for the one
+        related with what you want to discuss. Then click on the forum that you think is most related with your
+        topic and under that topic create a new discussion. 
       </div>
     </div>
     <div class="form-group" id="resource-upload-btn">
