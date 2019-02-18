@@ -15,8 +15,8 @@ export class UserManagementService {
     );
   }
 
-  activateDeactivateUser(user) {
-    return this.apiService.put(`UserAccounts/${user.id}`, user);
+  activateDeactivateUser(userid, status) {
+    return this.apiService.patch(`UserAccounts/${userid}`, status);
   }
 
   getRoles() {

@@ -74,12 +74,10 @@ export class UserListComponent implements OnInit {
   }
 
   activateUser(user) {
-    const updatedUser = user;
-    updatedUser.status = 'ACTIVE';
-    this.service.activateDeactivateUser(updatedUser).subscribe(
+    this.service.activateDeactivateUser(user.id, {status: 'ACTIVE'}).subscribe(
       res => {
         this.sharedService.addToast('Success', 'Account Activated!', 'success');
-        user.status = 'ACTIVE';
+        this.allUsers[this.allUsers.indexOf(user)].status = 'ACTIVE';
       },
       err => {
         if ((err.status = 422)) {
@@ -90,16 +88,14 @@ export class UserListComponent implements OnInit {
   }
 
   deactivateUser(user) {
-    const updatedUser = user;
-    updatedUser.status = 'INACTIVE';
-    this.service.activateDeactivateUser(updatedUser).subscribe(
+    this.service.activateDeactivateUser(user.id, {status: 'INACTIVE'}).subscribe(
       res => {
         this.sharedService.addToast(
           'Success',
           'Account Deactivated!',
           'success'
         );
-        user.status = 'INACTIVE';
+        this.allUsers[this.allUsers.indexOf(user)].status = 'INACTIVE';
       },
       err => {
         if ((err.status = 422)) {

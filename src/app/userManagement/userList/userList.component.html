@@ -106,7 +106,7 @@
               <span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li><a *ngIf="!user.emailVerified" type="button" (click)="verifyEmail(user)" >Confirm</a></li>
-              <li><a *ngIf="user.status == 'INACTIVE'" type="button" (click)="deactivateUser(user)" >Activate</a></li>
+              <li><a *ngIf="user.status == 'INACTIVE'" type="button" (click)="activateUser(user)" >Activate</a></li>
               <li><a *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)">Deactivate</a></li>
               <li><a *ngIf="this.selectedRole.name === 'solveitteam'" (click)="showModal(user)">Assign Region</a></li>
               <li><a *ngIf="!user.isModerator" (click)="processModerator(user)">Make Moderator</a></li>
