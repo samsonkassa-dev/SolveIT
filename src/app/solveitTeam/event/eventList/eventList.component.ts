@@ -29,6 +29,11 @@ export class EventListComponent implements OnInit {
 
   filterByCity(city) {
     if (city !== '') {
+      if(city.toLowerCase() === 'asa\'iyta' || city.toLowerCase() === 'dubti' || city.toLowerCase() === 'logia') {
+        city = 'semera';
+      } else if (city.toLowerCase() === 'adwa') {
+        city = 'aksum';
+      }
       this.events = this.store.filter(event => {
         return event.city.toLowerCase() === city.toLowerCase();
       });
