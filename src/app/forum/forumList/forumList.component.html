@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
+                    <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 15, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
                         <th scope="row">
                             {{forum.name}}
                         </th>
@@ -44,7 +44,7 @@
             </table>
         </div>
         <div class="forum-pagination">
-            <pagination-controls *ngIf="forums.length > 10" (pageChange)="currentPage = $event"></pagination-controls>
+            <pagination-controls *ngIf="forums.length > 15" (pageChange)="currentPage = $event"></pagination-controls>
         </div>
     </div>
 </div>

@@ -162,7 +162,7 @@
                     *ngFor="
                       let discussion of (discussions
                         | paginate
-                          : { itemsPerPage: 5, currentPage: discussionPage });
+                          : { itemsPerPage: 15, currentPage: discussionPage });
                       let index = index
                     "
                     (click)="discussionDetail(discussion)"
@@ -181,7 +181,7 @@
 
               <div class="row discussion-pagination">
                 <pagination-controls
-                  *ngIf="discussions.length > 5"
+                  *ngIf="discussions.length > 15"
                   (pageChange)="discussionPage = $event"
                 ></pagination-controls>
               </div>

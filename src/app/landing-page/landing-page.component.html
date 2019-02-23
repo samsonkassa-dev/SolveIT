@@ -657,50 +657,6 @@
 </div>
 <!-- /Team -->
 
-<!-- Blog -->
-<div id="blog" class="section md-padding bg-grey" *ngIf="news.length > 0">
-  <!-- Container -->
-  <div class="container">
-    <!-- Row -->
-    <div class="row">
-      <!-- Section header -->
-      <div class="section-header text-center">
-        <h2 class="title">Recents news</h2>
-      </div>
-      <!-- /Section header -->
-
-      <!-- blog -->
-      <div *ngFor="let item of news" class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img
-              class="img-responsive"
-              [src]="getImageSource(item.img.name)"
-              alt=""
-            />
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i>{{ item.user.username }}</li>
-              <li>
-                <i class="fa fa-clock-o"></i
-                >{{ item.createdAt | amDateFormat: "MMM Do" }}
-              </li>
-            </ul>
-            <h3>{{ item.title }}</h3>
-            <p>{{ getContent(item.content) }}</p>
-            <a [routerLink]="['news', item.id]">Read more</a>
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-    </div>
-    <!-- /Row -->
-  </div>
-  <!-- /Container -->
-</div>
-<!-- /Blog -->
-
 <!-- Contact -->
 <div id="contact" class="section md-padding">
   <!-- Container -->

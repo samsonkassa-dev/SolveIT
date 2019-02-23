@@ -101,6 +101,7 @@ export class DiscussionViewComponent implements OnInit {
         }
       },
       err => {
+        this.spinner.hide();
         this.router.navigate(["/404"]);
       }
     );
