@@ -43,7 +43,7 @@
           <tr
             *ngFor="
               let city of (cities
-                | paginate: { itemsPerPage: 6, currentPage: page });
+                | paginate: { itemsPerPage: 15, currentPage: page });
               let i = index
             "
           >
@@ -77,7 +77,7 @@
   <div class="row">
     <div class="pagination">
       <pagination-controls
-        *ngIf="backUpcities.length > 6"
+        *ngIf="backUpcities.length > 15"
         (pageChange)="page = $event"
       ></pagination-controls>
     </div>

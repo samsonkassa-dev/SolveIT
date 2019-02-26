@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CompetitionService } from "../competition.service";
+import { CommonService } from "../shared/services/common.service";
 
 @Component({
     selector: 'app-weekly-winner',
@@ -11,7 +11,7 @@ export class WeeklyWinnerComponent implements OnInit{
 
     public winners = [];
 
-    constructor(public service: CompetitionService) { }
+    constructor(public service: CommonService) { }
 
     ngOnInit() {
         this.getWeeklyWinners();

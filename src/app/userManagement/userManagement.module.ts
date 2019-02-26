@@ -15,6 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AssignRegionComponent } from './assign-region/assign-region.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({

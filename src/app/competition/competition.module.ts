@@ -13,7 +13,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {CompetitionWinnerComponent} from './competitionWinner/competitionWinner.component';
 import { EditCompetitionComponent } from './edit-competition/edit-competition.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
-import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -24,7 +23,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CompetitionProjectsComponent,
     CompetitionWinnerComponent,
     EditCompetitionComponent,
-    WeeklyWinnerComponent
   ],
   imports: [
     SharedModule,
@@ -38,7 +36,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
   ],
   providers: [CompetitionService],
-  exports: [CompetitionViewComponent, WeeklyWinnerComponent]
+  exports: [CompetitionViewComponent]
 })
 
 export class CompetitionModule {

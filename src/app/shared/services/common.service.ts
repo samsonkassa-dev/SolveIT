@@ -48,4 +48,10 @@ export class CommonService {
   searchUser(keyword, userId) {
     return this.apiService.get(`UserAccounts/search/${keyword}/${userId}`);
   }
+
+  getWeeklyWinners() {
+    return this.apiService.get(
+      `weekTopProjects?filter={"where": {"active": true}, "include": "solveitproject"}`
+    );
+  }
 }
