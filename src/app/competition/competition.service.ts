@@ -16,6 +16,10 @@ export class CompetitionService {
     return this.apiService.get(`solvieITCompetitions/`);
   }
 
+  getCompetition(id) {
+    return this.apiService.get(`solvieITCompetitions/${id}`);
+  }
+
   createCompetition(competition) {
     return this.apiService.post(`solvieITCompetitions/`, competition);
   }

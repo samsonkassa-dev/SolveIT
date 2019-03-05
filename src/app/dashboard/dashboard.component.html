@@ -7,52 +7,52 @@
           *ngIf="
             this.authService.isAdmin() || this.authService.isSolveitManager()
           "
-          (click)="toggleView(views[0])"
+          (click)="router.navigate(['dashboard/users'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[0]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/users', true)"
         >
           <span class="icon"><i class="fa fa-users"></i></span> Users
         </li>
         <li
-          (click)="toggleView(views[1])"
+        (click)="router.navigate(['dashboard/competitions'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[1]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/competitions', true)"
         >
           <span class="icon"><i class="fa fa-star"></i></span> Competitions
         </li>
         <li
-          (click)="toggleView(views[2])"
+        (click)="router.navigate(['dashboard/categories'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[2]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/categories', true)"
         >
           <span class="icon"><i class="fa fa-table"></i></span> Categories
         </li>
         <li
-          (click)="toggleView(views[3])"
+        (click)="router.navigate(['dashboard/tags'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[3]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/tags', true)"
         >
           <span class="icon"><i class="fa fa-tags"></i></span> Tags
         </li>
         <li
-          (click)="toggleView(views[5])"
+        (click)="router.navigate(['dashboard/cities'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[5]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/cities', true)"
         >
           <span class="icon"><i class="fa fa-building"></i></span> City
         </li>
         <li
           *ngIf="isModerator || authService.isAdmin()"
-          (click)="toggleView(views[4])"
+          (click)="router.navigate(['dashboard/review-discussion'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[4]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/review-discussion', true)"
         >
           <span class="icon"><i class="fa fa-eye"></i></span> Review Discussion
         </li>
         <li
-          (click)="toggleView(views[6])"
+        (click)="router.navigate(['dashboard/export-data'])"
           class="dashboard-menu-item"
-          [class.dashboard-menu-item-selected]="selected == views[6]"
+          [class.dashboard-menu-item-selected]="router.isActive('dashboard/export-data', true)"
         >
           <span class="icon"><i class="fa fa-external-link"></i></span> Export
           Data
@@ -61,17 +61,7 @@
     </div>
     <div class="col-md-8">
       <div class="dashboard-content">
-        <app-manage-user *ngIf="selected == views[0]"></app-manage-user>
-        <app-competition-view
-          *ngIf="selected == views[1]"
-        ></app-competition-view>
-        <app-categories-list *ngIf="selected == views[2]"></app-categories-list>
-        <app-tag-managment *ngIf="selected == views[3]"></app-tag-managment>
-        <app-review-discussion
-          *ngIf="selected == views[4] && (isModerator || authService.isAdmin())"
-        ></app-review-discussion>
-        <app-city-list *ngIf="selected == views[5]"></app-city-list>
-        <app-export-data *ngIf="selected == views[6]"></app-export-data>
+          <router-outlet></router-outlet>
       </div>
     </div>
   </div>

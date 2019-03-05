@@ -14,6 +14,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 })
 export class CompetitionProjectsComponent implements OnInit {
   @Input() competition = null;
+  competitionId = '';
   public isEdit = false;
   public projects = [];
   public backupProjects = [];
@@ -34,17 +35,28 @@ export class CompetitionProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.getProjects();
+    this.getCompetition();
     // this.getCities();
   }
 
+  getCompetition() {
+    this.service.getCompetition(this.route.snapshot.params['id'])
+      .subscribe(res => {
+        this.competition = res;
+      }, error => {
+        this.router.navigate(['404']);
+      })
+  }
+
   getProjects() {
+    this.competitionId = this.route.snapshot.params['id'];
     const user = this.authService.getUserSession();
     if (user.role === 'solve-it-team') {
       this.spinner.show();
       this.userService.getAssignedCities(user.userId)
         .subscribe(res => {
           const assignedCities = res[0];
-          const competitionProjects =  this.service.getProjects(this.competition.id);
+          const competitionProjects =  this.service.getProjects(this.competitionId);
           const cities = this.cityService.getCities();
          fromPromise(Promise.all([competitionProjects, cities]))
            .subscribe(responses => {
@@ -74,7 +86,7 @@ export class CompetitionProjectsComponent implements OnInit {
     } else {
       this.spinner.show();
       this.getCities();
-      this.service.getProjects(this.competition.id).subscribe(res => {
+      this.service.getProjects(this.competitionId).subscribe(res => {
         this.backupProjects = res.filter(project => project.solveitproject);
         this.projects = this.backupProjects;
         this.spinner.hide();

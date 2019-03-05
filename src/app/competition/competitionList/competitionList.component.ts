@@ -111,7 +111,7 @@ export class CompetitionListComponent implements OnInit, OnChanges {
   }
 
   onViewDetail(competition) {
-    this.viewCompetition.emit({ competition: competition });
+    this.router.navigate([`dashboard/competitions/${competition.id}`]);
   }
 
   onEdit(competition) {
