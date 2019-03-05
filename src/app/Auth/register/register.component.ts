@@ -11,7 +11,6 @@ import { User } from "../models/user";
 import { r } from "../../../../node_modules/@angular/core/src/render3";
 import { PasswordValidation } from "../validator/passwordValidation";
 import { PhoneNumberValidation } from "../validator/phoneNumberValidation";
-import { UserManagementService } from "../../userManagement/userManagament.service";
 import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
@@ -79,7 +78,6 @@ export class RegisterComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     public formBuilder: FormBuilder,
-    public userService: UserManagementService,
     private spinner: NgxSpinnerService
   ) {}
 

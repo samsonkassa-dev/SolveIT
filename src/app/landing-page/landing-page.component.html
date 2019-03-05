@@ -83,9 +83,9 @@
           <li [class.active]="router.isActive('forums', false)">
             <a routerLink="/forums">Forums</a>
           </li>
-          <li [class.active]="router.isActive('news', false)">
+          <!-- <li [class.active]="router.isActive('news', false)">
             <a routerLink="/news">News</a>
-          </li>
+          </li> -->
           <li [class.active]="router.isActive('resources', false)">
             <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
               >Resources</a
@@ -117,7 +117,7 @@
                 <a routerLink="/my-projects">My Projects</a>
               </li>
               <li *ngIf="!authService.isAdmin()">
-                <a [routerLink]="['/userProfile', authService.getUserId()]"
+                <a [routerLink]="['dashboard/userProfile', authService.getUserId()]"
                   >Profile</a
                 >
               </li>

@@ -54,4 +54,16 @@ export class CommonService {
       `weekTopProjects?filter={"where": {"active": true}, "include": "solveitproject"}`
     );
   }
+
+  getCompetitions() {
+    return this.apiService.get(`solvieITCompetitions/`);
+  }
+
+  getAllRegions() {
+    return this.apiService.get(`Regions/`);
+  }
+
+  getAllCities() {
+    return this.apiService.get(`cities/`);
+  }
 }

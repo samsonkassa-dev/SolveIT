@@ -1,7 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Resource} from '../models/resource';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ResourcesService } from '../service/resources.service';
+import { resource } from 'selenium-webdriver/http';
+import { AuthService } from '../../Auth/services/auth.service';
 
+declare var $: any;
 
 @Component({
   selector: 'app-modal',
@@ -11,9 +15,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ModalComponent implements OnInit {
 
   @Input() resource: Resource;
+  @Output() delete = new EventEmitter();
   public isClose = false;
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer, public service: ResourcesService, public authService: AuthService) {}
 
   ngOnInit() {
     this.isClose = false;
@@ -22,8 +27,7 @@ export class ModalComponent implements OnInit {
   getUrl() {
     if (this.resource) {
       if (!this.isClose) {
-        const tempUrl = this.resource.url.slice(this.resource.url.indexOf('?v=') + 3, this.resource.url.length) + '?control=1';
-        console.log(tempUrl);
+        const tempUrl = this.getVideoId(this.resource.url) + '?control=1&origin=https://icog-solveit.com';
         return  tempUrl;
 
       } else {
@@ -34,9 +38,35 @@ export class ModalComponent implements OnInit {
     return '';
   }
 
+    getVideoId(url) {
+    let videoId  =  '';
+    if (url.indexOf('?v') !== -1) {
+      videoId = url.slice(url.indexOf('?v') + 3 , url.length);
+    } else if (url.indexOf('&v') !== -1) {
+      videoId = url.slice(url.indexOf('&v') + 3 , url.length);
+    } else if (url.indexOf('youtu.be/') !== -1) {
+      videoId = url.slice(url.indexOf('youtu.be/') + 'youtu.be/'.length , url.length);
+    }
+    return videoId;
+  }
+
+  deleteResource() {
+    this.delete.emit();
+    $('#confirmation').modal('hide');
+    $('#myModal').modal('hide');
+  }
+
   resetResource() {
     this.isClose = true;
     console.log(this.isClose);
+  }
+
+  confirm() {
+    $("#confirmation").modal('show')
+  }
+
+  cancel() {
+    $("#confirmation").modal('hide')
   }
 
 }

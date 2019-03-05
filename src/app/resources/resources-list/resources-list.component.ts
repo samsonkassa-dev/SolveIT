@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {configs} from '../../app.config';
 import {AuthService} from '../../Auth/services/auth.service';
 import { CommonService } from '../../shared/services/common.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
   selector: 'app-resources-list',
@@ -31,7 +32,7 @@ export class ResourcesListComponent implements OnInit {
   public backUpVidResources = [];
 
   constructor(public resourceService: ResourcesService, public router: Router,
-              public authService: AuthService, public service: CommonService) { }
+              public authService: AuthService, public service: CommonService, public sharedService: SharedService) { }
 
   ngOnInit() {
     this.resourceService.getResources()
@@ -119,8 +120,20 @@ export class ResourcesListComponent implements OnInit {
   }
 
   getVideoThumbinal(url) {
-    const videoId = url.slice(url.indexOf('?v') + 3 , url.length);
+    const videoId = this.getVideoId(url);
     return `http://img.youtube.com/vi/${videoId}/0.jpg`;
+  }
+
+  getVideoId(url) {
+    let videoId  =  '';
+    if (url.indexOf('?v') !== -1) {
+      videoId = url.slice(url.indexOf('?v') + 3 , url.length);
+    } else if (url.indexOf('&v') !== -1) {
+      videoId = url.slice(url.indexOf('&v') + 3 , url.length);
+    } else if (url.indexOf('youtu.be/') !== -1) {
+      videoId = url.slice(url.indexOf('youtu.be/') + 'youtu.be/'.length , url.length);
+    }
+    return videoId;
   }
 
   getLimittedTitle(title, limit) {
@@ -129,6 +142,18 @@ export class ResourcesListComponent implements OnInit {
     } else {
       return title;
     }
+  }
+
+  deleteResource() {
+    console.log(this.choosenResource, this.vid_resources.indexOf(this.choosenResource));
+    this.resourceService.deleteResource(this.choosenResource.id)
+      .subscribe(res => {
+        this.vid_resources.splice(this.vid_resources.indexOf(this.choosenResource), 1);
+        this.sharedService.addToast('Success', 'Resource Deleted!', 'success');
+      }, error => {
+        console.log(error);
+        this.sharedService.addToast('', 'Error occured!', 'error');
+      });
   }
 
 }

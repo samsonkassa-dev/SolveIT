@@ -14,7 +14,7 @@ export const APP_ROUTES: Routes = [
   { path: 'forums', loadChildren: './forum/forum.module#ForumModule' },
   { path: 'my-projects', loadChildren: './project/project.module#ProjectModule' },
   { path: 'resources', loadChildren: './resources/resources.module#ResourcesModule'},
-  { path: 'news', loadChildren: './news/news.module#NewsModule' },
+  // { path: 'news', loadChildren: './news/news.module#NewsModule' },
   {
     path: 'events', loadChildren: './solveitTeam/solveitTeam.module#SolveitTeamModule'
   },

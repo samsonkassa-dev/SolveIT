@@ -10,7 +10,7 @@ import { ProjectViewComponent } from './projectView/projectView.component';
 import { ProjectContainerComponent } from './projectContainer.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {NgCircleProgressModule} from 'ng-circle-progress';
+import {NgCircleProgressModule, CircleProgressOptions} from 'ng-circle-progress';
 import {AddProjectMemberComponent} from './addMember/addMember.component';
 import {ProjectMemberList} from './memberList/memberList.component';
 import { CreateProgressReportComponent } from './create-progress-report/create-progress-report.component';
@@ -45,7 +45,7 @@ import { ProjectRoutes } from './project.route';
     MomentModule,
     NgMultiSelectDropDownModule
   ],
-  providers: [ProjectService],
+  providers: [ProjectService, CircleProgressOptions],
   exports: []
 })
 

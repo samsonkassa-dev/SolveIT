@@ -19,3 +19,16 @@
   height: 80%;
   margin-bottom: 1em;
 }
+
+.trash  {
+  cursor: pointer;
+  margin-right: 2em;
+}
+
+.trash > i:hover {
+  font-size: 1.2em;
+}
+
+.trash > i {
+  color: red;
+}

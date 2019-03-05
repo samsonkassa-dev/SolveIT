@@ -33,4 +33,5 @@ export class ResourcesService {
   downloadResource(file) {
     return this.apiService.download(`storages/resources/download/${file}`, file);
   }
+
 }

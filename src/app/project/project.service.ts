@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { ApiService } from "../shared/services/api.service";
-import { CompetitionService } from "../competition/competition.service";
 import { from } from "../../../node_modules/rxjs/observable/from";
 
 @Injectable()
 export class ProjectService {
   constructor(
     public apiService: ApiService,
-    public competitionService: CompetitionService
   ) {}
 
   createProject(project) {

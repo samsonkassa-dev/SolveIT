@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { ProjectService } from "../project.service";
-import { CompetitionService } from "../../competition/competition.service";
 import { ApiService } from "../../shared/services/api.service";
 import { AuthService } from "../../Auth/services/auth.service";
+import { CommonService } from "../../shared/services/common.service";
 
 declare var $: any;
 
@@ -31,7 +31,7 @@ export class ProjectViewComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public service: ProjectService,
-    public competitionService: CompetitionService,
+    public competitionService: CommonService,
     public apiService: ApiService,
     public authService: AuthService
   ) {}

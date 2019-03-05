@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
-import {UserManagementService} from '../../userManagement/userManagament.service';
+import { CommonService } from '../../shared/services/common.service';
 
 
 @Component({
@@ -23,16 +23,16 @@ export class AdressComponent implements OnInit, OnChanges {
   @Input() address;
   @Input() isLoading = false;
 
-  constructor(public formBuilder: FormBuilder, public userService: UserManagementService) { }
+  constructor(public formBuilder: FormBuilder, public userService: CommonService) { }
 
   ngOnInit() {
 
-    this.userService.getRegions()
+    this.userService.getAllRegions()
       .subscribe(res => {
         this.regions = res;
       });
 
-    this.userService.getCities()
+    this.userService.getAllCities()
       .subscribe(res => {
 
         const filtteredCities = res.filter(item => {
