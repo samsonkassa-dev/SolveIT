@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedService } from "../../shared/services/shared.service";
 import { WinnerProjectService } from "../winnerProject.service";
-import { CompetitionService } from "../../competition/competition.service";
 import { AuthService } from "../../Auth/services/auth.service";
+import { CommonService } from "../../shared/services/common.service";
 
 @Component({
   selector: "app-add-competition-winner",
@@ -20,7 +20,7 @@ export class AddCompetitionWinnerComponent implements OnInit {
     public service: WinnerProjectService,
     public fb: FormBuilder,
     public sharedService: SharedService,
-    public competitionService: CompetitionService,
+    public competitionService: CommonService,
     public authService: AuthService
   ) {
     this.competitionWinnerForm = this.fb.group({

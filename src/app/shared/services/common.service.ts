@@ -66,4 +66,15 @@ export class CommonService {
   getAllCities() {
     return this.apiService.get(`cities/`);
   }
+
+  getActiveCompetition() {
+    return this.apiService.get(`solvieITCompetitions/active`);
+  }
+
+  getProjects(competitionId) {
+    return this.apiService.post(
+      `solvieITCompetitions/competition-projects`,
+      {competitionId}
+    );
+  }
 }

@@ -74,9 +74,12 @@
         formControlName="project"
       >
         <option selected value="" [selected]="true">Select Project</option>
-        <option *ngFor="let project of projects" value="{{project.id}}">{{
-          project.title
-        }}</option>
+        <ng-container *ngFor="let project of projects">
+            <option  *ngIf="project.solveitproject" value="{{project.solveitproject.id}}">
+                {{ project.solveitproject.title }}
+            </option>
+        </ng-container>
+        
       </select>
       <div
         class="error-message"
