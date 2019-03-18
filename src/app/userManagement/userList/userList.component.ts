@@ -174,7 +174,7 @@ export class UserListComponent implements OnInit {
   }
 
   viewUserProfile(user) {
-    this.router.navigate(['/userProfile/', user.id]);
+    this.router.navigate(['dashboard/userProfile/', user.id]);
   }
 
   verifyEmail(user) {

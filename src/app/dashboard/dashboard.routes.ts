@@ -11,10 +11,11 @@ import { TagManagmentComponent } from './tag/tag-managment/tag-managment.compone
 import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
 import { CityListComponent } from './city/cityList/cityList.component';
 import { ExportDataComponent } from '../userManagement/exportData/exportData.component';
+import { AdminGuardService } from '../Auth/services/admin-guard.service';
+import { SolveitMgmtGuardService } from '../Auth/services/solveit-mgmt-guard.service';
 
 export const DASHBOARD_ROUTES: Routes = [
   { path: '', component: DashboardComponent, canActivate: [DashboardGuardService] , children: [
-    {path: '', redirectTo: 'users'},
     {path: 'users', component: ManageUserComponent},
     {path: 'competitions', children: [
       {path: '', component: CompetitionViewComponent},
