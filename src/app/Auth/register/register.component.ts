@@ -6,12 +6,12 @@ import {
   Validators,
   FormBuilder
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { User } from "../models/user";
 import { r } from "../../../../node_modules/@angular/core/src/render3";
 import { PasswordValidation } from "../validator/passwordValidation";
 import { PhoneNumberValidation } from "../validator/phoneNumberValidation";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var $: any;
 
@@ -78,7 +78,8 @@ export class RegisterComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     public formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -106,6 +107,29 @@ export class RegisterComponent implements OnInit {
         ])
       }
     );
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.user.firstName = params["first_name"];
+      this.user.middleName = params["middle_name"];
+      this.user.lastName = params["last_name"];
+      this.user.email = params["id"] + "@facebook.com";
+      this.user.birthDate = new Date(params["birthday"]);
+      this.user.gender = this.setGender(params["gender"]);
+      this.user.username = params["name"];
+      this.user.facebook = params["fbStatus"]
+        ? JSON.parse(params["fbStatus"])
+        : null;
+    });
+  }
+
+  setGender(gender) {
+    if (gender === "male") {
+      return "M";
+    } else if (gender === "female") {
+      return "F";
+    } else {
+      return "";
+    }
   }
 
   isFormValid() {
@@ -128,6 +152,7 @@ export class RegisterComponent implements OnInit {
     if (this.isFormValid()) {
       this.isAddressFormActive = true;
       this.user.email = this.user.email.toLowerCase();
+      console.log(this.user);
       this.isBasicFormActive = false;
     } else {
       this.markFormGroupTouched(this.registerForm);
@@ -152,7 +177,9 @@ export class RegisterComponent implements OnInit {
         this.spinner.hide();
         this.isLoading = false;
         this.router.navigate(["login"]);
-        $("#registerationInfo").modal("show");
+        if (!this.user.facebook) {
+          $("#registerationInfo").modal("show");
+        }
       },
       err => {
         this.isLoading = false;

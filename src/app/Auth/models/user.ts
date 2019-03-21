@@ -11,4 +11,6 @@ export interface User {
   password: string;
   address: object;
   cityId: string;
+  username?: string;
+  facebook?: object;
 }

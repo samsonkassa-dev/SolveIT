@@ -22,6 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
     SharedModule,
     BrowserAnimationsModule,
     WinnerProjectModule,
+    FacebookModule.forRoot()
   ],
   providers: [
     ApiService,
@@ -52,4 +54,4 @@ import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

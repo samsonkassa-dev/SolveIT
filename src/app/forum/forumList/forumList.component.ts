@@ -5,7 +5,7 @@ import { AuthService } from "../../Auth/services/auth.service";
 import { retry } from "rxjs/operator/retry";
 import { OnChanges } from "@angular/core/src/metadata/lifecycle_hooks";
 import { SimpleChange } from "@angular/core/src/change_detection/change_detection_util";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-forum-list",
@@ -45,33 +45,40 @@ export class ForumListComponent implements OnInit, OnChanges {
     this.spinner.show();
     this.discussionCounts = [];
     if (this.selected === "forum-list-public") {
-      this.service.getAllForumList().subscribe(res => {
-        this.forumsBackup = res.filter(forum => {
-          return !forum.private;
-        });
-        this.forumsBackup.forEach(item => {
-          this.getForumDiscussionCount(item.id);
-        });
-        this.forums = this.forumsBackup;
-        this.spinner.hide();
-      }, error => {
-        this.spinner.hide();
-      });
+      this.service.getAllForumList().subscribe(
+        res => {
+          this.forumsBackup = res.filter(forum => {
+            return !forum.private;
+          });
+          this.forumsBackup.forEach(item => {
+            this.getForumDiscussionCount(item.id);
+          });
+          this.forums = this.forumsBackup;
+          this.spinner.hide();
+        },
+        error => {
+          this.spinner.hide();
+        }
+      );
     } else if (this.selected === "forum-list-private") {
       const userId = this.authService.getUserId();
       if (userId) {
-        this.service.getMyForumList(userId).subscribe(forums => {
-          this.forums = forums.filter(forum => {
-            return forum.private;
-          });
-          this.forumsBackup = this.forums;
-          this.forumsBackup.forEach(item => {
-            this.getForumDiscussionCount(item.id);
+        this.service.getMyForumList(userId).subscribe(
+          forums => {
+            this.forums = forums.filter(forum => {
+              return forum.private;
+            });
+            this.forumsBackup = this.forums;
+            this.forumsBackup.forEach(item => {
+              this.getForumDiscussionCount(item.id);
+              this.spinner.hide();
+            });
             this.spinner.hide();
-          });
-        }, error => {
-          this.spinner.hide();
-        });
+          },
+          error => {
+            this.spinner.hide();
+          }
+        );
       }
     }
   }

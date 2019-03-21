@@ -179,4 +179,10 @@ export class AuthService {
       email: email
     });
   }
+
+  loginWithFB(user) {
+    return this.apiService.post(`${this.user_Path}/signInWithFB`, {
+      user: user
+    });
+  }
 }
