@@ -1,3 +1,42 @@
 img {
   width: 100%;
 }
+
+.sponsor-img {
+  width: 70%;
+  margin: auto;
+  padding: 2em;
+}
+
+.cube {
+  margin-bottom: 1em;
+  border-left: 15px solid #3ec8ac;
+  border-right: 15px solid #4e90a4;
+  /* border-top: 15px solid #4e90a4; */
+  /* border-bottom: 15px solid #3ec8ac; */
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  -webkit-background-size: 100% 20px;
+  -moz-background-size: 100% 20px;
+  background-size: 100% 20px;
+  background-image: -webkit-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%),
+    -webkit-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%);
+  background-image: -moz-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%),
+    -moz-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%);
+  background-image: -o-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%),
+    -o-linear-gradient(left, #3ec8ac 0%, #4e90a4 100%);
+  background-image: linear-gradient(to right, #3ec8ac 0%, #4e90a4 100%),
+    linear-gradient(to right, #3ec8ac 0%, #4e90a4 100%);
+}
+
+.container {
+  margin-top: 4em;
+}
+
+.row {
+  margin-top: 2em;
+}
