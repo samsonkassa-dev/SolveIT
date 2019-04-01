@@ -112,7 +112,9 @@ export class RegisterComponent implements OnInit {
       this.user.firstName = params["first_name"];
       this.user.middleName = params["middle_name"];
       this.user.lastName = params["last_name"];
-      this.user.email = params["id"] + "@facebook.com";
+      this.user.email = params["email"]
+        ? params["email"]
+        : params["id"] + "@facebook.com";
       this.user.birthDate = new Date(params["birthday"]);
       this.user.gender = this.setGender(params["gender"]);
       this.user.username = params["name"];

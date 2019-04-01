@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from '../../shared/services/api.service';
-import {Resource} from '../models/resource';
-import {FileUploader} from 'ng2-file-upload';
+import { Injectable } from "@angular/core";
+import { ApiService } from "../../shared/services/api.service";
+import { Resource } from "../models/resource";
+import { FileUploader } from "ng2-file-upload";
 
 @Injectable()
 export class ResourcesService {
-
-  public resources_path = 'resources';
+  public resources_path = "resources";
 
   constructor(public apiService: ApiService) {}
 
@@ -23,7 +22,7 @@ export class ResourcesService {
   }
 
   updateResource(id: string, resource: Resource) {
-    return this.apiService.put(`${this.resources_path}/${id}`, resource);
+    return this.apiService.patch(`${this.resources_path}/${id}`, resource);
   }
 
   createResource(resource: Resource) {
@@ -31,7 +30,9 @@ export class ResourcesService {
   }
 
   downloadResource(file) {
-    return this.apiService.download(`storages/resources/download/${file}`, file);
+    return this.apiService.download(
+      `storages/resources/download/${file}`,
+      file
+    );
   }
-
 }
