@@ -4,7 +4,7 @@ import { switchMap } from "rxjs/operators";
 import { ForumService } from "../forum.service";
 import { AuthService } from "../../Auth/services/auth.service";
 import { SharedService } from "../../shared/services/shared.service";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-forum-view",
@@ -16,7 +16,7 @@ export class ForumViewComponent implements OnInit {
   public discussions = [];
   public pinnedDiscussions = [];
   public allDiscussions = [];
-  public forum = { private: false, description: null, id: '' };
+  public forum = { private: false, description: null, id: "" };
   public discussionPage = 1;
   public pinnedPage = 1;
   public keyword = "";
@@ -26,6 +26,14 @@ export class ForumViewComponent implements OnInit {
   public pinnedDiscussionCommentCount = {};
   public tags = [];
   public selectedTag = "";
+  public editedDiscussion: any = {
+    userAccountId: 0,
+    forumId: 0,
+    slung: "",
+    title: "",
+    imgContent: {}
+  };
+  public isEdit = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -33,14 +41,33 @@ export class ForumViewComponent implements OnInit {
     public service: ForumService,
     public authService: AuthService,
     public sharedService: SharedService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.slung = this.route.snapshot.paramMap.get("slung");
-    this.getForum(this.slung);
-    this.service.getTags().subscribe(res => {
-      this.tags = res;
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params["id"]) {
+        console.log(params, "params");
+        this.editedDiscussion["userAccountId"] = params["userAccountId"];
+        this.editedDiscussion["slung"] = params["slung"];
+        this.editedDiscussion["title"] = params["title"];
+        this.editedDiscussion["forumId"] = params["forumId"];
+        this.editedDiscussion["content"] = params["content"];
+        this.editedDiscussion["createdAt"] = params["createdAt"];
+        this.editedDiscussion["imgContent"] = {};
+        this.editedDiscussion["id"] = params["id"];
+        this.isEdit = true;
+        this.selected = "discussion-create";
+        this.slung = JSON.parse(params["forum"]).slung;
+        console.log(JSON.parse(params["forum"]));
+      } else {
+        this.slung = this.route.snapshot.paramMap.get("slung");
+      }
+      this.getForum(this.slung);
+      this.service.getTags().subscribe(res => {
+        this.tags = res;
+      });
     });
   }
 
@@ -53,6 +80,7 @@ export class ForumViewComponent implements OnInit {
 
   getForum(slung) {
     this.spinner.show();
+    console.log(slung);
     this.service.getForum(slung).subscribe(
       res => {
         if (res.Result.length === 0) {
@@ -77,17 +105,20 @@ export class ForumViewComponent implements OnInit {
     // fetch favorite discussions
     this.getFavouriteDiscussions();
 
-    this.service.getDiscussions(forum.id).subscribe(res => {
-      this.allDiscussionCommentCount = [];
-      this.allDiscussions = res;
-      this.allDiscussions.forEach(item => {
-        this.countComments(item, this.allDiscussionCommentCount);
-      });
-      this.discussions = res;
-      this.spinner.hide();
-    }, error => {
-      this.spinner.hide();
-    });
+    this.service.getDiscussions(forum.id).subscribe(
+      res => {
+        this.allDiscussionCommentCount = [];
+        this.allDiscussions = res;
+        this.allDiscussions.forEach(item => {
+          this.countComments(item, this.allDiscussionCommentCount);
+        });
+        this.discussions = res;
+        this.spinner.hide();
+      },
+      error => {
+        this.spinner.hide();
+      }
+    );
   }
 
   getFavouriteDiscussions() {

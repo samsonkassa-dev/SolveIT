@@ -45,7 +45,7 @@ export class CreateProjectComponent implements OnInit {
       if (this.isFileSelected) {
         this.isUploading = true;
         this.error = false;
-        this.uploader.queue[0].upload();
+        this.uploader.queue[this.uploader.queue.length - 1].upload();
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
@@ -112,7 +112,7 @@ export class CreateProjectComponent implements OnInit {
     if (this.projectForm.valid) {
       if (this.isFileSelected) {
         this.isUploading = true;
-        this.uploader.queue[0].upload();
+        this.uploader.queue[this.uploader.queue.length - 1].upload();
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,

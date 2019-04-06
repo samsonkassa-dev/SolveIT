@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from "@angular/core";
 import {
   FormGroup,
   Validators,
@@ -10,16 +18,22 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../Auth/services/auth.service";
 import { SharedService } from "../../shared/services/shared.service";
 import { configs } from "../../app.config";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-discussion-view",
   templateUrl: "./discussionView.component.html",
   styleUrls: ["./discussionView.component.css"]
 })
-export class DiscussionViewComponent implements OnInit {
+export class DiscussionViewComponent implements OnInit, OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {}
   public numberOfComments: any;
-  public discussion = { id: 0, isBlackListed: false, userAccountId: "" };
+  public discussion = {
+    id: 0,
+    isBlackListed: false,
+    userAccountId: "",
+    forumId: ""
+  };
   public comment = { solveitdiscussionId: this.discussion.id, userId: 0 };
   public commentForm: FormGroup;
   public comments = [];
@@ -42,6 +56,20 @@ export class DiscussionViewComponent implements OnInit {
     this.commentForm = new FormGroup({
       content: new FormControl("", Validators.required)
     });
+  }
+
+  onEdit() {
+    this.service.getForumById(this.discussion.forumId).subscribe(
+      res => {
+        this.discussion["forum"] = JSON.stringify(res);
+        this.router.navigate([`forums/${res.slung}`], {
+          queryParams: this.discussion
+        });
+      },
+      error => {
+        this.sharedService.addToast("", "Error occured!", "error");
+      }
+    );
   }
 
   ngOnInit() {
@@ -259,5 +287,11 @@ export class DiscussionViewComponent implements OnInit {
 
   getImageSource(image) {
     return `${configs.rootUrl}storages/discussions/download/${image}`;
+  }
+
+  isDiscussionOwner(userId) {
+    let currentUserId = this.authService.getUserId();
+    console.log(currentUserId, userId);
+    return currentUserId === userId;
   }
 }

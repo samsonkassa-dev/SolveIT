@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
-import { AuthService } from '../Auth/services/auth.service';
+import { Injectable } from "@angular/core";
+import { ApiService } from "../shared/services/api.service";
+import { AuthService } from "../Auth/services/auth.service";
 
 @Injectable()
 export class ForumService {
@@ -40,6 +40,13 @@ export class ForumService {
     );
   }
 
+  updateDiscussion(discussion) {
+    return this.apiService.patch(
+      `Solveitdiscussions/${discussion.id}`,
+      discussion
+    );
+  }
+
   getDiscussions(forumId) {
     return this.apiService.get(
       `SolveITForums/${forumId}/discussions?filter={"include": "user"}`
@@ -74,6 +81,10 @@ export class ForumService {
     return this.apiService.get(`SolveITForums/${slung}/forum`);
   }
 
+  getForumById(id) {
+    return this.apiService.get(`SolveITForums/${id}`);
+  }
+
   addComment(comment) {
     return this.apiService.post(`SolveIT-Discussion-Comments`, comment);
   }
@@ -102,12 +113,12 @@ export class ForumService {
   }
 
   blackList(content) {
-    return this.apiService.post('BlackListedDiscussions', content);
+    return this.apiService.post("BlackListedDiscussions", content);
   }
 
   removeFromBlackList(discussionId) {
     return this.apiService.post(
-      'BlackListedDiscussions/removeFromBlackList',
+      "BlackListedDiscussions/removeFromBlackList",
       discussionId
     );
   }

@@ -43,6 +43,15 @@
               class="fa fa-flag-o"
             ></i>
           </div>
+          <div class="pin" *ngIf="isDiscussionOwner(postedBy.username)">
+            <i
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Edit"
+              (click)="onEdit()"
+              class="fa fa-edit"
+            ></i>
+          </div>
           <ul class="blog-meta">
             <li><i class="fa fa-user"></i>by : {{ postedBy.username }}</li>
             <li>
