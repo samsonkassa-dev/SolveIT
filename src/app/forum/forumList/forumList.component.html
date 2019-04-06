@@ -1,60 +1,74 @@
 <div class="forum-list">
-    <div class="not-found">
-        <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
-            <p *ngIf="selected == 'forum-list-private'">
-                <i class="fa  fa-frown-o"></i> Sorry, no one has added you to a Private Forum. Please make sure that you are included in the forum you are looking for.
-            </p>
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
+      <p *ngIf="selected == 'forum-list-private'">
+        <i class="fa  fa-frown-o"></i> Sorry, no one has added you to a Private
+        Forum. Please make sure that you are included in the forum you are
+        looking for.
+      </p>
 
-          <p *ngIf="selected == 'forum-list-public'">
-            <i class="fa  fa-frown-o"></i> There are no forums created, yet.
-          </p>
+      <p *ngIf="selected == 'forum-list-public'">
+        <i class="fa  fa-frown-o"></i> There are no forums created, yet.
+      </p>
 
-            <button class="outline-btn" (click)="onCreateForum()">create Here</button>
-        </div>
+      <button class="outline-btn" (click)="onCreateForum()">create Here</button>
     </div>
-    <div class="not-found">
-        <div class="no-resource-found" *ngIf="forums.length == 0 && keyword !== ''">
-            <p>
-                <i class="fa  fa-frown-o"></i> No search result found for "{{ keyword }}"
-            </p>
-        </div>
+  </div>
+  <div class="not-found">
+    <div class="no-resource-found" *ngIf="forums.length == 0 && keyword !== ''">
+      <p>
+        <i class="fa  fa-frown-o"></i> No search result found for "{{
+          keyword
+        }}"
+      </p>
     </div>
-    <div *ngIf="(selected == 'forum-list-public') || (selected == 'forum-list-private')">
-        <div class="forums-list-content" *ngIf="forums.length > 0">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Topic</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Discussions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let forum of forums | paginate: { itemsPerPage: 15, currentPage: page }; let i = index" (click)="viewForum(forum.slung)">
-                        <th scope="row">
-                            {{forum.name}}
-                        </th>
-                        <td>{{forum.category.category }}
-                        </td>
-                        <td>{{ forum.created | amTimeAgo }}</td>
-                        <td><span class="badge badge-secondary">{{discussionCounts[forum.id]}}</span> Discussions</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="forum-pagination">
-            <pagination-controls *ngIf="forums.length > 15" (pageChange)="currentPage = $event"></pagination-controls>
-        </div>
+  </div>
+  <div class="forum-lists">
+    <div
+      class="single-forum"
+      *ngFor="
+        let forum of (forums
+          | paginate: { itemsPerPage: 15, currentPage: page });
+        let i = index
+      "
+      (click)="viewForum(forum.slung)"
+    >
+      <div class="single-forum-header">
+        <i class="fa fa-comments"></i>{{ forum.name }}
+      </div>
+      <div class="single-forum-content">{{ forum.description }}</div>
+      <div class="single-forum-properties">
+        <ul>
+          <li>
+            <i class="fa fa-comment"></i
+            ><span>{{ " " + discussionCounts[forum.id] }}</span> discussions
+          </li>
+          <li>
+            <i class="fa fa-tag"></i
+            ><span>{{ " " + forum.category.category }}</span>
+          </li>
+          <li>
+            <i class="fa fa-clock-o"></i>posted
+            <span>{{ " " + forum.created | amTimeAgo }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="single-forum-footer"><br /></div>
     </div>
+    <div class="forum-pagination">
+      <pagination-controls
+        *ngIf="forums.length > 15"
+        (pageChange)="currentPage = $event"
+      ></pagination-controls>
+    </div>
+  </div>
 </div>
 
 <ngx-spinner
-  bdColor = "rgba(51, 51, 51, 0.8)"
-  size = "medium"
-  color = "#2ba692"
-  type = "ball-triangle-path"
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="medium"
+  color="#2ba692"
+  type="ball-triangle-path"
 >
   <p style="font-size: 20px; color: white">Loading ...</p>
-
 </ngx-spinner>

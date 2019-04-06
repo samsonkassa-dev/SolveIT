@@ -26,7 +26,7 @@
   padding: 3em;
 }
 
-#projects-list-content > div:nth-child(2) > div:nth-child(1) > div > a{
+#projects-list-content > div:nth-child(2) > div:nth-child(1) > div > a {
   cursor: pointer;
 }
 
@@ -35,15 +35,15 @@ tr {
 }
 
 tr:hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .forums-list-content {
   padding: 1em;
 }
 
-
-th, td {
+th,
+td {
   border: none;
   border-bottom: 1px solid #dddddd6e;
 }
@@ -52,8 +52,59 @@ footer {
   margin-top: 8em;
 }
 
-.table>thead>tr>th {
+.table > thead > tr > th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd6;
 }
 
+.forum-lists {
+}
+
+.single-forum {
+  clear: both;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.single-forum:hover {
+  background: #dddddd6e;
+}
+
+.single-forum-header {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin: 0.7em auto;
+  color: #2ba692;
+}
+
+.single-forum-header > i {
+  margin-right: 1em;
+}
+
+.single-forum-content,
+.single-forum-properties > ul > li {
+  text-align: justify;
+  margin: 1em;
+}
+
+.single-forum-properties > ul {
+  display: inline;
+}
+
+.single-forum-properties > ul > li {
+  float: left;
+  padding-right: 1em;
+  border-right: 1px solid;
+  margin-right: 1em;
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.single-forum-properties > ul > li > span {
+  font-weight: bold;
+}
+
+.single-forum-footer {
+  clear: both;
+  border-bottom: 1px solid #dddddd6e;
+}
