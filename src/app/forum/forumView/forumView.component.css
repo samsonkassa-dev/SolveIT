@@ -79,5 +79,59 @@ tr {
 }
 
 .content {
-  margin: .5em;
+  margin: 0.5em;
+}
+
+.discussion-container {
+  margin-top: 1em;
+  margin-bottom: 2em;
+  padding: 1em;
+  border: 1px solid #f7f5f5;
+  cursor: pointer;
+}
+
+.discussion-container:hover {
+  background: #f7f5f5;
+}
+
+.discussion-header h4 {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0.7em auto;
+  color: #2ba692;
+}
+
+.discussion-header p {
+  font-weight: normal;
+  font-size: 0.8em;
+  font-style: italic;
+  margin: 0.9em auto auto 2.7em;
+}
+
+.discussion-footer {
+  clear: both;
+  margin-top: 1em;
+}
+
+.discussion-footer ul {
+  display: inline;
+}
+
+.discussion-footer ul li {
+  float: left;
+  padding-right: 1em;
+  border-right: 1px solid;
+  margin-right: 1em;
+  font-style: italic;
+  font-size: 0.8em;
+  background: #f7f5f5;
+  padding: 0.4em;
+}
+
+.discussion-footer ul li:first-child {
+  margin-left: 2.7em;
+}
+
+i {
+  color: #2ba692;
 }

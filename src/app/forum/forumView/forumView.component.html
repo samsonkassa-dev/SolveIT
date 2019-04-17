@@ -117,6 +117,47 @@
                   discussions.
                 </p>
               </div>
+              <div *ngIf="pinnedDiscussions.length > 0">
+                <div
+                  class="discussion-container"
+                  *ngFor="
+                    let discussion of (pinnedDiscussions
+                      | paginate: { itemsPerPage: 5, currentPage: pinnedPage });
+                    let i = index
+                  "
+                  (click)="discussionDetail(discussion)"
+                >
+                  <div class="discussion-header">
+                    <h4>
+                      <i class="fa fa-comment-o"></i> &nbsp;
+                      {{ discussion.title.trim() }}
+                    </h4>
+                    <p>
+                      <i class="fa fa-user"></i> &nbsp; By &nbsp;{{
+                        discussion.user.username
+                      }}
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <ul>
+                      <li>
+                        <i class="fa fa-clock-o"></i> &nbsp;
+                        {{ discussion.createdAt | amTimeAgo }}
+                      </li>
+                      <li>
+                        <span class="badge badge-primary">
+                          {{
+                            pinnedDiscussionCommentCount[discussion.id]
+                          }}
+                          &nbsp;<i class="fa fa-comments"></i
+                        ></span>
+                        Comments
+                      </li>
+                    </ul>
+                  </div>
+                  <br />
+                </div>
+              </div>
               <table class="table" *ngIf="pinnedDiscussions.length > 0">
                 <tbody>
                   <tr
@@ -156,28 +197,48 @@
                 <p><i class="fa fa-frown-o"></i> You have no discussions.</p>
               </div>
 
-              <table class="table" *ngIf="discussions.length > 0">
-                <tbody>
-                  <tr
-                    *ngFor="
-                      let discussion of (discussions
-                        | paginate
-                          : { itemsPerPage: 15, currentPage: discussionPage });
-                      let index = index
-                    "
-                    (click)="discussionDetail(discussion)"
-                  >
-                    <th scope="row">{{ discussion.title }}</th>
-                    <td>{{ discussion.createdAt | amTimeAgo }}</td>
-                    <td>
-                      <span class="badge badge-secondary">{{
-                        allDiscussionCommentCount[discussion.id]
-                      }}</span>
-                      Comments
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div *ngIf="discussions.length > 0">
+                <div
+                  class="discussion-container"
+                  *ngFor="
+                    let discussion of (discussions
+                      | paginate
+                        : { itemsPerPage: 15, currentPage: discussionPage });
+                    let index = index
+                  "
+                  (click)="discussionDetail(discussion)"
+                >
+                  <div class="discussion-header">
+                    <h4>
+                      <i class="fa fa-comment-o"></i> &nbsp;
+                      {{ discussion.title }}
+                    </h4>
+                    <p>
+                      <i class="fa fa-user"></i> &nbsp; By &nbsp;{{
+                        discussion.user.username
+                      }}
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <ul>
+                      <li>
+                        <i class="fa fa-clock-o"></i> &nbsp;
+                        {{ discussion.createdAt | amTimeAgo }}
+                      </li>
+                      <li>
+                        <span class="badge badge-primary">
+                          {{
+                            allDiscussionCommentCount[discussion.id]
+                          }}
+                          &nbsp;<i class="fa fa-comments"></i
+                        ></span>
+                        Comments
+                      </li>
+                    </ul>
+                  </div>
+                  <br />
+                </div>
+              </div>
 
               <div class="row discussion-pagination">
                 <pagination-controls
