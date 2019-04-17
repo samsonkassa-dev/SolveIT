@@ -1,22 +1,23 @@
-#commenter-avatar  {
+#commenter-avatar {
   max-width: 1.5em;
 }
 
 .reply {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .comment-reply {
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.reply-form, .comment-reply {
+.reply-form,
+.comment-reply {
   margin: 1em;
   padding: 1em;
 }
 
 i {
-  margin: .5em;
+  margin: 0.5em;
 }
 
 .media {
@@ -24,7 +25,7 @@ i {
 }
 
 .remove {
-  color: #EC4643;
+  color: #ec4643;
 }
 
 .reply:hover {

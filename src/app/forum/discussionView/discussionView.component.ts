@@ -291,7 +291,6 @@ export class DiscussionViewComponent implements OnInit, OnChanges {
 
   isDiscussionOwner(userId) {
     let currentUserId = this.authService.getUserId();
-    console.log(currentUserId, userId);
     return currentUserId === userId;
   }
 }
