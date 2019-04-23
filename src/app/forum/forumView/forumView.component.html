@@ -132,7 +132,7 @@
                       <i class="fa fa-comment-o"></i> &nbsp;
                       {{ discussion.title.trim() }}
                     </h4>
-                    <p>
+                    <p *ngIf="discussion.user">
                       <i class="fa fa-user"></i> &nbsp; By &nbsp;{{
                         discussion.user.username
                       }}
@@ -158,32 +158,6 @@
                   <br />
                 </div>
               </div>
-              <table class="table" *ngIf="pinnedDiscussions.length > 0">
-                <tbody>
-                  <tr
-                    *ngFor="
-                      let discussion of (pinnedDiscussions
-                        | paginate
-                          : { itemsPerPage: 5, currentPage: pinnedPage });
-                      let i = index
-                    "
-                    (click)="discussionDetail(discussion)"
-                    class="row"
-                  >
-                    <th scope="row" class="discussionTitle">
-                      {{ discussion.title.trim() }}
-                    </th>
-                    <td>Python</td>
-                    <td>{{ discussion.createdAt | amTimeAgo }}</td>
-                    <td>
-                      <span class="badge badge-secondary">{{
-                        pinnedDiscussionCommentCount[discussion.id]
-                      }}</span>
-                      Comments
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
               <div class="row discussion-pagination">
                 <pagination-controls
                   *ngIf="pinnedDiscussions.length > 5"

@@ -10,8 +10,9 @@ img {
 
 .cube {
   margin-bottom: 1em;
-  border: 10px solid #fbfbfb;
+  border: 10px solid #ffffff;
   border-radius: 100em;
+  box-shadow: 0px 3px 20px 3px rgba(0, 0, 0, 0.1);
 }
 
 .container {
