@@ -10,7 +10,7 @@ import {
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { CompetitionService } from "../competition.service";
 import { SharedService } from "../../shared/services/shared.service";
-import { AuthService } from '../../Auth/services/auth.service';
+import { AuthService } from "../../Auth/services/auth.service";
 
 declare var $: any;
 
@@ -25,7 +25,7 @@ export class CompetitionListComponent implements OnInit, OnChanges {
   @Input() backupCompetitions = [];
   @Output() edit = new EventEmitter();
   @Output() viewCompetition = new EventEmitter();
-  user =  null;
+  user = null;
 
   constructor(
     public service: CompetitionService,
@@ -67,7 +67,7 @@ export class CompetitionListComponent implements OnInit, OnChanges {
 
   isAccessible() {
     if (this.user) {
-      return this.user.role === 'admin' || this.user.role === 'solve-it-mgt';
+      return this.user.role === "admin" || this.user.role === "solve-it-mgt";
     }
     return false;
   }

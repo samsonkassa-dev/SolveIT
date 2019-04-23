@@ -4,9 +4,7 @@ import { from } from "../../../node_modules/rxjs/observable/from";
 
 @Injectable()
 export class ProjectService {
-  constructor(
-    public apiService: ApiService,
-  ) {}
+  constructor(public apiService: ApiService) {}
 
   createProject(project) {
     return this.apiService.post(`/Solveitprojects`, project);
@@ -17,7 +15,8 @@ export class ProjectService {
   }
 
   getMyProjects(userId) {
-    return this.apiService.get(`/UserAccounts/${userId}/projects`);
+    // return this.apiService.get(`/UserAccounts/${userId}/projects`);
+    return this.apiService.get(`/Solveitprojects`);
   }
 
   getAllProjects() {
@@ -29,7 +28,7 @@ export class ProjectService {
   }
 
   removeProjectMember(member) {
-    return this.apiService.post('/project-members/removeMember', member);
+    return this.apiService.post("/project-members/removeMember", member);
   }
 
   getMembers(projectId) {
