@@ -20,7 +20,7 @@
         >Remove<i class="fa fa-trash"></i
       ></a>
       <a (click)="toggleReplyForm()" class="reply"
-        ><i class="fa fa-caret-down"></i>Reply<i class="fa fa-reply"></i
+        >{{ replies.length }}&nbsp;Replies<i class="fa fa-reply"></i
       ></a>
     </h6>
     <div class="" [innerHtml]="formatComment(comment.content)"></div>
