@@ -10,6 +10,10 @@ import {
 import { ProjectService } from "../project.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../Auth/services/auth.service";
+import { FacebookService } from "ngx-facebook";
+
+declare var $: any;
+declare var window: any;
 
 @Component({
   selector: "app-project-list",
@@ -26,10 +30,14 @@ export class ProjectListComponent implements OnInit, OnChanges {
   constructor(
     public service: ProjectService,
     public router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    public fb: FacebookService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.FB.XFBML.parse();
+    $("#likeUsOnFB").modal("show");
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.projects = changes.projects.currentValue;

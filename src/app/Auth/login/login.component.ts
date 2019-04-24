@@ -32,14 +32,13 @@ export class LoginComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private fb: FacebookService
   ) {
-    let initParams: InitParams = {
-      appId: "578025749345388",
-      xfbml: true,
-      cookie: true,
-      version: "v3.2"
-    };
-
-    fb.init(initParams);
+    // let initParams: InitParams = {
+    //   appId: "578025749345388",
+    //   xfbml: true,
+    //   cookie: true,
+    //   version: "v3.2"
+    // };
+    // fb.init(initParams);
   }
 
   ngOnInit() {

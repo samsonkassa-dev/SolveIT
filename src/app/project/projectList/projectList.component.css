@@ -34,3 +34,12 @@
 .info p {
   text-align: justify;
 }
+
+.modal-header {
+  background: #4267b2;
+}
+
+.modal-header h5,
+#times {
+  color: white;
+}
