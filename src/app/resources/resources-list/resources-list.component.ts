@@ -165,6 +165,14 @@ export class ResourcesListComponent implements OnInit {
     }
   }
 
+  onEditVideo($event) {
+    if ($event.resource) {
+      this.router.navigate(["resources/upload"], {
+        queryParams: $event.resource
+      });
+    }
+  }
+
   deleteResource(resource) {
     this.resourceService.deleteResource(resource.id).subscribe(
       res => {

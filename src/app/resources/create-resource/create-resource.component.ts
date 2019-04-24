@@ -148,28 +148,50 @@ export class CreateResourceComponent implements OnInit {
           this.updateDocumentResource(this.resource);
         }
       } else {
-        this.resource.createdAt = new Date();
-        this.resourceService.createResource(this.resource).subscribe(
-          res => {
-            this.router.navigate(["resources"]);
-            this.sharedService.addToast(
-              "Success",
-              "New Resource Added!",
-              "success"
-            );
-            this.isUploading = false;
-          },
-          err => {
-            if ((err.status = 422)) {
-              this.sharedService.addToast("", "Error occured!", "error");
+        if (!this.resource.id) {
+          this.resource.createdAt = new Date();
+          this.resourceService.createResource(this.resource).subscribe(
+            res => {
+              this.router.navigate(["resources"]);
+              this.sharedService.addToast(
+                "Success",
+                "New Resource Added!",
+                "success"
+              );
               this.isUploading = false;
+            },
+            err => {
+              if ((err.status = 422)) {
+                this.sharedService.addToast("", "Error occured!", "error");
+                this.isUploading = false;
+              }
             }
-          }
-        );
+          );
+        } else {
+          this.updateVideoResource(this.resource);
+        }
       }
     } else {
       this.markFormGroupTouched(this.resourceForm);
     }
+  }
+
+  updateVideoResource(resource) {
+    this.resourceService.updateResource(resource.id, resource).subscribe(
+      res => {
+        this.router.navigate(["resources"]);
+        this.sharedService.addToast(
+          "Success",
+          "Resource Updated Successfuly!",
+          "success"
+        );
+      },
+      err => {
+        if ((err.status = 422)) {
+          this.sharedService.addToast("", "Error occured!", "error");
+        }
+      }
+    );
   }
 
   updateDocumentResource(resource: Resource) {
