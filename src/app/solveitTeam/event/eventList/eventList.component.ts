@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { SolveitTeamService } from "../../solveitTeam.service";
 import { AuthService } from "../../../Auth/services/auth.service";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-event-list",
@@ -27,12 +27,25 @@ export class EventListComponent implements OnInit {
     this.getEventsList();
   }
 
+  limitVenue(place, venue) {
+    venue = place + ", " + venue;
+    if (venue.trim().length > 45) {
+      return venue.trim().slice(0, 45) + "...";
+    } else {
+      return venue.trim();
+    }
+  }
+
   filterByCity(city) {
-    if (city !== '') {
-      if(city.toLowerCase() === 'asa\'iyta' || city.toLowerCase() === 'dubti' || city.toLowerCase() === 'logia') {
-        city = 'semera';
-      } else if (city.toLowerCase() === 'adwa') {
-        city = 'aksum';
+    if (city !== "") {
+      if (
+        city.toLowerCase() === "asa'iyta" ||
+        city.toLowerCase() === "dubti" ||
+        city.toLowerCase() === "logia"
+      ) {
+        city = "semera";
+      } else if (city.toLowerCase() === "adwa") {
+        city = "aksum";
       }
       this.events = this.store.filter(event => {
         return event.city.toLowerCase() === city.toLowerCase();
@@ -56,13 +69,16 @@ export class EventListComponent implements OnInit {
 
   getEventsList() {
     this.spinner.show();
-    this.service.getEventsList().subscribe(res => {
-      this.events = res;
-      this.store = this.events;
-      this.spinner.hide();
-    }, error => {
-      this.spinner.hide();
-    });
+    this.service.getEventsList().subscribe(
+      res => {
+        this.events = res;
+        this.store = this.events;
+        this.spinner.hide();
+      },
+      error => {
+        this.spinner.hide();
+      }
+    );
   }
 
   viewEvent() {
