@@ -28,10 +28,7 @@ export class ProjectContainerComponent implements OnInit {
     if (userId) {
       this.service.getMyProjects(userId).subscribe(
         res => {
-          let res1 = res.filter(a => {
-            return a.title == "Voice of People";
-          });
-          res1.forEach(item => {
+          res.forEach(item => {
             this.isProjectRegisteredToCompetition(item, isEnrolled => {
               this.projects.push({ ...item, isEnrolled: isEnrolled });
             });

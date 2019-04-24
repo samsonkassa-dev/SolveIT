@@ -56,9 +56,7 @@ export class ProjectMemberList implements OnInit {
     }
     this.service.removeProjectMember({member: temp})
       .subscribe(res => {
-        console.log('removing ', temp);
         this.members.splice(this.members.indexOf(member), 1);
-        console.log(res);
         this.toggleModal(null);
         this.sharedService.addToast(
           "Success",

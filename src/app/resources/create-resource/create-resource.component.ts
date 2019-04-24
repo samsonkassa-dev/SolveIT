@@ -118,7 +118,6 @@ export class CreateResourceComponent implements OnInit {
             fileItem: FileItem,
             progress: any
           ) => {
-            console.log("progress => ", progress);
             this.progress = progress;
           };
           this.uploader.onCancelItem = (

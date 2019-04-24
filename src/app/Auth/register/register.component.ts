@@ -154,7 +154,6 @@ export class RegisterComponent implements OnInit {
     if (this.isFormValid()) {
       this.isAddressFormActive = true;
       this.user.email = this.user.email.toLowerCase();
-      console.log(this.user);
       this.isBasicFormActive = false;
     } else {
       this.markFormGroupTouched(this.registerForm);

@@ -58,7 +58,6 @@ export class ModalComponent implements OnInit {
 
   resetResource() {
     this.isClose = true;
-    console.log(this.isClose);
   }
 
   confirm() {

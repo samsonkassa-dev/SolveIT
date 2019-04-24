@@ -43,7 +43,6 @@ export class EmailConfirmationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loading = false;
-    console.log(this.loading);
   }
 
   

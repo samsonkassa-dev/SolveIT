@@ -9,7 +9,6 @@ export class AdminGuardService implements CanActivate {
   constructor(public authService: AuthService, public router: Router) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(this.authService.isAuthenticated() && this.authService.isAdmin());
     if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
       return true;
     } else {

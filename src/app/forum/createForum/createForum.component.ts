@@ -61,7 +61,6 @@ export class CreateForumComponent {
               userId: userId
             };
             this.service.addMember(member).subscribe(res2 => {
-              console.log(res2);
             });
           }
         },

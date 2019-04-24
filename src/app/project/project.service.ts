@@ -15,8 +15,7 @@ export class ProjectService {
   }
 
   getMyProjects(userId) {
-    // return this.apiService.get(`/UserAccounts/${userId}/projects`);
-    return this.apiService.get(`/Solveitprojects`);
+    return this.apiService.get(`/UserAccounts/${userId}/projects`);
   }
 
   getAllProjects() {
@@ -44,7 +43,7 @@ export class ProjectService {
         furtherInfo: data.furtherInfo
       }
     };
-    return this.apiService.post("CompetitionProjects", temp);
+    return this.apiService.post("CompetitionProjects/enroll", temp);
   }
 
   getProjectCompetitions(projectId) {

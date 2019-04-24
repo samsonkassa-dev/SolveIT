@@ -36,14 +36,12 @@ export class EventsComponent implements  OnInit {
     this.selected = view;
     if (this.selected == 'events-list') {
       setTimeout(() => {
-        console.log('inside time interval');
         this.filterByCity(this.selectedCity);
       }, 500);
     }
   }
 
   editEvent($event) {
-    console.log($event.event);
     this.event = $event.event;
     this.isEdit = true;
     this.toggleView('create-event');

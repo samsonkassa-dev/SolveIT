@@ -13,6 +13,5 @@ export class WinnerComponent {
 
   toggleView(view) {
     this.selected = view;
-    console.log(this.selected);
   }
 }

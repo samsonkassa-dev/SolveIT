@@ -19,13 +19,7 @@ export class LandingPageComponent implements OnInit {
     public http: Http
   ) {}
 
-  ngOnInit() {
-    this.http
-      .get("https://icog-solveit.com/api/Solveitprojects")
-      .subscribe(res => {
-        console.log(res.json());
-      });
-  }
+  ngOnInit() {}
 
   toggleMenu() {
     if ($("#menus").css("display") === "none") {

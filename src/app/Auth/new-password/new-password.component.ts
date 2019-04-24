@@ -29,11 +29,9 @@ export class NewPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get("key").split("-");
-    console.log(this.key);
     this.isLoading = true;
     this.authService.checkPasswordChangeRequest(this.key).subscribe(
       res => {
-        console.log(res);
         if (!res) {
           //  redirect to login
           this.isLoading = false;

@@ -17,10 +17,8 @@ export class SharedService {
 			timeout: 7000,
 			theme: 'default',
 			onAdd: (toast: ToastData) => {
-				console.log('Toast ' + toast.id + ' has been added!');
 			},
 			onRemove: function(toast: ToastData) {
-				console.log('Toast ' + toast.id + ' has been removed!');
 			}
 		};
 

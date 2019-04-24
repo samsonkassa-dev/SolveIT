@@ -86,7 +86,6 @@ export class CreateDiscussionComponent implements OnInit {
       ? this.authService.getUserId()
       : 0;
     this.discussion.forumId = this.forum.id;
-    console.log(this.discussion);
   }
 
   getTags() {
@@ -225,7 +224,6 @@ export class CreateDiscussionComponent implements OnInit {
 
   editDiscussion() {
     this.discussion["forumId"] = this.forum.id;
-    console.log(this.discussion);
     this.service.updateDiscussion(this.discussion).subscribe(
       res => {
         this.toggleDiscussionList();

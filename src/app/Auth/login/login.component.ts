@@ -133,7 +133,6 @@ export class LoginComponent implements OnInit {
     this.fb
       .login()
       .then((response: LoginResponse) => {
-        console.log(response);
         this.fb
           .api(response.authResponse.userID, "get", {
             fields:

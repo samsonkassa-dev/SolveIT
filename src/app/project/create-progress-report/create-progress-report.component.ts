@@ -145,7 +145,5 @@ export class CreateProgressReportComponent implements OnInit {
 
   handleFileSelection($event) {
     this.isFileSelected = true;
-    console.log($event);
-    console.log(this.reportForm);
   }
 }

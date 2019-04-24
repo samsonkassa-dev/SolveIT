@@ -56,7 +56,6 @@ export class CityListComponent implements OnInit {
       .subscribe(res => {
         this.cities = res;
         this.backUpcities = this.cities;
-        console.log(this.cities);
       });
   }
 

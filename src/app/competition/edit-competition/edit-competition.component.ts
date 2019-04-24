@@ -48,7 +48,6 @@ export class EditCompetitionComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.competition = changes.competition.currentValue;
-    console.log(this.competition);
   }
 
   updateCompetition() {

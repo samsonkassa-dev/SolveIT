@@ -80,7 +80,6 @@ export class ForumViewComponent implements OnInit {
 
   getForum(slung) {
     this.spinner.show();
-    console.log(slung);
     this.service.getForum(slung).subscribe(
       res => {
         if (res.Result.length === 0) {

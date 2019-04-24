@@ -37,8 +37,4 @@ export class EventViewComponent implements OnInit {
       };
     });
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //     console.log(changes);
-  // }
 }

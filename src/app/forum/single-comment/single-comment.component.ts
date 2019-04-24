@@ -84,7 +84,6 @@ export class SingleCommentComponent implements OnInit {
 
   formatComment(comment) {
     if (comment.indexOf("\n") !== -1) {
-      console.log("break found");
       const temp = comment.split("\n");
       for (let i = 0; i < temp.length; i++) {
         const sentence = temp[i];
@@ -98,7 +97,6 @@ export class SingleCommentComponent implements OnInit {
       }
       return temp.join("<br>");
     } else {
-      console.log("not break");
       if (
         comment.indexOf("http://") !== -1 ||
         comment.indexOf("www.") !== -1 ||
