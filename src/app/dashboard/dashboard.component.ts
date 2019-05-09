@@ -27,11 +27,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isAdmin() || this.authService.isSolveitManager()) {
-      this.router.navigate(['dashboard/users']);
-    } else {
-      this.router.navigate(['dashboard/competitions']);
-    }
+    // if (this.authService.isAdmin() || this.authService.isSolveitManager()) {
+    //   this.router.navigate(['dashboard/users']);
+    // } else {
+    //   this.router.navigate(['dashboard/competitions']);
+    // }
     this.authService
       .getUserInfo(this.authService.getUserId())
       .subscribe(res => {
@@ -42,5 +42,4 @@ export class DashboardComponent implements OnInit {
         ? this.views[0]
         : this.views[1];
   }
-
 }
