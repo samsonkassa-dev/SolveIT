@@ -131,6 +131,11 @@ export class ProjectViewComponent implements OnInit {
     this.selectedProgressReport = null;
   }
 
+  backToCompetitionProjects() {
+    let temp = window.localStorage.getItem("competitionId");
+    this.router.navigate([`dashboard/competitions/${temp}`]);
+  }
+
   isProjectRegisteredToCompetition() {
     this.service.getProjectCompetitions(this.project.id).subscribe(res => {
       if (res.length == 0) {

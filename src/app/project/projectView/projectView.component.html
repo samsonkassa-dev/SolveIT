@@ -33,6 +33,16 @@
           <span class="icon"><i class="fa fa-pencil-square"></i></span> Edit
           Project
         </li>
+        <li
+          (click)="backToCompetitionProjects()"
+          *ngIf="
+            authService.isAdmin() ||
+            authService.isSolveitManager() ||
+            authService.isSolveitTeam()
+          "
+        >
+          <span class="icon"><i class="fa fa-arrow-left"></i></span> Back
+        </li>
       </ul>
     </div>
     <div class="col-md-8 project-content">

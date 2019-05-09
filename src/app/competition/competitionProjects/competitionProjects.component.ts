@@ -36,6 +36,10 @@ export class CompetitionProjectsComponent implements OnInit {
   ngOnInit() {
     this.getProjects();
     this.getCompetition();
+    window.localStorage.setItem(
+      "competitionId",
+      this.route.snapshot.params["id"]
+    );
     // this.getCities();
   }
 
@@ -57,7 +61,8 @@ export class CompetitionProjectsComponent implements OnInit {
       this.spinner.show();
       this.userService.getAssignedCities(user.userId).subscribe(
         res => {
-          const assignedCities = res[0];
+          const assignedCities =
+            !res.error && res.length !== 0 ? res[0] : { cities: [] };
           const competitionProjects = this.service.getProjects(
             this.competitionId
           );
