@@ -1,7 +1,17 @@
 form {
   width: 50%;
   margin: 5em auto;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1em;
+}
+
+h5 {
+  margin-top: 2em;
+}
+
+#resource-form {
+  width: 70%;
+  margin: auto;
   padding: 1em;
 }
 
@@ -15,8 +25,6 @@ form {
   form {
     width: 100%;
     margin: 2em auto;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1em;
   }
 }
 
@@ -30,15 +38,7 @@ form {
   form {
     width: 100%;
     margin: 2em auto;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1em;
   }
-}
-
-#resource-form {
-  width: 50%;
-  margin: auto;
-  padding: 1em;
 }
 
 .form-group {

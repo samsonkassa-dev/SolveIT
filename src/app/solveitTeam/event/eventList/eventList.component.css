@@ -28,6 +28,7 @@
 
 #event {
   cursor: pointer;
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 .events-pagination {

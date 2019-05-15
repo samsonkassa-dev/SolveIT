@@ -1398,3 +1398,8 @@ header {
 select {
   -moz-appearance: none;
 }
+
+/* body */
+body {
+  background: #fafafa;
+}

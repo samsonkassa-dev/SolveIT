@@ -5,7 +5,7 @@
 .header h4 {
   float: left;
   margin-right: 4em;
-  padding: 2px
+  padding: 2px;
 }
 
 .header button {
@@ -14,7 +14,7 @@
 
 #project-list-header {
   margin-bottom: 2em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .header h4 {
@@ -24,15 +24,14 @@
 }
 
 .widget {
-  margin: .5em;
+  margin: 0.5em;
 }
 
 select {
-  background: #fff;
+  background: #fafafa;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 1em;
-  /*margin-top: 1em;*/
+  padding: 1em 3em;
 }
 
 /*
@@ -46,7 +45,6 @@ select {
     margin-top: -1em;
   }
 }
-
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
