@@ -1,109 +1,95 @@
 <app-header></app-header>
 
-<div id="registration-form">
-  <!-- Section-header -->
+<div class="login-container">
   <div class="section-header text-center">
     <img src="../../../assets/img/solveit-logo12.png" alt="" />
   </div>
-  <!-- /Section-header -->
-
-  <div class="row">
-    <div class="col-sm-7">
-      <div class="title-container"><h5 class="title">Sign In</h5></div>
-      <div class="login-error" *ngIf="loginError">
-        <p>{{ loginErrorMsg }}</p>
+  <form [formGroup]="loginForm">
+    <div class="input-field">
+      <input
+        class="input"
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+        [(ngModel)]="user.email"
+        [class.err]="
+          loginForm.controls.email.invalid && loginForm.controls.email.touched
+        "
+        email
+        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.email.touched &&
+          loginForm.controls.email.errors?.required
+        "
+      >
+        <p>* Email is required.</p>
       </div>
-
-      <form [formGroup]="loginForm">
-        <div class="input-field">
-          <input
-            class="input"
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-            [(ngModel)]="user.email"
-            [class.err]="
-              loginForm.controls.email.invalid &&
-              loginForm.controls.email.touched
-            "
-            email
-            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
-          />
-          <div
-            class="error-message"
-            *ngIf="
-              loginForm.controls.email.touched &&
-              loginForm.controls.email.errors?.required
-            "
-          >
-            <p>* Email is required.</p>
-          </div>
-          <div
-            class="error-message"
-            *ngIf="
-              loginForm.controls.email.touched &&
-              loginForm.controls.email.errors?.pattern
-            "
-          >
-            <p>* invalid email address.</p>
-          </div>
-        </div>
-        <div class="input-field">
-          <input
-            class="input"
-            type="password"
-            placeholder="Password"
-            formControlName="password"
-            [(ngModel)]="user.password"
-            [class.err]="
-              loginForm.controls.password.invalid &&
-              loginForm.controls.password.touched
-            "
-          />
-          <div
-            class="error-message"
-            *ngIf="
-              loginForm.controls.password.invalid &&
-              loginForm.controls.password.touched
-            "
-          >
-            <p>Password is required!</p>
-          </div>
-        </div>
-        <div class="forget-password">
-          <a routerLink="/forget-password">Forget Password ?</a>
-        </div>
-        <div class="login-btn">
-          <button (click)="onLogin()" type="submit" class="main-btn">
-            Login
-            <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
-          </button>
-          <span>Or</span>
-          <button (click)="loginWithFB()" class="loginBtn loginBtn--facebook">
-            Login with Facebook
-          </button>
-        </div>
-      </form>
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.email.touched &&
+          loginForm.controls.email.errors?.pattern
+        "
+      >
+        <p>* invalid email address.</p>
+      </div>
     </div>
-    <div class="col-sm-5">
-      <br /><br />
-      <br /><br />
-      <div class="login-link">
-        <h4>Don't have an account yet ?</h4>
-        <a routerLink="/register" class="btn main-btn">SignUp here.</a> Or
-        <br />
-        <button (click)="signupWithFB()" class="loginBtn loginBtn--facebook">
-          SignUp with Facebook
-        </button>
+    <div class="input-field">
+      <input
+        class="input"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        [(ngModel)]="user.password"
+        [class.err]="
+          loginForm.controls.password.invalid &&
+          loginForm.controls.password.touched
+        "
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.controls.password.invalid &&
+          loginForm.controls.password.touched
+        "
+      >
+        <p>Password is required!</p>
       </div>
+    </div>
+    <div class="forget-password">
+      <a routerLink="/forget-password">Forget Password ?</a>
+    </div>
+    <div class="login-btn">
+      <button (click)="onLogin()" type="submit" class="main-btn">
+        Login
+        <span *ngIf="isLoading"><i class="fa fa-spinner fa-spin"></i></span>
+      </button>
+      <span class="or-span">Or</span>
+      <button (click)="loginWithFB()" class="loginBtn loginBtn--facebook">
+        Login with Facebook
+      </button>
+    </div>
+  </form>
+  <div class="divider"></div>
+  <div class="register-info">
+    <p>Don't have account yet ?</p>
+    <div class="login-btn">
+      <a routerLink="/register" class="btn outline-btn">SignUp</a>
+      <span class="or-span">Or</span>
+      <button (click)="signupWithFB()" class="loginBtn loginBtn--facebook">
+        SignUp with Facebook
+      </button>
     </div>
   </div>
+  <ngx-spinner
+    bdColor="rgba(51, 51, 51, 0.8)"
+    size="medium"
+    color="#2ba692"
+    type="ball-triangle-path"
+  >
+    <p style="font-size: 20px; color: white">Loading ...</p>
+  </ngx-spinner>
 </div>
-<ngx-spinner
-  bdColor="rgba(51, 51, 51, 0.8)"
-  size="medium"
-  color="#2ba692"
-  type="ball-triangle-path"
->
-  <p style="font-size: 20px; color: white">Loading ...</p>
-</ngx-spinner>
