@@ -46,9 +46,9 @@
 #detail-menu {
   margin-right: 1.5em;
   padding: 1em;
-  -webkit-box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
-  -moz-box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
-  box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
+  -webkit-box-shadow: 2px 4px 9px -4px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 2px 4px 9px -4px rgba(0, 0, 0, 0.12);
+  box-shadow: 2px 4px 9px -4px rgba(0, 0, 0, 0.12);
 }
 
 .menu-title {
@@ -120,8 +120,8 @@ tr {
 .discussion-footer ul li {
   float: left;
   padding-right: 1em;
-  border-right: 1px solid;
-  margin-right: 1em;
+  border-right: 0.5px solid;
+  margin-right: 0.5em;
   font-style: italic;
   font-size: 0.8em;
   background: #f7f5f5;
@@ -134,4 +134,41 @@ tr {
 
 i {
   color: #2ba692;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .forum-detail-side-menu {
+    margin-bottom: 2em;
+  }
+  .discussion-footer ul li {
+    float: none;
+    padding-right: 1em;
+    border-right: none;
+    margin-right: 0em;
+    font-style: italic;
+    font-size: 0.8em;
+    background: #f7f5f5;
+    padding: 0.4em;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  forum-detail-side-menu {
+    margin-bottom: 2em;
+  }
+  .discussion-footer ul li {
+    float: none;
+    padding-right: 1em;
+    margin-right: 0em;
+    border-right: none;
+    font-style: italic;
+    font-size: 0.8em;
+    background: #f7f5f5;
+    padding: 0.4em;
+  }
 }

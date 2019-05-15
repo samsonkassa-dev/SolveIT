@@ -2,41 +2,49 @@
   margin-top: 3.5em;
 }
 
-.header h4 {
-  float: left;
-  margin-right: 4em;
-  padding: 2px;
-}
-
-.header button {
-  float: left;
-}
-
 #project-list-header {
   margin-bottom: 2em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.header h4 {
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  background: #e3e3e352;
-  padding: 1em 2em 1em 1em;
-}
-
-.header .active {
-  padding: 0 1em 0 0;
-  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .button-active {
   color: #e4b1b1;
 }
 
+.container {
+  margin-bottom: 8em;
+}
+
+.left {
+  margin-bottom: -4em;
+}
+
+.right > button,
 #aside {
   float: right;
 }
 
-.container {
-  margin-bottom: 8em;
+.left > p {
+  float: left;
+  font-size: 1.1em;
+  padding: 0.6em;
+  cursor: pointer;
+}
+
+.left > p:hover {
+  background: #f4f4f4;
+}
+
+.left > p:first-child,
+#aside {
+  margin-right: 2em;
+}
+
+.divider {
+  clear: both;
+}
+
+.active {
+  border-bottom: 1px solid #2ba692;
+  color: #2ba692;
 }

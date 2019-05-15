@@ -911,7 +911,7 @@ header {
   opacity: 1;
 }
 .blog {
-  background-color: #fff;
+  background-color: #fafafa;
   margin: 15px 0;
 }
 .blog .blog-content {
@@ -948,7 +948,7 @@ header {
   padding: 6px 13px;
   font-size: 14px;
   margin: 2px 0;
-  background: #f4f4f4;
+  background: #e2e2e2;
   color: #10161a;
 }
 .blog-author .media .media-left,
@@ -1318,7 +1318,7 @@ header {
   top: 0;
   bottom: 0;
   right: 0;
-  background-color: #fff;
+  background-color: #fafafa;
   z-index: 99999;
 }
 .preloader {
@@ -1400,6 +1400,9 @@ select {
 }
 
 /* body */
-body {
+body,
+select,
+input,
+textarea {
   background: #fafafa;
 }
