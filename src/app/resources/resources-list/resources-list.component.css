@@ -128,3 +128,7 @@ select {
   border: 1px solid rgba(0, 0, 0, 0.05);
   margin-right: 0.5em;
 }
+
+#file-container {
+  margin-bottom: 1.5em;
+}
