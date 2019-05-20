@@ -8,20 +8,6 @@
   font-size: 1.5em;
 }
 
-.no-resource-found {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 50%;
-  margin: 10em auto;
-  padding: 3em;
-}
-
-.no-resource-found p {
-  font-size: 1.5em;
-}
 #event-list-container {
   margin-bottom: 20%;
 }

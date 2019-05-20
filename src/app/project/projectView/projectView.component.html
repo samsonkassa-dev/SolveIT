@@ -118,10 +118,10 @@
               <div *ngIf="progressReports.length == 0">
                 <div class="not-found">
                   <div class="no-resource-found">
-                    <p>
-                      <i class="fa  fa-frown-o"></i> You haven't uploaded any
-                      report, yet.
-                    </p>
+                    <app-not-found
+                      message="You haven't uploaded any
+                    report, yet."
+                    ></app-not-found>
                     <button
                       class="outline-btn"
                       (click)="toggleUploadReport(true)"

@@ -3,6 +3,20 @@ img {
   margin-top: 1em;
 }
 
+.validation-msgs {
+  margin-top: 2em;
+}
+
+.input-group-addon {
+  background: #2ba692;
+  border: none;
+  color: #ffffff;
+}
+
+.err-icon {
+  background: #ec4643;
+}
+
 .input-field > input {
   margin-bottom: 2em;
 }
@@ -14,6 +28,9 @@ img {
 .error-message > p {
   font-size: 0.8em;
   color: #ec4643;
+  text-align: center;
+  background: #fde8e8;
+  padding: 1em;
 }
 
 .err {
@@ -22,18 +39,30 @@ img {
 
 .login-btn {
   margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forget-password,
+.register-info {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .forget-password > a,
-.register-info > p {
+.register-info > a {
   text-decoration: underline;
   padding: 0.5em;
   color: #2ba692;
+  text-align: center;
 }
 
 .divider {
   margin: 2em auto;
-  border-bottom: solid 0.5px #e3e3e3;
+  border-bottom: solid 1px #e3e3e3;
 }
 
 /*

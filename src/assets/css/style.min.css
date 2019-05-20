@@ -1406,3 +1406,13 @@ input,
 textarea {
   background: #fafafa;
 }
+
+/* table style */
+
+thead > tr:first-child {
+  background: #e3e3e3;
+}
+
+.dropdown > .outline-btn {
+  border-color: #2ba6924d;
+}

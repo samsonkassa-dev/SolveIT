@@ -4,6 +4,7 @@
     <div class="input-field" style="margin-top: 1em">
       <select
         name="role"
+        class="form-control"
         id="role"
         [(ngModel)]="competitionWinner.competitionId"
         formControlName="competition"
@@ -27,6 +28,7 @@
     </div>
     <div class="input-field" style="margin-top: 1em">
       <select
+        class="form-control"
         name="role"
         id="role"
         [(ngModel)]="competitionWinner.projectId"
@@ -34,11 +36,12 @@
       >
         <option selected value="">Select Project</option>
         <ng-container *ngFor="let project of projects">
-            <option *ngIf="project.solveitproject" value="{{project.solveitproject.id}}">{{
-                project.solveitproject.title
-              }}</option>
+          <option
+            *ngIf="project.solveitproject"
+            value="{{project.solveitproject.id}}"
+            >{{ project.solveitproject.title }}</option
+          >
         </ng-container>
-        
       </select>
       <div
         class="error-message"

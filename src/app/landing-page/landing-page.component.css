@@ -48,7 +48,6 @@ ul.dropdown1 {
   padding: 1.5em;
 }
 
-
 /*
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
@@ -80,22 +79,4 @@ ul.dropdown1 {
   ul.dropdown1 {
     margin: 3em 4em 0 0;
   }
-}
-
-/*
-  ##Device = Low Resolution Tablets, Mobiles (Landscape)
-  ##Screen = B/w 481px to 767px
-*/
-
-@media (min-width: 481px) and (max-width: 767px) {
-
-}
-
-/*
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
-
-@media (min-width: 320px) and (max-width: 480px) {
-
 }

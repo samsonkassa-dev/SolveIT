@@ -13,7 +13,7 @@
     <div class="form-group">
       <input
         type="text"
-        class="inpu"
+        class="form-control"
         name="title"
         placeholder="Name"
         formControlName="title"
@@ -36,7 +36,7 @@
     <div class="form-group">
       <textarea
         placeholder="Description"
-        class="input "
+        class="form-control "
         [class.err]="
           resourceForm.controls.description.invalid &&
           resourceForm.controls.description.touched
@@ -60,8 +60,8 @@
         style="width: 100%"
         name="type"
         id="type"
+        class="form-control"
         formControlName="category"
-        class=""
         [(ngModel)]="resource.category"
         [class.err]="
           resourceForm.controls.category.invalid &&
@@ -91,7 +91,7 @@
         name="type"
         id="type"
         formControlName="type"
-        class=""
+        class="form-control"
         [(ngModel)]="resource.type"
         [class.err]="
           resourceForm.controls.type.invalid &&
@@ -116,7 +116,7 @@
       <input
         *ngIf="resource.type === 'video'"
         type="text"
-        class="input "
+        class="form-control"
         name="url"
         placeholder="Video Url"
         formControlName="url"

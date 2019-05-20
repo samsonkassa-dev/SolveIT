@@ -12,7 +12,7 @@
         <div class="widget">
           <div class="widget-search">
             <input
-              class="search-input"
+              class="search-input form-control"
               type="text"
               placeholder="search"
               [(ngModel)]="keyword"
@@ -24,13 +24,21 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="widget">
           <div class="widget-search">
-            <select name="city" id="city" [(ngModel)]="selectedCity" (change)="filterByCity()">
+            <select
+              name="city"
+              class="form-control"
+              id="city"
+              [(ngModel)]="selectedCity"
+              (change)="filterByCity()"
+            >
               <option value="">Filter By City</option>
               <option value="">All</option>
-              <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+              <option *ngFor="let city of cities" value="{{city.id}}">{{
+                city.name
+              }}</option>
             </select>
           </div>
         </div>
@@ -57,7 +65,11 @@
           (click)="viewProject(project.solveitproject)"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ project.solveitproject  ? project.solveitproject.title : "Unknown" }}</td>
+          <td>
+            {{
+              project.solveitproject ? project.solveitproject.title : "Unknown"
+            }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -79,13 +91,10 @@
 </div>
 
 <ngx-spinner
-  bdColor = "rgba(51, 51, 51, 0.8)"
-  size = "medium"
-  color = "#2ba692"
-  type = "ball-triangle-path"
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="medium"
+  color="#2ba692"
+  type="ball-triangle-path"
 >
   <p style="font-size: 20px; color: white">Loading ...</p>
-
 </ngx-spinner>
-
-

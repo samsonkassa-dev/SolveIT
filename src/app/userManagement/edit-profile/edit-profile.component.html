@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="input-field">
           <input
-            class="input "
+            class="form-control"
             type="text"
             name="firstName"
             formControlName="firstName"
@@ -23,7 +23,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="middleName"
             formControlName="middleName"
@@ -42,7 +42,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="lastname"
             formControlName="lastName"
@@ -61,7 +61,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="username"
             formControlName="username"
@@ -85,7 +85,7 @@
           <span class="input-group-addon"><b>+251</b></span>
           <input
             type="tel"
-            class="input"
+            class="form-control"
             placeholder="Phone Number"
             name="phoneNumber"
             formControlName="phoneNumber"
@@ -117,7 +117,6 @@
             [owlDateTime]="dt2"
             [owlDateTimeTrigger]="dt2"
             placeholder="Birth Date"
-            class="input"
             id="age"
             name="age"
             id="age"
@@ -129,8 +128,7 @@
           <div
             class="error-message"
             *ngIf="
-              formGroup.controls.age.invalid &&
-              formGroup.controls.age.touched
+              formGroup.controls.age.invalid && formGroup.controls.age.touched
             "
           >
             <p>* Birth date is required.</p>
@@ -138,6 +136,7 @@
         </div>
         <div class="input-field">
           <select
+            class="form-control"
             name="sex"
             id="sex"
             [(ngModel)]="user.gender"
@@ -150,17 +149,25 @@
           <div
             class="error-message"
             *ngIf="
-              formGroup.controls.sex.invalid &&
-              formGroup.controls.sex.touched
+              formGroup.controls.sex.invalid && formGroup.controls.sex.touched
             "
           >
             <p>* Gender is required.</p>
           </div>
         </div>
         <div class="input-field">
-          <select name="region" id="region" formControlName="region" [(ngModel)]="regionId" (change)="onRegionChange()">
+          <select
+            class="form-control"
+            name="region"
+            id="region"
+            formControlName="region"
+            [(ngModel)]="regionId"
+            (change)="onRegionChange()"
+          >
             <option value="">Select Your region</option>
-            <option *ngFor="let region of regions" value="{{region.id}}">{{region.name.toUpperCase()}}</option>
+            <option *ngFor="let region of regions" value="{{region.id}}">{{
+              region.name.toUpperCase()
+            }}</option>
           </select>
           <div
             class="error-message"
@@ -173,15 +180,23 @@
           </div>
         </div>
         <div class="input-field">
-          <select name="city" id="city" formControlName="city" [(ngModel)]="user.cityId" (change)="onCityChange()">
+          <select
+            class="form-control"
+            name="city"
+            id="city"
+            formControlName="city"
+            [(ngModel)]="user.cityId"
+            (change)="onCityChange()"
+          >
             <option value="">Select Your City</option>
-            <option *ngFor="let city of cities" value="{{city.id}}">{{city.name.toUpperCase()}}</option>
+            <option *ngFor="let city of cities" value="{{city.id}}">{{
+              city.name.toUpperCase()
+            }}</option>
           </select>
           <div
             class="error-message"
             *ngIf="
-              formGroup.controls.city.invalid &&
-              formGroup.controls.city.touched
+              formGroup.controls.city.invalid && formGroup.controls.city.touched
             "
           >
             <p>* City is required.</p>
@@ -206,11 +221,10 @@
 
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
 <ngx-spinner
-  bdColor = "rgba(51, 51, 51, 0.8)"
-  size = "medium"
-  color = "#2ba692"
-  type = "ball-triangle-path"
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="medium"
+  color="#2ba692"
+  type="ball-triangle-path"
 >
   <p style="font-size: 20px; color: white">Loading ...</p>
-
 </ngx-spinner>

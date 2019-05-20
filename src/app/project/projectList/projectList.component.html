@@ -53,9 +53,9 @@
 
   <div class="not-found">
     <div class="no-resource-found" *ngIf="projects.length === 0">
-      <p>
-        <i class="fa  fa-frown-o"></i> You haven't created any project, yet.
-      </p>
+      <app-not-found
+        message="You haven't created any project, yet."
+      ></app-not-found>
     </div>
   </div>
 

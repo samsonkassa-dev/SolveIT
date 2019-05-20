@@ -39,7 +39,10 @@ input {
   border-color: #ec4643;
 }
 
-select, #gender, #city, #region {
+select,
+#gender,
+#city,
+#region {
   padding: 0.5em;
   background: white;
   width: 100%;
@@ -179,4 +182,8 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profile-head .nav-tabs .nav-link.active {
+  border-botom: 1px solid #2ba692;
 }

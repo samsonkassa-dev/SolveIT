@@ -1,7 +1,10 @@
 <div class="discussions">
   <h4 class="title">BlackListed Discussions</h4>
   <div class="no-discussion" *ngIf="discussions.length == 0">
-    <p><i class="fa fa-frown-o"></i> You have no BlackListed discussions.</p>
+    <app-not-found
+      message=" You have no BlackListed discussions."
+      type="fetch"
+    ></app-not-found>
   </div>
 
   <table class="table" *ngIf="discussions.length > 0">

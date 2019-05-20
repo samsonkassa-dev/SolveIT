@@ -86,7 +86,7 @@
               <div class="widget">
                 <div class="widget-search">
                   <input
-                    class="search-input"
+                    class="search-input form-control"
                     type="text"
                     placeholder="search"
                     [(ngModel)]="keyword"
@@ -109,14 +109,11 @@
         </div>
         <div>
           <div *ngIf="selected == 'discussion-list'" class="row content">
-            <div class="pinned-discussions">
+            <div
+              class="pinned-discussions"
+              *ngIf="pinnedDiscussions.length > 0"
+            >
               <h4 class="title">Favorite Discussions</h4>
-              <div class="no-discussion" *ngIf="pinnedDiscussions.length == 0">
-                <p>
-                  <i class="fa fa-frown-o"></i> You have no favorite
-                  discussions.
-                </p>
-              </div>
               <div *ngIf="pinnedDiscussions.length > 0">
                 <div
                   class="discussion-container"
@@ -133,7 +130,7 @@
                       {{ discussion.title.trim() }}
                     </h4>
                     <p *ngIf="discussion.user">
-                      <i class="fa fa-user"></i> &nbsp; By &nbsp;{{
+                      <i class="fa fa-user"></i> &nbsp;{{
                         discussion.user.username
                       }}
                     </p>
@@ -167,8 +164,17 @@
             </div>
             <div class="discussions">
               <h4 class="title">Discussions</h4>
-              <div class="no-discussion" *ngIf="discussions.length == 0">
-                <p><i class="fa fa-frown-o"></i> You have no discussions.</p>
+              <div class="no-discussion">
+                <app-not-found
+                  *ngIf="allDiscussions && allDiscussions.length == 0"
+                  message="No discussions found!"
+                  type="fetch"
+                ></app-not-found>
+                <app-not-found
+                  *ngIf="discussions.length == 0 && keyword !== ''"
+                  message="No discussions found for '{{keyword}}'"
+                  type="search"
+                ></app-not-found>
               </div>
 
               <div *ngIf="discussions.length > 0">
@@ -188,7 +194,7 @@
                       {{ discussion.title }}
                     </h4>
                     <p>
-                      <i class="fa fa-user"></i> &nbsp; By &nbsp;{{
+                      <i class="fa fa-user"></i> &nbsp;{{
                         discussion.user.username
                       }}
                     </p>

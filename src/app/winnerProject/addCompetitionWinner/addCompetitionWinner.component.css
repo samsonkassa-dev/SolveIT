@@ -1,7 +1,7 @@
 form {
   width: 90%;
   margin: auto;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 2em;
 }
 
@@ -20,12 +20,6 @@ form {
 .input-field,
 .input-group {
   margin-bottom: 2em;
-}
-
-select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 #resource-form select {

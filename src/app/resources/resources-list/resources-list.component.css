@@ -28,7 +28,7 @@ select {
 }
 
 #videos {
-  margin-top: -10em;
+  margin-top: -6em;
 }
 
 #category {
@@ -39,16 +39,16 @@ select {
 }
 
 .no-resource-found {
-  padding: 2em;
-  border: 1px solid #a29a9a;
-  width: 60%;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
 }
 
-.no-resource-found p {
-  font-size: 1em;
-  text-transform: capitalize;
+.no-resource-found i {
   text-align: center;
+  font-size: 1em;
+  cursor: pointer;
 }
 
 #upload-btn:focus {

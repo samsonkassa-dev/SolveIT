@@ -68,7 +68,11 @@ export class LoginComponent implements OnInit {
         },
         error1 => {
           this.loginError = true;
-          this.loginErrorMsg = "Incorrect email or password.";
+          if (error1.status === 500) {
+            this.loginErrorMsg = "User not found!";
+          } else {
+            this.loginErrorMsg = "Incorrect email or password.";
+          }
           this.isLoading = false;
           this.spinner.hide();
         }

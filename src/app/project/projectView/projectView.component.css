@@ -3,25 +3,23 @@
 }
 
 .menu-container {
-
 }
 
 .project-menu {
   margin-right: 1.5em;
   padding: 1em;
-  -webkit-box-shadow: 4px 8px 26px -6px rgba(0,0,0,0.46);
-  -moz-box-shadow: 4px 8px 26px -6px rgba(0,0,0,0.46);
-  box-shadow: 4px 8px 26px -6px rgba(0,0,0,0.46);
+  -webkit-box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
+  box-shadow: 4px 8px 26px -6px rgba(0, 0, 0, 0.46);
 }
 
-.project-content{
-
+.project-content {
 }
 
 li {
-  padding: .5em;
+  padding: 0.5em;
   cursor: pointer;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 li:hover {
@@ -31,7 +29,7 @@ li:hover {
 }
 
 .selected {
-  color: #2BA692;
+  color: #2ba692;
 }
 
 #progress-report-heading {
@@ -43,7 +41,8 @@ li:hover {
   margin-top: 0.5em;
 }
 
-#upload-progress-report, #show-progress-report {
+#upload-progress-report,
+#show-progress-report {
   float: right;
 }
 
@@ -58,20 +57,25 @@ li:hover {
 
 .project-profile {
   padding: 1em;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-#label, #status-label, #proposal-label {
+#label,
+#status-label,
+#proposal-label {
   float: left;
   margin-right: 2em;
   clear: both;
 }
-#description, #status-description, #proposal-description{
+#description,
+#status-description,
+#proposal-description {
   float: left;
 }
 
-#enroll, #download {
-  color: #2BA692;
+#enroll,
+#download {
+  color: #2ba692;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -81,10 +85,8 @@ li:hover {
   align-items: center;
   align-content: center;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   width: 50%;
   margin: 10em auto;
-  padding: 3em;
 }
 
 .service {
@@ -92,15 +94,15 @@ li:hover {
 }
 
 .service:hover {
-  -webkit-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
-  -moz-box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
-  box-shadow: 14px 13px 26px -12px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 14px 13px 26px -12px rgba(0, 0, 0, 0.75);
 }
 
 .service:hover h3 {
-  color: #2BA692;
+  color: #2ba692;
 }
 
 .icon {
-  margin-right: .5em;
+  margin-right: 0.5em;
 }

@@ -35,7 +35,7 @@ select {
 }
 
 .project-items:hover {
-  background: #e3e3e3;
+  background: #f4f4f4;
 }
 
 table {
@@ -47,4 +47,13 @@ table {
     width: 90%;
     margin: auto;
   }
+}
+
+tbody > tr > td:nth-child(2),
+thead > tr > th:nth-child(2) {
+  text-align: left;
+}
+
+.widget-search select {
+  margin-top: 0.3em;
 }

@@ -8,10 +8,8 @@
   align-items: center;
   align-content: center;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   width: 90%;
   margin: auto auto 8em auto;
-  padding: 2em;
 }
 
 .competetion-list {
@@ -25,8 +23,8 @@
   cursor: pointer;
 }
 
-.competition-row:hover {
-  background: #e3e3e3;
+tbody > tr:hover {
+  background: #f4f4f4;
 }
 
 .table > tbody > tr > td,

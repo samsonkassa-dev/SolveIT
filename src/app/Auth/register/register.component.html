@@ -15,7 +15,7 @@
       <div class="col-md-6">
         <div class="input-field">
           <input
-            class="input "
+            class="form-control"
             type="text"
             name="firstName"
             formControlName="firstName"
@@ -34,7 +34,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="middleName"
             formControlName="middleName"
@@ -53,7 +53,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="lastname"
             formControlName="lastName"
@@ -72,7 +72,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="email"
             name="email"
             formControlName="email"
@@ -111,7 +111,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="text"
             name="username"
             formControlName="username"
@@ -135,7 +135,7 @@
           <span class="input-group-addon"><b>+251</b></span>
           <input
             type="tel"
-            class="input"
+            class="form-control"
             placeholder="Phone Number"
             name="phoneNumber"
             formControlName="phoneNumber"
@@ -167,7 +167,6 @@
             [owlDateTime]="dt2"
             [owlDateTimeTrigger]="dt2"
             placeholder="Birth Date (M / D / YYYY)"
-            class="input"
             id="age"
             name="age"
             id="age"
@@ -190,6 +189,7 @@
           <select
             name="sex"
             id="sex"
+            class="form-control"
             [(ngModel)]="user.gender"
             formControlName="sex"
           >
@@ -211,6 +211,7 @@
           <select
             name="educationLevel"
             id="educationLevel"
+            class="form-control"
             [(ngModel)]="user.educationLevel"
             formControlName="educationLevel"
           >
@@ -234,7 +235,7 @@
             type="text"
             name="otherEducationLevel"
             id="otherEducationLevel"
-            class="input"
+            class="form-control"
             placeholder="Other Education Level"
             [(ngModel)]="extraParams.otherEducationLevel"
             formControlName="otherEducationLevel"
@@ -254,6 +255,7 @@
           <select
             name="status"
             id="status"
+            class="form-control"
             [(ngModel)]="user.workStatus"
             formControlName="status"
           >
@@ -277,7 +279,7 @@
             type="text"
             name="otherStatus"
             id="otherStatus"
-            class="input"
+            class="form-control"
             placeholder="Other Status"
             [(ngModel)]="extraParams.otherStatus"
             formControlName="otherStatus"
@@ -300,7 +302,7 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="password"
             name="password"
             formControlName="password"
@@ -329,7 +331,7 @@
         </div>
         <div class="input-field">
           <input
-            class="input"
+            class="form-control"
             type="password"
             name="rePassword"
             formControlName="rePassword"

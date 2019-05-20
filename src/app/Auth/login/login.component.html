@@ -4,11 +4,24 @@
   <div class="section-header text-center">
     <img src="../../../assets/img/solveit-logo12.png" alt="" />
   </div>
+
+  <div *ngIf="loginError" class="error-message">
+    <p>{{ loginErrorMsg }}</p>
+  </div>
+
   <form [formGroup]="loginForm">
-    <div class="input-field">
+    <div class="input-group">
+      <span
+        class="input-group-addon"
+        [class.err-icon]="
+          loginForm.controls.email.invalid && loginForm.controls.email.touched
+        "
+        ><i class="fa fa-envelope"></i
+      ></span>
       <input
-        class="input"
         type="email"
+        class="form-control"
+        aria-describedby="basic-addon1"
         placeholder="Email"
         formControlName="email"
         [(ngModel)]="user.email"
@@ -18,6 +31,9 @@
         email
         pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
       />
+    </div>
+
+    <div class="validation-msgs">
       <div
         class="error-message"
         *ngIf="
@@ -37,9 +53,17 @@
         <p>* invalid email address.</p>
       </div>
     </div>
-    <div class="input-field">
+
+    <div class="input-group">
+      <span
+        class="input-group-addon"
+        [class.err-icon]="
+          loginForm.controls.email.invalid && loginForm.controls.email.touched
+        "
+        ><i class="fa  fa-key"></i
+      ></span>
       <input
-        class="input"
+        class="form-control"
         type="password"
         placeholder="Password"
         formControlName="password"
@@ -49,6 +73,8 @@
           loginForm.controls.password.touched
         "
       />
+    </div>
+    <div class="validation-msgs">
       <div
         class="error-message"
         *ngIf="
@@ -56,7 +82,7 @@
           loginForm.controls.password.touched
         "
       >
-        <p>Password is required!</p>
+        <p>* Password is required!</p>
       </div>
     </div>
     <div class="forget-password">
@@ -75,8 +101,8 @@
   </form>
   <div class="divider"></div>
   <div class="register-info">
-    <p>Don't have account yet ?</p>
-    <div class="login-btn">
+    <a href="#signupButtons">Don't have account yet ?</a>
+    <div class="login-btn" id="signupButtons">
       <a routerLink="/register" class="btn outline-btn">SignUp</a>
       <span class="or-span">Or</span>
       <button (click)="signupWithFB()" class="loginBtn loginBtn--facebook">

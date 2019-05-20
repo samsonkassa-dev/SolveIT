@@ -1,26 +1,32 @@
 <div class="forum-list">
   <div class="not-found">
     <div class="no-resource-found" *ngIf="forums.length == 0 && keyword == ''">
-      <p *ngIf="selected == 'forum-list-private'">
-        <i class="fa  fa-frown-o"></i> Sorry, no one has added you to a Private
+      <div *ngIf="selected == 'forum-list-private'">
+        <i class="fa  fa-frown-o"></i>
+        <app-not-found
+          message="Sorry, no one has added you to a Private
         Forum. Please make sure that you are included in the forum you are
-        looking for.
-      </p>
+        looking for."
+          type="fetch"
+        ></app-not-found>
+      </div>
 
-      <p *ngIf="selected == 'forum-list-public'">
-        <i class="fa  fa-frown-o"></i> There are no forums created, yet.
-      </p>
+      <div *ngIf="selected == 'forum-list-public'">
+        <app-not-found
+          message="There are no forums created, yet."
+          type="fetch"
+        ></app-not-found>
+      </div>
 
       <button class="outline-btn" (click)="onCreateForum()">create Here</button>
     </div>
   </div>
   <div class="not-found">
     <div class="no-resource-found" *ngIf="forums.length == 0 && keyword !== ''">
-      <p>
-        <i class="fa  fa-frown-o"></i> No search result found for "{{
-          keyword
-        }}"
-      </p>
+      <app-not-found
+        message="No search result found for '{{ keyword }}'"
+        type="search"
+      ></app-not-found>
     </div>
   </div>
   <div class="forum-lists">

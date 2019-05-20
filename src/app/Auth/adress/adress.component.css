@@ -1,7 +1,7 @@
 .address-form {
   width: 40%;
   padding: 3em;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   background-color: white;
   margin: 7% auto 10%;
 }

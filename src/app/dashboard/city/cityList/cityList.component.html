@@ -64,12 +64,18 @@
       </table>
       <div class="not-found" *ngIf="backUpcities.length == 0">
         <div class="no-resource-found">
-          <p><i class="fa  fa-frown-o"></i> Cities are not created yet.</p>
+          <app-not-found
+            message="Cities are not created, yet"
+            type="fetch"
+          ></app-not-found>
         </div>
       </div>
       <div class="not-found" *ngIf="cities.length == 0 && key !== ''">
         <div class="no-resource-found">
-          <p><i class="fa  fa-frown-o"></i> City "{{ key }}" not found.</p>
+          <app-not-found
+            message="City '{{ key }}' not found."
+            type="search"
+          ></app-not-found>
         </div>
       </div>
     </div>
