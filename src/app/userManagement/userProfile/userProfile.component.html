@@ -14,41 +14,19 @@
             {{ user.middleName.toUpperCase() }}
           </h5>
           <h6 style="text-align: center">SolveIT User</h6>
-          <p
-            style="text-align: center"
-            class="proile-rating"
-            *ngIf="user.birthDate"
-          >
+          <p style="text-align: center" class="proile-rating" *ngIf="user.birthDate">
             Birthday : <span>{{ user.birthDate.substr(0, 10) }}</span>
           </p>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li
-              class="nav-item"
-              [ngClass]="{ activeView: selected === views[0] }"
-              *ngIf="this.user.id === this.authService.getUserId()"
-            >
-              <a
-                class="nav-link active"
-                id="home-tab"
-                role="tab"
-                aria-selected="true"
-                (click)="toggleProfileView()"
-                >View Profile</a
-              >
+            <li class="nav-item" [ngClass]="{ activeView: selected === views[0] }"
+              *ngIf="this.user.id === this.authService.getUserId()">
+              <a class="nav-link active" id="home-tab" role="tab" aria-selected="true"
+                (click)="toggleProfileView()">View Profile</a>
             </li>
-            <li
-              class="nav-item"
-              [ngClass]="{ activeView: selected === views[1] }"
-              *ngIf="this.user.id === this.authService.getUserId()"
-            >
-              <a
-                class="nav-link active"
-                id="home-tab"
-                role="tab"
-                aria-selected="true"
-                (click)="selected = views[1]"
-                >Edit Profile</a
-              >
+            <li class="nav-item" [ngClass]="{ activeView: selected === views[1] }"
+              *ngIf="this.user.id === this.authService.getUserId()">
+              <a class="nav-link active" id="home-tab" role="tab" aria-selected="true"
+                (click)="selected = views[1]">Edit Profile</a>
             </li>
           </ul>
         </div>
@@ -119,22 +97,26 @@
                 <p>{{ user.workStatus }}</p>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-6"><label>Emergency Contact Name</label></div>
+              <div class="col-md-6">
+                <p>{{ user.address.emergencyContact.fullName }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label>Emergency Contact Phone Number</label></div>
+              <div class="col-md-6">
+                <p>{{ user.address.emergencyContact.phoneNumber }}</p>
+              </div>
+            </div>
           </div>
           <div *ngIf="authService.isSolveitParticipant()" class="btn-group">
-            <button
-              [disabled]="user.userType == 'Almuni'"
-              (click)="updateStatus('Almuni')"
-              type="button"
-              class="btn outline-btn"
-            >
+            <button [disabled]="user.userType == 'Almuni'" (click)="updateStatus('Almuni')" type="button"
+              class="btn outline-btn">
               Be Almuni
             </button>
-            <button
-              [disabled]="user.userType == 'Contestant'"
-              (click)="updateStatus('Contestant')"
-              type="button"
-              class="btn outline-btn"
-            >
+            <button [disabled]="user.userType == 'Contestant'" (click)="updateStatus('Contestant')" type="button"
+              class="btn outline-btn">
               Be Contestant
             </button>
           </div>
@@ -144,17 +126,8 @@
   </form>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
-<app-edit-profile
-  (updated)="getUser()"
-  [user]="updatedUser"
-  *ngIf="selected === views[1]"
-></app-edit-profile>
+<app-edit-profile (updated)="getUser()" [user]="updatedUser" *ngIf="selected === views[1]"></app-edit-profile>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
-<ngx-spinner
-  bdColor="rgba(51, 51, 51, 0.8)"
-  size="medium"
-  color="#2ba692"
-  type="ball-triangle-path"
->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#2ba692" type="ball-triangle-path">
   <p style="font-size: 20px; color: white">Loading ...</p>
 </ngx-spinner>
