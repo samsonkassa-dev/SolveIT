@@ -7,7 +7,7 @@ import { CommonService } from "../shared/services/common.service";
     styleUrls: ['weeklyWinner.component.css']
 })
 
-export class WeeklyWinnerComponent implements OnInit{
+export class WeeklyWinnerComponent implements OnInit {
 
     public winners = [];
 
@@ -22,6 +22,11 @@ export class WeeklyWinnerComponent implements OnInit{
             res => {
                 this.winners = res;
             }
-        )
+        );
+    }
+
+    getTitle(title: string) {
+        // tslint:disable-next-line: max-line-length
+        return title.length < 27 ? ` <h3 class="title project-title text-center">${this.service.toCammelCase(title)}</h3><br>` : `<h3 class="title project-title text-center">${this.service.toCammelCase(title)}</h3>`;
     }
 }

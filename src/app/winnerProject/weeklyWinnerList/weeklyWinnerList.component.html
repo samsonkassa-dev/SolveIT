@@ -10,24 +10,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="
+        <tr *ngFor="
             let winner of (weeklyWinners
               | paginate: { itemsPerPage: 10, currentPage: page });
             let i = index
-          "
-        >
+          ">
           <th scope="row">{{ winner.week }}</th>
           <td>{{ winner.solveitproject.title }}</td>
           <td>{{ winner.rank }}</td>
           <td>
             <span *ngIf="!winner.active">INACTIVE</span>
-            <button
-              *ngIf="winner.active"
-              (click)="removeWeeklyWinnerLabel(winner)"
-              type="button"
-              class="btn btn-danger"
-            >
+            <button *ngIf="winner.active" (click)="removeWeeklyWinnerLabel(winner)" type="button"
+              class="btn btn-danger">
               Deactivate
             </button>
           </td>
@@ -41,10 +35,7 @@
   </div>
 
   <div class="forum-pagination">
-    <pagination-controls
-      *ngIf="weeklyWinners.length > 10"
-      (pageChange)="currentPage = $event"
-    ></pagination-controls>
+    <pagination-controls *ngIf="weeklyWinners.length > 10" (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -14,7 +14,7 @@ export class WeeklyWinnerListComponent implements OnInit {
   constructor(
     public service: WinnerProjectService,
     public sharedService: SharedService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getWeeklyinners();

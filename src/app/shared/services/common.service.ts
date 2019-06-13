@@ -74,7 +74,15 @@ export class CommonService {
   getProjects(competitionId) {
     return this.apiService.post(
       `solvieITCompetitions/competition-projects`,
-      {competitionId}
+      { competitionId }
     );
+  }
+
+  toCammelCase(text: string) {
+    const words = text.trim().split(' ');
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1).toLowerCase();
+    }
+    return words.join(' ');
   }
 }

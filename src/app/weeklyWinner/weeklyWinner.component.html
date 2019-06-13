@@ -14,10 +14,8 @@
         <div class="pricing">
           <div class="price-head">
             <span class="price-title">{{ winner.rank }} Place</span>
-            <div>
-              <h3 class="title project-title text-center">
-                {{ winner.solveitproject.title }}
-              </h3>
+            <div [innerHTML]="getTitle(winner.solveitproject.title)">
+             
             </div>
           </div>
           <ul class="price-content">
