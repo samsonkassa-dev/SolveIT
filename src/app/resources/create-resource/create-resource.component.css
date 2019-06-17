@@ -20,6 +20,7 @@ form {
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 1em;
+  height: 3.5em;
 }
 
 #progress {

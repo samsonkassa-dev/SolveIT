@@ -17,10 +17,11 @@ form {
 }
 
 #resource-form select {
-  background: white;
+  background: #fafafa;
   border: none;
   border-bottom: 2px solid #eeeeee;
   width: 50%;
+  height: 3.5em;
 }
 
 #progress {
