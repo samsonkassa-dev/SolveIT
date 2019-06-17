@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastyModule } from "ng2-toasty";
+import { FileUploadModule } from 'ng2-file-upload';
 import { NgxPaginationModule } from "ngx-pagination";
 import { WinnerProjectService } from "./winnerProject.service";
 import { WinnerComponent } from "./winner/winner.component";
@@ -12,15 +14,19 @@ import { CompetitionWinnerListComponent } from "./competitionWinnerList/competit
 import { SharedModule } from "../shared/shared.module";
 import { AlmuniProjectListComponent } from "./almuniProjectList/almuniProjectList.component";
 import { AddAlmuniProjectComponent } from "./addAlmuniProject/addAlmuniProject.component";
+import { CompetitionWinnersPageComponent } from './competition-winners-page/competition-winners-page.component';
+import { WINNERS_ROUTE } from "./winners.routes";
 
 @NgModule({
   imports: [
+    RouterModule.forChild(WINNERS_ROUTE),
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     ToastyModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FileUploadModule
   ],
   declarations: [
     WinnerComponent,
@@ -29,7 +35,8 @@ import { AddAlmuniProjectComponent } from "./addAlmuniProject/addAlmuniProject.c
     WeeklyWinnerListComponent,
     CompetitionWinnerListComponent,
     AlmuniProjectListComponent,
-    AddAlmuniProjectComponent
+    AddAlmuniProjectComponent,
+    CompetitionWinnersPageComponent
   ],
   exports: [
     WeeklyWinnerListComponent,
@@ -41,4 +48,4 @@ import { AddAlmuniProjectComponent } from "./addAlmuniProject/addAlmuniProject.c
   ],
   providers: [WinnerProjectService]
 })
-export class WinnerProjectModule {}
+export class WinnerProjectModule { }

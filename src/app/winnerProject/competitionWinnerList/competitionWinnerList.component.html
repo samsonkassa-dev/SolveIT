@@ -3,32 +3,24 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th scope="col">Competition</th>
           <th scope="col">Project</th>
-          <th scope="col">Action</th>
+          <th scope="col">City</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="
+        <tr *ngFor="
             let winner of (competitionWinners
               | paginate: { itemsPerPage: 10, currentPage: page });
             let i = index
-          "
-        >
+          ">
+          <td>
+            <img [src]="getImageUrl(winner.thumbinal)" alt="">
+          </td>
           <th scope="row">{{ winner.competition.name }}</th>
           <td>{{ winner.solveitproject.title }}</td>
-          <td>
-            <span *ngIf="!winner.active">INACTIVE</span>
-            <button
-              *ngIf="winner.active"
-              (click)="removeCompetitionWinnerLabel(winner)"
-              type="button"
-              class="btn btn-danger"
-            >
-              Deactivate
-            </button>
-          </td>
+          <td>{{ winner.cityModel.name }}</td>
         </tr>
       </tbody>
     </table>
@@ -39,10 +31,8 @@
   </div>
 
   <div class="forum-pagination">
-    <pagination-controls
-      *ngIf="competitionWinners.length > 10"
-      (pageChange)="currentPage = $event"
-    ></pagination-controls>
+    <pagination-controls *ngIf="competitionWinners.length > 10" (pageChange)="currentPage = $event">
+    </pagination-controls>
   </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -42,7 +42,6 @@ import { FacebookModule } from 'ngx-facebook';
     AuthModule,
     SharedModule,
     BrowserAnimationsModule,
-    WinnerProjectModule,
     FacebookModule.forRoot()
   ],
   providers: [

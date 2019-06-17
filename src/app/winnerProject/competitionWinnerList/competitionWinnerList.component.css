@@ -33,6 +33,11 @@ tr:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+td > img {
+  width: 1.5em;
+  border-radius: 1.5em;
+}
+
 .forums-list-content {
   padding: 1em;
 }
@@ -49,3 +54,4 @@ tr:hover {
   text-transform: capitalize;
   text-align: center;
 }
+

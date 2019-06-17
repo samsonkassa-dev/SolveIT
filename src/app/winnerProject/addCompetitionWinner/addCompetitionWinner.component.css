@@ -23,10 +23,11 @@ form {
 }
 
 #resource-form select {
-  background: white;
+  background: #fafafa;
   border: none;
   border-bottom: 2px solid #eeeeee;
   padding: 1em;
+  height: 3.5em;
 }
 
 #progress {
@@ -79,4 +80,31 @@ form {
 .blog-tags a {
   cursor: pointer;
   border: 1px solid white;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn-custom {
+  border: 1px solid #2ba692;
+  color: #2ba692;
+  background-color: white;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.preview > img {
+  width: 50%;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { WinnerProjectService } from "../winnerProject.service";
 import { SharedService } from "../../shared/services/shared.service";
+import { configs } from "../../app.config";
 
 @Component({
   selector: "app-competition-winner-list",
@@ -14,7 +15,7 @@ export class CompetitionWinnerListComponent implements OnInit {
   constructor(
     public service: WinnerProjectService,
     public sharedService: SharedService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getCompetitionWinners();
@@ -40,5 +41,9 @@ export class CompetitionWinnerListComponent implements OnInit {
         this.sharedService.addToast("Error", "Error occurred!", "error");
       }
     );
+  }
+
+  getImageUrl(item) {
+    return `${configs.rootUrl}storages/${item.container}/download/${item.name}`;
   }
 }

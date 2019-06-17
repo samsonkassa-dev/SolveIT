@@ -3,7 +3,7 @@ import { ApiService } from "../shared/services/api.service";
 
 @Injectable()
 export class WinnerProjectService {
-  constructor(public apiService: ApiService) {}
+  constructor(public apiService: ApiService) { }
 
   labelCompetitionWinner(winner) {
     return this.apiService.post(`competitionWinners/`, winner);
@@ -25,7 +25,7 @@ export class WinnerProjectService {
 
   getCompetitionWinners() {
     return this.apiService.get(
-      `competitionWinners?filter={"include": ["solveitproject", "competition"]}`
+      `competitionWinners?filter={"include": ["solveitproject", "competition", "cityModel"]}`
     );
   }
 
