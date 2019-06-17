@@ -7,12 +7,11 @@ import { CompetitionViewComponent } from './competitionView/competitionView.comp
 import { CompetitionListComponent } from './competitionList/competitionList.component';
 import { CompetitionCreateComponent } from './competitionCreate/competitionCreate.component';
 import { CompetitionService } from './competition.service';
-import {MomentModule} from 'angular2-moment';
+import { MomentModule } from 'angular2-moment';
 import { CompetitionProjectsComponent } from './competitionProjects/competitionProjects.component';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {CompetitionWinnerComponent} from './competitionWinner/competitionWinner.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { EditCompetitionComponent } from './edit-competition/edit-competition.component';
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CompetitionListComponent,
     CompetitionCreateComponent,
     CompetitionProjectsComponent,
-    CompetitionWinnerComponent,
     EditCompetitionComponent,
   ],
   imports: [
