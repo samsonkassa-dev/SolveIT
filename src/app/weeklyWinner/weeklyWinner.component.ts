@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../shared/services/common.service";
 
+declare var $: any;
+
 @Component({
     selector: 'app-weekly-winner',
     templateUrl: 'weeklyWinner.component.html',
@@ -25,8 +27,11 @@ export class WeeklyWinnerComponent implements OnInit {
         );
     }
 
-    getTitle(title: string) {
+    getTitle(title: string, full = false) {
         // tslint:disable-next-line: max-line-length
-        return title.length < 27 ? ` <h3 class="title project-title text-center">${this.service.toCammelCase(title)}</h3><br>` : `<h3 class="title project-title text-center">${this.service.toCammelCase(title)}</h3>`;
+        if (!full) {
+            return title.length < 25 ? this.service.toCammelCase(title) : `${this.service.toCammelCase(title).slice(0)} ...`;
+        }
+        return this.service.toCammelCase(title);
     }
 }

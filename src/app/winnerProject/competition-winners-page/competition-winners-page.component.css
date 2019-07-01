@@ -41,8 +41,9 @@
 }
 
 .winner > img { 
-    width: 70%;
+    width: 80%;
     margin: 1em auto;
+    height: 10em;
 }
 .filter {
     float: right;

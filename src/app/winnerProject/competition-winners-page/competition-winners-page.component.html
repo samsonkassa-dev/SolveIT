@@ -20,7 +20,7 @@
               <div class="city-winners">
                 <div class="winner col-sm-2" *ngFor="let winner of city.winners">
                   <img [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
-                  <div [innerHtml]="getProjectTitle(winner.solveitproject.title)"></div>
+                  <div style="height: 5em" [innerHtml]="getProjectTitle(winner.solveitproject.title)"></div>
                 </div>
               </div>
             </div>
