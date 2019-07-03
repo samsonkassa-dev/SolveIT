@@ -44,11 +44,22 @@ module.exports = function(app) {
 	      .catch(err => Promise.reject(err));
 	};
 
+	// Seed SolveIT investor role
+	const createSolveItInvestorRole = async () => {
+			const role = { name: "solve-it-investor", description: "SolveIT investor role." };
+
+			return IcogRole.findOrCreate({ where: { name: "solve-it-investor" } }, role)
+				.then(createdRole => {})
+				.then(instance => Promise.resolve(instance))
+				.catch(err => Promise.reject(err));
+	};
+
 
 
   createIcogAminRole();
 	createSolveItMgtRole();
 	createSolveItTeamRole();
 	createSolveItParticipantsRole();
+	createSolveItInvestorRole();
 
 };
