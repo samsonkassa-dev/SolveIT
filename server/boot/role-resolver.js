@@ -59,4 +59,18 @@ module.exports = function(app) {
             });
         }
     });
+
+    IcogRole.registerResolver('investor', function(role, context, cb) {
+        if (!context.accessToken) {
+            cb(null, false);
+          } else {
+            UserAccount.findById(context.accessToken.userId, {include: 'role'}, function(error, user) {
+                if (error || !user || user.toJSON().role.name !== 'solve-it-investor') {
+                    cb(null, false);
+                  } else {
+                    cb(null, true);
+                  }
+              });
+          }
+    });
 };
