@@ -1,0 +1,72 @@
+{
+  "name": "investorProfile",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "maxCapital": {
+      "type": "string"
+    },
+    "minCapital": {
+      "type": "string"
+    },
+    "equityDemand": {
+      "type": "string"
+    },
+    "currentSector": {
+      "type": "string"
+    },
+    "sectorsToBroadenHorizon": {
+      "type": [
+        "string"
+      ]
+    },
+    "preference": {
+      "type": "string"
+    },
+    "specificPreference": {
+      "type": [
+        "string"
+      ]
+    },
+    "preferedEcommerceModel": {
+      "type": [
+        "string"
+      ]
+    },
+    "annualRevenue": {
+      "type": "string"
+    },
+    "preferedBussinessModel": {
+      "type": [
+        "string"
+      ]
+    },
+    "preferedConsumer": {
+      "type": [
+        "string"
+      ]
+    },
+    "price": {
+      "type": [
+        "string"
+      ]
+    },
+    "projectState": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "investor": {
+      "type": "belongsTo",
+      "model": "UserAccount"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
