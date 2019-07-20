@@ -40,11 +40,22 @@
       "model": "ProgressReport",
       "foreignKey": "projectId"
     },
+    "ratings": {
+      "type": "hasMany",
+      "model": "projectRating",
+      "foreignKey": "projectId"
+    },
     "competitions": {
       "type": "hasMany",
       "model": "solvieITCompetition",
       "foreignKey": "projectId",
       "through": "CompetitionProject"
+    },
+    "bookmarkers": {
+      "type": "hasMany",
+      "model": "UserAccount",
+      "foreignKey": "projectId",
+      "through": "projectBookmark"
     },
     "won": {
       "type": "hasMany",
