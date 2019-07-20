@@ -153,5 +153,17 @@
   "AssignedCity": {
     "dataSource": "mongo",
     "public": true
+  },
+  "investorProfile": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "projectRating": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "projectBookmark": {
+    "dataSource": "mongo",
+    "public": true
   }
 }
