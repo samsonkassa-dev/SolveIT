@@ -1,0 +1,25 @@
+{
+  "name": "projectRating",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "rating": {
+      "type": "string"
+    },
+    "review": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "rator": {
+      "type": "belongsTo",
+      "model": "UserAccount"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
