@@ -116,6 +116,12 @@
       "foreignKey": "userId",
       "through": "project-member"
     },
+    "bookmarkedProjects": {
+      "type": "hasMany",
+      "model": "Solveitproject",
+      "foreignKey": "userId",
+      "through": "projectBookmark"
+    },
     "blackListed": {
       "type": "hasMany",
       "model": "Solveitdiscussion",
