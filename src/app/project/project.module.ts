@@ -24,6 +24,7 @@ import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { RouterModule } from "@angular/router";
 import { ProjectRoutes } from "./project.route";
 import { FacebookModule } from "ngx-facebook";
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FacebookModule } from "ngx-facebook";
     ProjectMemberList,
     CreateProgressReportComponent,
     ReportViewComponent,
-    JoinCompetitionComponent
+    JoinCompetitionComponent,
+    RecommendationsComponent
   ],
   imports: [
     RouterModule.forChild(ProjectRoutes),

@@ -84,4 +84,16 @@ export class ProjectService {
   updateProject(projectId, data) {
     return this.apiService.patch(`Solveitprojects/${projectId}`, data);
   }
+
+  bookmarkProject(bookmarkObject) {
+    return this.apiService.post(`projectBookmarks`, bookmarkObject);
+  }
+
+  removeBookmark(bookmarkId) {
+    return this.apiService.delete(`projectBookmarks/${bookmarkId}`)
+  }
+
+  rateProject(ratingObject) {
+    return this.apiService.post(`projectRatings`, ratingObject);
+  }
 }
