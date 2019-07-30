@@ -2,36 +2,92 @@
 
 <div class="container" id="project-list-header">
   <div class="events-list-header">
-    <div class="header">
-      <h4
-        (click)="toggleView('forum-list-public')"
-        [class.active]="selected == 'forum-list-public'"
+    <div class="left">
+      <p
+        (click)="toggleView('projects')"
+        [class.active]="selected == 'projects'"
       >
-        Public
-      </h4>
-      <h4
-        (click)="toggleView('forum-list-private')"
+        Projects
+      </p>
+      <p
+        (click)="toggleView('bookmarks')"
         *ngIf="authService.isAuthenticated()"
-        [class.active]="selected == 'forum-list-private'"
+        [class.active]="selected == 'bookmarks'"
       >
-        Private
-      </h4>
-      <button
-        type="button"
-        (click)="toggleView('forum-create')"
-        class="btn main-btn btn-circle-xl"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Create forum"
-        [class.button-active]="selected == 'forum-create'"
-      >
-        <i class="fa fa-plus"></i>
-      </button>
+        Bookmarks
+      </p>
+      <div class="divider"></div>
+    </div>
+    <div class="right">
+      <div id="aside">
+        <div class="widget">
+          <div class="widget-search">
+            <label for="user-fillter">Filter By Participation</label>
+            <select
+              name="category"
+              class="form-control"
+              id="category"
+              [(ngModel)]="filterSector"
+              (change)="filterProjects($event)"
+            >
+              <option value="">Filter by Product Type</option>
+              <!-- <option
+                *ngFor="let category of categories"
+                [value]="category.category"
+                >{{ category.category }}</option
+              > -->
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="aside">
+        <div class="widget">
+          <div class="widget-search">
+            <label for="user-fillter">Filter By Product</label>
+            <select
+              name="category"
+              class="form-control"
+              id="category"
+              [(ngModel)]="filterSector"
+              (change)="filterProjects($event)"
+            >
+              <option value="">Filter by Product Type</option>
+              <!-- <option
+                *ngFor="let category of categories"
+                [value]="category.category"
+                >{{ category.category }}</option
+              > -->
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="aside">
+        <div class="widget">
+          <div class="widget-search">
+            <label for="user-fillter">Filter By sector </label>
+            <select
+              name="category"
+              class="form-control"
+              id="category"
+              [(ngModel)]="filterSector"
+              (change)="filterProjects($event)"
+            >
+              <option value="" selected>Filter by Sector</option>
+              <option value="" selected>All</option>
+              <!-- <option
+                *ngFor="let category of categories"
+                [value]="category.category"
+                >{{ category.category }}</option
+              > -->
+            </select>
+          </div>
+        </div>
+      </div>
       <div id="aside">
         <div class="widget">
           <div class="widget-search">
             <input
-              class="search-input"
+              class="search-input form-control"
               type="text"
               placeholder="Search"
               [(ngModel)]="keyword"

@@ -96,4 +96,8 @@ export class ProjectService {
   rateProject(ratingObject) {
     return this.apiService.post(`projectRatings`, ratingObject);
   }
+
+  getRecommendations() {
+    return this.apiService.get(``);
+  }
 }

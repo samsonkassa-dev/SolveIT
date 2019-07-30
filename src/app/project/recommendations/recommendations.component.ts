@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../Auth/services/auth.service';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-recommendations',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecommendationsComponent implements OnInit {
 
-  constructor() { }
+  public selected = 'projects';
+
+  constructor(public authService: AuthService, public service: ProjectService) { }
 
   ngOnInit() {
+  }
+
+  toggleView(view) {
+    this.selected = view;
+  }
+
+  getRecommendations() {
+    this.service.getRecommendations();
   }
 
 }
