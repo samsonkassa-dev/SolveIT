@@ -2,16 +2,11 @@
 <header id="home">
   <!-- Background Video -->
   <!-- Background Image -->
-  <div class="bg-img" style="background-color:black;">
-    <div>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <img class="center" src="../../assets/img/Solve IT.png" alt="">
-    </div>
+  <div
+    class="bg-img"
+    style="background-image: url('../../assets/img/solve-it-bg.jpg');"
+  >
+    <div class="overlay"></div>
   </div>
   <!-- /Background Image -->
   <!-- /Background Video -->
@@ -23,15 +18,31 @@
         <!-- Logo -->
         <div class="navbar-brand">
           <a routerLink="">
-            <img style="padding: 0.1em" class="logo" src="../../assets/img/solveit-logo12.png" alt="logo" />
-            <img class="logo-alt" src="../../assets/img/solveit-logo11.png" alt="logo" />
+            <img
+              style="padding: 0.1em"
+              class="logo"
+              src="../../assets/img/solveit-logo12.png"
+              alt="logo"
+            />
+            <img
+              class="logo-alt"
+              src="../../assets/img/solveit-logo11.png"
+              alt="logo"
+            />
           </a>
         </div>
         <!-- /Logo -->
 
         <!-- Collapse nav button -->
-        <div class="navbar-toggler nav-collapse" type="button" data-toggle="collapse" data-target="#menus"
-          aria-controls="menus" aria-expanded="false" aria-label="Toggle navigation">
+        <div
+          class="navbar-toggler nav-collapse"
+          type="button"
+          data-toggle="collapse"
+          data-target="#menus"
+          aria-controls="menus"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon" style="color: #FFFFFF;"></span>
         </div>
 
@@ -46,23 +57,25 @@
           </li>
           <li><a href="#features">About</a></li>
           <li><a href="#service">Services</a></li>
-          <li [class.active]="router.isActive('dashboard', false)" *ngIf="
+          <li
+            [class.active]="router.isActive('dashboard', false)"
+            *ngIf="
               authService.isSolveitTeam() ||
               authService.isSolveitManager() ||
               authService.isAdmin()
-            ">
+            "
+          >
             <a routerLink="/dashboard">Dashboard</a>
           </li>
-          <li [class.active]="router.isActive('winners', false)" *ngIf="
+          <li
+            [class.active]="router.isActive('winners', false)"
+            *ngIf="
               authService.isSolveitTeam() ||
               authService.isSolveitManager() ||
               authService.isAdmin()
-            ">
+            "
+          >
             <a routerLink="/winners">Winners</a>
-          </li>
-          <li [class.active]="router.isActive('projects', false)" *ngIf="
-              authService.isInvestor()">
-            <a routerLink="/my-projects/recommendations">Projects</a>
           </li>
           <li [class.active]="router.isActive('events', false)">
             <a routerLink="/events">Events</a>
@@ -76,29 +89,49 @@
             </li>
           -->
           <li [class.active]="router.isActive('resources', false)">
-            <a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a>
+            <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
+              >Resources</a
+            >
           </li>
           <li [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/sponsors">Sponsors</a>
           </li>
-          <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()">
+          <li
+            [class.active]="router.isActive('login', false)"
+            *ngIf="!authService.isAuthenticated()"
+          >
             <a routerLink="/login">SignIn/SignUp</a>
           </li>
-          <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()"
-            class="has-dropdown">
-            <a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{ "" }}</a>
+          <li
+            [class.active]="router.isActive('my-projects', false)"
+            *ngIf="authService.isAuthenticated()"
+            class="has-dropdown"
+          >
+            <a
+              ><span style="margin-right: .5em;"
+                ><i class="fa fa-user"></i></span
+              >{{ "" }}</a
+            >
             <ul class="dropdown1">
               <li *ngIf="authService.isSolveitParticipant()">
                 <a routerLink="/my-projects">My Projects</a>
               </li>
               <li *ngIf="!authService.isAdmin()">
-                <a [routerLink]="[
+                <a
+                  [routerLink]="[
                     'dashboard/userProfile',
                     authService.getUserId()
-                  ]">Profile</a>
+                  ]"
+                  >Profile</a
+                >
               </li>
               <li>
-                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+                <a
+                  routerLink=""
+                  (click)="authService.signOut()"
+                  style="cursor: pointer;"
+                  >Logout</a
+                >
               </li>
             </ul>
           </li>
@@ -141,9 +174,7 @@
     <div class="row">
       <!-- why choose us content -->
       <div class="col-md-6">
-        <div class="section-header">
-          <h2 class="title">About SolveIT</h2>
-        </div>
+        <div class="section-header"><h2 class="title">About SolveIT</h2></div>
         <p>
           iCog incorporated some of its previous project ideas and resources and
           came up with SOLVE IT an innovation completion in selected cities of
@@ -172,10 +203,18 @@
 
       <!-- About slider -->
       <div class="col-md-6">
-        <div id="about-slider" style="display: flex;
+        <div
+          id="about-slider"
+          style="display: flex;
     align-items: center;
-    margin: 10em 1em 0 1em;" class="">
-          <img class="img-responsive" src="../../assets/img/backpic.jpg" alt="" />
+    margin: 10em 1em 0 1em;"
+          class=""
+        >
+          <img
+            class="img-responsive"
+            src="../../assets/img/backpic.jpg"
+            alt=""
+          />
         </div>
       </div>
       <!-- /About slider -->
@@ -285,157 +324,32 @@
 <!-- /Service -->
 
 <!-- Testimonial -->
-<!-- <div id="testimonial" class="section md-padding" *ngIf="!authService.isAuthenticated()"> -->
+<div
+  id="testimonial"
+  class="section md-padding"
+  *ngIf="!authService.isAuthenticated() && false"
+>
   <!-- Container -->
-  <!-- <div class="container"> -->
+  <div class="container">
     <!-- Row -->
     <!-- /Background Image -->
-    <!-- <div class="row register-now-container">
+    <div class="row register-now-container">
       <h2 style="text-align: center">Register For SolveIT 2019 Now</h2>
       <a routerLink="/register" class="outline-btn">Register</a>
-    </div> -->
+    </div>
     <!-- /Row -->
-  <!-- </div> -->
+  </div>
   <!-- /Container -->
-<!-- </div> -->
+</div>
 <!-- /Testimonial -->
-
-<!-- Portfolio -->
-<!-- <div id="portfolio" class="section md-padding bg-grey"> -->
-<!-- &lt;!&ndash; Container &ndash;&gt; -->
-<!-- <div class="container"> -->
-<!-- &lt;!&ndash; Row &ndash;&gt; -->
-<!-- <div class="row"> -->
-<!-- &lt;!&ndash; Section header &ndash;&gt; -->
-<!-- <div class="section-header text-center"> -->
-<!-- <h2 class="title">Alumni Projects</h2> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Section header &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work1.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work2.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work3.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work4.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work5.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-
-<!-- &lt;!&ndash; Work &ndash;&gt; -->
-<!-- <div class="col-md-4 col-xs-6 work"> -->
-<!-- <img class="img-responsive" src="../../assets/img/work6.jpg" alt="" /> -->
-<!-- <div class="overlay"></div> -->
-<!-- <div class="work-content"> -->
-<!-- <span>Project Title</span> -->
-<!-- <h3>Lorem ipsum dolor</h3> -->
-<!-- <div class="work-link"> -->
-<!-- <a -->
-<!-- class="lightbox" -->
-<!-- data-toggle="modal" -->
-<!-- data-target="#alumunni-project-modal" -->
-<!-- &gt;<i class="fa fa-external-link"></i -->
-<!-- &gt;</a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Work &ndash;&gt; -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Row &ndash;&gt; -->
-<!-- </div> -->
-<!-- &lt;!&ndash; /Container &ndash;&gt; -->
-<!-- </div> -->
-<!-- /Portfolio -->
 
 <!-- Numbers -->
 <div id="numbers" class="section sm-padding">
   <!-- Background Image -->
-  <div class="bg-img" style="background-image: url('../../assets/img/background2.jpg');">
+  <div
+    class="bg-img"
+    style="background-image: url('../../assets/img/background2.jpg');"
+  >
     <div class="overlay"></div>
   </div>
   <!-- /Background Image -->
@@ -448,7 +362,7 @@
       <div class="col-sm-3 col-xs-6">
         <div class="number">
           <i class="fa fa-users"></i>
-          <h3 class="white-text"><span class="counter">2000</span></h3>
+          <h3 class="white-text"><span class="counter">2,000</span></h3>
           <span class="white-text">Participants</span>
         </div>
       </div>
@@ -510,11 +424,19 @@
       <div class="col-sm-3">
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/beruk.jpg" alt="" />
+            <img
+              class="img-responsive"
+              src="../../assets/img/beruk.jpg"
+              alt=""
+            />
             <div class="overlay">
               <div class="team-social">
-                <a href="https://www.linkedin.com/in/berukayalew/"><i class="fa fa-linkedin"></i></a>
-                <a href="https://twitter.com/rasberuk"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/berukayalew/"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
+                <a href="https://twitter.com/rasberuk"
+                  ><i class="fa fa-twitter"></i
+                ></a>
               </div>
             </div>
           </div>
@@ -530,10 +452,12 @@
       <div class="col-sm-3">
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/bezawit.jpg" alt="" />
-            <div class="overlay">
-              <div class="team-social"></div>
-            </div>
+            <img
+              class="img-responsive"
+              src="../../assets/img/bezawit.jpg"
+              alt=""
+            />
+            <div class="overlay"><div class="team-social"></div></div>
           </div>
           <div class="team-content">
             <h3>Bezawit Kassaye</h3>
@@ -547,7 +471,11 @@
       <div class="col-sm-3">
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/hruy.jpg" alt="" />
+            <img
+              class="img-responsive"
+              src="../../assets/img/hruy.jpg"
+              alt=""
+            />
             <div class="overlay">
               <div class="team-social">
                 <!-- <a href="#"><i class="fa fa-facebook"></i></a> -->
@@ -568,10 +496,16 @@
       <div class="col-sm-3">
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/Betelhem%20Dessie.jpg" alt="" />
+            <img
+              class="img-responsive"
+              src="../../assets/img/Betelhem%20Dessie.jpg"
+              alt=""
+            />
             <div class="overlay">
               <div class="team-social">
-                <a href="https://www.linkedin.com/in/betelhemdessie/"><i class="fa fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/betelhemdessie/"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
               </div>
             </div>
           </div>
@@ -588,6 +522,57 @@
   <!-- /Container -->
 </div>
 <!-- /Team -->
+
+<!-- Blog -->
+<div id="blog" class="section md-padding bg-grey">
+  <!-- Container -->
+  <div class="container">
+    <!-- Row -->
+    <div class="row">
+      <!-- Section header -->
+      <div class="section-header text-center">
+        <h2 class="title">Recents Articles</h2>
+      </div>
+      <!-- /Section header -->
+
+      <!-- blog -->
+      <div class="col-md-4">
+        <div class="blog">
+          <div class="blog-img">
+            <img
+              class="img-responsive"
+              src="https://i1.wp.com/icog-labs.com/wp-content/uploads/2019/07/IMG_20190710_141224_466.jpg?zoom=2&resize=584%2C389&ssl=1"
+              alt=""
+            />
+          </div>
+          <div class="blog-content">
+            <ul class="blog-meta">
+              <li><i class="fa fa-user"></i> Heldana Michael</li>
+              <li><i class="fa fa-clock-o"></i>July 12, 2019</li>
+            </ul>
+            <h3>Extra, extra! Solve IT 2019 is Here</h3>
+            <p>
+              Solve IT 2019 is coming to its end, and the Grand Finale is
+              approaching. The Solve IT 2019 team along with its partners– the
+              U.S. Embassy and JICA– is super busy with last-minute preparations
+              for the August 17, 2019 closing. Everyone is looking forward to
+              the finale, yet everyone is shunning it anxiously.
+            </p>
+            <a
+              target="_blank"
+              href="http://icog-labs.com/extra-extra-solve-it-2019-is-here/"
+              >Read more</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- /blog -->
+    </div>
+    <!-- /Row -->
+  </div>
+  <!-- /Container -->
+</div>
+<!-- /Blog -->
 
 <!-- Contact -->
 <div id="contact" class="section md-padding">
