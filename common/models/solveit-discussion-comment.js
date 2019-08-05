@@ -46,4 +46,28 @@ Solveitdiscussioncomment.disableRemoteMethod("removeById", true);
     })
   });
 
+  Solveitdiscussioncomment.afterRemote('create', function (context, unused, next) {
+    var commentCount = 0;
+    const discussion = Solveitdiscussioncomment.app.models.Solveitdiscussion;
+
+    discussion.find({
+      where: {
+        id: context.args.data.discussionId
+      }
+    }, function (err, discussions) {
+      commentCount = discussions[0].commentCount + 1;
+      discussionComment.updateAll({
+        id: context.args.data.discussionId
+      }, {
+        commentCount: commentCount
+      }, function (err, count) {
+        if (err) {
+          console.error(err);
+          next(err);
+        }
+        next();
+      })
+    })
+  });
+
 };

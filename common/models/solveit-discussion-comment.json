@@ -14,6 +14,11 @@
       "type": "date",
       "required": true,
       "defaultFn": "now"
+    },
+    "replyCount": {
+      "type": "number",
+      "required": true,
+      "default": 0
     }
   },
   "validations": [],

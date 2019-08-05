@@ -9,6 +9,10 @@
     "content": {
       "type": "string",
       "required": true
+    },
+    "createdAt": {
+      "type": "date",
+      "defaultfn": "now"
     }
   },
   "validations": [],

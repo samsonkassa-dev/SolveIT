@@ -29,6 +29,11 @@
     "pinned": {
       "type": "boolean",
       "default": false
+    },
+    "commentCount": {
+      "type": "number",
+      "required": true,
+      "default": 0
     }
   },
   "validations": [],
