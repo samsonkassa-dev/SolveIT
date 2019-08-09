@@ -23,6 +23,14 @@ module.exports = function(Competitionproject) {
     );
   };
 
+  Competitionproject.getProjectEnrollmentStatus = async projectId => {
+    const status = await Competitionproject.find({
+      where: {projectId: projectId},
+    });
+
+    return status.length > 0 ? true : false;
+  };
+
   Competitionproject.remoteMethod('enroll', {
     description: 'Enroll project to competition.',
     accepts: [
@@ -45,6 +53,24 @@ module.exports = function(Competitionproject) {
     http: {
       verb: 'post',
       path: '/enroll',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+
+  Competitionproject.remoteMethod('getProjectEnrollmentStatus', {
+    description: 'Get status of enrollment of a project.',
+    accepts: [
+      {
+        arg: 'projectId',
+        type: 'string',
+        require: true,
+      },
+    ],
+    http: {
+      verb: 'get',
     },
     returns: {
       type: 'object',
