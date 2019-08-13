@@ -51,4 +51,74 @@ module.exports = function(Competitionproject) {
       root: true,
     },
   });
+
+  // make recommendation of projects for an investor
+  Competitionproject.recommendation = async function (req) {
+      let {projectView, productTypeView, sectorView, Solveitproject, investorProfile} = Competitionproject.app.models;
+      const userId = req.accessToken.userId;
+
+      // to make sum of an attribute from array of objects
+      Array.prototype.sum = function (prop) {
+        var total = 0
+        for ( var i = 0, _len = this.length; i < _len; i++ ) {
+            total += this[i][prop]
+        }
+        return total
+      }
+      
+      // to find index of an object by its property
+      function findWithAttr(array, attr, value) {
+          for(var i = 0; i < array.length; i += 1) {
+              if(array[i][attr] === value) {
+                  return i;
+              }
+          }
+          return -1;
+      }
+
+      let productTypeMetrics = await productTypeView.find({where: {userId: userId}});
+      let totalProductTypeViewCount = productTypeMetrics.sum('viewCount');
+      productTypeMetrics = productTypeMetrics.map(object => ({...object, percentage: (object.viewCount/totalProductTypeViewCount) * 100}));
+      
+      let sectorMetrics = await sectorView.find({where: {userId: userId}});
+      let totalSectorViewCount = sectorMetrics.sum('viewCount');
+      sectorMetrics = sectorMetrics.map(object => ({...object, percentage: (object.viewCount/totalSectorViewCount) * 100}));
+      
+      let profile = await investorProfile.find({where: {investorId: userId}});
+
+      let productTypes = productTypeMetrics.map(metrics => metrics.productTypeId);
+      let sectors = sectorMetrics.map(metrics => metrics.sectorId);
+
+      let competitionProjects = await Competitionproject.find({include: ['solveitproject']});
+      let recommendedProjects = competitionProjects.filter(item => {
+        return (productTypes.indexOf(item.questionnaireAnswers.innovationInfo.productType) > -1) || (sectors.indexOf(item.questionnaireAnswers.innovationInfo.sector) > -1);
+      });
+
+      recommendedProjects = recommendedProjects.map(object => 
+        ({...object, percentage: (productTypeMetrics[productTypeMetrics.indexOf(findWithAttr(productTypeMetrics, 'productTypeId', object.questionnaireAnswers.innovationInfo.productType))].percentage/2) + 
+        (sectorMetrics[sectorMetrics.indexOf(findWithAttr(sectorMetrics, 'sectorId', object.questionnaireAnswers.innovationInfo.sector))].percentage/2)})
+      );
+
+      return recommendedProjects;
+      
+  }
+
+  Competitionproject.remoteMethod('recommendation', {
+      description: "Recommend projects for the investor",
+      accepts: [
+        {
+          arg: 'req', 
+          type: 'object', 
+          'http': {source: 'req'}
+        }
+      ],
+      http: {
+        verb: "get",
+        path: "/recommendations"
+      },
+      returns: {
+        type: "object",
+        root: true
+      }
+  });
 };
