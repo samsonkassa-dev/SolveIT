@@ -18,6 +18,11 @@
     "rator": {
       "type": "belongsTo",
       "model": "UserAccount"
+    },
+    "project": {
+      "type": "belongsTo",
+      "model": "Solveitproject",
+      "foreignKey": "projectId"
     }
   },
   "acls": [],
