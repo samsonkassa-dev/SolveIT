@@ -57,6 +57,12 @@
       "foreignKey": "projectId",
       "through": "projectBookmark"
     },
+    "viewers": {
+      "type": "hasMany",
+      "model": "UserAccount",
+      "foreignKey": "projectId",
+      "through": "projectView"
+    },
     "won": {
       "type": "hasMany",
       "model": "solvieITCompetition",
