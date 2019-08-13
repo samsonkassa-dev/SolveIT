@@ -1,0 +1,24 @@
+{
+  "name": "productType",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "productType": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "viewers": {
+      "type": "hasMany",
+      "model": "UserAccount",
+      "foreignKey": "productTypeId",
+      "through": "productTypeView"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
