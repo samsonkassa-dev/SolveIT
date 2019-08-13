@@ -257,6 +257,30 @@ module.exports = function(Useraccount) {
     return user;
   };
 
+  // register SolveIT investor
+  Useraccount.registerInvestor = async user => {
+    let {IcogRole} = Useraccount.app.models;
+    let userRole = await IcogRole.findOne({
+      where: {
+        name: 'solve-it-investor',
+      },
+    });
+
+    user['roleId'] = userRole.id;
+    user['created'] = new Date().toISOString();
+    user['password'] = user.password + '';
+    user['phoneNumber'] = user.phoneNumber + '';
+
+    if (user.facebook && user.facebook.authResponse.userID) {
+      user['facebookId'] = user.facebook.authResponse.userID;
+      user['emailVerified'] = true;
+    }
+
+    user = await Useraccount.create(user);
+
+    return user;
+  };
+
   // activate registered user
   Useraccount.activateUser = async userId => {
     let user = await Useraccount.updateAll(
@@ -960,6 +984,25 @@ module.exports = function(Useraccount) {
     http: {
       verb: 'post',
       path: '/register-participants',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+
+  Useraccount.remoteMethod('registerInvestor', {
+    desctiption: 'Register SolveIT Investor.',
+    accepts: [
+      {
+        arg: 'user',
+        type: 'object',
+        required: true,
+      },
+    ],
+    http: {
+      verb: 'post',
+      path: '/register-investor',
     },
     returns: {
       type: 'object',

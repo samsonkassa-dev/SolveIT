@@ -165,5 +165,25 @@
   "projectBookmark": {
     "dataSource": "mongo",
     "public": true
+  },
+  "projectView": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "sector": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "sectorView": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "productType": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "productTypeView": {
+    "dataSource": "mongo",
+    "public": true
   }
 }

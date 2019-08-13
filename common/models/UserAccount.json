@@ -122,6 +122,24 @@
       "foreignKey": "userId",
       "through": "projectBookmark"
     },
+    "viewedProjects": {
+      "type": "hasMany",
+      "model": "Solveitproject",
+      "foreignKey": "userId",
+      "through": "projectView"
+    },
+    "viewedProductTypes": {
+      "type": "hasMany",
+      "model": "productType",
+      "foreignKey": "userId",
+      "through": "productTypeView"
+    },
+    "viewedSectors": {
+      "type": "hasMany",
+      "model": "sector",
+      "foreignKey": "userId",
+      "through": "sectorView"
+    },
     "blackListed": {
       "type": "hasMany",
       "model": "Solveitdiscussion",
