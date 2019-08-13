@@ -1,0 +1,28 @@
+{
+  "name": "sectorView",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "viewCount": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "sector": {
+      "type": "belongsTo",
+      "model": "sector",
+      "foreignKey": "sectorId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
