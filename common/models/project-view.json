@@ -1,0 +1,33 @@
+{
+  "name": "projectView",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "lastSeen": {
+      "type": "date",
+      "defaultfun": "now"
+    },
+    "viewCount": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "solveitproject": {
+      "type": "belongsTo",
+      "model": "Solveitproject",
+      "foreignKey": "projectId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
