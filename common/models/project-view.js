@@ -4,20 +4,24 @@ module.exports = function(Projectview) {
 
     // register project view
     Projectview.registerView = async function (req, projectViewObject) {
-        const userId = req.accessToken.userId; 
-
-        let viewObjectsOfUser = await Projectview.find({where: {userId: userId, projectId: projectViewObject.projectId}});
-        if (viewObjectsOfUser.length > 0) {
-            let previousTime = new Date(viewObjectsOfUser[0].lastSeen);
-            if ((new Date().getTime() - previousTime.getTime()) >= 28800) {
-                let response = await viewObjectsOfUser[0].updateAttributes({lastSeen: new Date(), viewCount: viewObjectsOfUser[0].viewCount+1});   
-                return response;
+        const userId = req.accessToken.userId;
+        if (userId == projectViewObject.userId) {
+            let viewObjectsOfUser = await Projectview.find({where: {userId: userId, projectId: projectViewObject.projectId}});
+            if (viewObjectsOfUser.length > 0) {
+                let previousTime = new Date(viewObjectsOfUser[0].lastSeen);
+                if ((new Date().getTime() - previousTime.getTime()) >= 28800) {
+                    let response = await viewObjectsOfUser[0].updateAttributes({lastSeen: new Date(), viewCount: viewObjectsOfUser[0].viewCount+1});   
+                    return response;
+                }else {
+                    return viewObjectsOfUser[0];
+                }
             }else {
-                return viewObjectsOfUser[0];
-            }
-        }else {
-            let response = await Projectview.create(projectViewObject);
-            return response;
+                let viewObject = {...projectViewObject, viewCount: 1};
+                let response = await Projectview.create(viewObject);
+                return response;
+            }   
+        } else {
+            return {};
         }
     }
 
