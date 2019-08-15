@@ -262,7 +262,7 @@ module.exports = function(Useraccount) {
     let {IcogRole} = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: 'solve-it-investor  ',
+        name: 'solve-it-investor',
       },
     });
 
