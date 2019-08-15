@@ -5,8 +5,10 @@ module.exports = function(Projectview) {
     // register project view
     Projectview.registerView = async function (req, projectViewObject) {
         const userId = req.accessToken.userId;
-        if (userId == projectViewObject.userId) {
-            let viewObjectsOfUser = await Projectview.find({where: {userId: userId, projectId: projectViewObject.projectId}});
+        console.log(projectViewObject.projectViewObject.userId);
+        if (userId == projectViewObject.projectViewObject.userId) {
+            
+            let viewObjectsOfUser = await Projectview.find({where: {userId: userId, projectId: projectViewObject.projectViewObject.projectId}});
             if (viewObjectsOfUser.length > 0) {
                 let previousTime = new Date(viewObjectsOfUser[0].lastSeen);
                 if ((new Date().getTime() - previousTime.getTime()) >= 28800) {
@@ -16,7 +18,8 @@ module.exports = function(Projectview) {
                     return viewObjectsOfUser[0];
                 }
             }else {
-                let viewObject = {...projectViewObject, viewCount: 1};
+                let viewObject = projectViewObject.projectViewObject;
+                viewObject = {...viewObject, viewCount: 1};
                 let response = await Projectview.create(viewObject);
                 return response;
             }   
