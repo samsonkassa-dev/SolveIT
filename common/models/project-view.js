@@ -3,8 +3,7 @@
 module.exports = function(Projectview) {
 
     // register project view
-    Projectview.registerView = async (req, projectViewObject) => {
-        
+    Projectview.registerView = async function (req, projectViewObject) {
         const userId = req.accessToken.userId; 
 
         let viewObjectsOfUser = await Projectview.find({where: {userId: userId, projectId: projectViewObject.projectId}});
@@ -26,14 +25,14 @@ module.exports = function(Projectview) {
         description: "register project view",
         accepts: [
             {
-                arg: "projectViewObject",
-                type: "object",
-                require: true
-            },
-            {
                 arg: 'req', 
                 type: 'object', 
                 'http': {source: 'req'}
+            },
+            {
+                arg: "projectViewObject",
+                type: "object",
+                require: true
             }
         ],
         http: {
