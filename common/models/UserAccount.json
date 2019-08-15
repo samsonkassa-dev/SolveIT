@@ -54,7 +54,6 @@
     },
     "workStatus": {
       "type": "string",
-      "required": "true",
       "default": "None"
     },
     "address": {
@@ -315,6 +314,13 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "__get__blackListed"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "registerInvestor"
     }
   ],
   "methods": {}
