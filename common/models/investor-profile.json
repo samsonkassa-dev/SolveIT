@@ -19,45 +19,39 @@
       "type": "string"
     },
     "sectorsToBroadenHorizon": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "preference": {
       "type": "string"
     },
     "specificPreference": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "preferedEcommerceModel": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "annualRevenue": {
       "type": "string"
     },
     "preferedBussinessModel": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "preferedConsumer": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "price": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "projectState": {
-      "type": [
-        "string"
-      ]
+      "type": "string"
+    },
+    "underReview": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
