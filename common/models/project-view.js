@@ -55,7 +55,7 @@ module.exports = function(Projectview) {
     // fetch most viewed projects
 	Projectview.fetchMostViewed = function(cb) {
 		// fetchMostViewed code
-		Projectview.find({ order: 'viewCount DESC', limit: 10, include: ['project'] }, function(err, projects) {
+		Projectview.find({ order: 'viewCount DESC', limit: 10, include: ['solveitproject'] }, function(err, projects) {
             cb(null, projects);
         });
 
