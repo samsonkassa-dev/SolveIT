@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function(Projectview) {
+  // register project view
+  Projectview.registerView = async (req, projectViewObject) => {
+    const userId = req.accessToken.userId;
 
     // register project view
     Projectview.registerView = async function (req, projectViewObject) {
@@ -27,6 +30,7 @@ module.exports = function(Projectview) {
             return {};
         }
     }
+  };
 
     Projectview.remoteMethod('registerView', {
         description: "register project view",
@@ -52,25 +56,26 @@ module.exports = function(Projectview) {
         }
     });
 
-    // fetch most viewed projects
-	Projectview.fetchMostViewed = function(cb) {
-		// fetchMostViewed code
-		Projectview.find({ order: 'viewCount DESC', limit: 10, include: ['project'] }, function(err, projects) {
-            cb(null, projects);
-        });
+  // fetch most viewed projects
+  Projectview.fetchMostViewed = function(cb) {
+    // fetchMostViewed code
+    Projectview.find(
+      {order: 'viewCount DESC', limit: 10, include: ['project']},
+      function(err, projects) {
+        cb(null, projects);
+      }
+    );
+  };
 
-	}
-  
-	Projectview.remoteMethod('fetchMostViewed', {
-		description: "fetch most viewed projects",
-		http: {
-		  verb: "get",
-		  path: "/mostViewed"
-		},
-		returns: {
-		  type: "object",
-		  root: true
-		}
-	});
-
+  Projectview.remoteMethod('fetchMostViewed', {
+    description: 'fetch most viewed projects',
+    http: {
+      verb: 'get',
+      path: '/mostViewed',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
 };
