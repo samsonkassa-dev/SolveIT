@@ -259,7 +259,7 @@ module.exports = function(Useraccount) {
 
   // register SolveIT investor
   Useraccount.registerInvestor = async user => {
-    let {IcogRole} = Useraccount.app.models;
+    let {IcogRole, investorProfile} = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
         name: 'solve-it-investor',
@@ -277,6 +277,7 @@ module.exports = function(Useraccount) {
     }
 
     user = await Useraccount.create(user);
+    let profile = investorProfile.create({investorId: user.id});
 
     return user;
   };
@@ -1179,5 +1180,40 @@ module.exports = function(Useraccount) {
       type: 'Object',
       root: true,
     },
+  });
+
+  
+  Useraccount.logoutUser = async tokenId => {
+    const { AccessToken } = Useraccount.app.models;
+    if (!tokenId) return true;
+
+    const token = await AccessToken.findOne({
+      where: {
+        id: tokenId
+      }
+		});
+
+		if (!token) return true;
+
+		console.log("token");
+		console.log(token);
+
+    try {
+			await Useraccount.logout(tokenId);
+    } catch (err) {
+      throw err;
+    }
+    return true;
+  };
+  Useraccount.remoteMethod("logoutUser", {
+    accepts: [
+      {
+        arg: "tokenId",
+				type: "string",
+				required: true        
+      }
+    ],
+    returns: { type: "object", root: true },
+    http: { path: "/logout-user", verb: "post" }
   });
 };

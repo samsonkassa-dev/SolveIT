@@ -149,6 +149,11 @@
       "type": "hasMany",
       "model": "progressComment",
       "foreignKey": "userId"
+    },
+    "profile": {
+      "type": "hasMany",
+      "model": "investorProfile",
+      "foreignKey": "investorId"
     }
   },
   "acls": [
