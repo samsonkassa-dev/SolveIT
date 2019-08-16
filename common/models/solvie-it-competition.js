@@ -40,11 +40,12 @@ module.exports = function(Solvieitcompetition) {
     return competitionProjects;
   };
 
-  Solvieitcompetition.getCompetitionAllProjects = async competitionId => {
+  Solvieitcompetition.getCompetitionAllProjects = async () => {
+    const activeCompetition = await Solvieitcompetition.find({where: {active: true}});
     const {CompetitionProject} = Solvieitcompetition.app.models;
 
     let competitionProjects = await CompetitionProject.find({
-      where: {competitionId: competitionId},
+      where: {competitionId: activeCompetition[0].id},
       include: ['solveitproject'],
     });
 
@@ -53,15 +54,8 @@ module.exports = function(Solvieitcompetition) {
 
   Solvieitcompetition.remoteMethod('getCompetitionAllProjects', {
     desctiption: 'get all projects in competition',
-    accepts: [
-      {
-        arg: 'competitionId',
-        type: 'string',
-        required: true,
-      },
-    ],
     http: {
-      verb: 'post',
+      verb: 'get',
       path: '/all-projects',
     },
     returns: {
