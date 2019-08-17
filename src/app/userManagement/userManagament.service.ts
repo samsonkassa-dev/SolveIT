@@ -4,6 +4,7 @@ import { AuthService } from "../Auth/services/auth.service";
 
 @Injectable()
 export class UserManagementService {
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService
@@ -55,7 +56,7 @@ export class UserManagementService {
   }
 
   getUserList() {
-    return this.apiService.get(`UserAccounts`);
+    return this.apiService.get(`UserAccounts?filter={"include":["profile"]}`);
   }
 
   assignCities(data) {
@@ -64,5 +65,9 @@ export class UserManagementService {
 
   getAssignedCities(userId) {
     return this.apiService.get(`UserAccounts/${userId}/get-assigned-cities`);
+  }
+
+  approveInvestor(profileId) {
+    return this.apiService.patch(`investorProfiles/${profileId}`, {approved: true});
   }
 }

@@ -1,0 +1,8 @@
+<!-- blog comments -->
+<div class="blog-comments">
+    <ng-container  *ngFor="let review of reviews | paginate: { itemsPerPage: 20, currentPage: page }">
+        <app-single-review [review]="review"></app-single-review>
+    </ng-container>
+    <pagination-controls *ngIf="reviews.length > 20" (pageChange)="page = $event"></pagination-controls>
+</div>
+<!-- /blog comments -->

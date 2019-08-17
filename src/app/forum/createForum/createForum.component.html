@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="form-group">
-      <select
+      <!-- <select
         style="width: 100%"
         name="category"
         id="category"
@@ -52,7 +52,13 @@
         <option value="{{category.id}}" *ngFor="let category of categories">{{
           category.category
         }}</option>
-      </select>
+      </select> -->
+      <ng-select placeholder="select category" [items]="categories"
+                bindLabel="category"
+                autofocus
+                bindValue="id"
+                [(ngModel)]="forum.categoryId">
+      </ng-select>
       <div
         class="error-message"
         *ngIf="
@@ -64,7 +70,7 @@
       </div>
     </div>
     <div class="form-group">
-      <select
+      <!-- <select
         style="width: 100%"
         name="type"
         id="type"
@@ -79,7 +85,13 @@
           >Public</option
         >
         <option value="1">Private</option>
-      </select>
+      </select> -->
+      <ng-select placeholder="select type" [items]="getType()"
+                bindLabel="name"
+                autofocus
+                bindValue="value"
+                [(ngModel)]="forum.private">
+      </ng-select>
       <div
         class="error-message"
         *ngIf="

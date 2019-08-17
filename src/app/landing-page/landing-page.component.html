@@ -52,6 +52,10 @@
             ">
             <a routerLink="/winners">Winners</a>
           </li>
+          <li [class.active]="router.isActive('projects', false)" *ngIf="
+              authService.isInvestor()">
+            <a routerLink="/my-projects/recommendations">Projects</a>
+          </li>
           <li [class.active]="router.isActive('events', false)">
             <a routerLink="/events">Events</a>
           </li>

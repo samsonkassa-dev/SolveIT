@@ -10,7 +10,8 @@ export class AuthService {
   public user_Path = "UserAccounts";
   public login_path = "UserAccounts/login";
   public logout_path = "UserAccounts/logout";
-  public register_path = "UserAccounts/register-participants";
+  public register_path_participant = "UserAccounts/register-participants";
+  public register_path_investor = "UserAccounts/register-investor";
   public register_mgt_path = "UserAccounts/register-solveit-mgt";
   public register_team_path = "UserAccounts/register-solveit-team";
 
@@ -18,7 +19,8 @@ export class AuthService {
     "solve-it-mgt",
     "solve-it-team",
     "solve-it-participants",
-    "admin"
+    "admin",
+    "solve-it-investor"
   ];
 
   constructor(public router: Router, public apiService: ApiService) {}
@@ -75,20 +77,44 @@ export class AuthService {
     return false;
   }
 
-  signOut() {
-    if (this.isAuthenticated()) {
-      // this.apiService.post(`${this.logout_path}`, {})
-      //   .subscribe(res => {
-      //     this.router.navigate(['']);
-      //   }, err => {
-      //  });
-      window.localStorage.removeItem(this.TOKEN);
-      this.router.navigate([""]);
+  // signOut() {
+  //   if (this.isAuthenticated()) {
+  //     // this.apiService.post(`${this.logout_path}`, {})
+  //     //   .subscribe(res => {
+  //     //     this.router.navigate(['']);
+  //     //   }, err => {
+  //     //  });
+  //     window.localStorage.removeItem(this.TOKEN);
+  //     this.router.navigate([""]);
+  //   }
+  // }
+
+  signOut(){
+    console.log(JSON.parse(window.localStorage.getItem(this.TOKEN)).id);
+    if(this.isAuthenticated()){
+        this.apiService.post(`${this.user_Path}/logout-user`, {
+          tokenId: JSON.parse(window.localStorage.getItem(this.TOKEN)).id
+        })
+          .subscribe(
+            res=>{
+              window.localStorage.removeItem(this.TOKEN);
+              this.router.navigate([""]);
+            }
+          );
+        this.router.navigate(['', 'login']);
     }
+    // if (this.isAuthenticated()) {
+    //   window.localStorage.removeItem(this.TOKEN);
+    //   this._router.navigate([""]);
+    // }
+}
+
+  registerParticipant(user) {
+    return this.apiService.post(`${this.register_path_participant}`, user);
   }
 
-  register(user) {
-    return this.apiService.post(`${this.register_path}`, user);
+  registerInvestor(user) {
+    return this.apiService.post(`${this.register_path_investor}`, user);
   }
 
   isAuthenticated(): boolean {
@@ -135,13 +161,24 @@ export class AuthService {
     }
   }
 
+  isInvestor() {
+    try {
+      const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
+      return data.role === this.ICOG_ROLE[4];
+    } catch (e) {
+      return false;
+    }
+  }
+
   addUser(user, role) {
     if (role === this.ICOG_ROLE[0]) {
       return this.apiService.post(this.register_mgt_path, user);
     } else if (role === this.ICOG_ROLE[1]) {
       return this.apiService.post(this.register_team_path, user);
     } else if (role === this.ICOG_ROLE[2]) {
-      return this.apiService.post(this.register_path, user);
+      return this.apiService.post(this.register_path_participant, user);
+    } else if (role === this.ICOG_ROLE[4]) {
+      return this.apiService.post(this.register_path_investor, user);
     }
   }
 

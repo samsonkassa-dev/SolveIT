@@ -4,6 +4,7 @@ import { from } from "../../../node_modules/rxjs/observable/from";
 
 @Injectable()
 export class ProjectService {
+  
   constructor(public apiService: ApiService) {}
 
   createProject(project) {
@@ -11,7 +12,7 @@ export class ProjectService {
   }
 
   getProject(projectId) {
-    return this.apiService.get(`/Solveitprojects/${projectId}`);
+    return this.apiService.get(`Solveitprojects/${projectId}`);
   }
 
   getMyProjects(userId) {
@@ -97,7 +98,55 @@ export class ProjectService {
     return this.apiService.post(`projectRatings`, ratingObject);
   }
 
-  getRecommendations() {
-    return this.apiService.get(``);
+  getRecommendedProjects() {
+    return this.apiService.get(`CompetitionProjects/recommendations`);
+  }
+
+  getMostViewedProjects() {
+    return this.apiService.get(`projectViews/mostViewed`);
+  }
+
+  getTopRatedProjects() {
+    return this.apiService.get(`projectRatings/topRated`);
+  }
+
+  getBookmarkedProjects() {
+    return this.apiService.get(`projectBookmarks/userBookmarks`);
+  }
+
+  getProjectRatings(projectId) {
+      return this.apiService.get(`projectRatings/${projectId}/ratings`);
+  }
+
+  registerView(projectViewObject) {
+      return this.apiService.post(`projectViews/registerView`, {projectViewObject: {projectViewObject}});
+  }
+
+  getSectors() {
+    return this.apiService.get(`sectors`);
+  }
+
+  getProductTypes() {
+    return this.apiService.get(`productTypes`);
+  }
+
+  addProductTypeView(viewObject) {
+    return this.apiService.post(`productTypeViews`, viewObject);
+  }
+
+  addSectorView(viewObject) {
+    return this.apiService.post(`sectorViews`, viewObject);
+  }
+
+  fetchInvestorProfile(userId) {
+    return this.apiService.get(`UserAccounts/${userId}/profile`);
+  }
+
+  patchInvestorProfile(profileId, profile) {
+    return this.apiService.patch(`investorProfiles/${profileId}`, profile);
+  }
+
+  getCompetitionAllProjects() {
+    return this.apiService.get(`solvieITCompetitions/all-projects`);
   }
 }

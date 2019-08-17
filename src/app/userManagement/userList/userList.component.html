@@ -38,6 +38,7 @@
             >
             <option value="1">SolveIT Staffs & Mentors Team</option>
             <option value="2">SolveIT Participants</option>
+            <option value="3">SolveIT Investors</option>
           </select>
         </div>
       </div>
@@ -139,13 +140,23 @@
                 >
               </li>
               <li>
-                <a *ngIf="!user.isModerator" (click)="processModerator(user)"
+                <a *ngIf="!user.isModerator && this.selectedRole.name != 'investor'" (click)="processModerator(user)"
                   >Make Moderator</a
                 >
               </li>
               <li>
                 <a *ngIf="user.isModerator" (click)="processModerator(user)"
                   >Detain Moderator</a
+                >
+              </li>
+              <li>
+                <a *ngIf="this.selectedRole.name === 'investor' && !user.profile.approved" (click)="approveInvestor(user.profile[0].id)"
+                  >Approve</a
+                >
+              </li>
+              <li>
+                <a *ngIf="this.selectedRole.name === 'investor' && user.profile.approved"
+                  >Approved</a
                 >
               </li>
             </ul>

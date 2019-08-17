@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="row main-container">
+    <div class="col-md-12 project-content">
+      <div class="row project-profile" *ngIf="project !== null">
+        <h3 id="project-title">Title : {{ project.title }}    <span id="download" (click)="bookmark(project)">
+            <i style="margin-right: 1em" class="fa fa-bookmark"></i></span
+          ></h3>
+        <h4 id="label">Description</h4>
+        <p id="description">{{ project.description }}</p>
+        <h4 id="proposal-label">Bussiness writeup</h4>
+        <p id="proposal-description">
+        </p>
+        <p
+          id="status-description"
+          data-toggle="modal"
+          data-target="#myModal"
+          data-backdrop="static"
+        >
+          <span id="enroll" (click) = "toggleModal('writeup')">Download</span>
+        </p>
+        <h4 id="proposal-label">Bussiness plan</h4>
+        <p id="proposal-description">
+        </p>
+        <p
+          id="status-description"
+          data-toggle="modal"
+          data-target="#myModal"
+          data-backdrop="static"
+        >
+          <span id="enroll" (click) = "toggleModal('plan')">Download</span>
+        </p>
+      </div>
+      <div
+        class="row progress-reports"
+      >
+        <div class="panel panel-default">
+          <div id="progress-report-heading">
+            <h3 id="progress-report-title">Investor Reviews</h3>
+          </div>
+          <div class="panel-body" id="progress-report-content">
+            <app-review-list
+                [reviews]="ratings"
+            >
+            </app-review-list>
+            <div class="reply-form">
+                <h5 class="title" *ngIf="authService.isAuthenticated()">
+                    Rate Project
+                </h5>
+                <star-rating value="0" checkedcolor="teal" uncheckedcolor="black" size="24px"    readonly="false" (rate)="onRate($event)"></star-rating>
+                <form [formGroup]="ratingForm" *ngIf="authService.isAuthenticated()">
+                    <textarea
+                    style="height: 10em;"
+                    placeholder="Add Your Review"
+                    formControlName="review"
+                    [rows]="30"
+                    [(ngModel)]="rating.review"
+                    ></textarea>
+                    <button
+                    [disabled]="!ratingForm.valid"
+                    type="submit"
+                    class="main-btn"
+                    (click)="rateProject()"
+                    >
+                    Submit
+                    <!-- <span *ngIf="isPostingCommentLoading"
+                        ><i id="spinner" class="fa fa-spinner fa-spin"></i
+                    ></span> -->
+                    </button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-profile-modal [previousProfile]="previousProfile[0]" *ngIf = "showModal">
+
+</app-profile-modal>

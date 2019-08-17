@@ -1,0 +1,22 @@
+<!-- review -->
+<div class="media" *ngIf="review">
+    <div class="media-left">
+        <img
+        class="media-object"
+        id="commenter-avatar"
+        src="../../../assets/img/User_Circle.png"
+        alt=""
+        />
+    </div>
+    <div class="media-body">
+        <h6 *ngIf = "review.ratorId == authService.getUserId()" class="media-heading">
+            You
+        </h6>
+        <h6 *ngIf = "review.ratorId != authService.getUserId()" class="media-heading">
+            {{ review.rator.username }}
+        </h6>
+        <star-rating value="{{review.rating}}" checkedcolor="teal" uncheckedcolor="black" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
+        <div class="" [innerHtml]="formatReview(review.review)"></div>
+    </div>
+</div>
+<!-- /review -->

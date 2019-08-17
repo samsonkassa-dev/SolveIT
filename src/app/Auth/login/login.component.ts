@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
     "solve-it-mgt",
     "solve-it-team",
     "solve-it-participants",
-    "admin"
+    "admin",
+    "solve-it-investor"
   ];
   public isLoading = false;
 
@@ -60,6 +61,8 @@ export class LoginComponent implements OnInit {
           this.authService.getUserRole(res.userId).subscribe(res1 => {
             if (res1.name === this.ICOG_ROLE[2]) {
               this.router.navigate(["/my-projects"]);
+            } else if (res1.name === this.ICOG_ROLE[4]) {
+              this.router.navigate(["/my-projects/recommendations"]);
             } else {
               this.router.navigate(["/dashboard"]);
             }

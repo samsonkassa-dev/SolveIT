@@ -4,13 +4,14 @@ export interface User {
   lastName: string;
   phoneNumber: string;
   email: string;
-  workStatus: string;
+  workStatus?: string;
   educationLevel: string;
   gender: string;
   birthDate: any;
   password: string;
-  address: object;
-  cityId: string;
+  address?: object;
+  cityId?: string;
   username?: string;
   facebook?: object;
+  PO_Box?: string;
 }

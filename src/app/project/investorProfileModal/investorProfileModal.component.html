@@ -1,0 +1,152 @@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div *ngIf = "!previousProfile.underReview" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profile Submission</h4>
+            </div>
+            <div *ngIf = "!previousProfile.approved"  class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Notice</h4>
+            </div>
+            <div class="modal-body">
+                <form *ngIf = "!previousProfile.underReview" [formGroup]="form" id="join-competititon-form">
+                    <div class="innovation-info" *ngIf="currentForm === formSteps[0]">
+                        <div class="input-field">
+                            <input class="input" type="text" name="whatProblem" placeholder="Minimum capital to invest in ETB"
+                                formControlName="minimumCapital" [(ngModel)]="profile.minCapital" />
+                            <div class="error-message" *ngIf="form.controls.minimumCapital.invalid && form.controls.minimumCapital.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <input class="input" type="text" name="whatProblem" placeholder="Maximum capital to invest in ETB"
+                                formControlName="maximumCapital" [(ngModel)]="profile.maxCapital" />
+                            <div class="error-message" *ngIf="form.controls.maximumCapital.invalid && form.controls.maximumCapital.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="equity" [(ngModel)]="profile.equityDemand">
+                                <option value="">Equity share you demand for your investment</option>
+                                <option *ngFor="let equity of equities" [value]="equity">{{ equity }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.equity.invalid && form.controls.equity.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="sector" [(ngModel)]="profile.currentSector">
+                                <option value="">Current sector you are engaged</option>
+                                <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.sector.invalid && form.controls.sector.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="horizonSector" [(ngModel)]="profile.sectorsToBroadenHorizon">
+                                <option value="">Sector you want to broaden your horizon</option>
+                                <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.horizonSector.invalid && form.controls.horizonSector.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <textarea class="input" type="text" name="description" placeholder="Previous experience in Tech business"
+                                formControlName="previousExperience" [(ngModel)]="profile.preference">
+                            </textarea>
+                            <div class="error-message" *ngIf="form.controls.previousExperience.invalid && form.controls.previousExperience.touched">
+                                <p>* this field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="specificPreference" [(ngModel)]="profile.specificPreference">
+                                <option value="">Specific preference</option>
+                                <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.specificPreference.invalid && form.controls.specificPreference.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="ecommerceModel" [(ngModel)]="profile.preferedEcommerceModel">
+                                <option value="">Prefered E-Commerce model</option>
+                                <option *ngFor="let ecommerceModel of ecommerceModels" [value]="ecommerceModel">{{ ecommerceModel }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.ecommerceModel.invalid && form.controls.ecommerceModel.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="annualRevenue" [(ngModel)]="profile.annualRevenue">
+                                <option value="">Annual Revenue</option>
+                                <option *ngFor="let annualRevenue of annualRevenues" [value]="annualRevenue">{{ annualRevenue }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.annualRevenue.invalid && form.controls.annualRevenue.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="bussinessModel" [(ngModel)]="profile.preferedBussinessModel">
+                                <option value="">Preferred Business Model</option>
+                                <option *ngFor="let bussinessModel of bussinessModels" [value]="bussinessModel">{{ bussinessModel }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.bussinessModel.invalid && form.controls.bussinessModel.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="preferedConsumer" [(ngModel)]="profile.preferedConsumer">
+                                <option value="">Preferred Consumer</option>
+                                <option *ngFor="let preferedConsumer of preferedConsumers" [value]="preferedConsumer">{{ preferedConsumer }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.preferedConsumer.invalid && form.controls.preferedConsumer.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                        <!-- <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="sector" [(ngModel)]="profile.preferedConsumer">
+                                <option value="">Preferred Consumer</option>
+                                <option *ngFor="let preferedConsumer of preferedConsumers" [value]="preferedConsumer">{{ preferedConsumer }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.furtherInfo.controls.teamOrNah.invalid && form.controls.furtherInfo.controls.teamOrNah.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div> -->
+                        <div class="input-field">
+                            <select id="howToParticipateInput" name="howToParticipate"
+                                formControlName="projectState" [(ngModel)]="profile.projectState">
+                                <option value="">Preferred Project State</option>
+                                <option *ngFor="let projectState of projectStates" [value]="projectState">{{ projectState }}</option>
+                            </select>
+                            <div class="error-message" *ngIf="form.controls.projectState.invalid && form.controls.projectState.touched">
+                                <p>* This field is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                      <button (click)="submitProfile()" class="main-btn">Submit</button>
+                    </div>
+                </form>
+                <div *ngIf = "!previousProfile.approved" class="info">
+                    <div class="sucessfully-joined" >
+                      <p class="info-text header">Your profile is under review by our team, please have a patience till you get approval. Thanks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

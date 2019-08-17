@@ -21,10 +21,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { SolveitMgmtGuardService } from "./services/solveit-mgmt-guard.service";
 import { SolveitTeamGuardService } from "./services/solveit-team-guard.service";
 import { UserModuleGuardService } from "./services/userModuleGuard.service";
+import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.component";
 
 @NgModule({
   declarations: [
     RegisterComponent,
+    RegisterInvestorComponent,
     LoginComponent,
     AdressComponent,
     QuestionariesComponent,

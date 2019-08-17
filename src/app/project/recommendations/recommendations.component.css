@@ -52,4 +52,10 @@
     border-bottom: 1px solid #2ba692;
     color: #2ba692;
   }
-  
+  .select {
+    float: right;
+  }
+
+  .project-header {
+    margin-left: 15px;
+  }

@@ -1,103 +1,226 @@
 <app-header></app-header>
 
 <div class="container" id="project-list-header">
-  <div class="events-list-header">
-    <div class="left">
-      <p
-        (click)="toggleView('projects')"
-        [class.active]="selected == 'projects'"
-      >
-        Projects
-      </p>
-      <p
-        (click)="toggleView('bookmarks')"
-        *ngIf="authService.isAuthenticated()"
-        [class.active]="selected == 'bookmarks'"
-      >
-        Bookmarks
-      </p>
-      <div class="divider"></div>
-    </div>
-    <div class="right">
-      <div id="aside">
-        <div class="widget">
-          <div class="widget-search">
-            <label for="user-fillter">Filter By Participation</label>
-            <select
-              name="category"
-              class="form-control"
-              id="category"
-              [(ngModel)]="filterSector"
-              (change)="filterProjects($event)"
-            >
-              <option value="">Filter by Product Type</option>
-              <!-- <option
-                *ngFor="let category of categories"
-                [value]="category.category"
-                >{{ category.category }}</option
-              > -->
-            </select>
-          </div>
-        </div>
+  <div class="row">
+    <div class="events-list-header">
+      <div class="left">
+        <p
+          (click)="toggleView('projects')"
+          [class.active]="selected == 'projects'"
+        >
+          Projects
+        </p>
+        <p
+          (click)="toggleView('bookmarks')"
+          *ngIf="authService.isAuthenticated()"
+          [class.active]="selected == 'bookmarks'"
+        >
+          Bookmarks
+        </p>
+        <div class="divider"></div>
       </div>
-      <div id="aside">
-        <div class="widget">
-          <div class="widget-search">
-            <label for="user-fillter">Filter By Product</label>
-            <select
-              name="category"
-              class="form-control"
-              id="category"
-              [(ngModel)]="filterSector"
-              (change)="filterProjects($event)"
-            >
-              <option value="">Filter by Product Type</option>
-              <!-- <option
-                *ngFor="let category of categories"
-                [value]="category.category"
-                >{{ category.category }}</option
-              > -->
-            </select>
-          </div>
-        </div>
-      </div>
-      <div id="aside">
-        <div class="widget">
-          <div class="widget-search">
-            <label for="user-fillter">Filter By sector </label>
-            <select
-              name="category"
-              class="form-control"
-              id="category"
-              [(ngModel)]="filterSector"
-              (change)="filterProjects($event)"
-            >
-              <option value="" selected>Filter by Sector</option>
-              <option value="" selected>All</option>
-              <!-- <option
-                *ngFor="let category of categories"
-                [value]="category.category"
-                >{{ category.category }}</option
-              > -->
-            </select>
-          </div>
-        </div>
-      </div>
-      <div id="aside">
-        <div class="widget">
-          <div class="widget-search">
-            <input
-              class="search-input form-control"
-              type="text"
-              placeholder="Search"
-              [(ngModel)]="keyword"
-            />
-            <button class="search-btn" type="button">
-              <i class="fa fa-search"></i>
-            </button>
+      <div class="right">
+        <ng-select placeholder="select sector" (change)="addSectorView($event)" class="col-md-2 col-sm-4 select" [items]="sectors"
+                  bindLabel="sector"
+                  autofocus
+                  bindValue="id"
+                  [(ngModel)]="selectedSector">
+        </ng-select>
+        <ng-select placeholder="select product type" (change) = "addProductTypeView($event)" class="col-md-2 col-sm-4 select" [items]="productTypes"
+                  bindLabel="productType"
+                  autofocus
+                  bindValue="id"
+                  [(ngModel)]="selectedProductType">
+        </ng-select>
+        <div id="aside">
+          <div class="widget">
+            <div class="widget-search">
+              <input
+                class="search-input form-control"
+                type="text"
+                onkeyup="search()"
+                placeholder="Search"
+                [(ngModel)]="keyword"
+              />
+              <button class="search-btn" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf = "selected == 'projects' && allProjects.length > 0" class="row">
+    <h4 class="project-header">All Projects</h4>
+    <!-- Projects list --> 
+    <ng-container *ngIf="allProjects.length > 0">
+      <ng-container *ngFor="
+      let project of (allProjects
+        | paginate: { itemsPerPage: 8, currentPage: page });
+      let i;
+      of: index
+    ">
+        <div *ngIf = "project.solveitproject" class="col-md-3 col-sm-6">
+          <div class="about">
+            <i class="fa fa-briefcase"></i>
+
+            <h3>{{ project.solveitproject.title.substring(0, 14) }} ...</h3>
+            <a
+              style="cursor: pointer"
+              (click)="navigateToProjectDetail(project.solveitproject)"
+            >
+              <span
+                ><i
+                  style="font-size: 1em; padding: .5em;"
+                  class="fa fa-eye"
+                ></i></span
+              >View Project
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- Projects list -->
+  </div>
+  <pagination-controls
+    *ngIf="allProjects.length > 8"
+    (pageChange)="page = $event"
+  >
+  </pagination-controls>
+  <hr *ngIf = "selected == 'projects' && allProjects.length > 0">
+  <div *ngIf = "selected == 'projects' && recommendedProjects.length > 0" class="row">
+      <h4 class="project-header">Recommended</h4>
+      <!-- Projects list --> 
+      <ng-container *ngIf="allProjects.length > 0">
+        <div
+          class="col-md-3 col-sm-6"
+          *ngFor="
+            let project of (allProjects
+              | paginate: { itemsPerPage: 8, currentPage: p });
+            let i;
+            of: index
+          "
+        >
+          <div class="about">
+            <i class="fa fa-briefcase"></i>
+  
+            <h3>{{ project.title.substring(0, 14) }} ...</h3>
+            <a
+              style="cursor: pointer"
+              (click)="navigateToProjectDetail(project)"
+            >
+              <span
+                ><i
+                  style="font-size: 1em; padding: .5em;"
+                  class="fa fa-eye"
+                ></i></span
+              >View Project
+            </a>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Projects list -->
+    </div>
+    <hr *ngIf = "selected == 'projects' && recommendedProjects.length > 0">
+    <div *ngIf = "selected == 'projects' && topRatedProjects.length > 0" class="row">
+      <h4 class="project-header">Top Rated</h4>
+      <!-- Projects list --> 
+      <ng-container *ngIf="topRatedProjects.length > 0">
+        <div
+          class="col-md-3 col-sm-6"
+          *ngFor="
+            let project of (topRatedProjects
+              | paginate: { itemsPerPage: 8, currentPage: p });
+            let i;
+            of: index
+          "
+        >
+          <div class="about">
+            <i class="fa fa-briefcase"></i>
+            <h3>{{ project.project.title.substring(0, 14) }} ...</h3>
+            <star-rating value="{{project.rating}}" checkedcolor="teal" uncheckedcolor="black" size="24px"    readonly="true" (rate)="onRate($event)"></star-rating>
+            <a
+              style="cursor: pointer"
+              (click)="navigateToProjectDetail(project.project)"
+            >
+              <span
+                ><i
+                  style="font-size: 1em; padding: .5em;"
+                  class="fa fa-eye"
+                ></i></span
+              >View Project
+            </a>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Projects list -->
+    </div>
+    <hr *ngIf = "selected == 'projects' && topRatedProjects.length > 0">
+    <div *ngIf = "selected == 'projects' && mostViewedProjects.length > 0" class="row">
+      <h4 class="project-header">Most Viewed</h4>
+      <!-- Projects list --> 
+      <ng-container *ngIf="mostViewedProjects.length > 0">
+        <div
+          class="col-md-3 col-sm-6"
+          *ngFor="
+            let project of (mostViewedProjects
+              | paginate: { itemsPerPage: 8, currentPage: p });
+            let i;
+            of: index
+          "
+        >
+          <div class="about">
+            <i class="fa fa-briefcase"></i>
+  
+            <h3>{{ project.solveitproject.title.substring(0, 14) }} ...</h3>
+            <a
+              style="cursor: pointer"
+              (click)="navigateToProjectDetail(project.solveitproject)"
+            >
+              <span
+                ><i
+                  style="font-size: 1em; padding: .5em;"
+                  class="fa fa-eye"
+                ></i></span
+              >View Project
+            </a>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Projects list -->
+    </div>
+    <div *ngIf = "selected == 'bookmarks' && bookmarks.length > 0" class="row">
+      <h4 class="project-header">Bookmarked Projects</h4>
+      <!-- Projects list --> 
+      <ng-container *ngIf="bookmarks.length > 0">
+        <div
+          class="col-md-3 col-sm-6"
+          *ngFor="
+            let project of (bookmarks
+              | paginate: { itemsPerPage: 8, currentPage: p });
+            let i;
+            of: index
+          "
+        >
+          <div class="about">
+            <i class="fa fa-briefcase"></i>
+  
+            <h3>{{ project.solveitproject.title.substring(0, 14) }} ...</h3>
+            <a
+              style="cursor: pointer"
+              (click)="navigateToProjectDetail(project.solveitproject)"
+            >
+              <span
+                ><i
+                  style="font-size: 1em; padding: .5em;"
+                  class="fa fa-eye"
+                ></i></span
+              >View Project
+            </a>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Projects list -->
+    </div>
 </div>

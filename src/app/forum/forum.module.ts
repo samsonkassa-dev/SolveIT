@@ -23,6 +23,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { ForumRoutes } from './forum.route';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { ForumRoutes } from './forum.route';
       FileUploadModule,
       NgCircleProgressModule,
       NgMultiSelectDropDownModule,
-      NgxSpinnerModule
+      NgxSpinnerModule,
+      NgSelectModule
     ],
     providers: [ForumService],
 })

@@ -16,11 +16,11 @@ import { NgxSpinnerService } from "ngx-spinner";
 declare var $: any;
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"]
+  selector: "app-register-investor",
+  templateUrl: "./registerInvestor.component.html",
+  styleUrls: ["./registerInvestor.component.css"]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterInvestorComponent implements OnInit {
   public educationLevels = [
     "Elementary",
     "HighSchool",
@@ -31,54 +31,32 @@ export class RegisterComponent implements OnInit {
     "Elementary Dropout",
     "Other"
   ];
-  public status = [
-    "Employee (Full time)",
-    "Employee (Part time)",
-    "Unemployed",
-    "Business Owner",
-    "Student",
-    "Other"
-  ];
   public user: User = {
     firstName: "",
     middleName: "",
     lastName: "",
+    username: "",
     email: "",
     phoneNumber: "",
     password: "",
     birthDate: "",
     gender: "",
-    workStatus: "",
     educationLevel: "",
-    address: {},
-    cityId: ""
-  };
-  public address = {
-    regionId: "",
-    cityId: "",
-    wereda: "",
-    houseNo: "",
-    emergencyContact: {
-      fullName: "",
-      phoneNumber: ""
-    }
+    PO_Box: ""
   };
   public extraParams = {
     rePassword: "",
-    otherEducationLevel: "",
-    otherStatus: ""
+    otherEducationLevel: ""
   };
   public registerForm: FormGroup;
   public isBasicFormActive = true;
-  public isAddressFormActive = false;
-  public isQuestionariesActive = false;
   public isLoading = false;
 
   constructor(
     public authService: AuthService,
+    private spinner: NgxSpinnerService,
     public router: Router,
     public formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -95,9 +73,7 @@ export class RegisterComponent implements OnInit {
         rePassword: ["", Validators.required],
         sex: ["", Validators.required],
         age: ["", Validators.required],
-        status: ["", Validators.required],
         educationLevel: ["", Validators.required],
-        otherStatus: [""],
         otherEduvationLevel: [""]
       },
       {
@@ -138,9 +114,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       if (
         (this.user.educationLevel === "Other" &&
-          this.extraParams.otherEducationLevel === "") ||
-        (this.user.workStatus === "Other" &&
-          this.extraParams.otherStatus === "")
+          this.extraParams.otherEducationLevel === "")
       ) {
         return false;
       } else {
@@ -152,46 +126,28 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     if (this.isFormValid()) {
-      this.isAddressFormActive = true;
       this.user.email = this.user.email.toLowerCase();
-      this.isBasicFormActive = false;
+      this.isLoading = true;
+      this.spinner.show();
+
+      this.authService.registerInvestor({ user: this.user }).subscribe(
+        res => {
+          this.spinner.hide();
+          this.isLoading = false;
+          this.router.navigate(["login"]);
+          if (!this.user.facebook) {
+            $("#registerationInfo").modal("show");
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.spinner.hide();
+        }
+      );
+
     } else {
       this.markFormGroupTouched(this.registerForm);
     }
-  }
-
-  onAdressNext() {
-    this.isLoading = true;
-    this.user.cityId = this.address.cityId;
-    const temp = {
-      wereda: this.address.wereda,
-      houseNo: this.address.houseNo,
-      emergencyContact: {
-        fullName: this.address.emergencyContact.fullName,
-        phoneNumber: this.address.emergencyContact.phoneNumber
-      }
-    };
-    this.user.address = temp;
-    this.spinner.show();
-    this.authService.registerParticipant({ user: this.user }).subscribe(
-      res => {
-        this.spinner.hide();
-        this.isLoading = false;
-        this.router.navigate(["login"]);
-        if (!this.user.facebook) {
-          $("#registerationInfo").modal("show");
-        }
-      },
-      err => {
-        this.isLoading = false;
-        this.spinner.hide();
-      }
-    );
-  }
-
-  onAdressBack() {
-    this.isBasicFormActive = true;
-    this.isAddressFormActive = false;
   }
 
   /**

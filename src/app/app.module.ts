@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ToastOptions } from 'ng2-toasty';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -42,7 +43,8 @@ import { FacebookModule } from 'ngx-facebook';
     AuthModule,
     SharedModule,
     BrowserAnimationsModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    NgSelectModule
   ],
   providers: [
     ApiService,

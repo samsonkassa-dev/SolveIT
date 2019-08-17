@@ -5,11 +5,17 @@ import { EmailConfirmationComponent } from "./email-confirmation/email-confirmat
 import { NotSignedinGuardService } from "./services/not-signedin-guard.service";
 import { ForgetPasswordComponent } from "./forget-password/forget-password.component";
 import { NewPasswordComponent } from "./new-password/new-password.component";
+import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.component";
 
 export const AUTH_ROUTES: Routes = [
   {
-    path: "register",
+    path: "register/participant",
     component: RegisterComponent,
+    canActivate: [NotSignedinGuardService]
+  },
+  {
+    path: "register/investor",
+    component: RegisterInvestorComponent,
     canActivate: [NotSignedinGuardService]
   },
   {

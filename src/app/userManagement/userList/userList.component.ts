@@ -22,7 +22,8 @@ export class UserListComponent implements OnInit {
   public views = [
     { name: 'solveitmgmt', id: '' },
     { name: 'solveitteam', id: '' },
-    { name: 'participant', id: '' }
+    { name: 'participant', id: '' },
+    { name: 'investor', id: '' }
   ];
   public cities = [];
   public selectedRole = this.views[0];
@@ -67,6 +68,8 @@ export class UserListComponent implements OnInit {
           this.views[0].id = res[i].id;
         } else if (res[i].name === 'solve-it-participants') {
           this.views[2].id = res[i].id;
+        } else if (res[i].name === 'solve-it-investor') {
+          this.views[3].id = res[i].id;
         }
       }
       this.getAllUsers();
@@ -245,5 +248,11 @@ export class UserListComponent implements OnInit {
   onAssignRegionDone() {
     this.selectedMentorUser = null;
     $("#assignRegionModal").modal("hide");
+  }
+
+  approveInvestor(profileId) {
+    this.service.approveInvestor(profileId).subscribe(res => {
+      console.log('approved');
+    })
   }
 }

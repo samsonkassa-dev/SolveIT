@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { NgSelectModule } from '@ng-select/ng-select';
+import { RatingModule } from 'ng-starrating';
 
 import { ProjectService } from "./project.service";
 import { FileUploadModule } from "ng2-file-upload";
@@ -25,6 +27,10 @@ import { RouterModule } from "@angular/router";
 import { ProjectRoutes } from "./project.route";
 import { FacebookModule } from "ngx-facebook";
 import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { ProjectInvestorViewComponent } from "./projectInvestorView/projectInvestorView.component";
+import { ProjectReviewListComponent } from "./projectReviewList/projectReviewList.component";
+import { SingleReviewComponent } from "./singleReview/singleReview.component";
+import { InvestorProfileModalComponent } from "./investorProfileModal/investorProfileModal.component";
 
 @NgModule({
   declarations: [
@@ -37,7 +43,11 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     CreateProgressReportComponent,
     ReportViewComponent,
     JoinCompetitionComponent,
-    RecommendationsComponent
+    RecommendationsComponent,
+    ProjectInvestorViewComponent,
+    ProjectReviewListComponent,
+    SingleReviewComponent,
+    InvestorProfileModalComponent
   ],
   imports: [
     RouterModule.forChild(ProjectRoutes),
@@ -50,7 +60,9 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     NgCircleProgressModule,
     MomentModule,
     NgMultiSelectDropDownModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    NgSelectModule,
+    RatingModule
   ],
   providers: [ProjectService, CircleProgressOptions],
   exports: []
