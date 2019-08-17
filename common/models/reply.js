@@ -9,7 +9,6 @@ module.exports = function(Reply) {
   Reply.afterRemote('create', function(context, unused, next) {
     var replyCount = 0;
     const discussionComment = Reply.app.models['SolveIT-Discussion-Comment'];
-
     discussionComment.find(
       {
         where: {
