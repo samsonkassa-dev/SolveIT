@@ -55,9 +55,34 @@ module.exports = function(Projectview) {
     // fetch most viewed projects
 	Projectview.fetchMostViewed = function(cb) {
 		// fetchMostViewed code
-		Projectview.find({ order: 'viewCount DESC', limit: 10, include: ['solveitproject'] }, function(err, projects) {
-            cb(null, projects);
-        });
+
+        Array.prototype.sum = function (prop) {
+			var total = 0
+			for ( var i = 0, _len = this.length; i < _len; i++ ) {
+					total += this[i][prop]
+			}
+			return total
+		}
+
+		function getUniqueValuesOfKey(array, key){
+			return array.reduce(function(carry, item){
+				if(item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
+				return carry;
+			}, []);
+		}
+
+		let projects = await Projectview.find({include: ['solveitproject'] });
+		let projectIds = getUniqueValuesOfKey(projects, 'projectId');
+		let response = [];
+		for (const id of projectIds) {
+			let temp = projects.filter(item => {
+				return item.projectId == id;
+			})
+			let view = temp.sum('viewCount');
+			response.push({viewCount: view, solveitproject: temp[0].solveitproject});
+		}
+
+		return response;
 
 	}
   
