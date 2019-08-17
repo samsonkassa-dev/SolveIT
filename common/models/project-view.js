@@ -99,12 +99,35 @@ module.exports = function(Projectview) {
   Projectview.remoteMethod('fetchMostViewed', {
     description: 'fetch most viewed projects',
     http: {
-      verb: 'get',
-      path: '/mostViewed',
+      verb: 'post',
+      path: '/registerView',
     },
     returns: {
       type: 'object',
       root: true,
     },
   });
+
+  // fetch most viewed projects
+  Projectview.fetchMostViewed = function(cb) {
+    // fetchMostViewed code
+    Projectview.find(
+      {order: 'viewCount DESC', limit: 10, include: ['solveitproject']},
+      function(err, projects) {
+        cb(null, projects);
+      }
+    );
+
+    Projectview.remoteMethod('fetchMostViewed', {
+      description: 'fetch most viewed projects',
+      http: {
+        verb: 'get',
+        path: '/mostViewed',
+      },
+      returns: {
+        type: 'object',
+        root: true,
+      },
+    });
+  };
 };
