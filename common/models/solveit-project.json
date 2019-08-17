@@ -18,6 +18,9 @@
       "type": "object",
       "required": true
     },
+    "bussinessPlan": {
+      "type": "object"
+    },
     "showcased": {
       "type": "boolean",
       "default": false
