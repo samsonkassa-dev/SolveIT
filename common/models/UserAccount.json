@@ -272,6 +272,13 @@
       "property": "__get__role"
     },
     {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "logoutUser"
+    },
+    {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$owner",
