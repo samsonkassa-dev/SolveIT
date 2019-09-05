@@ -1,6 +1,31 @@
 'use strict';
 
 module.exports = function(Projectrating) {
+  Projectrating.addReview = async data => {
+    try {
+      const prevRating = await Projectrating.find({
+        where: {
+          ratorId: data.ratorId,
+          projectId: data.projectId,
+        },
+      });
+      if (prevRating.length > 0) {
+        console.log('Updating ...');
+        const updated = await Projectrating.updateAll(
+          {id: prevRating[0].id},
+          data
+        );
+
+        return updated.count === 1 ? {id: prevRating[0].id, ...data} : {};
+      } else {
+        const review = await Projectrating.create(data);
+        return review;
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
   Projectrating.beforeRemote('create', function(context, unused, next) {
     let data = context.args.data;
     Projectrating.find(
@@ -10,14 +35,14 @@ module.exports = function(Projectrating) {
           projectId: context.args.data.projectId,
         },
       },
-      function(err, account) {
+      async function(err, account) {
         if (account.length > 0) {
-          Projectrating.updateAll(
+          let updated = await Projectrating.updateAll(
             {id: account[0].id},
-            context.args.data,
-            function(err, old) {}
+            context.args.data
           );
-          next('previous rating updated!');
+          console.log(updated, '_____-------_____');
+          next(null, {id: account[0].id, ...context.args.data});
         } else {
           next();
         }
@@ -91,6 +116,21 @@ module.exports = function(Projectrating) {
     http: {
       verb: 'get',
       path: '/:projectId/ratings',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+  Projectrating.remoteMethod('addReview', {
+    description: 'review project',
+    accepts: {
+      arg: 'data',
+      type: 'object',
+    },
+    http: {
+      verb: 'post',
+      path: '/addReview',
     },
     returns: {
       type: 'object',
