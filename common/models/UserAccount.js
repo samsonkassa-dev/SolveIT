@@ -20,9 +20,7 @@ module.exports = function(Useraccount) {
       let cId = uniqueid();
       let email = ctx.instance.email;
       let userId = ctx.instance.id;
-      let html = `<p>Hello <b>${
-        ctx.instance.firstName
-      }</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
+      let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
                     <a href="${url}/confirm/${userId}-${cId}">confirmation link</a>`;
       emailConfirmationId.create(
         {
@@ -386,9 +384,7 @@ module.exports = function(Useraccount) {
                   let {Email} = Useraccount.app.models;
                   let email = data.email;
                   let userId = data.id;
-                  let html = `<p> <b>${
-                    data.firstName
-                  }</b>, You have request to change your account password. Please follow the given link.</p>
+                  let html = `<p> <b>${data.firstName}</b>, You have request to change your account password. Please follow the given link.</p>
                             <a href="${url}/change-password/${userId}-${requestId}">password change confirmation link.</a>`;
 
                   Email.send(
@@ -463,10 +459,13 @@ module.exports = function(Useraccount) {
 
   // chek if email is unique
   Useraccount.isEmailUnique = function(email, cb) {
+    var pattern = new RegExp('.*' + email + '.*', 'i');
     Useraccount.findOne(
       {
         where: {
-          email: email,
+          email: {
+            like: pattern,
+          },
         },
       },
       function(err, user) {
@@ -789,12 +788,14 @@ module.exports = function(Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = function(id, cb) {
+  Useraccount.getAssignedCities = async function(id) {
     const {AssignedCity} = Useraccount.app.models;
-    AssignedCity.find({where: {userId: id}}, (error, data) => {
-      if (error) cb(new Error('Error while fetching assigned cities'));
-      cb(null, data);
-    });
+    try {
+      const cities = await AssignedCity.findOne({where: {userId: id}});
+      return cities;
+    } catch (error) {
+      return error;
+    }
   };
 
   Useraccount.remoteMethod('exportData', {
@@ -1182,38 +1183,37 @@ module.exports = function(Useraccount) {
     },
   });
 
-  
   Useraccount.logoutUser = async tokenId => {
-    const { AccessToken } = Useraccount.app.models;
+    const {AccessToken} = Useraccount.app.models;
     if (!tokenId) return true;
 
     const token = await AccessToken.findOne({
       where: {
-        id: tokenId
-      }
-		});
+        id: tokenId,
+      },
+    });
 
-		if (!token) return true;
+    if (!token) return true;
 
-		console.log("token");
-		console.log(token);
+    console.log('token');
+    console.log(token);
 
     try {
-			await Useraccount.logout(tokenId);
+      await Useraccount.logout(tokenId);
     } catch (err) {
       throw err;
     }
     return true;
   };
-  Useraccount.remoteMethod("logoutUser", {
+  Useraccount.remoteMethod('logoutUser', {
     accepts: [
       {
-        arg: "tokenId",
-				type: "string",
-				required: true        
-      }
+        arg: 'tokenId',
+        type: 'string',
+        required: true,
+      },
     ],
-    returns: { type: "object", root: true },
-    http: { path: "/logout-user", verb: "post" }
+    returns: {type: 'object', root: true},
+    http: {path: '/logout-user', verb: 'post'},
   });
 };

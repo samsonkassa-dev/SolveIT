@@ -31,54 +31,6 @@ module.exports = function(Competitionproject) {
     return status.length > 0 ? true : false;
   };
 
-  Competitionproject.remoteMethod('enroll', {
-    description: 'Enroll project to competition.',
-    accepts: [
-      {
-        arg: 'competitionId',
-        type: 'string',
-        require: true,
-      },
-      {
-        arg: 'projectId',
-        type: 'string',
-        require: true,
-      },
-      {
-        arg: 'questionnaireAnswers',
-        type: 'object',
-        require: true,
-      },
-    ],
-    http: {
-      verb: 'post',
-      path: '/enroll',
-    },
-    returns: {
-      type: 'object',
-      root: true,
-    },
-  });
-
-  Competitionproject.remoteMethod('getProjectEnrollmentStatus', {
-    description: 'Get status of enrollment of a project.',
-    accepts: [
-      {
-        arg: 'projectId',
-        type: 'string',
-        require: true,
-      },
-    ],
-    http: {
-      verb: 'get',
-      path: '/getProjectEnrollmentStatus/:projectId',
-    },
-    returns: {
-      type: 'object',
-      root: true,
-    },
-  });
-
   // make recommendation of projects for an investor
   Competitionproject.recommendation = async function(req) {
     let {
@@ -170,6 +122,93 @@ module.exports = function(Competitionproject) {
     return recommendedProjects;
   };
 
+  Competitionproject.getAssignedProjects = async userid => {
+    const {
+      solvieITCompetition,
+      UserAccount,
+      city,
+    } = Competitionproject.app.models;
+
+    let assignedProjects = [];
+
+    const activeCompetition = await solvieITCompetition.findOne({
+      where: {active: true},
+    });
+    try {
+      const cities = await UserAccount.getAssignedCities(userid);
+
+      const projects = await solvieITCompetition.getCompetitionProjectsWithCity(
+        activeCompetition.id
+      );
+
+      if (projects.length === 0) return [];
+
+      projects.forEach(project => {
+        let mentoreCities = project.toJSON().cities;
+
+        if (mentoreCities) {
+          cities.cities.forEach(city => {
+            if (city == mentoreCities[0]) {
+              assignedProjects.push(project);
+            }
+          });
+        }
+      });
+      return {assignedProjects, assignedCities: cities.cities};
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
+  Competitionproject.remoteMethod('enroll', {
+    description: 'Enroll project to competition.',
+    accepts: [
+      {
+        arg: 'competitionId',
+        type: 'string',
+        require: true,
+      },
+      {
+        arg: 'projectId',
+        type: 'string',
+        require: true,
+      },
+      {
+        arg: 'questionnaireAnswers',
+        type: 'object',
+        require: true,
+      },
+    ],
+    http: {
+      verb: 'post',
+      path: '/enroll',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+
+  Competitionproject.remoteMethod('getProjectEnrollmentStatus', {
+    description: 'Get status of enrollment of a project.',
+    accepts: [
+      {
+        arg: 'projectId',
+        type: 'string',
+        require: true,
+      },
+    ],
+    http: {
+      verb: 'get',
+      path: '/getProjectEnrollmentStatus/:projectId',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+
   Competitionproject.remoteMethod('recommendation', {
     description: 'Recommend projects for the investor',
     accepts: [
@@ -182,6 +221,24 @@ module.exports = function(Competitionproject) {
     http: {
       verb: 'get',
       path: '/recommendations',
+    },
+    returns: {
+      type: 'object',
+      root: true,
+    },
+  });
+
+  Competitionproject.remoteMethod('getAssignedProjects', {
+    description: 'return assigned projects for mentors',
+    accepts: [
+      {
+        arg: 'userId',
+        type: 'string',
+      },
+    ],
+    http: {
+      verb: 'get',
+      path: '/getAssignedProjects/:userId',
     },
     returns: {
       type: 'object',

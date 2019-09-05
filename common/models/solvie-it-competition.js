@@ -41,7 +41,9 @@ module.exports = function(Solvieitcompetition) {
   };
 
   Solvieitcompetition.getCompetitionAllProjects = async () => {
-    const activeCompetition = await Solvieitcompetition.find({where: {active: true}});
+    const activeCompetition = await Solvieitcompetition.find({
+      where: {active: true},
+    });
     const {CompetitionProject} = Solvieitcompetition.app.models;
 
     let competitionProjects = await CompetitionProject.find({
