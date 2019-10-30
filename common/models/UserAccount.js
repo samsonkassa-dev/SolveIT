@@ -13,6 +13,9 @@ module.exports = function(Useraccount) {
   Useraccount.disableRemoteMethod('destroyById', true);
   Useraccount.disableRemoteMethod('removeById', true);
 
+  // disable case insensetive email
+  Useraccount.settings.caseSensitiveEmail = false;
+
   Useraccount.observe('after save', function(ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let {emailConfirmationId} = Useraccount.app.models;
@@ -124,7 +127,7 @@ module.exports = function(Useraccount) {
     Useraccount.findOne(
       {
         where: {
-          email: email,
+          email: {like: email, options: 'i'},
         },
       },
       function(err, data) {
