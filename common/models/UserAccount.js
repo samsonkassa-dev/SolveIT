@@ -478,10 +478,14 @@ module.exports = function(Useraccount) {
         }
         if (user === null) {
           cb(null, true);
-          return;
         } else {
-          cb(null, false);
-          return;
+          if (user.email.toLowerCase() === email.toLowerCase()) {
+            cb(null, false);
+            return;
+          } else {
+            cb(null, true);
+            return;
+          }
         }
       }
     );
