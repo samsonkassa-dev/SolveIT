@@ -25,6 +25,9 @@
       "required": true,
       "default": "None"
     },
+    "age": {
+      "type": "string"
+    },
     "phoneNumber": {
       "type": "string",
       "required": true,
