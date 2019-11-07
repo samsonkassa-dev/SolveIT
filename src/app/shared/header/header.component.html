@@ -40,11 +40,7 @@
             ">
             <a routerLink="/dashboard">Dashboard</a>
           </li>
-          <li [class.active]="router.isActive('winners', false)" *ngIf="
-              authService.isSolveitTeam() ||
-              authService.isSolveitManager() ||
-              authService.isAdmin()
-            ">
+          <li [class.active]="router.isActive('winners', false)">
             <a routerLink="/winners">Winners</a>
           </li>
 

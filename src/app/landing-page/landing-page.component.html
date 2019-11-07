@@ -67,14 +67,7 @@
           >
             <a routerLink="/dashboard">Dashboard</a>
           </li>
-          <li
-            [class.active]="router.isActive('winners', false)"
-            *ngIf="
-              authService.isSolveitTeam() ||
-              authService.isSolveitManager() ||
-              authService.isAdmin()
-            "
-          >
+          <li [class.active]="router.isActive('winners', false)">
             <a routerLink="/winners">Winners</a>
           </li>
           <li [class.active]="router.isActive('events', false)">
@@ -188,7 +181,7 @@
         <p>
           This initiative aims to, primarily, decentralize technology and
           include the youth in problem-solving programs. Solve IT is also a
-          marketplace where young innovators and investors connect through a
+          marketplace where young innovators and investors conneact through a
           yearlong "Incompetion" (incubation and competition) platform. This
           program sparked and created awareness about the impact of pro-poor
           technologies via direct seminars, media coverage, and target specific
@@ -203,14 +196,10 @@
           id="about-slider"
           style="display: flex;
     align-items: center;
-    margin: 10em 1em 0 1em;"
+    margin: 8em 0 0 1em;"
           class=""
         >
-          <img
-            class="img-responsive"
-            src="../../assets/img/backpic.jpg"
-            alt=""
-          />
+          <img class="img-responsive" src="../../assets/img/about.jpg" alt="" />
         </div>
       </div>
       <!-- /About slider -->
@@ -518,57 +507,6 @@
   <!-- /Container -->
 </div>
 <!-- /Team -->
-
-<!-- Blog -->
-<div id="blog" class="section md-padding bg-grey">
-  <!-- Container -->
-  <div class="container">
-    <!-- Row -->
-    <div class="row">
-      <!-- Section header -->
-      <div class="section-header text-center">
-        <h2 class="title">Recents Articles</h2>
-      </div>
-      <!-- /Section header -->
-
-      <!-- blog -->
-      <div class="col-md-4">
-        <div class="blog">
-          <div class="blog-img">
-            <img
-              class="img-responsive"
-              src="https://i1.wp.com/icog-labs.com/wp-content/uploads/2019/07/IMG_20190710_141224_466.jpg?zoom=2&resize=584%2C389&ssl=1"
-              alt=""
-            />
-          </div>
-          <div class="blog-content">
-            <ul class="blog-meta">
-              <li><i class="fa fa-user"></i> Heldana Michael</li>
-              <li><i class="fa fa-clock-o"></i>July 12, 2019</li>
-            </ul>
-            <h3>Extra, extra! Solve IT 2019 is Here</h3>
-            <p>
-              Solve IT 2019 is coming to its end, and the Grand Finale is
-              approaching. The Solve IT 2019 team along with its partners– the
-              U.S. Embassy and JICA– is super busy with last-minute preparations
-              for the August 17, 2019 closing. Everyone is looking forward to
-              the finale, yet everyone is shunning it anxiously.
-            </p>
-            <a
-              target="_blank"
-              href="http://icog-labs.com/extra-extra-solve-it-2019-is-here/"
-              >Read more</a
-            >
-          </div>
-        </div>
-      </div>
-      <!-- /blog -->
-    </div>
-    <!-- /Row -->
-  </div>
-  <!-- /Container -->
-</div>
-<!-- /Blog -->
 
 <!-- Contact -->
 <div id="contact" class="section md-padding">
