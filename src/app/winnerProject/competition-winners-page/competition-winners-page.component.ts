@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./competition-winners-page.component.css']
 })
 export class CompetitionWinnersPageComponent implements OnInit {
-
+  public competitionWinner = {title:"", description:""};
   public competitionWinners = [];
   public cities = [];
   public competitions = [];
@@ -28,6 +28,11 @@ export class CompetitionWinnersPageComponent implements OnInit {
     }
     this.fetchParams();
   }
+  setUpViewWinners(winner){
+    console.log(winner)
+    this.competitionWinner = winner
+  }
+
 
   fetchParams() {
     const cities = this.commonService.getCities();
