@@ -16,7 +16,7 @@
     },
     "proposal": {
       "type": "object",
-      "required": true
+      "required": false
     },
     "bussinessPlan": {
       "type": "object"
