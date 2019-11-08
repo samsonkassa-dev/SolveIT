@@ -8,7 +8,9 @@ export class WinnerProjectService {
   labelCompetitionWinner(winner) {
     return this.apiService.post(`competitionWinners/`, winner);
   }
-
+  editCompetitionWinner(winner){
+    return this.apiService.put(`competitionWinners/${winner.id}`, winner);
+  }
   labelAlmuniProject(almuni) {
     return this.apiService.post(`almuniProjects/`, almuni);
   }
