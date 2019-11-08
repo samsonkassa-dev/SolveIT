@@ -15,6 +15,7 @@ export class CityListComponent implements OnInit {
   public backUpcities = [];
   public key = '';
   public cityForm: FormGroup;
+  public editCityForm: FormGroup;
   public city = {name: '', regionId: 0};
   public page = 1;
   public regions = [];
@@ -29,6 +30,12 @@ export class CityListComponent implements OnInit {
       name: ['', Validators.required],
       region: ['', Validators.required]
     });
+
+    this.editCityForm = this.fb.group({
+      id:['',Validators.required],
+      name:['', Validators.required],
+      region:['', Validators.required]
+    })
   }
 
   onSearch($event) {
@@ -57,6 +64,21 @@ export class CityListComponent implements OnInit {
         this.cities = res;
         this.backUpcities = this.cities;
       });
+  }
+
+
+  setupEditCityForm(city){
+    this.editCityForm.patchValue(city);
+    this.editCityForm.controls['region'].setValue(city.region.id, {onlySelf: true});
+  }
+
+
+  editCity(city){
+    this.service.updateCity(city)
+    .subscribe(res =>{
+      this.editCityForm.reset()
+      this.getCities()
+    })
   }
 
   deleteCity(city) {

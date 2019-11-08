@@ -18,7 +18,9 @@ export class CityService {
   addCity(city) {
     return this.apiService.post(this.endpoint, city);
   }
-
+  updateCity(city){
+    return this.apiService.put(`${this.endpoint}/${city.id}`,city);
+  }
   deleteCity(city) {
     return this.apiService.delete(`${this.endpoint}/${city.id}`);
   }
