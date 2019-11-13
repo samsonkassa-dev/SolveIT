@@ -1,22 +1,22 @@
-'use strict';
-var Excel = require('exceljs');
-let STATUS = require('../configs/config');
-let url = require('../configs/urlConfig');
-const uniqueid = require('uniqid');
+"use strict";
+var Excel = require("exceljs");
+let STATUS = require("../configs/config");
+let url = require("../configs/urlConfig");
+const uniqueid = require("uniqid");
 
-module.exports = function (Useraccount) {
+module.exports = function(Useraccount) {
   // remove username validation
   delete Useraccount.validations.username;
 
   //  disable delete end point
-  Useraccount.disableRemoteMethod('deleteById', true);
-  Useraccount.disableRemoteMethod('destroyById', true);
-  Useraccount.disableRemoteMethod('removeById', true);
+  Useraccount.disableRemoteMethod("deleteById", true);
+  Useraccount.disableRemoteMethod("destroyById", true);
+  Useraccount.disableRemoteMethod("removeById", true);
 
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;
 
-  Useraccount.observe('after save', function (ctx, next) {
+  Useraccount.observe("after save", function(ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
@@ -28,9 +28,9 @@ module.exports = function (Useraccount) {
       emailConfirmationId.create(
         {
           cId: cId,
-          userId: userId,
+          userId: userId
         },
-        function (err, data) {
+        function(err, data) {
           if (err) {
             next(err);
             return;
@@ -38,16 +38,16 @@ module.exports = function (Useraccount) {
           Email.send(
             {
               to: email,
-              from: 'email@icog-labs.com',
-              subject: 'Welcome to SolveIT',
-              html: html,
+              from: "email@icog-labs.com",
+              subject: "Welcome to SolveIT",
+              html: html
             },
-            function (err, mail) {
+            function(err, mail) {
               if (err) {
-                console.log('Error while sending email ', err);
+                console.log("Error while sending email ", err);
                 next(err);
               }
-              console.log('email sent!');
+              console.log("email sent!");
               next();
             }
           );
@@ -59,36 +59,36 @@ module.exports = function (Useraccount) {
   });
 
   // check password  request change is correct
-  Useraccount.changePassword = function (key, cb) {
+  Useraccount.changePassword = function(key, cb) {
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
-    const ids = key.split(',');
+    const ids = key.split(",");
     const cid = ids[1];
     console.log(cid);
     forgotPasswordRequest.findOne(
       {
         where: {
-          id: cid,
-        },
+          id: cid
+        }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
-          cb(new Error('Error while checking request'));
+          cb(new Error("Error while checking request"));
           return;
         }
 
         if (data && !data.inactive && data.userId === ids[0]) {
           forgotPasswordRequest.updateAll(
             {
-              id: ids[1],
+              id: ids[1]
             },
             {
-              inactive: true,
+              inactive: true
             },
-            function (err, response) {
-              console.log('update', response);
+            function(err, response) {
+              console.log("update", response);
               if (err) {
-                console.log('error while updating');
+                console.log("error while updating");
                 cb(err);
                 return;
               }
@@ -102,46 +102,46 @@ module.exports = function (Useraccount) {
     );
   };
 
-  Useraccount.remoteMethod('changePassword', {
-    desctiption: 'request password change',
+  Useraccount.remoteMethod("changePassword", {
+    desctiption: "request password change",
     accepts: {
-      arg: 'key',
-      type: 'string',
-      require: true,
+      arg: "key",
+      type: "string",
+      require: true
     },
     http: {
-      verb: 'post',
-      path: '/change-password',
+      verb: "post",
+      path: "/change-password"
     },
     returns: {
-      type: 'object',
+      type: "object",
       root: true,
-      arg: 'success',
-    },
+      arg: "success"
+    }
   });
 
   // check if email is verified before login
-  Useraccount.beforeRemote('login', function (ctx, unused, next) {
+  Useraccount.beforeRemote("login", function(ctx, unused, next) {
     let email = ctx.args.credentials.email;
     let pass = ctx.args.credentials.password;
     Useraccount.findOne(
       {
         where: {
-          email: { like: email, options: 'i' },
-        },
+          email: { like: email, options: "i" }
+        }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
-          if (data.emailVerified && data.status === 'ACTIVE') {
+          if (data.emailVerified && data.status === "ACTIVE") {
             next();
           } else {
             let error = new Error();
             next(error);
           }
         } else {
-          let notForundError = new Error('User not found');
+          let notForundError = new Error("User not found");
           next(notForundError);
         }
       }
@@ -149,9 +149,9 @@ module.exports = function (Useraccount) {
   });
 
   // TODO: send user info and role
-  Useraccount.afterRemote('login', (ctx, output, next) => {
+  Useraccount.afterRemote("login", (ctx, output, next) => {
     Useraccount.findOne(
-      { where: { id: output.userId }, include: ['role'] },
+      { where: { id: output.userId }, include: ["role"] },
       (err, user) => {
         if (err) next(err);
         // output['user'] = user.toJSON();
@@ -160,7 +160,7 @@ module.exports = function (Useraccount) {
           userId: output.userId,
           created: output.created,
           id: output.id,
-          user: user.toJSON(),
+          user: user.toJSON()
         };
         next();
       }
@@ -180,8 +180,8 @@ module.exports = function (Useraccount) {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: 'solve-it-mgt',
-      },
+        name: "solve-it-mgt"
+      }
     });
     let user = {
       firstName: firstName,
@@ -192,7 +192,7 @@ module.exports = function (Useraccount) {
       email: email,
       username: username,
       roleId: userRole.id,
-      created: new Date().toISOString(),
+      created: new Date().toISOString()
     };
 
     user = await Useraccount.create(user);
@@ -213,8 +213,8 @@ module.exports = function (Useraccount) {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: 'solve-it-team',
-      },
+        name: "solve-it-team"
+      }
     });
 
     let user = {
@@ -226,7 +226,7 @@ module.exports = function (Useraccount) {
       email: email,
       username: username,
       roleId: userRole.id,
-      created: new Date().toISOString(),
+      created: new Date().toISOString()
     };
 
     user = await Useraccount.create(user);
@@ -239,18 +239,18 @@ module.exports = function (Useraccount) {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: 'solve-it-participants',
-      },
+        name: "solve-it-participants"
+      }
     });
 
-    user['roleId'] = userRole.id;
-    user['created'] = new Date().toISOString();
-    user['password'] = user.password + '';
-    user['phoneNumber'] = user.phoneNumber + '';
+    user["roleId"] = userRole.id;
+    user["created"] = new Date().toISOString();
+    user["password"] = user.password + "";
+    user["phoneNumber"] = user.phoneNumber + "";
 
     if (user.facebook && user.facebook.authResponse.userID) {
-      user['facebookId'] = user.facebook.authResponse.userID;
-      user['emailVerified'] = true;
+      user["facebookId"] = user.facebook.authResponse.userID;
+      user["emailVerified"] = true;
     }
 
     user = await Useraccount.create(user);
@@ -263,18 +263,18 @@ module.exports = function (Useraccount) {
     let { IcogRole, investorProfile } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: 'solve-it-investor',
-      },
+        name: "solve-it-investor"
+      }
     });
 
-    user['roleId'] = userRole.id;
-    user['created'] = new Date().toISOString();
-    user['password'] = user.password + '';
-    user['phoneNumber'] = user.phoneNumber + '';
+    user["roleId"] = userRole.id;
+    user["created"] = new Date().toISOString();
+    user["password"] = user.password + "";
+    user["phoneNumber"] = user.phoneNumber + "";
 
     if (user.facebook && user.facebook.authResponse.userID) {
-      user['facebookId'] = user.facebook.authResponse.userID;
-      user['emailVerified'] = true;
+      user["facebookId"] = user.facebook.authResponse.userID;
+      user["emailVerified"] = true;
     }
 
     user = await Useraccount.create(user);
@@ -287,7 +287,7 @@ module.exports = function (Useraccount) {
   Useraccount.activateUser = async userId => {
     let user = await Useraccount.updateAll(
       {
-        id: userId,
+        id: userId
       },
       { status: STATUS[1] }
     );
@@ -296,39 +296,39 @@ module.exports = function (Useraccount) {
   };
 
   // confirm email address
-  Useraccount.confirmEmail = function (userId, cid, cb) {
+  Useraccount.confirmEmail = function(userId, cid, cb) {
     let { emailConfirmationId } = Useraccount.app.models;
     emailConfirmationId.findOne(
       {
         where: {
-          cId: cid,
-        },
+          cId: cid
+        }
       },
-      function (err, record) {
+      function(err, record) {
         if (record !== null && userId === record.userId) {
-          console.log('record ', record);
+          console.log("record ", record);
           Useraccount.updateAll(
             {
-              id: userId,
+              id: userId
             },
             {
-              emailVerified: true,
+              emailVerified: true
             },
-            function (err, data) {
+            function(err, data) {
               if (err) {
-                console.log('error');
+                console.log("error");
                 cb(err);
                 return;
               } else {
-                console.log('updated ', data);
+                console.log("updated ", data);
                 cb(null, true);
                 return;
               }
-              console.log('after updated');
+              console.log("after updated");
             }
           );
         } else {
-          console.log('final error');
+          console.log("final error");
           let err = new Error();
           cb(err);
           return;
@@ -340,7 +340,7 @@ module.exports = function (Useraccount) {
   Useraccount.deactivateUser = async userId => {
     let user = await Useraccount.updateAll(
       {
-        id: userId,
+        id: userId
       },
       { status: STATUS[0] }
     );
@@ -349,19 +349,19 @@ module.exports = function (Useraccount) {
   };
 
   // request password change
-  Useraccount.requestPasswordChange = function (email, cb) {
-    var pattern = new RegExp('.*' + email + '.*', 'i');
+  Useraccount.requestPasswordChange = function(email, cb) {
+    var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
         where: {
           email: {
-            like: pattern,
-          },
-        },
+            like: pattern
+          }
+        }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
-          cb(new Error('Error while searching user'));
+          cb(new Error("Error while searching user"));
         } else {
           if (data !== null) {
             let { forgotPasswordRequest } = Useraccount.app.models;
@@ -369,17 +369,17 @@ module.exports = function (Useraccount) {
             forgotPasswordRequest.create(
               {
                 id: requestId,
-                userId: data.id,
+                userId: data.id
               },
-              function (err, res) {
+              function(err, res) {
                 if (err) {
                   cb(
                     new Error(
-                      'Error while creating forgot password request recored.'
+                      "Error while creating forgot password request recored."
                     ),
                     {
                       sucess: false,
-                      error: 'recored',
+                      error: "recored"
                     }
                   );
                 } else {
@@ -393,22 +393,22 @@ module.exports = function (Useraccount) {
                   Email.send(
                     {
                       to: email,
-                      from: 'email@icog-labs.com',
-                      subject: 'Confirmation for password change',
-                      html: html,
+                      from: "email@icog-labs.com",
+                      subject: "Confirmation for password change",
+                      html: html
                     },
-                    function (err, mail) {
+                    function(err, mail) {
                       if (err) {
-                        console.log('Error while sending email ', err);
-                        cb(new Error('Error while sending email.'), {
+                        console.log("Error while sending email ", err);
+                        cb(new Error("Error while sending email."), {
                           sucess: false,
-                          error: 'email',
+                          error: "email"
                         });
                       }
-                      console.log('email sent!');
+                      console.log("email sent!");
                       cb(null, {
                         sucess: true,
-                        error: null,
+                        error: null
                       });
                     }
                   );
@@ -418,7 +418,7 @@ module.exports = function (Useraccount) {
           } else {
             cb({
               sucess: false,
-              error: 'notFound',
+              error: "notFound"
             });
           }
         }
@@ -427,7 +427,7 @@ module.exports = function (Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function (id, password, cb) {
+  Useraccount.updatePassword = function(id, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
@@ -438,17 +438,17 @@ module.exports = function (Useraccount) {
     Useraccount.findOne(
       {
         where: {
-          id: id,
-        },
+          id: id
+        }
       },
-      function (err, user) {
+      function(err, user) {
         if (err) {
-          cb(buildError('INVALID_OPERATION', 'unable to find user.'));
+          cb(buildError("INVALID_OPERATION", "unable to find user."));
           return;
         }
-        user.updateAttribute('password', password, function (err, user) {
+        user.updateAttribute("password", password, function(err, user) {
           if (err) {
-            cb(buildError('INVALID_OPERATION', err));
+            cb(buildError("INVALID_OPERATION", err));
             return;
           }
 
@@ -461,17 +461,17 @@ module.exports = function (Useraccount) {
   };
 
   // chek if email is unique
-  Useraccount.isEmailUnique = function (email, cb) {
-    var pattern = new RegExp('.*' + email + '.*', 'i');
+  Useraccount.isEmailUnique = function(email, cb) {
+    var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
         where: {
           email: {
-            like: pattern,
-          },
-        },
+            like: pattern
+          }
+        }
       },
-      function (err, user) {
+      function(err, user) {
         if (err) {
           cb(err);
           return;
@@ -492,28 +492,28 @@ module.exports = function (Useraccount) {
   };
 
   // search password
-  Useraccount.searchUser = function (keyword, userId, cb) {
+  Useraccount.searchUser = function(keyword, userId, cb) {
     let trimedKeyword = keyword.trim();
     if (
-      trimedKeyword.startsWith('+2519') ||
-      trimedKeyword.startsWith('2519') ||
-      trimedKeyword.startsWith('09')
+      trimedKeyword.startsWith("+2519") ||
+      trimedKeyword.startsWith("2519") ||
+      trimedKeyword.startsWith("09")
     ) {
-      trimedKeyword = trimedKeyword.slice(trimedKeyword.indexOf('9'));
+      trimedKeyword = trimedKeyword.slice(trimedKeyword.indexOf("9"));
     }
     let pattern = new RegExp(
-      '.*' + trimedKeyword + '.*',
-      'i'
+      ".*" + trimedKeyword + ".*",
+      "i"
     ); /* case-insensitive RegExp search */
-    if (trimedKeyword !== '') {
+    if (trimedKeyword !== "") {
       Useraccount.find(
-        { where: { id: userId }, include: ['role', 'city'] },
+        { where: { id: userId }, include: ["role", "city"] },
         (error, user) => {
-          if (error) cb(new Error('Error while fetching user.'));
+          if (error) cb(new Error("Error while fetching user."));
           if (user.length > 0) {
             if (
-              user[0].role().name === 'admin' ||
-              user[0].role().name === 'solve-it-mgt'
+              user[0].role().name === "admin" ||
+              user[0].role().name === "solve-it-mgt"
             ) {
               Useraccount.find(
                 {
@@ -523,104 +523,104 @@ module.exports = function (Useraccount) {
                         or: [
                           {
                             email: {
-                              like: pattern,
-                            },
+                              like: pattern
+                            }
                           },
                           {
                             firstName: {
-                              like: pattern,
-                            },
+                              like: pattern
+                            }
                           },
                           {
                             middleName: {
-                              like: pattern,
-                            },
+                              like: pattern
+                            }
                           },
                           {
                             lastName: {
-                              like: pattern,
-                            },
+                              like: pattern
+                            }
                           },
                           {
                             username: {
-                              like: pattern,
-                            },
+                              like: pattern
+                            }
                           },
                           {
                             phoneNumber: {
-                              like: pattern,
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  },
+                              like: pattern
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 },
-                function (err, users) {
+                function(err, users) {
                   cb(null, users);
                 }
               );
             } else {
-              console.log("Well Hello There")
+              console.log("Well Hello There");
               let { IcogRole } = Useraccount.app.models;
               IcogRole.findOne(
                 {
                   where: {
                     or: [
-                      { name: 'solve-it-team' },
-                      { name: 'solve-it-participants' },
-                    ],
-                  },
+                      { name: "solve-it-team" },
+                      { name: "solve-it-participants" }
+                    ]
+                  }
                 },
-                function (err, role) {
+                function(err, role) {
                   Useraccount.find(
                     {
                       where: {
                         and: [
                           {
-                            roleId: role.id,
+                            roleId: role.id
                           },
                           {
-                            cityId: user[0].city.id,
+                            cityId: user[0].city.id
                           },
                           {
                             or: [
                               {
                                 email: {
-                                  like: pattern,
-                                },
+                                  like: pattern
+                                }
                               },
                               {
                                 firstName: {
-                                  like: pattern,
-                                },
+                                  like: pattern
+                                }
                               },
                               {
                                 middleName: {
-                                  like: pattern,
-                                },
+                                  like: pattern
+                                }
                               },
                               {
                                 lastName: {
-                                  like: pattern,
-                                },
+                                  like: pattern
+                                }
                               },
                               {
                                 username: {
-                                  like: pattern,
-                                },
+                                  like: pattern
+                                }
                               },
                               {
                                 phoneNumber: {
-                                  like: pattern,
-                                },
-                              },
-                            ],
-                          },
-                        ],
-                      },
+                                  like: pattern
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     },
-                    function (err, users) {
+                    function(err, users) {
                       cb(null, users);
                     }
                   );
@@ -636,14 +636,14 @@ module.exports = function (Useraccount) {
   };
 
   // get users by role
-  Useraccount.getUserListByRole = function (roleId, cb) {
+  Useraccount.getUserListByRole = function(roleId, cb) {
     Useraccount.find(
       {
         where: {
-          roleId: roleId,
-        },
+          roleId: roleId
+        }
       },
-      function (err, users) {
+      function(err, users) {
         cb(null, users);
       }
     );
@@ -652,13 +652,13 @@ module.exports = function (Useraccount) {
   // export user data
   Useraccount.exportData = async (selectionOptions, res) => {
     var workbook = new Excel.Workbook();
-    var sheet = workbook.addWorksheet('report');
+    var sheet = workbook.addWorksheet("report");
 
     const { IcogRole } = Useraccount.app.models;
     const City = Useraccount.app.models.City;
 
     const role = await IcogRole.findOne({
-      where: { name: 'solve-it-participants' },
+      where: { name: "solve-it-participants" }
     });
 
     var sex = selectionOptions.sex;
@@ -667,44 +667,51 @@ module.exports = function (Useraccount) {
     var cities = [];
     var users = [];
 
-    if (selectionOptions.selectedCity.toString() === '0') {
-      cities = await City.find({ include: 'region' });
+    if (selectionOptions.selectedCity.toString() === "0") {
+      cities = await City.find({ include: "region" });
     } else {
       let city = await City.findOne({
         where: { id: selectionOptions.selectedCity },
-        include: 'region',
+        include: "region"
       });
       cities.push(city);
     }
     sheet.columns = [
-      { header: 'Region', key: 'region', width: 10 },
-      { header: 'City', key: 'city', width: 10 },
-      { header: 'First Name', key: 'firstName', width: 10 },
-      { header: 'Middle Name', key: 'middleName', width: 10 },
-      { header: 'Last Name', key: 'lastName', width: 10 },
-      { header: 'Gender', key: 'sex', width: 10 },
-      { header: 'Phone Number', key: 'phoneNumber', width: 10 },
-      { header: 'Education Level', key: 'educationLevel', width: 10 },
-      { header: 'Work Status', key: 'workStatus', width: 10 },
-      { header: 'Birthdate', key: 'birthDate', width: 10 },
-      { header: 'Emergency Name', key: 'emergencyName', width: 10 },
-      { header: 'Emergency Contact', key: 'emergencyContact', width: 10 },
+      { header: "Region", key: "region", width: 10 },
+      { header: "City", key: "city", width: 10 },
+      { header: "First Name", key: "firstName", width: 10 },
+      { header: "Middle Name", key: "middleName", width: 10 },
+      { header: "Last Name", key: "lastName", width: 10 },
+      { header: "Gender", key: "sex", width: 10 },
+      { header: "Phone Number", key: "phoneNumber", width: 10 },
+      { header: "Education Level", key: "educationLevel", width: 10 },
+      { header: "Work Status", key: "workStatus", width: 10 },
+      { header: "Birthdate", key: "birthDate", width: 10 },
+      { header: "Emergency Name", key: "emergencyName", width: 10 },
+      { header: "Emergency Contact", key: "emergencyContact", width: 10 }
     ];
-    let genderQuery = {}
-    let educationQuery = {}
-    let statusQuery = {}
+    let genderQuery = {};
+    let educationQuery = {};
+    let statusQuery = {};
 
-    if (sex != 'both') {
-      genderQuery = { gender: sex }
+    if (sex != "both") {
+      genderQuery = { gender: sex };
     }
-    if (educationLevel != 'none') {
-      educationQuery = { educationLevel: educationLevel }
+    if (educationLevel != "none") {
+      educationQuery = { educationLevel: educationLevel };
     }
     if (status != 0) {
-      statusQuery = { workStatus: status }
+      statusQuery = { workStatus: status };
     }
     for (const city of cities) {
-      users = await Useraccount.find({ where: { cityId: city.id, ...genderQuery, ...educationQuery, ...statusQuery } });
+      users = await Useraccount.find({
+        where: {
+          cityId: city.id,
+          ...genderQuery,
+          ...educationQuery,
+          ...statusQuery
+        }
+      });
       for (const user of users) {
         sheet.addRow({
           region: JSON.parse(JSON.stringify(city)).region.name,
@@ -718,11 +725,10 @@ module.exports = function (Useraccount) {
           workStatus: user.workStatus,
           birthDate: user.birthDate.toString().substr(0, 10),
           emergencyName: user.address.emergencyContact.fullName,
-          emergencyContact: user.address.emergencyContact.phoneNumber,
+          emergencyContact: user.address.emergencyContact.phoneNumber
         });
       }
     }
-
 
     // if (sex == 'both' && educationLevel == 'none') {
     //   for (const city of cities) {
@@ -817,15 +823,15 @@ module.exports = function (Useraccount) {
   };
 
   async function sendWorkbook(workbook, response) {
-    var fileName = 'ExportedData.xlsx';
+    var fileName = "ExportedData.xlsx";
 
     response.setHeader(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
     response.setHeader(
-      'Content-Disposition',
-      'attachment; filename=' + fileName
+      "Content-Disposition",
+      "attachment; filename=" + fileName
     );
 
     await workbook.xlsx.write(response);
@@ -833,7 +839,7 @@ module.exports = function (Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = async function (id) {
+  Useraccount.getAssignedCities = async function(id) {
     const { AssignedCity } = Useraccount.app.models;
     try {
       const cities = await AssignedCity.findOne({ where: { userId: id } });
@@ -843,341 +849,341 @@ module.exports = function (Useraccount) {
     }
   };
 
-  Useraccount.remoteMethod('exportData', {
-    description: 'return data.',
+  Useraccount.remoteMethod("exportData", {
+    description: "return data.",
     accepts: [
       {
-        arg: 'selectionOptions',
-        type: 'object',
-        required: true,
+        arg: "selectionOptions",
+        type: "object",
+        required: true
       },
       {
-        arg: 'res',
-        type: 'object',
+        arg: "res",
+        type: "object",
         http: {
-          source: 'res',
-        },
-      },
+          source: "res"
+        }
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/exportData',
+      verb: "post",
+      path: "/exportData"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('searchUser', {
+  Useraccount.remoteMethod("searchUser", {
     http: {
-      path: '/search/:keyword/:userId',
-      verb: 'get',
+      path: "/search/:keyword/:userId",
+      verb: "get"
     },
     accepts: [
       {
-        arg: 'keyword',
-        type: 'string',
+        arg: "keyword",
+        type: "string"
       },
       {
-        arg: 'userId',
-        type: 'string',
-      },
+        arg: "userId",
+        type: "string"
+      }
     ],
     returns: {
-      arg: 'Result',
-      type: 'Object',
-    },
+      arg: "Result",
+      type: "Object"
+    }
   });
 
-  Useraccount.remoteMethod('getUserListByRole', {
+  Useraccount.remoteMethod("getUserListByRole", {
     http: {
-      path: '/role/:roleId/users',
-      verb: 'get',
+      path: "/role/:roleId/users",
+      verb: "get"
     },
     accepts: {
-      arg: 'roleId',
-      type: 'string',
+      arg: "roleId",
+      type: "string"
     },
     returns: {
-      arg: 'Result',
-      type: 'Object',
-    },
+      arg: "Result",
+      type: "Object"
+    }
   });
 
-  Useraccount.remoteMethod('requestPasswordChange', {
+  Useraccount.remoteMethod("requestPasswordChange", {
     http: {
-      path: '/request-password-change',
-      verb: 'post',
+      path: "/request-password-change",
+      verb: "post"
     },
     accepts: {
-      arg: 'email',
-      type: 'string',
-      required: true,
+      arg: "email",
+      type: "string",
+      required: true
     },
     returns: {
-      arg: 'result',
-      type: 'object',
-    },
+      arg: "result",
+      type: "object"
+    }
   });
 
-  Useraccount.remoteMethod('registerSolveItMgt', {
-    desctiption: 'Register SolveIT managment users',
+  Useraccount.remoteMethod("registerSolveItMgt", {
+    desctiption: "Register SolveIT managment users",
     accepts: [
       {
-        arg: 'firstName',
-        type: 'string',
-        required: true,
+        arg: "firstName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'middleName',
-        type: 'string',
-        required: true,
+        arg: "middleName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'lastName',
-        type: 'string',
-        required: true,
+        arg: "lastName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'email',
-        type: 'string',
-        required: true,
+        arg: "email",
+        type: "string",
+        required: true
       },
       {
-        arg: 'password',
-        type: 'string',
-        required: true,
+        arg: "password",
+        type: "string",
+        required: true
       },
       {
-        arg: 'phoneNumber',
-        type: 'string',
-        required: true,
+        arg: "phoneNumber",
+        type: "string",
+        required: true
       },
       {
-        arg: 'username',
-        type: 'string',
-        require: true,
-      },
+        arg: "username",
+        type: "string",
+        require: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/register-solveit-mgt',
+      verb: "post",
+      path: "/register-solveit-mgt"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('registerSolveItTeam', {
-    desctiption: 'Register SolveIT teams.',
+  Useraccount.remoteMethod("registerSolveItTeam", {
+    desctiption: "Register SolveIT teams.",
     accepts: [
       {
-        arg: 'firstName',
-        type: 'string',
-        required: true,
+        arg: "firstName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'middleName',
-        type: 'string',
-        required: true,
+        arg: "middleName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'lastName',
-        type: 'string',
-        required: true,
+        arg: "lastName",
+        type: "string",
+        required: true
       },
       {
-        arg: 'email',
-        type: 'string',
-        required: true,
+        arg: "email",
+        type: "string",
+        required: true
       },
       {
-        arg: 'password',
-        type: 'string',
-        required: true,
+        arg: "password",
+        type: "string",
+        required: true
       },
       {
-        arg: 'phoneNumber',
-        type: 'string',
-        required: true,
+        arg: "phoneNumber",
+        type: "string",
+        required: true
       },
       {
-        arg: 'username',
-        type: 'string',
-        require: true,
-      },
+        arg: "username",
+        type: "string",
+        require: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/register-solveit-team',
+      verb: "post",
+      path: "/register-solveit-team"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('registerParticipants', {
-    desctiption: 'Register SolveIT teams.',
+  Useraccount.remoteMethod("registerParticipants", {
+    desctiption: "Register SolveIT teams.",
     accepts: [
       {
-        arg: 'user',
-        type: 'object',
-        required: true,
-      },
+        arg: "user",
+        type: "object",
+        required: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/register-participants',
+      verb: "post",
+      path: "/register-participants"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('registerInvestor', {
-    desctiption: 'Register SolveIT Investor.',
+  Useraccount.remoteMethod("registerInvestor", {
+    desctiption: "Register SolveIT Investor.",
     accepts: [
       {
-        arg: 'user',
-        type: 'object',
-        required: true,
-      },
+        arg: "user",
+        type: "object",
+        required: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/register-investor',
+      verb: "post",
+      path: "/register-investor"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('updatePassword', {
-    desctiption: 'update user password.',
+  Useraccount.remoteMethod("updatePassword", {
+    desctiption: "update user password.",
     accepts: [
       {
-        arg: 'id',
-        type: 'string',
-        required: true,
+        arg: "id",
+        type: "string",
+        required: true
       },
       {
-        arg: 'password',
-        type: 'string',
-        required: true,
-      },
+        arg: "password",
+        type: "string",
+        required: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/update-password',
+      verb: "post",
+      path: "/update-password"
     },
     returns: {
-      type: 'object',
+      type: "object",
       root: true,
-      arg: 'success',
-    },
+      arg: "success"
+    }
   });
 
-  Useraccount.remoteMethod('activateUser', {
-    desctiption: 'Activate registered user',
+  Useraccount.remoteMethod("activateUser", {
+    desctiption: "Activate registered user",
     accepts: {
-      arg: 'userId',
-      type: 'string',
-      require: true,
+      arg: "userId",
+      type: "string",
+      require: true
     },
     http: {
-      verb: 'post',
-      path: '/activate-user',
+      verb: "post",
+      path: "/activate-user"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('deactivateUser', {
-    description: 'Deactivate registered user',
+  Useraccount.remoteMethod("deactivateUser", {
+    description: "Deactivate registered user",
     accepts: {
-      arg: 'userId',
-      type: 'string',
-      require: true,
+      arg: "userId",
+      type: "string",
+      require: true
     },
     http: {
-      verb: 'post',
-      path: '/deactivate-user',
+      verb: "post",
+      path: "/deactivate-user"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Useraccount.remoteMethod('confirmEmail', {
-    description: 'Confirm email address',
+  Useraccount.remoteMethod("confirmEmail", {
+    description: "Confirm email address",
     accepts: [
       {
-        arg: 'userId',
-        type: 'string',
-        require: true,
+        arg: "userId",
+        type: "string",
+        require: true
       },
       {
-        arg: 'cid',
-        type: 'string',
-        require: true,
-      },
+        arg: "cid",
+        type: "string",
+        require: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/confirmEmail',
+      verb: "post",
+      path: "/confirmEmail"
     },
     returns: {
-      type: 'boolean',
-      arg: 'result',
-    },
+      type: "boolean",
+      arg: "result"
+    }
   });
 
-  Useraccount.remoteMethod('isEmailUnique', {
+  Useraccount.remoteMethod("isEmailUnique", {
     http: {
-      path: '/is-email-unique',
-      verb: 'post',
-    },
-    accepts: {
-      arg: 'email',
-      type: 'string',
-      require: true,
-    },
-    returns: {
-      arg: 'result',
-      type: 'Object',
-      root: true,
-    },
-  });
-
-  Useraccount.remoteMethod('getAssignedCities', {
-    http: {
-      path: '/:id/get-assigned-cities',
-      verb: 'get',
+      path: "/is-email-unique",
+      verb: "post"
     },
     accepts: {
-      arg: 'id',
-      type: 'string',
-      require: true,
+      arg: "email",
+      type: "string",
+      require: true
     },
     returns: {
-      arg: 'result',
-      type: 'Object',
-      root: true,
-    },
+      arg: "result",
+      type: "Object",
+      root: true
+    }
   });
 
-  Useraccount.signInWithFB = function (user, cb) {
+  Useraccount.remoteMethod("getAssignedCities", {
+    http: {
+      path: "/:id/get-assigned-cities",
+      verb: "get"
+    },
+    accepts: {
+      arg: "id",
+      type: "string",
+      require: true
+    },
+    returns: {
+      arg: "result",
+      type: "Object",
+      root: true
+    }
+  });
+
+  Useraccount.signInWithFB = function(user, cb) {
     const { AccessToken } = Useraccount.app.models;
-    if (user.authResponse.userID && user.authResponse.userID === '') {
-      return cb(new Error('Invalid user data.'));
+    if (user.authResponse.userID && user.authResponse.userID === "") {
+      return cb(new Error("Invalid user data."));
     } else {
       Useraccount.findOne(
         { where: { facebookId: user.authResponse.userID } },
@@ -1193,7 +1199,7 @@ module.exports = function (Useraccount) {
                   ttl: 1209600,
                   created: new Date(),
                   userId: data.id,
-                  id: token,
+                  id: token
                 };
 
                 AccessToken.create(accessToken, (err1, success) => {
@@ -1211,21 +1217,21 @@ module.exports = function (Useraccount) {
     }
   };
 
-  Useraccount.remoteMethod('signInWithFB', {
+  Useraccount.remoteMethod("signInWithFB", {
     http: {
-      path: '/signInWithFB',
-      verb: 'post',
+      path: "/signInWithFB",
+      verb: "post"
     },
     accepts: {
-      arg: 'user',
-      type: 'object',
-      require: true,
+      arg: "user",
+      type: "object",
+      require: true
     },
     returns: {
-      arg: 'result',
-      type: 'Object',
-      root: true,
-    },
+      arg: "result",
+      type: "Object",
+      root: true
+    }
   });
 
   Useraccount.logoutUser = async tokenId => {
@@ -1234,13 +1240,13 @@ module.exports = function (Useraccount) {
 
     const token = await AccessToken.findOne({
       where: {
-        id: tokenId,
-      },
+        id: tokenId
+      }
     });
 
     if (!token) return true;
 
-    console.log('token');
+    console.log("token");
     console.log(token);
 
     try {
@@ -1250,15 +1256,15 @@ module.exports = function (Useraccount) {
     }
     return true;
   };
-  Useraccount.remoteMethod('logoutUser', {
+  Useraccount.remoteMethod("logoutUser", {
     accepts: [
       {
-        arg: 'tokenId',
-        type: 'string',
-        required: true,
-      },
+        arg: "tokenId",
+        type: "string",
+        required: true
+      }
     ],
-    returns: { type: 'object', root: true },
-    http: { path: '/logout-user', verb: 'post' },
+    returns: { type: "object", root: true },
+    http: { path: "/logout-user", verb: "post" }
   });
 };

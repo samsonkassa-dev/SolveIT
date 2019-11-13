@@ -81,6 +81,9 @@
     "facebookId": {
       "type": "string",
       "required": false
+    },
+    "oneSignalUserID": {
+      "type": "string"
     }
   },
   "validations": [],
