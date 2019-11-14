@@ -13,10 +13,12 @@ module.exports = function(Progressreport) {
       IcogRole,
       UserAccount,
       AssignedCity,
-      Solveitproject
+      Solveitproject,
+      projectMember
     } = Progressreport.app.models;
 
     try {
+      let userDeviceIds = [];
       const reportUploader = await UserAccount.findOne({
         where: { id: ctx.args.data.userId }
       });
@@ -31,12 +33,23 @@ module.exports = function(Progressreport) {
         assigned => assigned.cities.indexOf(reportUploader.cityId + "") !== -1
       );
       projectCity = projectCity.toJSON();
-      console.log(projectCity);
+      if (projectCity.user.oneSignalUserID)
+        userDeviceIds.push(projectCity.user.oneSignalUserID);
 
-      if (projectCity.user.oneSignalUserID) {
+      const members = await projectMember.find({
+        where: { projectId: ctx.args.data.projectId },
+        include: ["userAccount"]
+      });
+      members.forEach(member => {
+        if (member.toJSON().oneSignalUserID) {
+          userDeviceIds.push(member.toJSON().oneSignalUserID);
+        }
+      });
+
+      if (userDeviceIds.length > 0) {
         const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
         const notification = NotificationUtils.createNotification(message, {
-          include_player_ids: [projectCity.user.oneSignalUserID]
+          include_player_ids: [...userDeviceIds]
         });
         NotificationUtils.sendNotification(notification);
       }
