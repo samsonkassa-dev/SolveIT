@@ -21,6 +21,7 @@
     "loopback-component-storage": "^3.6.1",
     "loopback-connector-mongodb": "^3.5.0",
     "loopback-datasource-juggler": "^2.39.0",
+    "onesignal-node": "^2.1.1",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
     "uniqid": "^5.0.3"
