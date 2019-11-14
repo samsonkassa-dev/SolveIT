@@ -61,8 +61,7 @@ export class CompetitionProjectsComponent implements OnInit {
       this.spinner.show();
       this.userService.getAssignedCities(user.userId).subscribe(
         res => {
-          const assignedCities =
-            !res.error && res.length !== 0 ? res[0] : { cities: [] };
+          const assignedCities = !res.error ? res : { cities: [] };
           const competitionProjects = this.service.getProjects(
             this.competitionId
           );
