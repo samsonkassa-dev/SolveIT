@@ -1,0 +1,34 @@
+{
+  "name": "solveit-team",
+  "plural": "solveit-team",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "fullName": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "string",
+      "required": true
+    },
+    "linkedln_link": {
+      "type": "string"
+    },
+    "twitter_link": {
+      "type": "string"
+    }
+    ,
+    "picture": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

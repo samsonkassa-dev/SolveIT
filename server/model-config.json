@@ -185,5 +185,9 @@
   "productTypeView": {
     "dataSource": "mongo",
     "public": true
+  },
+  "solveit-team": {
+    "dataSource": "mongo",
+    "public": true
   }
 }
