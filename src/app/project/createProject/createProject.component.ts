@@ -41,11 +41,14 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit(): void {}
 
   createProject() {
+    console.log("Create Called")
     if (this.projectForm.valid) {
+      console.log("Project Valid")
       if (this.isFileSelected) {
+        console.log('File Selected')
         this.isUploading = true;
         this.error = false;
-        this.uploader.queue[this.uploader.queue.length - 1].upload();
+        this.uploader.queue[0].upload();
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
@@ -54,30 +57,6 @@ export class CreateProjectComponent implements OnInit {
         ) => {
           this.project.proposal = JSON.parse(response).result.files.file[0];
           this.project.createdAt = new Date();
-          this.service.createProject(this.project).subscribe(
-            res => {
-              const userId = this.authService.getUserId();
-              if (userId) {
-                this.service
-                  .addProjectMember({ projectId: res.id, userId: userId })
-                  .subscribe(res1 => {
-                    this.isUploading = false;
-                    this.sharedService.addToast(
-                      "Success",
-                      "Project Created!",
-                      "success"
-                    );
-                    this.created.emit();
-                  });
-              }
-            },
-            err => {
-              if ((err.status = 422)) {
-                this.sharedService.addToast("", "Error occurred!", "error");
-                this.isUploading = false;
-              }
-            }
-          );
           this.uploader.queue.pop();
         };
         this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
@@ -103,6 +82,8 @@ export class CreateProjectComponent implements OnInit {
           this.uploader.queue.pop();
         };
       }
+      this.createProjectService(this.project)
+
     } else {
       this.markFormGroupTouched(this.projectForm);
     }
@@ -112,7 +93,7 @@ export class CreateProjectComponent implements OnInit {
     if (this.projectForm.valid) {
       if (this.isFileSelected) {
         this.isUploading = true;
-        this.uploader.queue[this.uploader.queue.length - 1].upload();
+        this.uploader.queue[0].upload();
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
@@ -152,6 +133,35 @@ export class CreateProjectComponent implements OnInit {
       this.markFormGroupTouched(this.projectForm);
     }
   }
+
+
+  createProjectService(project){
+    this.service.createProject(project).subscribe(
+      res => {
+        const userId = this.authService.getUserId();
+        if (userId) {
+          this.service
+            .addProjectMember({ projectId: res.id, userId: userId })
+            .subscribe(res1 => {
+              this.isUploading = false;
+              this.sharedService.addToast(
+                "Success",
+                "Project Created!",
+                "success"
+              );
+              this.created.emit();
+            });
+        }
+      },
+      err => {
+        if ((err.status = 422)) {
+          this.sharedService.addToast("", "Error occurred!", "error");
+          this.isUploading = false;
+        }
+      }
+    );
+  }
+
 
   onFormSubmit() {
     if (this.isEdit) {

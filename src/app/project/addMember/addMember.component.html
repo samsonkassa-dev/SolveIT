@@ -3,7 +3,7 @@
   <div class="info">
     <p>How to add users to project</p>
     <ol class="info-content">
-      <li>1 - Search a user by their email address, name or phone number</li>
+      <li>1 - Search a user by their email address</li>
       <li>2 - Find the right user from the search result</li>
       <li>3 - Add them to the project</li>
     </ol>
@@ -37,7 +37,7 @@
       >
         <th id="item" scope="row">
           <i id="user-icon" class="fa fa-user-circle"></i>
-          <p>{{ user.username }}</p>
+          <p>{{ user.firstName + " " + user.lastName}}</p>
         </th>
         <th><button class="main-btn" (click)="addMember(user)">Add</button></th>
       </tr>

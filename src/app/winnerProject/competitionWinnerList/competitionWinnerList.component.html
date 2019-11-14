@@ -7,6 +7,7 @@
           <th scope="col">Competition</th>
           <th scope="col">Project</th>
           <th scope="col">City</th>
+          <th scopt="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,15 @@
           <th scope="row">{{ winner.competition.name }}</th>
           <td>{{ winner.solveitproject.title }}</td>
           <td>{{ winner.cityModel.name }}</td>
+          <td> <button
+            type="button"
+            data-toggle="modal"
+            data-target="#editWinner"         
+            class="btn btn-warn"
+            (click)="setUpEditWinners(winner)"
+          >
+            Edit
+          </button></td>
         </tr>
       </tbody>
     </table>
@@ -36,3 +46,89 @@
   </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+<div id="editWinner" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Edit Project Winners</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="competitionWinnerForm" *ngIf="authService.isAuthenticated()">
+          <!-- <h4 class="title" id="form-title">Add Competition Winner</h4> -->
+          <div id="resource-form">
+            <!-- <div class="input-field" style="margin-top: 1em">
+              <select name="competition" class="form-control" id="competition" [(ngModel)]="competitionWinner.competitionId"
+                formControlName="competition">
+                <option selected value="">Select Competition</option>
+                <option *ngFor="let competition of competitions" value="{{competition.id}}">{{ competition.name }}</option>
+              </select>
+              <div class="error-message" *ngIf="
+                  competitionWinnerForm.controls.competition.invalid &&
+                  competitionWinnerForm.controls.competition.touched
+                ">
+                <p>* Competition is required.</p>
+              </div>
+            </div>
+        
+            <div class="input-field" style="margin-top: 1em">
+              <select class="form-control" name="city" id="city" [(ngModel)]="competitionWinner.city"
+                (change)="filterProjectByCity()" formControlName="city">
+                <option selected value="">Select City</option>
+                <ng-container *ngFor="let city of cities">
+                  <option value="{{city.id}}">
+                    {{ city.name }}</option>
+                </ng-container>
+              </select>
+              <div class="error-message" *ngIf="
+                  competitionWinnerForm.controls.project.invalid &&
+                  competitionWinnerForm.controls.project.touched
+                ">
+                <p>* Project is required.</p>
+              </div>
+            </div>
+        
+            <div class="input-field" style="margin-top: 1em">
+              <select class="form-control" name="project" id="project" [(ngModel)]="competitionWinner.projectId"
+                formControlName="project">
+                <option selected value="">Select Project</option>
+                <ng-container *ngFor="let project of projects">
+                  <option *ngIf="project.solveitproject" value="{{project.solveitproject.id}}">
+                    {{ project.solveitproject.title }}</option>
+                </ng-container>
+              </select>
+              <div class="error-message" *ngIf="
+                  competitionWinnerForm.controls.project.invalid &&
+                  competitionWinnerForm.controls.project.touched
+                ">
+                <p>* Project is required.</p>
+              </div>
+            </div> -->
+        
+            <div class="input-field" style="margin-top: 1em">
+              <div class="upload-btn-wrapper">
+                <button class="btn-custom">Select Project Thumbinal</button>
+                <input id="6666" type="file" (change)="handleFileSelection($event)" ng2FileSelect [uploader]="uploader" />
+              </div>
+              <div  class="preview">
+                <img [src]="filePreviewPath" alt="">
+              </div>
+              <div class="error-message" *ngIf="!isFileSelected && isCreateButtonClicked">
+                <p>* Project Thumbinal is required.</p>
+              </div>
+        
+            </div>
+        
+            <div class="form-group" id="resource-upload-btn">
+              <input type="button" (click)="addCompetitionWinner()" class="main-btn" value="Create" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

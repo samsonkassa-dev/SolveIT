@@ -43,6 +43,22 @@
         }}</option>
       </select>
     </div>
+
+    <div class="form-group" style="margin-top: 1em">
+      <label>Status: </label>
+      <select
+      class="form-control"
+      name="status"
+      id="status"
+      [(ngModel)]="selectionOptions.selectedStatus"
+      formControlName="status"
+    >
+      <option  selected value="0">Work Status</option>
+      <option *ngFor="let stat of status" value="{{stat}}">{{
+        stat.toUpperCase()
+      }}</option>
+    </select>
+    </div>
     <div class="form-group" id="resource-upload-btn">
       <input
         type="button"

@@ -13,8 +13,16 @@ import { configs } from '../../app.config';
 
 export class ExportDataComponent implements OnInit {
 
-    public selectionOptions = {sex: 'both', educationLevel: 'none', selectedCity: 0};
+    public selectionOptions = {sex: 'both', educationLevel: 'none', selectedCity: 0 , selectedStatus : 0};
     public cities = [];
+    public status = [
+      "Employee (Full time)",
+      "Employee (Part time)",
+      "Unemployed",
+      "Business Owner",
+      "Student",
+      "Other"
+    ];
     public optionForm: FormGroup;
     public educationLevels = [
       'Elementary',
@@ -36,6 +44,7 @@ export class ExportDataComponent implements OnInit {
         this.optionForm = this.fb.group({
             sex: [''],
             educationLevel: [''],
+            status:[''],
             city: ['']
           });
     }
@@ -65,5 +74,7 @@ export class ExportDataComponent implements OnInit {
             }
         );
     }
+
+  
 
 }

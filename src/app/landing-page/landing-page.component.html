@@ -89,6 +89,9 @@
           <li [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/sponsors">Sponsors</a>
           </li>
+          <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('sponsors', false)">
+            <a routerLink="/my-projects">My Projects</a>
+          </li>
           <li
             [class.active]="router.isActive('login', false)"
             *ngIf="!authService.isAuthenticated()"
@@ -106,9 +109,9 @@
               >{{ "" }}</a
             >
             <ul class="dropdown1">
-              <li *ngIf="authService.isSolveitParticipant()">
+              <!-- <li *ngIf="authService.isSolveitParticipant()">
                 <a routerLink="/my-projects">My Projects</a>
-              </li>
+              </li> -->
               <li *ngIf="!authService.isAdmin()">
                 <a
                   [routerLink]="[
@@ -167,7 +170,7 @@
     <div class="row">
       <!-- why choose us content -->
       <div class="col-md-6">
-        <div class="section-header"><h2 class="title">About SolveIT</h2></div>
+        <div class="section-header"><h2 class="title">About Solve IT</h2></div>
         <p>
           iCog Labs incorporated some of its previous project ideas and
           resources and came up with Solve IT; a nationwide innovation
@@ -319,7 +322,7 @@
     <!-- Row -->
     <!-- /Background Image -->
     <div class="row register-now-container">
-      <h2 style="text-align: center">Register For SolveIT 2019 Now</h2>
+      <h2 style="text-align: center">Register For Solve IT 2019 Now</h2>
       <a routerLink="/register" class="outline-btn">Register</a>
     </div>
     <!-- /Row -->
