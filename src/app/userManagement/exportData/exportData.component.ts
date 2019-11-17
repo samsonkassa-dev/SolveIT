@@ -13,7 +13,7 @@ import { configs } from '../../app.config';
 
 export class ExportDataComponent implements OnInit {
 
-    public selectionOptions = {sex: 'both', educationLevel: 'none', selectedCity: 0 , selectedStatus : 0};
+    public selectionOptions = {sex: 'both', educationLevel: 'none', selectedCity: 0 , selectedStatus : 0, selectedAge: 0};
     public cities = [];
     public status = [
       "Employee (Full time)",
@@ -23,6 +23,10 @@ export class ExportDataComponent implements OnInit {
       "Student",
       "Other"
     ];
+
+    public ageGroups = [
+      19,20,21,22,23,24,25,26,27,28
+    ]
     public optionForm: FormGroup;
     public educationLevels = [
       'Elementary',
@@ -45,12 +49,14 @@ export class ExportDataComponent implements OnInit {
             sex: [''],
             educationLevel: [''],
             status:[''],
-            city: ['']
+            city: [''],
+            age:['']
           });
     }
 
     exportReport() {
       const options = {selectionOptions: this.selectionOptions};
+      console.log(options)
       this.apiService.downloadExcel(`${configs.rootUrl}UserAccounts/exportData`, options).subscribe(
         res => {
           this.exportData(res);

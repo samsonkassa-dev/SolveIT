@@ -59,6 +59,22 @@
       }}</option>
     </select>
     </div>
+
+    <div class="form-group" style="margin-top: 1em">
+      <label>Age Below :</label>
+      <select
+      class="form-control"
+      name="status"
+      id="status"
+      [(ngModel)]="selectionOptions.selectedAge"
+      formControlName="status"
+    >
+      <option  selected value="0">0</option>
+      <option *ngFor="let age of ageGroups" value="{{age}}">{{
+        age
+      }}</option>
+    </select>
+    </div>
     <div class="form-group" id="resource-upload-btn">
       <input
         type="button"
