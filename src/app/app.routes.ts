@@ -25,6 +25,11 @@ export const APP_ROUTES: Routes = [
     path: "events",
     loadChildren: "./solveitTeam/solveitTeam.module#SolveitTeamModule"
   },
+    // { path: 'news', loadChildren: './news/news.module#NewsModule' },
+    {
+      path: "team",
+      loadChildren: "./solveitTeam/solveitTeam.module#SolveitTeamModule"
+    },
   {
     path: "dashboard",
     loadChildren: "./dashboard/dashboard.module#DashboardModule"
