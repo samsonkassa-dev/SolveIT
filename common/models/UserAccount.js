@@ -664,6 +664,7 @@ module.exports = function(Useraccount) {
     var sex = selectionOptions.sex;
     var educationLevel = selectionOptions.educationLevel;
     var status = selectionOptions.selectedStatus;
+    var age = selectionOptions.selectedAge;
     var cities = [];
     var users = [];
 
@@ -693,6 +694,7 @@ module.exports = function(Useraccount) {
     let genderQuery = {};
     let educationQuery = {};
     let statusQuery = {};
+    let ageQuery = {};
 
     if (sex != "both") {
       genderQuery = { gender: sex };
@@ -703,13 +705,23 @@ module.exports = function(Useraccount) {
     if (status != 0) {
       statusQuery = { workStatus: status };
     }
+
+    if(age != 0){
+      let now = new Date()
+      let ageParam = now.setFullYear(now.getFullYear() - age)
+      ageParam = new Date(ageParam)
+      ageQuery = { birthDate : {gte : ageParam}}
+    }
+
+
     for (const city of cities) {
       users = await Useraccount.find({
         where: {
           cityId: city.id,
           ...genderQuery,
           ...educationQuery,
-          ...statusQuery
+          ...statusQuery,
+          ...ageQuery
         }
       });
       for (const user of users) {
