@@ -1,3 +1,6 @@
+import { SolveItTeamMemberEditComponent } from './solveit-team-member/solve-it-team-member-edit/solve-it-team-member-edit.component';
+import { SolveItTeamMemberAddComponent } from './solveit-team-member/solve-it-team-member-add/solve-it-team-member-add.component';
+import { SolveItTeamMemberListComponent } from './solveit-team-member/solve-it-team-member-list/solve-it-team-member-list.component';
 import { Routes } from "@angular/router";
 import { DashboardComponent } from "./dashboard.component";
 import { DashboardGuardService } from "../Auth/services/dashboard-guard.service";
@@ -42,6 +45,9 @@ export const DASHBOARD_ROUTES: Routes = [
       { path: "tags", component: TagManagmentComponent },
       { path: "review-discussion", component: ReviewDiscussionComponent },
       { path: "cities", component: CityListComponent },
+      { path: "solveit-team", component: SolveItTeamMemberListComponent },
+      { path: "solveit-team/add", component: SolveItTeamMemberAddComponent },
+      { path: "solveit-team/edit/:member_id", component: SolveItTeamMemberEditComponent },
       { path: "export-data", component: ExportDataComponent }
     ]
   },
@@ -50,5 +56,6 @@ export const DASHBOARD_ROUTES: Routes = [
     component: CompetitionProjectsComponent,
     canActivate: [DashboardGuardService]
   },
-  { path: "userProfile/:userId", component: UserProfileComponent }
+  { path: "userProfile/:userId", component: UserProfileComponent },
+
 ];

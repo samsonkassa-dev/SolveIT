@@ -1,3 +1,4 @@
+import { SolveItTeamMemberModule } from './solveit-team-member/solveit-team-member.module';
 import {NgModule} from '@angular/core';
 import {HeaderComponent} from '../shared/header/header.component';
 import {CommonModule} from '@angular/common';
@@ -33,6 +34,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CategoryModule,
     TagModule,
     CityModule,
+    SolveItTeamMemberModule,
     NgxPaginationModule
   ],
   providers: [ApiService, ToastyService, SharedService, AdminGuardService],

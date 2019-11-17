@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container-fluid dashboard dashboard-container">
-  <div class="row">
+    <div class="row">
     <div class="col-md-offset-1 col-md-3">
       <ul class="dashboard-menu">
         <li
@@ -62,6 +62,15 @@
           <span class="icon"><i class="fa fa-eye"></i></span> Review Discussion
         </li>
         <li
+          (click)="router.navigate(['dashboard/solveit-team'])"
+          class="dashboard-menu-item"
+          [class.dashboard-menu-item-selected]="
+            router.isActive('dashboard/solveit-team', true)
+          "
+        >
+          <span class="icon"><i class="fa fa-users"></i></span> Solve IT Team
+        </li>
+        <li
           (click)="router.navigate(['dashboard/export-data'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -77,4 +86,6 @@
       <div class="dashboard-content"><router-outlet></router-outlet></div>
     </div>
   </div>
+
+
 </div>
