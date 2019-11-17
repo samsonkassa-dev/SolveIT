@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<!-- Team -->
+<div id="team" class="section md-padding">
+  <!-- Container -->
+  <div class="container">
+    <!-- Row -->
+    <div class="row">
+      <!-- Section header -->
+      <div class="section-header text-center">
+        <h2 class="title">Our Team</h2>
+      </div>
+
+      <!-- team -->
+      <div *ngFor="let member of solveItTeam" class="col-sm-3">
+        <div class="team">
+          <div class="team-img">
+            <img class="img-responsive" [src]="getImageUrl(member.picture)" alt="" />
+            <div class="overlay">
+              <div class="team-social">
+                <a *ngIf="member.linkedln_link != undefined && member.linkedln_link.length > 5"
+                  href="{{member.linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                <a *ngIf="member.twitter_link != undefined && member.twitter_link.length > 5"
+                  href="{{member.twitter_link}}"><i class="fa fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-content">
+            <h3>{{member.fullName}}</h3>
+            <span>{{member.position}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="not-found" *ngIf="solveItTeam.length == 0">
+        <div class="no-resource-found">
+          <app-not-found
+            message="Team Members Are Not Added Yet."
+            type="fetch"
+          ></app-not-found>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

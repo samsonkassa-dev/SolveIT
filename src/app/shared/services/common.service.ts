@@ -14,7 +14,10 @@ export class CommonService {
   getCities() {
     return this.apiService.get(this.endpoint + `?filter={"include": "region"}`);
   }
-
+  //Solve It Team Common Services
+  getSolveItTeam(){
+    return this.apiService.get('solveit-team');
+  }
   getRegions() {
     return this.apiService.get(`Regions/`);
   }

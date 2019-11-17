@@ -1,3 +1,5 @@
+import { configs } from './../app.config';
+import { CommonService } from './../shared/services/common.service';
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../Auth/services/auth.service";
 import { Router } from "@angular/router";
@@ -12,14 +14,20 @@ declare var $: any;
 })
 export class LandingPageComponent implements OnInit {
   news: any = [];
-
+  solveItTeam = [];
   constructor(
     public authService: AuthService,
+    private commonService : CommonService,
     public router: Router,
     public http: Http
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.commonService.getSolveItTeam()
+    .subscribe(res =>{
+      this.solveItTeam = res
+    })
+  }
 
   toggleMenu() {
     if ($("#menus").css("display") === "none") {
@@ -29,4 +37,9 @@ export class LandingPageComponent implements OnInit {
       $("#menus").css("display", "none");
     }
   }
+
+  getImageUrl(item) {
+    return `${configs.rootUrl}storages/${item.container}/download/${item.name}`;
+  }
+
 }

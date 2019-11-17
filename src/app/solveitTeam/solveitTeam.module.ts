@@ -15,6 +15,7 @@ import {AuthService} from '../Auth/services/auth.service';
 import {MomentModule} from 'angular2-moment';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SolveitTeamRoutes } from './solveitTeam.route';
+import { SolveItTeamMemberDisplayComponent } from './solve-it-team-member-display/solve-it-team-member-display.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SolveitTeamRoutes } from './solveitTeam.route';
     CreateEventComponent,
     EventListComponent,
     EventViewComponent,
+    SolveItTeamMemberDisplayComponent,
     Newsfeed
   ],
   imports: [

@@ -57,6 +57,9 @@
           </li>
           <li><a href="#features">About</a></li>
           <li><a href="#service">Services</a></li>
+          <li [class.active]="router.isActive('our-team', false)">
+            <a routerLink="/team/list">Our Team</a>
+          </li>
           <li
             [class.active]="router.isActive('dashboard', false)"
             *ngIf="
@@ -68,7 +71,7 @@
             <a routerLink="/dashboard">Dashboard</a>
           </li>
           <li [class.active]="router.isActive('winners', false)">
-            <a routerLink="/winners">Winners</a>
+            <a routerLink="/winners/list">Winners</a>
           </li>
           <li [class.active]="router.isActive('events', false)">
             <a routerLink="/events">Events</a>
@@ -89,6 +92,8 @@
           <li [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/sponsors">Sponsors</a>
           </li>
+         
+          
           <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/my-projects">My Projects</a>
           </li>
@@ -478,8 +483,7 @@
           </div>
         </div>
       </div>
-      <!-- /team -->
-
+   
       <!-- team -->
       <div class="col-sm-3">
         <div class="team">
