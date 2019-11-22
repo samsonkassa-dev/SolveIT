@@ -1,0 +1,39 @@
+<app-header></app-header>
+<form [formGroup]="judgeForm" *ngIf="authService.isAuthenticated()">
+  <h4 class="title" id="form-title">Commpetition Judge Registration</h4>
+  <div id="resource-form">
+    <div class="input-field" style="margin-top: 1em">
+      <label>Full Name:</label>
+      <input type="text" class="form-control" name="title" placeholder="Full Name" formControlName="fullName" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.fullName.invalid &&
+          judgeForm.controls.fullName.touched
+        ">
+        <p>* Full Name is required.</p>
+      </div>
+    </div>
+
+    
+
+   
+
+    <div class="input-field" style="margin-top: 1em">
+      <div class="upload-btn-wrapper">
+        <button class="btn-custom">Select Picture</button>
+        <input id="6666" type="file" (change)="handleFileSelection($event)" ng2FileSelect [uploader]="uploader" />
+      </div>
+      <div *ngIf="isFileSelected" class="preview">
+        <img [src]="filePreviewPath" alt="">
+      </div>
+      <div class="error-message" *ngIf="!isFileSelected && isCreateButtonClicked">
+        <p>* 3 * 4 Picture is required.</p>
+      </div>
+
+    </div>
+
+    <div class="form-group" id="resource-upload-btn">
+      <input type="button" (click)="registerJudge(judgeForm.value)" class="main-btn" value="Create" />
+    </div>
+  </div>
+</form>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
