@@ -1,0 +1,168 @@
+<div class="competetion-list-header">
+  <div class="row">
+    <div id="aside" class="col-md-offset-2 col-md-6">
+      <div class="widget">
+        <div class="widget-search">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="search"
+            [(ngModel)]="key"
+            (keyup)="onSearch($event)"
+          />
+          <button class="search-btn" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button
+        class="outline-btn create"
+        data-toggle="modal"
+        data-target="#addAttendance"   
+      >
+        Create
+      </button>
+    </div>
+  </div>
+</div>
+<div class="competetion-list-content">
+  <div class="row">
+    <div class="col-md-offset-1 col-sm-offset-1 col-md-8 col-sm-8">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th> Event Name</th>
+            <th> City </th>
+            <th> Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr
+            *ngFor="let attendance of attendanceList; let i = index;"
+          >
+            <td>{{ i + 1 }}</td>
+
+            <td>{{ attendance.event? attendance.event.title : "-" }}</td>
+            <td>{{ attendance.city.name }}</td>
+            <td>{{ attendance.attendance_date |date }}</td>
+            <td>
+                <button
+                type="button"
+                data-toggle="modal"
+                data-target="#editMember"         
+                class="btn btn-warn"
+                (click)="viewDetails(attendance)"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                (click)="deleteAttendance(attendance)"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="not-found" *ngIf="backUpteamMemebers == undefined || backUpteamMembers.length == 0">
+        <div class="no-resource-found">
+          <p><i class="fa  fa-frown-o"></i> Members are not created yet.</p>
+        </div>
+      </div> -->
+      <!-- <div class="not-found" *ngIf="teamMembers.length == 0 && key !== ''">
+        <div class="no-resource-found">
+          <p><i class="fa  fa-frown-o"></i> Team Member "{{ key }}" not found.</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="pagination">
+      <pagination-controls
+        *ngIf="backupAttendanceList.length > 6"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div id="addAttendance" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Add City</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="attendanceForm" *ngIf="authService.isAuthenticated()">
+          <div id="resource-form">
+            <div class="form-group">
+              <label>Select Region:</label>
+              <select
+                class="form-control"
+                name="role"
+                id="role"
+                [(ngModel)]="attendance.cityId"
+                formControlName = "city"
+              >
+                <option selected value="">Select City</option>
+                <option *ngFor="let city of cities" value="{{city.id}}">{{
+                  city.name
+                }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Select Event:</label>
+              <select
+                class="form-control"
+                name="role"
+                id="role"
+                [(ngModel)]="attendance.eventId"
+                formControlName = "event"
+              >
+                <option selected value="">Select Event</option>
+                <option *ngFor="let event of events" value="{{event.id}}">{{
+                  event.title
+                }}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label>Attendance Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                name="title"
+                placeholder="Attendance Date"
+                formControlName="attendance_date"
+              />
+            </div>
+            <div class="form-group" id="resource-upload-btn">
+              <input
+                type="button"
+                [disabled]="!attendanceForm.valid"
+                (click)="createAttendance(attendanceForm.value)"
+                data-dismiss="modal"
+                class="main-btn"
+                value="Create"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

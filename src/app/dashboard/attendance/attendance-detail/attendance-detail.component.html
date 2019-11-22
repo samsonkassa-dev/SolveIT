@@ -1,0 +1,78 @@
+<div class="competetion-list-header">
+  <div class="row">
+    <div id="aside" class="col-md-offset-2 col-md-6">
+      <div class="widget">
+        <div class="widget-search">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="search"
+            [(ngModel)]="key"
+            (keyup)="onSearch($event)"
+          />
+          <button class="search-btn" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button
+        class="outline-btn create"
+        (click) = "save()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+<div class="competetion-list-content">
+  <div class="row">
+    <div class="col-md-offset-1 col-sm-offset-1 col-md-8 col-sm-8">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th> First Name</th>
+            <th> Last Name </th>
+            <th> Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr
+            *ngFor="let participant of participants; let i = index;"
+          >
+            <td>{{ i + 1 }}</td>
+
+            <td>{{ participant.participant.firstName }}</td>
+            <td>{{ participant.participant.lastName  }}</td>
+            <td>{{ attendance.attendance_date | date }}</td>
+            <td><input type="checkbox" [checked] = "participant.is_present" (change)="participant.is_present = !participant.is_present"></td>
+            
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="not-found" *ngIf="backUpteamMemebers == undefined || backUpteamMembers.length == 0">
+        <div class="no-resource-found">
+          <p><i class="fa  fa-frown-o"></i> Members are not created yet.</p>
+        </div>
+      </div> -->
+      <!-- <div class="not-found" *ngIf="teamMembers.length == 0 && key !== ''">
+        <div class="no-resource-found">
+          <p><i class="fa  fa-frown-o"></i> Team Member "{{ key }}" not found.</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="pagination">
+      <pagination-controls
+        *ngIf="participants.length > 6"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
