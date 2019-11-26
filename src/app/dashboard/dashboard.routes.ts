@@ -1,3 +1,5 @@
+import { JudgeListComponent } from './judge/judge-list/judge-list.component';
+import { AttendanceDetailComponent } from './attendance/attendance-detail/attendance-detail.component';
 import { SolveItTeamMemberEditComponent } from './solveit-team-member/solve-it-team-member-edit/solve-it-team-member-edit.component';
 import { SolveItTeamMemberAddComponent } from './solveit-team-member/solve-it-team-member-add/solve-it-team-member-add.component';
 import { SolveItTeamMemberListComponent } from './solveit-team-member/solve-it-team-member-list/solve-it-team-member-list.component';
@@ -17,6 +19,7 @@ import { ExportDataComponent } from "../userManagement/exportData/exportData.com
 import { AdminGuardService } from "../Auth/services/admin-guard.service";
 import { SolveitMgmtGuardService } from "../Auth/services/solveit-mgmt-guard.service";
 import { UserModuleGuardService } from "../Auth/services/userModuleGuard.service";
+import { AttendanceListComponent } from './attendance/attendance-list/attendance-list.component';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
@@ -45,6 +48,9 @@ export const DASHBOARD_ROUTES: Routes = [
       { path: "tags", component: TagManagmentComponent },
       { path: "review-discussion", component: ReviewDiscussionComponent },
       { path: "cities", component: CityListComponent },
+      { path: "judges", component: JudgeListComponent },
+      { path: "attendance", component: AttendanceListComponent },
+      { path: "attendance/:attendance_id", component: AttendanceDetailComponent },
       { path: "solveit-team", component: SolveItTeamMemberListComponent },
       { path: "solveit-team/add", component: SolveItTeamMemberAddComponent },
       { path: "solveit-team/edit/:member_id", component: SolveItTeamMemberEditComponent },

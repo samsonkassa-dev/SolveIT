@@ -1,3 +1,4 @@
+import { JudgeModule } from './judge/judge.module';
 import { SolveItTeamMemberModule } from './solveit-team-member/solveit-team-member.module';
 import {NgModule} from '@angular/core';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -17,6 +18,7 @@ import { CityModule } from './city/city.module';
 import { DASHBOARD_ROUTES } from './dashboard.routes';
 import { ReviewDiscussionComponent } from './reviewDiscussion/reviewDiscussion.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AttendanceModule } from './attendance/attendance.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TagModule,
     CityModule,
     SolveItTeamMemberModule,
+    AttendanceModule,
+    JudgeModule,
     NgxPaginationModule
   ],
   providers: [ApiService, ToastyService, SharedService, AdminGuardService],
