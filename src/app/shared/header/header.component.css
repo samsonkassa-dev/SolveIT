@@ -1,6 +1,13 @@
+
+
 ul.dropdown1 {
-  background: #2ba692;
+  background: #efefef;
   padding: 1.5em;
+  
+}
+
+ul.dropdown1 a{
+  color:#2ba692;
 }
 
 
