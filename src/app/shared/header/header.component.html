@@ -90,9 +90,8 @@
           <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/my-projects">My Projects</a>
           </li>
-         <li>
-            <button id="navAction" *ngIf="!authService.isAuthenticated()" routerLink="/login"
-          class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75" style="float:right; margin-left:20px">SignIn/SignUp</button>
+         <li *ngIf="!authService.isAuthenticated()" [class.active]="router.isActive('login', false)">
+            <a routerLink="/login"> SignIn/ SignUp</a>
  
          </li>
 
@@ -109,7 +108,7 @@
               <!-- <li *ngIf="authService.isSolveitParticipant()">
                 <a routerLink="/my-projects">My Projects</a>
               </li> -->
-              <li >
+              <li *ngIf="notificationList == undefined || notificationList.length <= 0" >
                   <a >No New Notification</a>
                 </li>
               <li *ngFor = "let notification of notificationList">
