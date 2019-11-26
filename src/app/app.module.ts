@@ -1,3 +1,4 @@
+import { JudgeModule } from './dashboard/judge/judge.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ToastOptions } from 'ng2-toasty';
@@ -24,16 +25,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WeeklyWinnerComponent } from './weeklyWinner/weeklyWinner.component';
 import { FacebookModule } from 'ngx-facebook';
-
+import { NgxGalleryModule } from 'ngx-gallery';
+import { GalleryComponent } from './gallery/gallery.component';
+import {CarouselModule} from "ngx-carousel-lib";
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     AlumunniDetailComponent,
     PageNotFoundComponent,
-    WeeklyWinnerComponent
+    WeeklyWinnerComponent,
+    GalleryComponent
   ],
-  imports: [
+  imports: [  
+    CarouselModule,
+    NgxGalleryModule,
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(APP_ROUTES, {
@@ -42,6 +48,7 @@ import { FacebookModule } from 'ngx-facebook';
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
+    JudgeModule,
     BrowserAnimationsModule,
     FacebookModule.forRoot(),
     NgSelectModule
