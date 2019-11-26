@@ -38,6 +38,15 @@ export class CommonService {
     );
   }
 
+  getNotification(userId){
+    return this.apiService.get(`mentor-notifications?filter={"where" : {"userId":"${userId}"}}`)
+  }
+  deleteNotification(notification){
+    return this.apiService.delete(`mentor-notifications /${notification.id}`);
+
+  }
+
+
   getBlacklistedDiscussions() {
     return this.apiService.get(
       `BlackListedDiscussions?filter={"include": "Solveitdiscussion"}`
