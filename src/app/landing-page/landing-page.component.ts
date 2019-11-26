@@ -1,18 +1,24 @@
 import { configs } from './../app.config';
 import { CommonService } from './../shared/services/common.service';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { AuthService } from "../Auth/services/auth.service";
 import { Router } from "@angular/router";
 import { Http } from "@angular/http";
+
 
 declare var $: any;
 
 @Component({
   selector: "app-landing-page",
   templateUrl: "./landing-page.component.html",
-  styleUrls: ["./landing-page.component.css"]
+  styleUrls: [
+
+    "./landing-page.component.css"]
 })
 export class LandingPageComponent implements OnInit {
+
+
+
   news: any = [];
   solveItTeam = [];
   constructor(
@@ -23,10 +29,17 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.commonService.getSolveItTeam()
     .subscribe(res =>{
       this.solveItTeam = res
     })
+  
+     
+     
+      
+     
+ 
   }
 
   toggleMenu() {

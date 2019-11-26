@@ -1,4 +1,5 @@
-#about {
+
+ #about {
   margin-top: 10em;
 }
 
@@ -53,6 +54,10 @@ ul.dropdown1 {
   background: #2ba692;
   padding: 1.5em;
 }
+.just {
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 /*
   ##Device = Desktops
@@ -85,4 +90,57 @@ ul.dropdown1 {
   ul.dropdown1 {
     margin: 3em 4em 0 0;
   }
+}
+ */
+
+
+/*=========================
+	8) testimonial Start
+===========================*/
+
+#testimonial{text-align: center;padding-bottom: 110px;padding-top: 10px;}
+#testimonial .block{}
+.testimonial-area{}
+.tm-header{}
+.tm-header h2{font-size: 36px;font-family: 'Raleway', sans-serif; font-weight: 700;color:#636C6C; margin: 0px; padding-bottom: 38px}
+.tm-contant{}
+.tm-contant-items{}
+.tm-contant-list{}
+.tm-img{}
+.tm-img img{border-radius: 500px;margin: 0 auto;width: 100px; height: 100px;}
+.tm-text{}
+.tm-text p{color:#8C9494; font-family: 'Droid Serif', serif; font-weight:400; font-style: italic; font-size: 24px; line-height: 24px;margin: 0;padding-bottom: 40px;padding-top: 45px;}
+.tm-text p span{font-style: normal; display: block; color: #5DCA88;font-family: 'Raleway', sans-serif; font-weight: 400; padding-top: 28px }
+#testimonial .owl-carousel .owl-controls{}
+#testimonial .owl-carousel .owl-controls .owl-pagination{text-align: center}
+#testimonial .owl-carousel .owl-controls .owl-pagination div{background:#8c9494;
+border-radius: 500px;
+display: inline-block;
+height: 11px;
+margin: 0 5px;
+width: 11px;}
+#testimonial .owl-carousel .owl-controls .owl-pagination  div.active{background: #5DCA88}
+
+/*=========================
+	 testimonial CLOSE
+===========================*/
+.item-carousel{
+  height:15em !important;
+  border:solid 1px #efefef !important;
+}
+
+#testimonial{
+  background:#ffffff !important;
+  
+}
+
+
+.about-us{
+  text-align: justify;
+  text-justify: inter-word;
+
+}
+
+.gradient {
+  background: linear-gradient(90deg, #ffdd00 0%, #fbb034 100%);
 }
