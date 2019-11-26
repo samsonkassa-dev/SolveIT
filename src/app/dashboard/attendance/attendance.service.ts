@@ -15,7 +15,7 @@ export class AttendanceService {
   }
 
   getAllAttendance(){
-    return this.apiService.get(`${this.endpoint}?filter={"include": ["city","event"]}`);
+    return this.apiService.get(`${this.endpoint}?filter={"include": ["cities","event"]}`);
   }
 
   getAttendance(attendance_id){

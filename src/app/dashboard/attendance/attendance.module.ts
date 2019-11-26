@@ -1,3 +1,4 @@
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AttendanceService } from './attendance.service';
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
 import { RouterModule } from '@angular/router';
@@ -19,7 +20,8 @@ import { AttendanceDetailComponent } from './attendance-detail/attendance-detail
     ToastyModule,
     NgxPaginationModule,
     FileUploadModule,
-    RouterModule
+    RouterModule,
+    NgMultiSelectDropDownModule,
   ],
   declarations: [AttendanceListComponent, AttendanceDetailComponent],
   exports: [AttendanceListComponent],

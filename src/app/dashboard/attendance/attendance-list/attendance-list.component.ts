@@ -17,8 +17,17 @@ export class AttendanceListComponent implements OnInit {
   cities = []
   events = []
   public attendanceForm:FormGroup;
-  public attendance = {cityId: 0, eventId : 0, attendance_date : null}
+  public attendance = {cities: [], eventId : 0, attendance_date : null, cityIds : []}
   public page = 1;
+  dropdownSettings = {
+    singleSelection: false,
+    idField: "item_id",
+    textField: "item_text",
+    selectAllText: "Select All",
+    unSelectAllText: "UnSelect All",
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
   constructor(
     private sharedService:SharedService,
     private authService:AuthService,
@@ -29,7 +38,7 @@ export class AttendanceListComponent implements OnInit {
   ) {
     this.attendanceForm = fb.group({
       attendance_date : ['', Validators.required],
-      city:['', Validators.required],
+      cities:['', Validators.required],
       event:['', Validators.required]
     })
    }
@@ -62,11 +71,13 @@ export class AttendanceListComponent implements OnInit {
 
   createAttendance(attendanceForm){
     this.attendance.attendance_date = attendanceForm.attendance_date
+    this.attendance.cityIds = this.attendance.cities;
     console.log(this.attendance)
     this.attendanceService.addAttendance(this.attendance)
     .subscribe(res =>{
       this.sharedService.addToast('Success','Attendance Created.', 'success');
       this.attendanceForm.reset()
+      this.attendance =  {cities: [], eventId : 0, attendance_date : null, cityIds : []}
       this.ngOnInit()
      
     },(err =>{
@@ -83,4 +94,37 @@ export class AttendanceListComponent implements OnInit {
       this.sharedService.addToast('Error', 'Error occurred!.', 'error');
     });
   }
+
+  mapCitiesToDropDownList(cities) {
+    let cityList = [];
+    this.cities.forEach(item => {
+      cityList.push({ item_id: item.id, item_text: item.name });
+    });
+
+    return cityList;
+  }
+
+  onItemSelected(item) {
+    if (this.attendance.cities.indexOf(item.item_id) === -1) {
+      this.attendance.cities.push(item.item_id);
+    }
+  }
+
+  onItemDeselected(item) {
+    this.attendance.cities.splice(
+      this.attendance.cities.indexOf(item.item_id),
+      1
+    );
+  }
+
+  onSelectAll(items) {
+    items.forEach(item => {
+      this.onItemSelected(item);
+    });
+  }
+
+  onDeselectAll(items) {
+    this.attendance.cities = [];
+  }
+
 }
