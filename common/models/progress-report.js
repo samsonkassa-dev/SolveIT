@@ -8,17 +8,18 @@ module.exports = function(Progressreport) {
   Progressreport.disableRemoteMethod("removeById", true);
 
   Progressreport.afterRemote("create", async (ctx, unused, next) => {
-    console.log(ctx.args.data, "----");
     const {
       IcogRole,
       UserAccount,
       AssignedCity,
       Solveitproject,
-      projectMember
+      projectMember,
+      Notification
     } = Progressreport.app.models;
 
     try {
       let userDeviceIds = [];
+      let userIds = [];
       const reportUploader = await UserAccount.findOne({
         where: { id: ctx.args.data.userId }
       });
@@ -33,8 +34,10 @@ module.exports = function(Progressreport) {
         assigned => assigned.cities.indexOf(reportUploader.cityId + "") !== -1
       );
       projectCity = projectCity.toJSON();
-      if (projectCity.user.oneSignalUserID)
+      if (projectCity.user.oneSignalUserID) {
         userDeviceIds.push(projectCity.user.oneSignalUserID);
+        userIds.push(projectCity.user.id);
+      }
 
       const members = await projectMember.find({
         where: { projectId: ctx.args.data.projectId },
@@ -43,6 +46,7 @@ module.exports = function(Progressreport) {
       members.forEach(member => {
         if (member.toJSON().oneSignalUserID) {
           userDeviceIds.push(member.toJSON().oneSignalUserID);
+          userIds.push(member.toJSON().id);
         }
       });
 
@@ -51,10 +55,14 @@ module.exports = function(Progressreport) {
         const notification = NotificationUtils.createNotification(message, {
           include_player_ids: [...userDeviceIds]
         });
+        userIds.forEach(id => {
+          Notification.create({ content: message, userId: id });
+        });
         NotificationUtils.sendNotification(notification);
       }
     } catch (error) {
       console.log(error);
+      throw error;
     }
   });
 };

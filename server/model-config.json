@@ -189,5 +189,9 @@
   "solveit-team": {
     "dataSource": "mongo",
     "public": true
+  },
+  "notfication": {
+    "dataSource": "mongo",
+    "public": true
   }
 }

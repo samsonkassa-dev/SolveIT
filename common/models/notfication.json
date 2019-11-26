@@ -1,0 +1,29 @@
+{
+  "name": "notfication",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "content": {
+      "type": "string",
+      "required": true
+    },
+    "createdAt": {
+      "type": "date",
+      "required": true,
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foriegnKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
