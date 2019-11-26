@@ -12,12 +12,12 @@ import {AuthService} from '../Auth/services/auth.service';
 import {MomentModule} from 'angular2-moment';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HelpRoutes } from './help.route';
-
 @NgModule({
   declarations: [
     HelpPageComponent
   ],
   imports: [
+
     RouterModule.forChild(HelpRoutes),
     CommonModule,
     NgxPaginationModule,
