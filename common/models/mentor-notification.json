@@ -1,0 +1,24 @@
+{
+  "name": "mentor-notification",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "notificationMessage": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],  
+  "relations": {
+    "UserAccount": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

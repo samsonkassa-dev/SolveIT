@@ -1,0 +1,34 @@
+{
+  "name": "attendance",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "attendance_date": {
+      "type": "date",
+      "required": true
+    },
+    "participants": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "cities": {
+      "type": "referencesMany",
+      "model": "city",
+      "foreignKey": ""
+    },
+    "event": {
+      "type": "belongsTo",
+      "model": "event",
+      "foreignKey": "eventId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
