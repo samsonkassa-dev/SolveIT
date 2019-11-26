@@ -78,7 +78,8 @@ export class AssignRegionComponent implements OnInit, OnChanges {
       this.isLoading = true;
       this.userService.getAssignedCities(this.user.id)
         .subscribe(res => {
-          if (res.length > 0) {
+
+          if (res != null && res.length > 0) {
             const cities = res[0].cities;
             cities.forEach(city => {
               this.cities.forEach(item => {
