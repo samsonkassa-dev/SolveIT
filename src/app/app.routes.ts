@@ -1,3 +1,5 @@
+import { GalleryComponent } from './gallery/gallery.component';
+
 /** @kal **/
 import { Routes } from "@angular/router";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
@@ -10,6 +12,7 @@ import { DashboardGuardService } from "./Auth/services/dashboard-guard.service";
 
 export const APP_ROUTES: Routes = [
   { path: "", pathMatch: 'full', component: LandingPageComponent },
+  { path: "gallery", pathMatch: 'full', component: GalleryComponent },
   ...AUTH_ROUTES,
   { path: "forums", loadChildren: "./forum/forum.module#ForumModule" },
   {
@@ -30,6 +33,15 @@ export const APP_ROUTES: Routes = [
       path: "team",
       loadChildren: "./solveitTeam/solveitTeam.module#SolveitTeamModule"
     },
+    {
+      path: "help",
+      loadChildren: "./help/help.module#HelpModule"
+    },
+    {
+      path: "judge",
+      loadChildren: "./dashboard/judge/judge.module#JudgeModule"
+    },
+    
   {
     path: "dashboard",
     loadChildren: "./dashboard/dashboard.module#DashboardModule"
