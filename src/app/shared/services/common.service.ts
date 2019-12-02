@@ -42,7 +42,7 @@ export class CommonService {
     return this.apiService.get(`mentor-notifications?filter={"where" : {"userId":"${userId}"}}`)
   }
   deleteNotification(notification){
-    return this.apiService.delete(`mentor-notifications /${notification.id}`);
+    return this.apiService.delete(`mentor-notifications/${notification.id}`);
 
   }
 
