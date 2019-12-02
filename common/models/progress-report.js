@@ -1,7 +1,7 @@
 "use strict";
 const NotificationUtils = require("../utils/notificationUtil");
 
-module.exports = function(Progressreport) {
+module.exports = function (Progressreport) {
   //  disable delete end point
   Progressreport.disableRemoteMethod("deleteById", true);
   Progressreport.disableRemoteMethod("destroyById", true);
@@ -14,9 +14,10 @@ module.exports = function(Progressreport) {
       UserAccount,
       AssignedCity,
       Solveitproject,
-      projectMember
+      projectMember,
+      mentorNotification
     } = Progressreport.app.models;
-
+    console.log("UPLOad")
     try {
       let userDeviceIds = [];
       const reportUploader = await UserAccount.findOne({
@@ -45,16 +46,28 @@ module.exports = function(Progressreport) {
           userDeviceIds.push(member.toJSON().oneSignalUserID);
         }
       });
+      const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
 
-      if (userDeviceIds.length > 0) {
-        const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
-        const notification = NotificationUtils.createNotification(message, {
-          include_player_ids: [...userDeviceIds]
-        });
-        NotificationUtils.sendNotification(notification);
-      }
-    } catch (error) {
-      console.log(error);
+      let newNotification = {
+        userId: assignedCities[0].userId,
+        notificationMessage : message
     }
-  });
+      mentorNotification.create(newNotification, (err, succ)=>{
+        if(err){
+          console.log(err)
+        }else{
+          console.log(succ)
+        }
+      })
+
+    // if (userDeviceIds.length > 0) {
+    //   const notification = NotificationUtils.createNotification(message, {
+    //     include_player_ids: [...userDeviceIds]
+    //   });
+    //   NotificationUtils.sendNotification(notification);
+    // }
+  } catch (error) {
+    console.log(error);
+  }
+});
 };
