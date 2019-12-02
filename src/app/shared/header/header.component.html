@@ -87,9 +87,10 @@
               <a routerLink="/help">Help</a>
             </li>
 
-          <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('sponsors', false)">
+          <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('my-projects', false)">
             <a routerLink="/my-projects">My Projects</a>
           </li>
+          
          <li *ngIf="!authService.isAuthenticated()" [class.active]="router.isActive('login', false)">
             <a routerLink="/login"> SignIn/ SignUp</a>
  
@@ -119,7 +120,7 @@
 
 
           <li
-            [class.active]="router.isActive('my-projects', false)"
+            [class.active]="router.isActive('userProfile', false)"
             *ngIf="authService.isAuthenticated()"
             class="has-dropdown"
           >
@@ -133,7 +134,7 @@
                 <a routerLink="/my-projects">My Projects</a>
               </li> -->
               <li *ngIf="!authService.isAdmin()">
-                <a [routerLink]="['/userProfile', authService.getUserId()]"
+                <a (click) = "getUserProfile()"
                   >Profile</a
                 >
               </li>
