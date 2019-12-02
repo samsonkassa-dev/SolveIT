@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { JudgeService } from './../judge.service';
 import { SharedService } from './../../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class JudgeListComponent implements OnInit {
   key = ""
   constructor(
     public sharedService: SharedService,
-    public judgeService: JudgeService
+    public judgeService: JudgeService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -21,6 +23,10 @@ export class JudgeListComponent implements OnInit {
       this.judgeList = res
       this.backupJudgeList = res
     })
+  }
+
+  viewDetails(judge){
+    this.router.navigate(['dashboard','judges',judge.id])
   }
   onSearch($event) {
     if (this.key !== '' && this.judgeList.length > 0) {

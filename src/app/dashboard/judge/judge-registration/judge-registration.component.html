@@ -12,27 +12,113 @@
         <p>* Full Name is required.</p>
       </div>
     </div>
-
-    
-
-   
-
     <div class="input-field" style="margin-top: 1em">
-      <div class="upload-btn-wrapper">
-        <button class="btn-custom">Select Picture</button>
-        <input id="6666" type="file" (change)="handleFileSelection($event)" ng2FileSelect [uploader]="uploader" />
+      <label>Email:</label>
+      <input type="text" class="form-control" name="email" placeholder="Email" formControlName="email" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.email.invalid &&
+          judgeForm.controls.email.touched
+        ">
+        <p>* Email is required.</p>
       </div>
-      <div *ngIf="isFileSelected" class="preview">
-        <img [src]="filePreviewPath" alt="">
+    </div>
+    <div class="input-field" style="margin-top: 1em">
+      <label>Phone Number:</label>
+      <input type="text" class="form-control" name="title" placeholder="Phone Number" formControlName="phoneNumber" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.phoneNumber.invalid &&
+          judgeForm.controls.phoneNumber.touched
+        ">
+        <p>* Phone Number is required.</p>
       </div>
-      <div class="error-message" *ngIf="!isFileSelected && isCreateButtonClicked">
-        <p>* 3 * 4 Picture is required.</p>
+    </div>
+    <div class="input-field" style="margin-top: 1em">
+      <label>Educational Background:</label>
+      <ng-select formControlName="educationalBackground" placeholder="Select Educational Background"
+      [searchable]="false" [clearable]="false" [items]="educationalBackgroundOptions" bindLabel="label" bindValue="label" [(ngModel)]="judge.educationalBackground">
+    </ng-select>
+      <div class="error-message" *ngIf="
+          judgeForm.controls.educationalBackground.invalid &&
+          judgeForm.controls.educationalBackground.touched
+        ">
+        <p>* Educational Background is required.</p>
       </div>
-
     </div>
 
+    <div class="input-field" style="margin-top: 1em">
+      <label>Professional Background:</label>
+      <ng-select formControlName="professionalBackground" placeholder="Select Professional Background"
+      [searchable]="false" [clearable]="false" [items]="professionalBackgroundOptions" bindLabel="label" bindValue="label" [(ngModel)]="judge.professionalBackground">
+      </ng-select>
+      <div class="error-message" *ngIf="
+          judgeForm.controls.professionalBackground.invalid &&
+          judgeForm.controls.professionalBackground.touched
+        ">
+        <p>* Professional Background is required.</p>
+      </div>
+    </div>
+    <label>Select Cities you are interested in judging in:</label>
+    <ng-multiselect-dropdown [placeholder]="'Cities'" [data]="mapCitiesToDropDownList(cities)" formControlName="cities"
+      (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)" (onSelect)="onItemSelected($event)"
+      (onDeSelect)="onItemDeselected($event)" [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+    <div class="error-message" *ngIf="judgeForm.controls.cities.invalid &&
+      judgeForm.controls.cities.touched">
+      <p>* This field is required.</p>
+    </div>
+
+
+    <div class="input-field" style="margin-top: 1em">
+      <label>Previous Judging Experiance (if any):</label>
+      <input type="text" class="form-control" name="judgeExperience" placeholder="Judging Experience"
+        formControlName="judgeExperience" />
+    </div>
+
+
+
+
+
+    <div class="input-field" style="margin-top: 1em">
+      <label>What have you heard about Solve It:</label>
+      <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?" formControlName="solveItKnowledge" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.solveItKnowledge.invalid &&
+          judgeForm.controls.solveItKnowledge.touched
+        ">
+        <p>* this field is required.</p>
+      </div>
+    </div>
+    
+    <div class="input-field" style="margin-top: 1em">
+      <label>Are You Interested in Investing:</label>
+      <ng-select formControlName="interestInInvesting" placeholder="Select Interest in Investment"
+      [searchable]="false" [clearable]="false" [items]="investmentOptions" bindLabel="label" bindValue="label" [(ngModel)]="judge.interestInInvesting">
+      </ng-select>
+      <div class="error-message" *ngIf="
+          judgeForm.controls.interestInInvesting.invalid &&
+          judgeForm.controls.interestInInvesting.touched
+        ">
+        <p>* Professional Background is required.</p>
+      </div>
+    </div>
+    <div class="input-field" style="margin-top: 1em">
+      <label>Short Description About Your Self:</label>
+      <textarea type="text" class="form-control" name="title" placeholder="Short Description"
+        formControlName="shortDescription">
+
+        </textarea>
+      <div class="error-message" *ngIf="
+            judgeForm.controls.shortDescription.invalid &&
+            judgeForm.controls.shortDescription.touched
+          ">
+        <p>* Short Description is required.</p>
+      </div>
+    </div>
+
+
+    <div class="clear"></div>
     <div class="form-group" id="resource-upload-btn">
-      <input type="button" (click)="registerJudge(judgeForm.value)" class="main-btn" value="Create" />
+      <input type="button"  [disabled]="!judgeForm.valid" (click)="registerJudge(judgeForm.value)" class="main-btn" value="Create" />
     </div>
   </div>
 </form>

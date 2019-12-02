@@ -19,7 +19,7 @@ export class JudgeService {
   }
 
   getJudge(judge_id){
-    return this.apiService.get(`${this.endpoint}/${judge_id}?filter={"include": ["city","event"]}`)
+    return this.apiService.get(`${this.endpoint}/${judge_id}`)
   }
   addJudge(judge) {
     return this.apiService.post(this.endpoint, judge);

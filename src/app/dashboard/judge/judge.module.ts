@@ -1,3 +1,5 @@
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { JudgeRoutes } from './judge.routes';
 import { JudgeService } from './judge.service';
 import { RouterModule } from '@angular/router';
@@ -11,6 +13,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 import { JudgeListComponent } from './judge-list/judge-list.component';
 import { JudgeRegistrationComponent } from './judge-registration/judge-registration.component';
+import { JudgeProfileComponent } from './judge-profile/judge-profile.component';
 
 @NgModule({
   imports: [
@@ -22,9 +25,11 @@ import { JudgeRegistrationComponent } from './judge-registration/judge-registrat
     ToastyModule,
     NgxPaginationModule,
     FileUploadModule,
-    RouterModule
+    RouterModule,
+    NgSelectModule,
+    NgMultiSelectDropDownModule,
   ],
-  declarations: [JudgeListComponent, JudgeRegistrationComponent],
+  declarations: [JudgeListComponent, JudgeRegistrationComponent, JudgeProfileComponent],
   exports: [],
   providers: [JudgeService]
 })

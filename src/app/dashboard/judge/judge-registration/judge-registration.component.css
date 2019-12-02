@@ -84,8 +84,12 @@ form {
   
   .upload-btn-wrapper {
     position: relative;
+    float:right;
     overflow: hidden;
     display: inline-block;
+  }
+  .clear{
+    clear:both;
   }
   
   .btn-custom {
