@@ -189,5 +189,17 @@
   "solveit-team": {
     "dataSource": "mongo",
     "public": true
+  },
+  "attendance": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "judge": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "mentor-notification": {
+    "dataSource": "mongo",
+    "public": true
   }
 }
