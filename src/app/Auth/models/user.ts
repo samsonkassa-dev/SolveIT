@@ -14,4 +14,11 @@ export interface User {
   username?: string;
   facebook?: object;
   PO_Box?: string;
+  previousCompetitions? : string,
+  previousInnovations? : string,
+  parentsOccupation? : string,
+  supportNeeded? : string,
+  financialKnowHow? : string,
+  financialAccess? : string,
+  languageOption? : string
 }

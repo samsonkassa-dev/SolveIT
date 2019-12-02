@@ -21,6 +21,7 @@ declare var $: any;
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
+  agreeTos:any;
   public educationLevels = [
     "Elementary",
     "HighSchool",
@@ -51,11 +52,18 @@ export class RegisterComponent implements OnInit {
     workStatus: "",
     educationLevel: "",
     address: {},
-    cityId: ""
+    cityId: null,
+    previousCompetitions : "",
+    previousInnovations : "",
+    parentsOccupation : "",
+    supportNeeded : "",
+    financialKnowHow : "",
+    financialAccess : "",
+    languageOption:""
   };
   public address = {
-    regionId: "",
-    cityId: "",
+    regionId: null,
+    cityId: null,
     wereda: "",
     houseNo: "",
     emergencyContact: {
@@ -73,7 +81,7 @@ export class RegisterComponent implements OnInit {
   public isAddressFormActive = false;
   public isQuestionariesActive = false;
   public isLoading = false;
-
+  public agreeTosError = null
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -135,6 +143,9 @@ export class RegisterComponent implements OnInit {
   }
 
   isFormValid() {
+    if(!this.agreeTos){
+      this.agreeTosError = true
+    }
     if (this.registerForm.valid) {
       if (
         (this.user.educationLevel === "Other" &&
@@ -149,18 +160,34 @@ export class RegisterComponent implements OnInit {
     }
     return false;
   }
-
+  onChange() {
+    this.agreeTos = !this.agreeTos;
+    console.log(this.agreeTos)
+    if(this.agreeTos){
+      this.agreeTosError = false
+    }else{
+      this.agreeTosError = true
+    }
+   }
   onRegister() {
+
     if (this.isFormValid()) {
-      this.isAddressFormActive = true;
-      this.user.email = this.user.email.toLowerCase();
-      this.isBasicFormActive = false;
+      if(this.agreeTos){
+        this.isAddressFormActive = true;
+        this.user.email = this.user.email.toLowerCase();
+        this.isBasicFormActive = false;
+      
+      }else{
+        this.agreeTosError = true
+      }
+    
     } else {
       this.markFormGroupTouched(this.registerForm);
     }
   }
 
-  onAdressNext() {
+  onAdressNext(form) {
+ 
     this.isLoading = true;
     this.user.cityId = this.address.cityId;
     const temp = {
@@ -172,6 +199,17 @@ export class RegisterComponent implements OnInit {
       }
     };
     this.user.address = temp;
+    this.user = {
+      ...this.user,
+      previousCompetitions : form.previousCompetitions,
+      previousInnovations : form.previousInnovations,
+      parentsOccupation : form.parentsOccupation,
+      supportNeeded : form.supportNeeded,
+      financialKnowHow : form.financialKnowHow,
+      financialAccess : form.financialAccess,
+      languageOption: form.languageOption
+    }
+    console.log(this.user)
     this.spinner.show();
     this.authService.registerParticipant({ user: this.user }).subscribe(
       res => {

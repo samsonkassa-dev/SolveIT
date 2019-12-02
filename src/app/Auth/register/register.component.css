@@ -5,7 +5,9 @@
   background-color: white;
   margin: 7% auto 10%;
 }
-
+.tos{
+  transform: scale(1.5);
+}
 form {
   width: 80%;
   margin: auto;

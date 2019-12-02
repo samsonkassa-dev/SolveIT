@@ -11,7 +11,7 @@ import { CommonService } from '../../shared/services/common.service';
 })
 export class AdressComponent implements OnInit, OnChanges {
 
-  @Output() next = new EventEmitter();
+  @Output() next = new EventEmitter<any>();
   @Output() back = new EventEmitter();
 
   public addressForm: FormGroup;
@@ -20,13 +20,51 @@ export class AdressComponent implements OnInit, OnChanges {
   public citiesBackup = [];
   public blockedRegions = [];
   public blockedCities = [];
+
+  parentOccupationOptions = [
+    "Employee (Full time)",
+    "Employee (Part time)",
+    "Unemployed",
+    "Business Owner",
+    "Student",
+    "Other"
+  ]
+
+  yesNoOptions = [
+    "Yes",
+    "No"
+  ]
+
+  supportOptions = [
+    "Business Support",
+    "Financial Support",
+    "Technical Support"
+  ]
+  languageOptions = [
+    "Amharic",
+    "English"
+  ]
+
+
+  dropdownSettings = {
+    singleSelection: false,
+    idField: "item_id",
+    textField: "item_text",
+    selectAllText: "Select All",
+    unSelectAllText: "UnSelect All",
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+  support = {supportNeeded : []}
   @Input() address;
   @Input() isLoading = false;
 
   constructor(public formBuilder: FormBuilder, public userService: CommonService) { }
 
   ngOnInit() {
-
+    this.parentOccupationOptions = this.format(this.parentOccupationOptions)
+    this.yesNoOptions = this.format(this.yesNoOptions)
+    this.languageOptions = this.format(this.languageOptions)
     this.userService.getAllRegions()
       .subscribe(res => {
         this.regions = res;
@@ -44,12 +82,20 @@ export class AdressComponent implements OnInit, OnChanges {
       });
 
     this.addressForm = this.formBuilder.group({
-      region: ['', Validators.required],
-      city: ['', Validators.required],
+      region: [null, Validators.required],
+      city: [null, Validators.required],
       wereda: ['', Validators.required],
       houseNo: ['', Validators.required],
       fullName: ['', Validators.required],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      previousCompetitions : [''],
+      previousInnovations : [''],
+      parentsOccupation : [null, Validators.required],
+      supportNeeded : [null, Validators.required],
+      financialKnowHow : [null, Validators.required],
+      financialAccess : [null, Validators.required],
+      languageOption:[null, Validators.required]
+      // englishSkills : ['', Validators.required]
     }, {
       validator: Validators.compose([PhoneNumberValidation.Validate])
     });
@@ -83,8 +129,9 @@ export class AdressComponent implements OnInit, OnChanges {
   }
 
   onDone() {
+    console.log(this.addressForm.valid)
     if (this.addressForm.valid) {
-      this.next.emit();
+      this.next.emit(this.addressForm.value);
     } else {
       this.markFormGroupTouched(this.addressForm);
     }
@@ -111,5 +158,45 @@ export class AdressComponent implements OnInit, OnChanges {
     this.isLoading = changes.isLoading.currentValue;
   }
 
+
+  format(arrayOfStrings){
+    let result = []
+    arrayOfStrings.forEach(element => {
+      result.push({label:element, value:element})
+    });
+    return result
+  }
+
+  mapSupportToDropDown() {
+    let result = [];
+    this.supportOptions.forEach(item => {
+      result.push({ item_id: item, item_text: item });
+    });
+
+    return result;
+  }
+
+  onItemSelected(item) {
+    if (this.support.supportNeeded.indexOf(item.item_id) === -1) {
+      this.support.supportNeeded.push(item.item_id);
+    }
+  }
+
+  onItemDeselected(item) {
+    this.support.supportNeeded.splice(
+      this.support.supportNeeded.indexOf(item.item_id),
+      1
+    );
+  }
+
+  onSelectAll(items) {
+    items.forEach(item => {
+      this.onItemSelected(item);
+    });
+  }
+
+  onDeselectAll(items) {
+    this.support.supportNeeded = [];
+  }
 
 }

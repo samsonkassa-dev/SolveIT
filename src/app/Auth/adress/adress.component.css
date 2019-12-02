@@ -1,5 +1,5 @@
 .address-form {
-  width: 40%;
+  width: 80%;
   padding: 3em;
   border: 1px solid rgba(0, 0, 0, 0.05);
   background-color: white;
@@ -76,7 +76,7 @@ img {
 
 @media (min-width: 1025px) and (max-width: 1280px) {
   .address-form {
-    width: 40%;
+    width: 70%;
     padding: 3em;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: white;

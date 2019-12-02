@@ -3,149 +3,185 @@
     <div class="section-header text-center">
       <img src="../../../assets/img/solveit-logo12.png" alt="" />
     </div>
-    <h3 class="title">Personal Address</h3>
-    <div class="input-field">
-      <select
-        class="form-control"
-        name="region"
-        id="region"
-        formControlName="region"
-        [(ngModel)]="address.regionId"
-        (change)="onRegionChange()"
-      >
-        <option value="">Select Your Region</option>
-        <option *ngFor="let region of regions" value="{{region.id}}">{{
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="title">Personal Address</h3>
+        <div class="input-field">
+          <!-- <select class="form-control" name="region" id="region" formControlName="region" [(ngModel)]="address.regionId"
+            (change)="onRegionChange()">
+            <option value="">Select Your Region</option>
+            <option *ngFor="let region of regions" value="{{region.id}}">{{
           region.name.toUpperCase()
         }}</option>
-      </select>
-      <div
-        class="error-message"
-        *ngIf="
+          </select> -->
+          <ng-select formControlName="region" [(ngModel)]="address.regionId" placeholder="Select Your Region?"
+          (change)="onRegionChange()" [searchable]="false" [clearable]="false" [items]="regions" bindLabel="name" bindValue="id">
+          </ng-select>
+          <div class="error-message" *ngIf="
           addressForm.controls.region.invalid &&
           addressForm.controls.region.touched
-        "
-      >
-        <p>* Region is required.</p>
-      </div>
-      <div
-        class="form-control"
-        class="error-message"
-        *ngIf="cities.length == 0 && addressForm.controls.region.touched"
-      >
-        <p>* Registration is over for this region.</p>
-      </div>
-    </div>
-    <div class="input-field">
-      <select
-        class="form-control"
-        name="city"
-        id="city"
-        formControlName="city"
-        [(ngModel)]="address.cityId"
-        (change)="onCityChange()"
-      >
-        <option value="">Select Your City</option>
-        <option *ngFor="let city of cities" value="{{city.id}}">{{
+        ">
+            <p>* Region is required.</p>
+          </div>
+          <div class="form-control" class="error-message"
+            *ngIf="cities.length == 0 && addressForm.controls.region.touched">
+            <p>* Registration is over for this region.</p>
+          </div>
+        </div>
+        <div class="input-field">
+          <!-- <select class="form-control" name="city" id="city" formControlName="city" [(ngModel)]="address.cityId"
+            (change)="onCityChange()">
+            <option value="">Select Your City</option>
+            <option *ngFor="let city of cities" value="{{city.id}}">{{
           city.name.toUpperCase()
         }}</option>
-      </select>
-      <div
-        class="error-message"
-        *ngIf="
+          </select> -->
+          <ng-select [(ngModel)]="address.cityId" formControlName="city" placeholder="Select Your City?" 
+          (change)="onCityChange()" [searchable]="false" [clearable]="false" [items]="cities" bindLabel="name" bindValue="id">
+          </ng-select>
+          <div class="error-message" *ngIf="
           addressForm.controls.city.invalid && addressForm.controls.city.touched
-        "
-      >
-        <p>* City is required.</p>
-      </div>
-    </div>
-    <div class="input-field">
-      <input
-        type="text"
-        class="form-control"
-        name="Woreda"
-        placeholder="Woreda/Kebele"
-        formControlName="wereda"
-        [(ngModel)]="address.wereda"
-      />
-      <div
-        class="error-message"
-        *ngIf="
+        ">
+            <p>* City is required.</p>
+          </div>
+        </div>
+        <div class="input-field">
+          <input type="text" class="form-control" name="Woreda" placeholder="Woreda/Kebele" formControlName="wereda"
+            [(ngModel)]="address.wereda" />
+          <div class="error-message" *ngIf="
           addressForm.controls.wereda.invalid &&
           addressForm.controls.wereda.touched
-        "
-      >
-        <p>* Woreda/Kebele is required.</p>
-      </div>
-    </div>
-    <div class="input-field">
-      <input
-        type="text"
-        class="form-control"
-        name="houseNo"
-        placeholder="House Number"
-        formControlName="houseNo"
-        [(ngModel)]="address.houseNo"
-      />
-      <div
-        class="error-message"
-        *ngIf="
+        ">
+            <p>* Woreda/Kebele is required.</p>
+          </div>
+        </div>
+        <div class="input-field">
+          <input type="text" class="form-control" name="houseNo" placeholder="House Number" formControlName="houseNo"
+            [(ngModel)]="address.houseNo" />
+          <div class="error-message" *ngIf="
           addressForm.controls.houseNo.invalid &&
           addressForm.controls.houseNo.touched
-        "
-      >
-        <p>* House Number is required.</p>
-      </div>
-    </div>
-    <h3 class="title">Emergecy Address</h3>
-    <div class="input-field">
-      <input
-        type="text"
-        name="emergency-fullname"
-        placeholder="Contact Full Name"
-        formControlName="fullName"
-        class="form-control"
-        [(ngModel)]="address.emergencyContact.fullName"
-      />
-      <div
-        class="error-message"
-        *ngIf="
+        ">
+            <p>* House Number is required.</p>
+          </div>
+        </div>
+        <h3 class="title">Emergecy Address</h3>
+        <div class="input-field">
+          <input type="text" name="emergency-fullname" placeholder="Contact Full Name" formControlName="fullName"
+            class="form-control" [(ngModel)]="address.emergencyContact.fullName" />
+          <div class="error-message" *ngIf="
           addressForm.controls.fullName.invalid &&
           addressForm.controls.fullName.touched
-        "
-      >
-        <p>* Emergency Name is required.</p>
-      </div>
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon"><b>+251</b></span>
-      <input
-        type="tel"
-        name="emergency-phoneNumber"
-        placeholder="Phone Number"
-        class="form-control"
-        formControlName="phoneNumber"
-        [(ngModel)]="address.emergencyContact.phoneNumber"
-      />
-    </div>
-    <div
-      class="error-message"
-      *ngIf="
+        ">
+            <p>* Emergency Name is required.</p>
+          </div>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon"><b>+251</b></span>
+          <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" class="form-control"
+            formControlName="phoneNumber" [(ngModel)]="address.emergencyContact.phoneNumber" />
+        </div>
+        <div class="error-message" *ngIf="
         addressForm.controls.phoneNumber.touched &&
         addressForm.controls.phoneNumber.errors?.required
-      "
-    >
-      <p>* Emergency Phone Number is required</p>
-    </div>
-    <div
-      class="error-message"
-      *ngIf="
+      ">
+          <p>* Emergency Phone Number is required</p>
+        </div>
+        <div class="error-message" *ngIf="
         addressForm.controls.phoneNumber.touched &&
         addressForm.controls.phoneNumber.errors?.incorrect
-      "
-    >
-      <p>* Incorrect phone number.</p>
-      <p>* e.g 9xxxxxxxx</p>
+      ">
+          <p>* Incorrect phone number.</p>
+          <p>* e.g 9xxxxxxxx</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3> Additional Information</h3>
+        <div class="input-field" style="margin-top: 1em">
+          <input type="text" class="form-control" name="previousCompetitions"
+            placeholder="Previous Competitions (if any)" formControlName="previousCompetitions" />
+        </div>
+
+
+        <div class="input-field" style="margin-top: 1em">
+          <input type="text" class="form-control" name="previousInnovations" placeholder="Innovations(if any)"
+            formControlName="previousInnovations" />
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+            <ng-select formControlName="languageOption" placeholder="Language Options" [searchable]="false"
+              [clearable]="false" [items]="languageOptions" bindLabel="label" bindValue="label">
+            </ng-select>
+            <div class="error-message" *ngIf="
+              addressForm.controls.languageOption.invalid &&
+              addressForm.controls.languageOption.touched
+                ">
+              <p>* Select your preferred language.</p>
+            </div>
+          </div>
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="parentsOccupation" placeholder="Parents Occupation" [searchable]="false"
+            [clearable]="false" [items]="parentOccupationOptions" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+            addressForm.controls.parentsOccupation.invalid &&
+            addressForm.controls.parentsOccupation.touched
+              ">
+            <p>* Parent's Occupation is required.</p>
+          </div>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="financialKnowHow"
+            placeholder="Do you have the know how on getting financial aid ?" [searchable]="false" [clearable]="false"
+            [items]="yesNoOptions" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+            addressForm.controls.financialKnowHow.invalid &&
+            addressForm.controls.financialKnowHow.touched
+              ">
+            <p>* This field is required.</p>
+          </div>
+        </div>
+
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="financialAccess" placeholder="Do you have access to get financial investment?"
+            [searchable]="false" [clearable]="false" [items]="yesNoOptions" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+            addressForm.controls.financialAccess.invalid &&
+            addressForm.controls.financialAccess.touched
+              ">
+            <p>* This field is required.</p>
+          </div>
+        </div>
+
+        <div class="input-field" style="margin-top:1em">
+          <ng-multiselect-dropdown [placeholder]="'Which areas do you need support'" [data]="mapSupportToDropDown()"
+            formControlName="supportNeeded" (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)"
+            (onSelect)="onItemSelected($event)" (onDeSelect)="onItemDeselected($event)" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+          
+          <div class="error-message" *ngIf="addressForm.controls.supportNeeded.invalid &&
+          addressForm.controls.supportNeeded.touched">
+            <p>* This field is required.</p>
+          </div>
+
+        </div>
+       
+
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-6 col-md-push-3">
+          <h3  style="text-align: center;">Language Skills</h3>
+          
+      </div>
+     
+    </div>
+
+
+
     <div class="register-btn">
       <div class="row">
         <div class="col-md-6">
