@@ -17,7 +17,6 @@ module.exports = function (Progressreport) {
       projectMember,
       mentorNotification
     } = Progressreport.app.models;
-    console.log("UPLOad")
     try {
       let userDeviceIds = [];
       const reportUploader = await UserAccount.findOne({
