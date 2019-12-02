@@ -15,7 +15,7 @@
           </h5>
           <h6 style="text-align: center">Solve IT User</h6>
           <p style="text-align: center" class="proile-rating" *ngIf="user.birthDate">
-            Birthday : <span>{{ user.birthDate.substr(0, 10) }}</span>
+            Birthday : <span>{{ user.birthDate| date }}</span>
           </p>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" [ngClass]="{ activeView: selected === views[0] }"
@@ -109,6 +109,38 @@
                 <p>{{ user.address.emergencyContact.phoneNumber }}</p>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-6"><label>Parents Occupation : </label></div>
+              <div class="col-md-6">
+                <p>{{ user.parentsOccupation }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label>What Kind of Support Needed : </label></div>
+              <div class="col-md-6">
+                <p *ngFor="let support of user.supportNeeded; let i= index">{{ support}}<span *ngIf="i<user.supportNeeded.length-1"> ,</span></p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6"><label>Has the Financial Know How : </label></div>
+              <div class="col-md-6">
+                <p>{{ user.financialKnowHow}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label>Has Financial Access: </label></div>
+              <div class="col-md-6">
+                <p>{{ user.financialAccess}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label>Preferred Language: </label></div>
+              <div class="col-md-6">
+                <p>{{ user.languageOption}}</p>
+              </div>
+            </div>
+
           </div>
           <div *ngIf="authService.isSolveitParticipant()" class="btn-group">
             <button [disabled]="user.userType == 'Almuni'" (click)="updateStatus('Almuni')" type="button"
