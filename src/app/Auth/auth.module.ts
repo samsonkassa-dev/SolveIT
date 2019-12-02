@@ -1,3 +1,5 @@
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgSelectModule } from '@ng-select/ng-select';
 /** @kal **/
 
 import { NgModule } from "@angular/core";
@@ -42,7 +44,9 @@ import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.c
     SharedModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgSelectModule,
+    NgMultiSelectDropDownModule,
   ],
   providers: [
     AuthService,
