@@ -15,11 +15,11 @@ export class AttendanceService {
   }
 
   getAllAttendance(){
-    return this.apiService.get(`${this.endpoint}?filter={"include": ["cities","event"]}`);
+    return this.apiService.get(`${this.endpoint}?filter={"include": ["cities"]}`);
   }
 
   getAttendance(attendance_id){
-    return this.apiService.get(`${this.endpoint}/${attendance_id}?filter={"include": ["cities","event"]}`)
+    return this.apiService.get(`${this.endpoint}/${attendance_id}?filter={"include": ["cities"]}`)
   }
   addAttendance(attendance) {
     return this.apiService.post(this.endpoint, attendance);

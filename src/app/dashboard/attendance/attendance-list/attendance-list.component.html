@@ -26,6 +26,7 @@
             <th>#</th>
             <th> Event Name</th>
             <th> City </th>
+            <th> Venue </th>
             <th> Date</th>
             <th>Actions</th>
           </tr>
@@ -34,16 +35,17 @@
           <tr *ngFor="let attendance of attendanceList; let i = index;">
             <td>{{ i + 1 }}</td>
 
-            <td>{{ attendance.event? attendance.event.title : "-" }}</td>
-            <td>{{ attendance.cities[0].name }}</td>
+            <td>{{ attendance.title }}</td>
+            <td><p *ngFor="let city of attendance.cities">{{city.name}},</p></td>
+            <td>{{attendance.venue}}</td>
             <td>{{ attendance.attendance_date |date }}</td>
             <td>
               <button type="button" data-toggle="modal" data-target="#editMember" class="btn btn-warn"
                 (click)="viewDetails(attendance)">
-                Edit
+                <i class="fa fa-eye"></i> View
               </button>
               <button type="button" (click)="deleteAttendance(attendance)" class="btn btn-danger">
-                Delete
+                <i class="fa fa-trash"></i> Delete
               </button>
             </td>
           </tr>
@@ -95,22 +97,46 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label>Select Event:</label>
-              <select class="form-control" name="role" id="role" [(ngModel)]="attendance.eventId"
-                formControlName="event">
-                <option selected value="">Select Event</option>
-                <option *ngFor="let event of events" value="{{event.id}}">{{
-                  event.title
-                }}</option>
-              </select>
-            </div>
+          
 
 
             <div class="form-group">
               <label>Attendance Date:</label>
-              <input type="date" class="form-control" name="title" placeholder="Attendance Date"
-                formControlName="attendance_date" />
+              <input type="date" class="form-control" name="date" placeholder="Attendance Date"
+                formControlName="attendance_date" [(ngModel)] ="attendance.attendance_date" />
+            </div>
+            <div class="form-group">
+              <label>Title:</label>
+              <input type="text" class="form-control" name="title" placeholder="What is the event"
+                formControlName="title" [(ngModel)] ="attendance.title" />
+                <div class="error-message" *ngIf="attendanceForm.controls.title.invalid &&
+              attendanceForm.controls.title.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Venue:</label>
+              <input type="text" class="form-control" name="venue" placeholder="Where is the Venue"
+                formControlName="venue" [(ngModel)] ="attendance.venue" />
+                <div class="error-message" *ngIf="attendanceForm.controls.venue.invalid &&
+              attendanceForm.controls.venue.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>place:</label>
+              <input type="text" class="form-control" name="place" placeholder="Where is the place"
+                formControlName="place" [(ngModel)] ="attendance.place" />
+                <div class="error-message" *ngIf="attendanceForm.controls.place.invalid &&
+              attendanceForm.controls.place.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description:</label>
+              <input type="text" class="form-control" name="description" placeholder="What is the description"
+                formControlName="description" [(ngModel)] ="attendance.description" />
             </div>
             <div class="form-group" id="resource-upload-btn">
               <input type="button" [disabled]="!attendanceForm.valid" (click)="createAttendance(attendanceForm.value)"

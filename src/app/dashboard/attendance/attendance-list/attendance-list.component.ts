@@ -17,7 +17,7 @@ export class AttendanceListComponent implements OnInit {
   cities = []
   events = []
   public attendanceForm:FormGroup;
-  public attendance = {cities: [], eventId : 0, attendance_date : null, cityIds : []}
+  public attendance = {cities: [], attendance_date : null, cityIds : [], title:'',description:'',place:'', venue:''}
   public page = 1;
   dropdownSettings = {
     singleSelection: false,
@@ -39,7 +39,10 @@ export class AttendanceListComponent implements OnInit {
     this.attendanceForm = fb.group({
       attendance_date : ['', Validators.required],
       cities:['', Validators.required],
-      event:['', Validators.required]
+      title:['', Validators.required],
+      description:['',Validators.required],
+      place:['', Validators.required],
+      venue:['',Validators.required]
     })
    }
 
@@ -48,7 +51,6 @@ export class AttendanceListComponent implements OnInit {
     this.getEvents();
     this.attendanceService.getAllAttendance()
     .subscribe(response =>{
-      console.log(response)
       this.attendanceList = response
     })
   }
@@ -59,6 +61,7 @@ export class AttendanceListComponent implements OnInit {
 
   getCities(){
     this.cityService.getCities().subscribe(cities =>{
+      console.log(cities)
       this.cities = cities
     })
   }
@@ -72,12 +75,11 @@ export class AttendanceListComponent implements OnInit {
   createAttendance(attendanceForm){
     this.attendance.attendance_date = attendanceForm.attendance_date
     this.attendance.cityIds = this.attendance.cities;
-    console.log(this.attendance)
     this.attendanceService.addAttendance(this.attendance)
     .subscribe(res =>{
       this.sharedService.addToast('Success','Attendance Created.', 'success');
       this.attendanceForm.reset()
-      this.attendance =  {cities: [], eventId : 0, attendance_date : null, cityIds : []}
+      this.attendance =  {cities: [], attendance_date : null, cityIds : [], title:'',description:'',place:'', venue:''}
       this.ngOnInit()
      
     },(err =>{

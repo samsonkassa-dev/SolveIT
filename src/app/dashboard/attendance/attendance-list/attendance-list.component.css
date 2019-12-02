@@ -1,0 +1,11 @@
+  
+  .error-message {
+    text-align: center;
+    font-size: 0.7em;
+    color: #ec4643;
+  }
+  
+  .err {
+    border-color: #ec4643;
+  }
+  
