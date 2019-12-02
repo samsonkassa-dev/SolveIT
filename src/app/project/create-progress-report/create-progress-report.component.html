@@ -14,19 +14,13 @@
           />
         </div>
         <div class="form-group">
-          <select
-            class="form-control"
-            name="type"
-            class="form-control"
-            id="type"
-            [(ngModel)]="report.type"
-            formControlName="type"
-          >
-            <option value="" selected>Report Type</option>
-            <option *ngFor="let type of types" [value]="type.id">{{
-              type.name
-            }}</option>
-          </select>
+          
+          <ng-select formControlName="type" placeholder="select category" [items]="types"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="report.type"
+          [searchable]="false">
+        </ng-select>
         </div>
         <div class="form-group" *ngIf="report.type == types[1].id">
           <textarea
@@ -47,6 +41,47 @@
             (change)="handleFileSelection($event)"
           />
         </div>
+        <div *ngIf="report.type == types[2].id">
+            <div class="form-group" >
+                <label id="proposal-label" for="proposal">When did the meeting take place</label>
+                <input
+                  id="communicationAbout"
+                  type="date"
+                  formControlName = "meetingDate"
+                />
+          
+
+              </div>
+            <div class="form-group" >
+                <label id="proposal-label" for="proposal">What Was the communication about</label>
+                <textarea
+                  id="communicationAbout"
+                  type="text"
+                  formControlName = "communicationAbout"
+                  placeholder="What was the communnication about"
+                  rows="3"
+                >
+                </textarea>
+
+              </div>
+              <div class="form-group" >
+                  <label id="proposal-label" for="proposal">Project Progress / Status</label>
+                  <textarea
+                    id="progress"
+                    type="text"
+                    formControlName = "progress"
+                    placeholder="Project Progress"
+                    rows="3"
+                  >
+                  </textarea>
+  
+                </div>
+        </div>
+       
+
+         
+
+            
         <div id="progress" *ngIf="isUploading">
           <circle-progress
             [percent]="progress"

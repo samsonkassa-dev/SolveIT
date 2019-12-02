@@ -15,7 +15,7 @@ export class CreateProgressReportComponent implements OnInit {
   public reportForm: FormGroup;
   public report: any = {
     title: "",
-    type: "",
+    type: null,
     report: "",
     userId: ""
   };
@@ -27,7 +27,8 @@ export class CreateProgressReportComponent implements OnInit {
   public error = false;
   public types = [
     { id: "attachment", name: "Attach Document" },
-    { id: "simple", name: "Simple Report" }
+    { id: "simple", name: "Simple Report" },
+    { id: "communication", name:"Communication Report"}
   ];
   @Input() project: any = {};
   @Output() created = new EventEmitter();
@@ -42,8 +43,12 @@ export class CreateProgressReportComponent implements OnInit {
   ngOnInit() {
     this.reportForm = this.formBuilder.group({
       title: ["", Validators.required],
-      type: ["", Validators.required],
-      report: ["", Validators.required]
+      type: [null, Validators.required],
+      report: ["",],
+      date:["",],
+      communicationAbout:[""],
+      progress:[""],
+      meetingDate:[""]
     });
   }
 
@@ -53,7 +58,7 @@ export class CreateProgressReportComponent implements OnInit {
       this.report.projectId = this.project.id;
       const userId = this.authService.getUserId();
       this.report.userId = userId;
-      if (this.report.type === this.types[0].id) {
+      if (this.report.type === this.types[0].id ) {
         this.error = false;
 
         this.isUploading = true;
@@ -65,6 +70,11 @@ export class CreateProgressReportComponent implements OnInit {
           headers: ParsedResponseHeaders
         ) => {
           this.report.content = JSON.parse(response).result.files.file[0];
+          this.report = {
+            ...this.report,
+            ...this.reportForm.value
+          }
+          console.log(this.report)
           this.service.uploadProgressReport(this.report).subscribe(
             res => {
               this.sharedService.addToast(
@@ -108,7 +118,11 @@ export class CreateProgressReportComponent implements OnInit {
           this.isUploading = false;
           this.uploader.queue.pop();
         };
-      } else if (this.report.type === this.types[1].id) {
+      } else if (this.report.type === this.types[1].id || this.report.type == this.types[2].id) {
+        this.report = {
+          ...this.report,
+          ...this.reportForm.value
+        }
         this.service.uploadProgressReport(this.report).subscribe(
           res => {
             this.sharedService.addToast(
@@ -121,12 +135,17 @@ export class CreateProgressReportComponent implements OnInit {
           },
           err => {
             if ((err.status = 422)) {
+              console.log("$@@")
+              console.log(err)
               this.sharedService.addToast("", "Error occurred!", "error");
             }
           }
         );
       }
     } else {
+      console.log("In the lese ")
+      console.log(this.report)
+      console.log(this.report.type == this.types[2].id)
       this.sharedService.addToast("", "Error occurred!", "error");
     }
   }
@@ -137,6 +156,8 @@ export class CreateProgressReportComponent implements OnInit {
         return this.isFileSelected;
       } else if (this.report.type === this.types[1].id) {
         return this.report.report !== "";
+      }else if(this.report.type === this.types[2].id){
+        return this.reportForm.controls.communicationAbout.value !== "";
       }
       return false;
     }
