@@ -5,18 +5,21 @@
       <h3>{{report.title}}</h3>
       <p>{{report.createdAt| amTimeAgo }}</p>
       <button class="btn main-btn" *ngIf="report.type === types[0].id" (click)="showDocument(report.content.name)">Download Report</button>
-      <button class="btn main-btn" *ngIf="report.type === types[1].id"
+      <button class="btn main-btn" *ngIf="report.type === types[1].id || report.type === types[2].id"
               type="button" data-toggle="collapse" data-target="#report-content" aria-expanded="false" aria-controls="report-content">Read Report</button>
       <button class="btn outline-btn" (click)="backToProgressReportList()">Back</button>
-      <div class="collapse" *ngIf="report.type === types[1].id" id="report-content">
+      <div class="collapse" *ngIf="report.type === types[1].id || report.type === types[2].id" id="report-content">
         <div class="card card-body">
           <h5 class="title">Report Content</h5>
           {{report?.report}}
+            <p>Date : {{report?.meetingDate | date}}</p>
+            <p>Meeting Was About : {{report?.communicationAbout}}</p>
+            <p>Project Status : {{report?.progress}}</p>
         </div>
       </div>
     </div>
   </div>
-  <h5 class="title">Comments</h5>
+  <h5 class="title" *ngIf = "">Comments</h5>
   <div class="report-comment-container">
     <div class="media" *ngFor="let comment of reportComments" [class.my-comment]="userId === comment.user.id" [class.other-comment]="userId !== comment.user.id" >
       <div class="media-left">

@@ -23,7 +23,8 @@ export class ReportViewComponent implements OnInit, OnChanges {
   };
   public types = [
     {id: 'attachment', name: 'Attach Document'},
-    {id: 'simple', name: 'Simple Report'}
+    {id: 'simple', name: 'Simple Report'},
+    {id: 'communication', name: 'Communication Report'}
   ];
   public userId = '';
 
