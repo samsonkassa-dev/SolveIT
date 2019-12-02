@@ -84,6 +84,34 @@
     },
     "oneSignalUserID": {
       "type": "string"
+    },
+    "previousCompetitions": {
+      "type": "string",
+      "default": "None"
+    },
+    "previousInnovations": {
+      "type": "string",
+      "default": "None"
+    },
+    "parentsOccupation": {
+      "type": "string",
+      "default": "None"
+    },
+    "supportNeeded": {
+      "type": "string",
+      "default": "None"
+    },
+    "financialKnowHow": {
+      "type": "string",
+      "default": "No"
+    },
+    "financialAccess": {
+      "type": "string",
+      "default": "No"
+    },
+    "languageOption": {
+      "type": "string",
+      "default": "English"
     }
   },
   "validations": [],
