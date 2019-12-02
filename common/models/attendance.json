@@ -14,6 +14,22 @@
       "type": [
         "object"
       ]
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "place": {
+      "type": "string",
+      "required": true
+    },
+    "venue": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
@@ -22,11 +38,6 @@
       "type": "referencesMany",
       "model": "city",
       "foreignKey": ""
-    },
-    "event": {
-      "type": "belongsTo",
-      "model": "event",
-      "foreignKey": "eventId"
     }
   },
   "acls": [],
