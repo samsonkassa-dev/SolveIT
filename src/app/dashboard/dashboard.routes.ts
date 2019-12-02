@@ -1,3 +1,4 @@
+import { JudgeProfileComponent } from './judge/judge-profile/judge-profile.component';
 import { JudgeListComponent } from './judge/judge-list/judge-list.component';
 import { AttendanceDetailComponent } from './attendance/attendance-detail/attendance-detail.component';
 import { SolveItTeamMemberEditComponent } from './solveit-team-member/solve-it-team-member-edit/solve-it-team-member-edit.component';
@@ -49,6 +50,7 @@ export const DASHBOARD_ROUTES: Routes = [
       { path: "review-discussion", component: ReviewDiscussionComponent },
       { path: "cities", component: CityListComponent },
       { path: "judges", component: JudgeListComponent },
+      { path: "judges/:judge_id", component: JudgeProfileComponent},
       { path: "attendance", component: AttendanceListComponent },
       { path: "attendance/:attendance_id", component: AttendanceDetailComponent },
       { path: "solveit-team", component: SolveItTeamMemberListComponent },
