@@ -52,7 +52,7 @@ export class UserProfileComponent implements OnInit {
     this.service.getUser(this.userId).subscribe(
       res => {
         this.user = res;
-        console.log(res)
+        //console.log(res)
         this.updatedUser =  {
           firstName: this.user.firstName,
           middleName: this.user.middleName,
@@ -69,7 +69,7 @@ export class UserProfileComponent implements OnInit {
         this.selected = this.views[0];
       },
       err => {
-        console.log("I IS NAV")
+        //console.log("I IS NAV")
         this.router.navigate(["/404"]);
         this.spinner.hide();
       }

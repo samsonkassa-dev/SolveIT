@@ -64,7 +64,7 @@ export class ProjectMemberList implements OnInit {
           "success"
         );
       }, error => {
-        console.log(error);
+        //console.log(error);
         this.sharedService.addToast("", "Error occurred!", "error");
       });
 

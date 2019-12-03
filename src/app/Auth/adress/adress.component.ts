@@ -129,7 +129,7 @@ export class AdressComponent implements OnInit, OnChanges {
   }
 
   onDone() {
-    console.log(this.addressForm.valid)
+    //console.log(this.addressForm.valid)
     if (this.addressForm.valid) {
       this.next.emit(this.addressForm.value);
     } else {

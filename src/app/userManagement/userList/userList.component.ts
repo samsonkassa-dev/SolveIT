@@ -252,7 +252,7 @@ export class UserListComponent implements OnInit {
 
   approveInvestor(profileId) {
     this.service.approveInvestor(profileId).subscribe(res => {
-      console.log('approved');
+      //console.log('approved');
     })
   }
 }

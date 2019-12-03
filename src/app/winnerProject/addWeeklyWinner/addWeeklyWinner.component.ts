@@ -92,12 +92,12 @@ export class AddWeeklyWinnerComponent implements OnInit {
   }
 
   fetchParams() {
-    console.log('inside active competition');
+    //console.log('inside active competition');
     const cities = this.competitionService.getCities();
     const activeCompetition = this.competitionService.getActiveCompetition();
     Promise.all([activeCompetition, cities])
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         res[0].subscribe(competitions => {
           this.competitions = competitions.Result;
           if (this.competitions.length !== 0) {
@@ -118,7 +118,7 @@ export class AddWeeklyWinnerComponent implements OnInit {
   }
 
   filterProjectByCity() {
-    console.log(this.weeklyWinner.city);
+    //console.log(this.weeklyWinner.city);
     if (this.weeklyWinner.city === 'All') {
       this.projects = this.projectsBackup;
     } else {

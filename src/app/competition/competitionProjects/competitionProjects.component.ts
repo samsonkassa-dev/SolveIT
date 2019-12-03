@@ -121,7 +121,7 @@ export class CompetitionProjectsComponent implements OnInit {
         this.cities = res;
       },
       error => {
-        console.log("Error while fetching cities");
+        //console.log("Error while fetching cities");
       }
     );
   }

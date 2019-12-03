@@ -56,7 +56,7 @@ export class ExportDataComponent implements OnInit {
 
     exportReport() {
       const options = {selectionOptions: this.selectionOptions};
-      console.log(options)
+      //console.log(options)
       this.apiService.downloadExcel(`${configs.rootUrl}UserAccounts/exportData`, options).subscribe(
         res => {
           this.exportData(res);

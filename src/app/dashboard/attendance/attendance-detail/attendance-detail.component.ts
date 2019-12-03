@@ -41,14 +41,14 @@ export class AttendanceDetailComponent implements OnInit {
     this.attendanceService.getAttendance(this.attendance_id)
     .subscribe(attendance => {
       this.attendance = attendance
-      console.log(attendance)
+      //console.log(attendance)
       this.participants = attendance.participants
       this.backupParticipants =attendance.participants
     })
   }
 
   save(){
-    console.log(this.attendance)
+    //console.log(this.attendance)
     this.attendanceService.updateAttendance(this.attendance)
     .subscribe(attendance =>{
       this.sharedService.addToast('Success','Attendance Created.', 'success');

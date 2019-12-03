@@ -56,7 +56,7 @@ export class InvestorProfileModalComponent implements OnInit {
 
   submitProfile() {
     this.service.patchInvestorProfile(this.previousProfile.id, this.profile).subscribe(res => {
-        console.log(res);
+        //console.log(res);
     })
   }
 

@@ -74,7 +74,7 @@ export class CreateProgressReportComponent implements OnInit {
             ...this.report,
             ...this.reportForm.value
           }
-          console.log(this.report)
+          //console.log(this.report)
           this.service.uploadProgressReport(this.report).subscribe(
             res => {
               this.sharedService.addToast(
@@ -94,7 +94,7 @@ export class CreateProgressReportComponent implements OnInit {
           this.uploader.queue.pop();
         };
         this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
-          console.log("progress => ", progress);
+          //console.log("progress => ", progress);
           this.progress = progress;
         };
         this.uploader.onCancelItem = (
@@ -103,7 +103,7 @@ export class CreateProgressReportComponent implements OnInit {
           status: number,
           headers: ParsedResponseHeaders
         ) => {
-          console.log("Canceled");
+          //console.log("Canceled");
           this.isUploading = false;
           this.uploader.queue.pop();
         };
@@ -113,7 +113,7 @@ export class CreateProgressReportComponent implements OnInit {
           status: number,
           headers: ParsedResponseHeaders
         ) => {
-          console.log("error");
+          //console.log("error");
           this.error = true;
           this.isUploading = false;
           this.uploader.queue.pop();
@@ -135,17 +135,17 @@ export class CreateProgressReportComponent implements OnInit {
           },
           err => {
             if ((err.status = 422)) {
-              console.log("$@@")
-              console.log(err)
+              //console.log("$@@")
+              //console.log(err)
               this.sharedService.addToast("", "Error occurred!", "error");
             }
           }
         );
       }
     } else {
-      console.log("In the lese ")
-      console.log(this.report)
-      console.log(this.report.type == this.types[2].id)
+      //console.log("In the lese ")
+      //console.log(this.report)
+      //console.log(this.report.type == this.types[2].id)
       this.sharedService.addToast("", "Error occurred!", "error");
     }
   }

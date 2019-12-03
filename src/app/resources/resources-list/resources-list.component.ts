@@ -53,7 +53,7 @@ export class ResourcesListComponent implements OnInit {
         });
       },
       err => {
-        console.log("error while fetching resource", err);
+        //console.log("error while fetching resource", err);
       }
     );
 
@@ -118,7 +118,7 @@ export class ResourcesListComponent implements OnInit {
         a.remove(); // remove the element
       },
       error => {
-        console.log("error", error);
+        //console.log("error", error);
       }
     );
   }
@@ -187,7 +187,7 @@ export class ResourcesListComponent implements OnInit {
         this.sharedService.addToast("Success", "Resource Deleted!", "success");
       },
       error => {
-        console.log(error);
+        //console.log(error);
         this.sharedService.addToast("", "Error occured!", "error");
       }
     );

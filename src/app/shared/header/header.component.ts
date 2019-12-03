@@ -18,14 +18,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.getUserId()
-    console.log(this.userId)
+    //console.log(this.userId)
     if(this.userId){
       this.getNotifications(this.userId)
     }
   }
   getUserProfile(){
     // [routerLink]="['/userProfile', authService.getUserId()]"
-    console.log(this.authService.getUserId())
+    //console.log(this.authService.getUserId())
     this.router.navigate(['dashboard','userProfile', this.authService.getUserId()])
   } 
   getNotifications(userId){
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
 
   deleteNotification(notification){
-    console.log(notification)
+    //console.log(notification)
     this.commonService.deleteNotification(notification)
     .subscribe(res =>{
       this.ngOnInit()

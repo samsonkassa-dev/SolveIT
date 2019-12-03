@@ -33,7 +33,6 @@ var txt = 'Hey, Do you need help?';
 var speed = 50;
 
 function typeWriter() {
-    console.log("kokO")
     if (i < txt.length) {
         document.getElementById("help-text").innerHTML += txt.charAt(i);
         i++;
@@ -67,13 +66,17 @@ var add_class_on_scroll = () => header.classList.add("nav-gradient-background");
 var remove_class_on_scroll = () => header.classList.remove("nav-gradient-background");
 window.addEventListener('scroll', function () {
     scrollpos = window.scrollY;
-    if (scrollpos >= header_height) {
-        add_class_on_scroll();
-        document.querySelector('.page-title').classList.remove('invisible');
-    } else {
-        remove_class_on_scroll();
-        document.querySelector('.page-title').classList.add('invisible');
+    var page_title = document.querySelector('.page-title');
+    if(page_title){
+        if (scrollpos >= header_height) {
+            add_class_on_scroll();
+            page_title.classList.remove('invisible');
+        } else {
+            remove_class_on_scroll();
+            page_title.classList.add('invisible');
+        }
     }
+    
 });
 
 /* sidebar reveal */
@@ -89,7 +92,8 @@ document.querySelector('.help-sidebar').addEventListener('click', (e) => {
 });
 
 document.body.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('help-sidebar')) {
-        document.querySelector('.help-sidebar').classList.add('hidden-sidebar');
+    var sidebar = document.querySelector('.help-sidebar')
+    if (!e.target.classList.contains('help-sidebar') && sidebar) {
+        sidebar.classList.add('hidden-sidebar');
     }
 });

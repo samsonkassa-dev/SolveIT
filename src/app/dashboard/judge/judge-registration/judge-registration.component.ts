@@ -63,16 +63,16 @@ export class JudgeRegistrationComponent implements OnInit {
     public router:Router
   ) { 
     this.judgeForm = fb.group({
-      fullName: ['asdf', Validators.required],
-      phoneNumber: ['123123', Validators.required],
-      email: ['a@a.com', Validators.required],
+      fullName: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
       educationalBackground: ['', Validators.required],
       professionalBackground: ['', Validators.required],
-      solveItKnowledge:['asdf', Validators.required],
-      judgeExperience:['asdf'],
+      solveItKnowledge:['', Validators.required],
+      judgeExperience:[''],
       cities:['', Validators.required],
-      interestInInvesting:['asdfsadf', Validators.required],
-      shortDescription: ['sadfasdf', Validators.required],
+      interestInInvesting:['', Validators.required],
+      shortDescription: ['', Validators.required],
     })
   }
 
@@ -80,12 +80,12 @@ export class JudgeRegistrationComponent implements OnInit {
     this.educationalBackgroundOptions = this.format(this.educationalBackgroundOptions)
     this.investmentOptions = this.format(this.investmentOptions)
     this.professionalBackgroundOptions = this.format(this.professionalBackgroundOptions)
-    console.log(this.investmentOptions)
+    //console.log(this.investmentOptions)
     this.getCities()
   }
   getCities(){
     this.commonService.getCities().subscribe(cities =>{
-      console.log(cities)
+      //console.log(cities)
       this.cities = cities
     })
   }

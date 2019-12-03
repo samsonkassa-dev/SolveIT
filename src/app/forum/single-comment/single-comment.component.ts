@@ -78,7 +78,7 @@ export class SingleCommentComponent implements OnInit {
         );
       }
     } else {
-      console.log("not authenticated");
+      //console.log("not authenticated");
     }
   }
 

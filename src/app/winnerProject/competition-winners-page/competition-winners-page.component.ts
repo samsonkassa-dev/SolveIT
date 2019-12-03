@@ -29,7 +29,7 @@ export class CompetitionWinnersPageComponent implements OnInit {
     this.fetchParams();
   }
   setUpViewWinners(winner){
-    console.log(winner)
+    //console.log(winner)
     this.competitionWinner = winner
   }
 

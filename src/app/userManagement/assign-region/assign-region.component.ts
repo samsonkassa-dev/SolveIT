@@ -58,7 +58,7 @@ export class AssignRegionComponent implements OnInit, OnChanges {
   }
 
   onChange() {
-    // console.log(this.optionsModel);
+    // //console.log(this.optionsModel);
   }
 
   getCities () {

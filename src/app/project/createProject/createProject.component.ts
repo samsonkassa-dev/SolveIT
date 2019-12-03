@@ -41,11 +41,11 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit(): void {}
 
   createProject() {
-    console.log("Create Called")
+    //console.log("Create Called")
     if (this.projectForm.valid) {
-      console.log("Project Valid")
+      //console.log("Project Valid")
       if (this.isFileSelected) {
-        console.log('File Selected')
+        //console.log('File Selected')
         this.isUploading = true;
         this.error = false;
         this.uploader.queue[0].upload();

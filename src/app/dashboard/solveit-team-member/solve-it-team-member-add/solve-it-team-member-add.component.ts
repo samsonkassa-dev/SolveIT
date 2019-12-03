@@ -96,7 +96,7 @@ export class SolveItTeamMemberAddComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
-        console.log("Canceled");
+        //console.log("Canceled");
         this.isUploading = false;
         this.isCreateButtonClicked = false;
         this.isFileSelected = false;
@@ -110,7 +110,7 @@ export class SolveItTeamMemberAddComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
-        console.log("error");
+        //console.log("error");
         this.isUploading = false;
         this.isCreateButtonClicked = false;
         this.isFileSelected = false;
@@ -131,7 +131,7 @@ export class SolveItTeamMemberAddComponent implements OnInit {
     this.isFileSelected = true;
     this.filePreviewPath = this.sanitizer.
       bypassSecurityTrustUrl((window.URL.createObjectURL(this.uploader.queue[this.uploader.queue.length - 1]._file)));
-    console.log(this.filePreviewPath);
+    //console.log(this.filePreviewPath);
   }
 
   /**

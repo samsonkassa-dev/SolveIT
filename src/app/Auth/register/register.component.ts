@@ -162,7 +162,7 @@ export class RegisterComponent implements OnInit {
   }
   onChange() {
     this.agreeTos = !this.agreeTos;
-    console.log(this.agreeTos)
+    //console.log(this.agreeTos)
     if(this.agreeTos){
       this.agreeTosError = false
     }else{
@@ -209,7 +209,7 @@ export class RegisterComponent implements OnInit {
       financialAccess : form.financialAccess,
       languageOption: form.languageOption
     }
-    console.log(this.user)
+    //console.log(this.user)
     this.spinner.show();
     this.authService.registerParticipant({ user: this.user }).subscribe(
       res => {

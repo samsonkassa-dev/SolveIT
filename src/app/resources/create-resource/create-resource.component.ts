@@ -126,7 +126,7 @@ export class CreateResourceComponent implements OnInit {
             status: number,
             headers: ParsedResponseHeaders
           ) => {
-            console.log("Canceled");
+            //console.log("Canceled");
             this.isUploading = false;
             for (let i = 0; i < this.uploader.queue.length; i++) {
               this.uploader.queue.pop();
@@ -138,7 +138,7 @@ export class CreateResourceComponent implements OnInit {
             status: number,
             headers: ParsedResponseHeaders
           ) => {
-            console.log("error");
+            //console.log("error");
             this.isUploading = false;
             for (let i = 0; i < this.uploader.queue.length; i++) {
               this.uploader.queue.pop();
@@ -237,7 +237,7 @@ export class CreateResourceComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
-        console.log("Canceled");
+        //console.log("Canceled");
         this.isUploading = false;
         for (let i = 0; i < this.uploader.queue.length; i++) {
           this.uploader.queue.pop();
@@ -249,7 +249,7 @@ export class CreateResourceComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
-        console.log("error");
+        //console.log("error");
         this.isUploading = false;
         for (let i = 0; i < this.uploader.queue.length; i++) {
           this.uploader.queue.pop();

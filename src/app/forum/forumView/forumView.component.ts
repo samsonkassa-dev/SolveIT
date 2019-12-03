@@ -48,7 +48,7 @@ export class ForumViewComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
       if (params && params["id"]) {
-        console.log(params, "params");
+        //console.log(params, "params");
         this.editedDiscussion["userAccountId"] = params["userAccountId"];
         this.editedDiscussion["slung"] = params["slung"];
         this.editedDiscussion["title"] = params["title"];
@@ -60,7 +60,7 @@ export class ForumViewComponent implements OnInit {
         this.isEdit = true;
         this.selected = "discussion-create";
         this.slung = JSON.parse(params["forum"]).slung;
-        console.log(JSON.parse(params["forum"]));
+        //console.log(JSON.parse(params["forum"]));
       } else {
         this.slung = this.route.snapshot.paramMap.get("slung");
       }

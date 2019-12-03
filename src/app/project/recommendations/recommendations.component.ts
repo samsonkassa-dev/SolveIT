@@ -120,7 +120,7 @@ export class RecommendationsComponent implements OnInit {
     //     return item.solveitproject.title.indexOf(this.keyword) > -1;
     //   })
     // }
-    console.log(this.keyword);
+    //console.log(this.keyword);
   }
 
   addSectorView($event) {
@@ -129,7 +129,7 @@ export class RecommendationsComponent implements OnInit {
       return item.questionnaireAnswers.innovationInfo.sector == $event.sector;
     })
     this.service.addSectorView(viewObject).subscribe(res => {
-      console.log('view registered!');
+      //console.log('view registered!');
     })
   }
 
@@ -139,7 +139,7 @@ export class RecommendationsComponent implements OnInit {
       return item.questionnaireAnswers.innovationInfo.productType == $event.productType;
     })
     this.service.addProductTypeView(viewObject).subscribe(res => {
-      console.log('view registered!');
+      //console.log('view registered!');
     })
   }
 

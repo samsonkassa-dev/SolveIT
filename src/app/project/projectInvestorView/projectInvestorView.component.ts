@@ -137,7 +137,7 @@ export class ProjectInvestorViewComponent implements OnInit {
 
   toggleModal(who, content) {
     if (who == "writeup") {
-      console.log(this.previousProfile);
+      //console.log(this.previousProfile);
       if (this.previousProfile[0].underReview) {
         this.downloadWriteup(this.project.proposal.name);
       } else {
@@ -200,7 +200,7 @@ export class ProjectInvestorViewComponent implements OnInit {
       userId: this.authService.getUserId()
     };
     this.service.bookmarkProject(bookmarkObject).subscribe(res => {
-      console.log("bookmarked");
+      //console.log("bookmarked");
     });
   }
 }

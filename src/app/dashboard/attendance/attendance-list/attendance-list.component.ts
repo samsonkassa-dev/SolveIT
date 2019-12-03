@@ -61,7 +61,7 @@ export class AttendanceListComponent implements OnInit {
 
   getCities(){
     this.cityService.getCities().subscribe(cities =>{
-      console.log(cities)
+      //console.log(cities)
       this.cities = cities
     })
   }

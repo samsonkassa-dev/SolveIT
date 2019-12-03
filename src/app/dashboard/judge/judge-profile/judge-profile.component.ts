@@ -22,7 +22,7 @@ export class JudgeProfileComponent implements OnInit {
     this.judgeService.getJudge(this.judge_id)
     .subscribe(res =>{
       this.judge = res
-      console.log(this.judge)
+      //console.log(this.judge)
     })
 
   }

@@ -39,7 +39,7 @@ export class ProjectContainerComponent implements OnInit {
         }
       );
     } else {
-      console.log("You are not signed in yet.");
+      //console.log("You are not signed in yet.");
     }
   }
 

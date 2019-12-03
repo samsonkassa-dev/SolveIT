@@ -84,7 +84,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
         window.URL.revokeObjectURL(url);
         a.remove(); // remove the element
       }, error => {
-        console.log('error', error);
+        //console.log('error', error);
       });
   }
 
