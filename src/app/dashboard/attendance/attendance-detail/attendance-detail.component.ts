@@ -12,16 +12,16 @@ import { subscribeOn } from 'rxjs/operator/subscribeOn';
 })
 export class AttendanceDetailComponent implements OnInit {
 
-  private attendance_id;
-  private attendance :any;
-  private participants = []
-  private backupParticipants = []
+  public attendance_id;
+  public attendance :any;
+  public participants = []
+  public backupParticipants = []
   public key = '';
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private attendanceService: AttendanceService,
-    private sharedService: SharedService,
-    private Router: Router
+    public activatedRoute: ActivatedRoute,
+    public attendanceService: AttendanceService,
+    public sharedService: SharedService,
+    public Router: Router
   ) { 
     this.attendance_id = this.activatedRoute.snapshot.paramMap.get("attendance_id");
   }

@@ -19,6 +19,7 @@ export class AttendanceListComponent implements OnInit {
   public attendanceForm:FormGroup;
   public attendance = {cities: [], attendance_date : null, cityIds : [], title:'',description:'',place:'', venue:''}
   public page = 1;
+  public key = ''
   dropdownSettings = {
     singleSelection: false,
     idField: "item_id",
@@ -29,12 +30,12 @@ export class AttendanceListComponent implements OnInit {
     allowSearchFilter: true
   };
   constructor(
-    private sharedService:SharedService,
-    private authService:AuthService,
-    private attendanceService : AttendanceService,
-    private cityService: CityService,
-    private fb : FormBuilder,
-    private router : Router
+    public sharedService:SharedService,
+    public authService:AuthService,
+    public attendanceService : AttendanceService,
+    public cityService: CityService,
+    public fb : FormBuilder,
+    public router : Router
   ) {
     this.attendanceForm = fb.group({
       attendance_date : ['', Validators.required],
@@ -70,6 +71,9 @@ export class AttendanceListComponent implements OnInit {
     this.attendanceService.getEvents().subscribe(events =>{
       this.events = events
     })
+  }
+  onSearch($event) {
+    
   }
 
   createAttendance(attendanceForm){
