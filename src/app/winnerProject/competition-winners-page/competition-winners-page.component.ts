@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./competition-winners-page.component.css']
 })
 export class CompetitionWinnersPageComponent implements OnInit {
-  public competitionWinner = {title:"", description:""};
+  public competitionWinner = {title:"", description:"",solveitproject:null};
   public competitionWinners = [];
   public cities = [];
   public competitions = [];
