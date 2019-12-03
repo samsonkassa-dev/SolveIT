@@ -38,9 +38,9 @@
                 </li>
                 <li><a href="#features">About</a></li>
                 <li><a href="#service">Services</a></li>
-                <li [class.active]="router.isActive('gallery', false)">
+                <!-- <li [class.active]="router.isActive('gallery', false)">
                   <a routerLink="/gallery">Gallery</a>
-                </li>
+                </li> -->
                 <li [class.active]="router.isActive('our-team', false)">
                   <a routerLink="/team/list">Our Team</a>
                 </li>
@@ -90,7 +90,7 @@
                     <!-- <li *ngIf="authService.isSolveitParticipant()">
                       <a routerLink="/my-projects">My Projects</a>
                     </li> -->
-                    <li *ngIf="!authService.isAdmin()">
+                    <li *ngIf="authService.isSolveitParticipant()">
                       <a [routerLink]="[
                           'dashboard/userProfile',
                           authService.getUserId()
@@ -453,7 +453,7 @@
       <!-- testimonial Start
               ============================================================= -->
       
-      <section id="testimonial">
+     <!--- 
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -508,10 +508,10 @@
                   </div>
                 </div>
               </div>
-            </div><!-- .col-md-12 close -->
-          </div><!-- .row close -->
-        </div><!-- .container close -->
-      </section><!-- #testimonial close -->
+            </div>
+          </div>
+        </div>
+      </section>-->
       <!-- Contact -->
       <div id="contact" class="section md-padding">
         <!-- Container -->
