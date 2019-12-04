@@ -98,8 +98,7 @@
       "default": "None"
     },
     "supportNeeded": {
-      "type": "string",
-      "default": "None"
+      "type": "array"
     },
     "financialKnowHow": {
       "type": "string",
