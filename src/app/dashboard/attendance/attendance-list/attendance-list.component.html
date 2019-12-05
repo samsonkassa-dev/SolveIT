@@ -51,11 +51,15 @@
           </tr>
         </tbody>
       </table>
-      <!-- <div class="not-found" *ngIf="backUpteamMemebers == undefined || backUpteamMembers.length == 0">
+      
+      <div class="not-found" *ngIf="attendanceList == undefined || attendanceList.length == 0">
         <div class="no-resource-found">
-          <p><i class="fa  fa-frown-o"></i> Members are not created yet.</p>
+          <app-not-found
+        message="> No attendance created, yet."
+        type="fetch"
+      ></app-not-found>
         </div>
-      </div> -->
+      </div>
       <!-- <div class="not-found" *ngIf="teamMembers.length == 0 && key !== ''">
         <div class="no-resource-found">
           <p><i class="fa  fa-frown-o"></i> Team Member "{{ key }}" not found.</p>
