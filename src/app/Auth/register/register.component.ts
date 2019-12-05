@@ -21,7 +21,7 @@ declare var $: any;
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-  agreeTos:any;
+  agreeTos: any;
   public educationLevels = [
     "Elementary",
     "HighSchool",
@@ -53,13 +53,13 @@ export class RegisterComponent implements OnInit {
     educationLevel: "",
     address: {},
     cityId: null,
-    previousCompetitions : "",
-    previousInnovations : "",
-    parentsOccupation : "",
-    supportNeeded : "",
-    financialKnowHow : "",
-    financialAccess : "",
-    languageOption:""
+    previousCompetitions: "",
+    previousInnovations: "",
+    parentsOccupation: "",
+    supportNeeded: "",
+    financialKnowHow: "",
+    financialAccess: "",
+    languageOption: ""
   };
   public address = {
     regionId: null,
@@ -88,7 +88,7 @@ export class RegisterComponent implements OnInit {
     public formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
@@ -143,7 +143,7 @@ export class RegisterComponent implements OnInit {
   }
 
   isFormValid() {
-    if(!this.agreeTos){
+    if (!this.agreeTos) {
       this.agreeTosError = true
     }
     if (this.registerForm.valid) {
@@ -163,31 +163,31 @@ export class RegisterComponent implements OnInit {
   onChange() {
     this.agreeTos = !this.agreeTos;
     //console.log(this.agreeTos)
-    if(this.agreeTos){
+    if (this.agreeTos) {
       this.agreeTosError = false
-    }else{
+    } else {
       this.agreeTosError = true
     }
-   }
+  }
   onRegister() {
 
     if (this.isFormValid()) {
-      if(this.agreeTos){
+      if (this.agreeTos) {
         this.isAddressFormActive = true;
         this.user.email = this.user.email.toLowerCase();
         this.isBasicFormActive = false;
-      
-      }else{
+
+      } else {
         this.agreeTosError = true
       }
-    
+
     } else {
       this.markFormGroupTouched(this.registerForm);
     }
   }
 
   onAdressNext(form) {
- 
+
     this.isLoading = true;
     this.user.cityId = this.address.cityId;
     const temp = {
@@ -201,13 +201,17 @@ export class RegisterComponent implements OnInit {
     this.user.address = temp;
     this.user = {
       ...this.user,
-      previousCompetitions : form.previousCompetitions,
-      previousInnovations : form.previousInnovations,
-      parentsOccupation : form.parentsOccupation,
-      supportNeeded : form.supportNeeded,
-      financialKnowHow : form.financialKnowHow,
-      financialAccess : form.financialAccess,
-      languageOption: form.languageOption
+      previousCompetitions: form.previousCompetitions,
+      previousInnovations: form.previousInnovations,
+      parentsOccupation: form.parentsOccupation,
+      supportNeeded: form.supportNeeded,
+      financialKnowHow: form.financialKnowHow,
+      financialAccess: form.financialAccess,
+      languageOption: form.languageOption,
+      educationalInstitute: form.educationalInstitute,
+      englishReading: form.englishReading,
+      englishWriting: form.englishWriting,
+      englishSpeaking: form.englishSpeaking,
     }
     //console.log(this.user)
     this.spinner.show();

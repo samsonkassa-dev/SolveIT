@@ -45,6 +45,14 @@ export class AdressComponent implements OnInit, OnChanges {
     "English"
   ]
 
+  oneToFive = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ]
+
 
   dropdownSettings = {
     singleSelection: false,
@@ -94,8 +102,11 @@ export class AdressComponent implements OnInit, OnChanges {
       supportNeeded : [null, Validators.required],
       financialKnowHow : [null, Validators.required],
       financialAccess : [null, Validators.required],
-      languageOption:[null, Validators.required]
-      // englishSkills : ['', Validators.required]
+      languageOption:[null, Validators.required],
+      educationalInstitute: ['', Validators.required],
+      englishReading : [null, Validators.required],
+      englishWriting : [null, Validators.required],
+      englishSpeaking : [null, Validators.required],
     }, {
       validator: Validators.compose([PhoneNumberValidation.Validate])
     });

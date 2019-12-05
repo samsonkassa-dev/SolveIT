@@ -16,7 +16,8 @@
         }}</option>
           </select> -->
           <ng-select formControlName="region" [(ngModel)]="address.regionId" placeholder="Select Your Region?"
-          (change)="onRegionChange()" [searchable]="false" [clearable]="false" [items]="regions" bindLabel="name" bindValue="id">
+            (change)="onRegionChange()" [searchable]="false" [clearable]="false" [items]="regions" bindLabel="name"
+            bindValue="id">
           </ng-select>
           <div class="error-message" *ngIf="
           addressForm.controls.region.invalid &&
@@ -37,8 +38,9 @@
           city.name.toUpperCase()
         }}</option>
           </select> -->
-          <ng-select [(ngModel)]="address.cityId" formControlName="city" placeholder="Select Your City?" 
-          (change)="onCityChange()" [searchable]="false" [clearable]="false" [items]="cities" bindLabel="name" bindValue="id">
+          <ng-select [(ngModel)]="address.cityId" formControlName="city" placeholder="Select Your City?"
+            (change)="onCityChange()" [searchable]="false" [clearable]="false" [items]="cities" bindLabel="name"
+            bindValue="id">
           </ng-select>
           <div class="error-message" *ngIf="
           addressForm.controls.city.invalid && addressForm.controls.city.touched
@@ -98,6 +100,14 @@
       </div>
       <div class="col-md-6">
         <h3> Additional Information</h3>
+
+        <div class="input-field" style="margin-top: 1em">
+          <input type="text" class="form-control" name="educationalInstitute"
+            placeholder="What Educational Institute are you currently attending? "
+            formControlName="educationalInstitute" />
+        </div>
+
+
         <div class="input-field" style="margin-top: 1em">
           <input type="text" class="form-control" name="previousCompetitions"
             placeholder="Previous Competitions (if any)" formControlName="previousCompetitions" />
@@ -105,20 +115,33 @@
 
 
         <div class="input-field" style="margin-top: 1em">
-          <input type="text" class="form-control" name="previousInnovations" placeholder="Innovations(if any)"
+          <input type="text" class="form-control" name="previousInnovations" placeholder="Previous Innovations(if any)"
             formControlName="previousInnovations" />
         </div>
+
+        <!-- <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="hearOfSolveIt" placeholder="Where did you first hear of solveit" [searchable]="false"
+            [clearable]="false" [items]="solveItMediums" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+            addressForm.controls.hearOfSolveIt.invalid &&
+            addressForm.controls.hearOfSolveIt.touched
+              ">
+            <p>* Select where you first .</p>
+          </div>
+        </div> -->
+
         <div class="input-field" style="margin-top: 1em">
-            <ng-select formControlName="languageOption" placeholder="Language Options" [searchable]="false"
-              [clearable]="false" [items]="languageOptions" bindLabel="label" bindValue="label">
-            </ng-select>
-            <div class="error-message" *ngIf="
+          <ng-select formControlName="languageOption" placeholder="Language Options" [searchable]="false"
+            [clearable]="false" [items]="languageOptions" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
               addressForm.controls.languageOption.invalid &&
               addressForm.controls.languageOption.touched
                 ">
-              <p>* Select your preferred language.</p>
-            </div>
+            <p>* Select your preferred language.</p>
           </div>
+        </div>
         <div class="input-field" style="margin-top: 1em">
           <ng-select formControlName="parentsOccupation" placeholder="Parents Occupation" [searchable]="false"
             [clearable]="false" [items]="parentOccupationOptions" bindLabel="label" bindValue="label">
@@ -160,19 +183,58 @@
             formControlName="supportNeeded" (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)"
             (onSelect)="onItemSelected($event)" (onDeSelect)="onItemDeselected($event)" [settings]="dropdownSettings">
           </ng-multiselect-dropdown>
-          
+
           <div class="error-message" *ngIf="addressForm.controls.supportNeeded.invalid &&
           addressForm.controls.supportNeeded.touched">
             <p>* This field is required.</p>
           </div>
 
         </div>
-       
+
 
       </div>
     </div>
 
-    
+    <div class="row">
+      <div class="col-md-6 col-md-push-2">
+        <h3 style="text-align:center">English Skills</h3>
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="englishReading" placeholder="How Do You Rate Your English Reading Skills ?"
+            [searchable]="false" [clearable]="false" [items]="oneToFive" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+              addressForm.controls.englishReading.invalid &&
+              addressForm.controls.englishReading.touched
+                ">
+            <p>* Please rate your reading skill.</p>
+          </div>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="englishWriting" placeholder="How Do You Rate Your English Writing Skills ?"
+            [searchable]="false" [clearable]="false" [items]="oneToFive" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+                addressForm.controls.englishWriting.invalid &&
+                addressForm.controls.englishWriting.touched
+                  ">
+            <p>* Please rate your writing skill.</p>
+          </div>
+        </div>
+        <div class="input-field" style="margin-top: 1em">
+          <ng-select formControlName="englishSpeaking" placeholder="How Do You Rate Your English Speaking Skills ?"
+            [searchable]="false" [clearable]="false" [items]="oneToFive" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+                  addressForm.controls.englishSpeaking.invalid &&
+                  addressForm.controls.englishSpeaking.touched
+                    ">
+            <p>* Please rate your speaking skill.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
 

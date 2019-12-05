@@ -140,6 +140,22 @@
                 <p>{{ user.languageOption}}</p>
               </div>
             </div>
+            <div class="row">
+                <div class="col-md-6"><label>Currently Attending Educational Institute: </label></div>
+                <div class="col-md-6">
+                  <p>{{ user.educationalInstitute}}</p>
+                </div>
+              </div>
+
+            <div class="row">
+                <div class="col-md-6"><label>English Skills: </label></div>
+                <div class="col-md-6">
+                  <p>Writing : {{ user.englishReading || "Not Rated"}}</p>
+                  <p>Reading : {{ user.englishReading || "Not Rated"}}</p>
+                  <p>Speaking : {{ user.englishSpeaking || "Not Rated"}}</p>
+                </div>
+              </div>
+
 
           </div>
           <div *ngIf="authService.isSolveitParticipant()" class="btn-group">

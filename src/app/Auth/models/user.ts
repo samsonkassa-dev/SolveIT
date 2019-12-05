@@ -20,5 +20,9 @@ export interface User {
   supportNeeded? : string,
   financialKnowHow? : string,
   financialAccess? : string,
-  languageOption? : string
+  languageOption? : string,
+  educationalInstitute?: string,
+  englishReading? : string,
+  englishWriting? : string,
+  englishSpeaking? : string,
 }
