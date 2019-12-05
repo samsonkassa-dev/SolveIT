@@ -68,35 +68,7 @@
             <p>* House Number is required.</p>
           </div>
         </div>
-        <h3 class="title">Emergecy Address</h3>
-        <div class="input-field">
-          <input type="text" name="emergency-fullname" placeholder="Contact Full Name" formControlName="fullName"
-            class="form-control" [(ngModel)]="address.emergencyContact.fullName" />
-          <div class="error-message" *ngIf="
-          addressForm.controls.fullName.invalid &&
-          addressForm.controls.fullName.touched
-        ">
-            <p>* Emergency Name is required.</p>
-          </div>
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon"><b>+251</b></span>
-          <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" class="form-control"
-            formControlName="phoneNumber" [(ngModel)]="address.emergencyContact.phoneNumber" />
-        </div>
-        <div class="error-message" *ngIf="
-        addressForm.controls.phoneNumber.touched &&
-        addressForm.controls.phoneNumber.errors?.required
-      ">
-          <p>* Emergency Phone Number is required</p>
-        </div>
-        <div class="error-message" *ngIf="
-        addressForm.controls.phoneNumber.touched &&
-        addressForm.controls.phoneNumber.errors?.incorrect
-      ">
-          <p>* Incorrect phone number.</p>
-          <p>* e.g 9xxxxxxxx</p>
-        </div>
+       
       </div>
       <div class="col-md-6">
         <h3> Additional Information</h3>
@@ -108,17 +80,7 @@
         </div>
 
 
-        <div class="input-field" style="margin-top: 1em">
-          <input type="text" class="form-control" name="previousCompetitions"
-            placeholder="Previous Competitions (if any)" formControlName="previousCompetitions" />
-        </div>
-
-
-        <div class="input-field" style="margin-top: 1em">
-          <input type="text" class="form-control" name="previousInnovations" placeholder="Previous Innovations(if any)"
-            formControlName="previousInnovations" />
-        </div>
-
+       
         <!-- <div class="input-field" style="margin-top: 1em">
           <ng-select formControlName="hearOfSolveIt" placeholder="Where did you first hear of solveit" [searchable]="false"
             [clearable]="false" [items]="solveItMediums" bindLabel="label" bindValue="label">
@@ -153,43 +115,9 @@
             <p>* Parent's Occupation is required.</p>
           </div>
         </div>
-        <div class="input-field" style="margin-top: 1em">
-          <ng-select formControlName="financialKnowHow"
-            placeholder="Do you have the know how on getting financial aid ?" [searchable]="false" [clearable]="false"
-            [items]="yesNoOptions" bindLabel="label" bindValue="label">
-          </ng-select>
-          <div class="error-message" *ngIf="
-            addressForm.controls.financialKnowHow.invalid &&
-            addressForm.controls.financialKnowHow.touched
-              ">
-            <p>* This field is required.</p>
-          </div>
-        </div>
+        
 
-        <div class="input-field" style="margin-top: 1em">
-          <ng-select formControlName="financialAccess" placeholder="Do you have access to get financial investment?"
-            [searchable]="false" [clearable]="false" [items]="yesNoOptions" bindLabel="label" bindValue="label">
-          </ng-select>
-          <div class="error-message" *ngIf="
-            addressForm.controls.financialAccess.invalid &&
-            addressForm.controls.financialAccess.touched
-              ">
-            <p>* This field is required.</p>
-          </div>
-        </div>
-
-        <div class="input-field" style="margin-top:1em">
-          <ng-multiselect-dropdown [placeholder]="'Which areas do you need support'" [data]="mapSupportToDropDown()"
-            formControlName="supportNeeded" (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)"
-            (onSelect)="onItemSelected($event)" (onDeSelect)="onItemDeselected($event)" [settings]="dropdownSettings">
-          </ng-multiselect-dropdown>
-
-          <div class="error-message" *ngIf="addressForm.controls.supportNeeded.invalid &&
-          addressForm.controls.supportNeeded.touched">
-            <p>* This field is required.</p>
-          </div>
-
-        </div>
+        
 
 
       </div>

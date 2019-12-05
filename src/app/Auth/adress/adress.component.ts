@@ -94,21 +94,12 @@ export class AdressComponent implements OnInit, OnChanges {
       city: [null, Validators.required],
       wereda: ['', Validators.required],
       houseNo: ['', Validators.required],
-      fullName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      previousCompetitions : [''],
-      previousInnovations : [''],
       parentsOccupation : [null, Validators.required],
-      supportNeeded : [null, Validators.required],
-      financialKnowHow : [null, Validators.required],
-      financialAccess : [null, Validators.required],
       languageOption:[null, Validators.required],
       educationalInstitute: ['', Validators.required],
       englishReading : [null, Validators.required],
       englishWriting : [null, Validators.required],
       englishSpeaking : [null, Validators.required],
-    }, {
-      validator: Validators.compose([PhoneNumberValidation.Validate])
     });
   }
 
