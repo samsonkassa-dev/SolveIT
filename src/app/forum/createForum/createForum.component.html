@@ -57,6 +57,7 @@
                 bindLabel="category"
                 autofocus
                 bindValue="id"
+                formControlName="category"
                 [(ngModel)]="forum.categoryId">
       </ng-select>
       <div
@@ -86,10 +87,11 @@
         >
         <option value="1">Private</option>
       </select> -->
-      <ng-select placeholder="select type" [items]="getType()"
+      <ng-select placeholder="select type" [items]="types"
                 bindLabel="name"
                 autofocus
                 bindValue="value"
+                formControlName = "type"
                 [(ngModel)]="forum.private">
       </ng-select>
       <div
@@ -104,7 +106,7 @@
         class="alert"
         id="alert-primary"
         role="alert"
-        *ngIf="!(authService.isAdmin() || authService.isSolveitManager())"
+        *ngIf="  authService.isSolveitParticipant()"
       >
         Sorry, you cannot create public forums. You can create a private forum
         which will be visible only for users you have invited. Look through the

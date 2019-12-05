@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 export class CreateForumComponent {
   @Input() categories;
   @Output() created = new EventEmitter();
+  types = []
   public forum = {
     userAccountId: 0,
     created: new Date(),
@@ -41,6 +42,7 @@ export class CreateForumComponent {
       type: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required)
     });
+    this.types = this.getType()
   }
 
   createForum() {
@@ -94,7 +96,7 @@ export class CreateForumComponent {
   }
 
   getType() {
-    if(this.authService.isAdmin() || this.authService.isSolveitManager()) {
+    if(this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitTeam() ) {
       return [{name:'Private', value: 1}, {name:'Public', value: 0}];
     }else {
       return [{name:'Private', value: 1}]
