@@ -32,6 +32,20 @@
         <p>* Phone Number is required.</p>
       </div>
     </div>
+
+    <div class="input-field" style="margin-top: 1em">
+      <label>Field of Expertise:</label>
+      <ng-select formControlName="fieldOfExpertise" placeholder="Select your field of expertise"
+      [searchable]="false" [clearable]="false"  [items]="fieldOfExpertiseOptions" bindLabel="label" bindValue="label" >
+    </ng-select>
+      <div class="error-message" *ngIf="
+          judgeForm.controls.fieldOfExpertise.invalid &&
+          judgeForm.controls.fieldOfExpertise.touched
+        ">
+        <p>* Educational Background is required.</p>
+      </div>
+    </div>
+
     <div class="input-field" style="margin-top: 1em">
       <label>Educational Background:</label>
       <ng-select formControlName="educationalBackground" placeholder="Select Educational Background"
@@ -73,7 +87,11 @@
       <input type="text" class="form-control" name="judgeExperience" placeholder="Judging Experience"
         formControlName="judgeExperience" />
     </div>
-
+    <div class="input-field" style="margin-top: 1em">
+      <label>What is your attitude towards technology ?:</label>
+      <input type="text" class="form-control" name="techOpinion" placeholder="Opinion on Technology"
+        formControlName="techOpinion" />
+    </div>
 
 
 
@@ -102,7 +120,7 @@
       </div>
     </div>
     <div class="input-field" style="margin-top: 1em">
-      <label>Short Description About Your Self:</label>
+      <label>Professional Bio:</label>
       <textarea type="text" class="form-control" name="title" placeholder="Short Description"
         formControlName="shortDescription">
 

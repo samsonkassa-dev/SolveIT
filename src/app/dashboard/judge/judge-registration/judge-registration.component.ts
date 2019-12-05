@@ -54,6 +54,12 @@ export class JudgeRegistrationComponent implements OnInit {
     "Maybe",
 
   ]
+
+  fieldOfExpertiseOptions = [
+    "Business",
+    "Technical",
+    "Other"
+  ]
   constructor(
     public judgeService: JudgeService,
     public sharedService: SharedService,
@@ -73,6 +79,8 @@ export class JudgeRegistrationComponent implements OnInit {
       cities:['', Validators.required],
       interestInInvesting:['', Validators.required],
       shortDescription: ['', Validators.required],
+      techOpinion:[''],
+      fieldOfExpertise:[null, Validators.required]
     })
   }
 
@@ -80,6 +88,7 @@ export class JudgeRegistrationComponent implements OnInit {
     this.educationalBackgroundOptions = this.format(this.educationalBackgroundOptions)
     this.investmentOptions = this.format(this.investmentOptions)
     this.professionalBackgroundOptions = this.format(this.professionalBackgroundOptions)
+    this.fieldOfExpertiseOptions = this.format(this.fieldOfExpertiseOptions)
     //console.log(this.investmentOptions)
     this.getCities()
   }
@@ -90,18 +99,19 @@ export class JudgeRegistrationComponent implements OnInit {
     })
   }
   registerJudge(judgeForm){
-    this.judgeService.addJudge(judgeForm)
-    .subscribe(res =>{
-      this.sharedService.addToast(
-        "Success",
-        "Registration Successful!.",
-        "success"
-      );
-      this.judgeForm.reset()
-      this.router.navigate(['/'])
-    }, err =>{
-      this.sharedService.addToast("Error", "Error occurred!", "error");
-    })
+    console.log(judgeForm)
+    // this.judgeService.addJudge(judgeForm)
+    // .subscribe(res =>{
+    //   this.sharedService.addToast(
+    //     "Success",
+    //     "Registration Successful!.",
+    //     "success"
+    //   );
+    //   this.judgeForm.reset()
+    //   this.router.navigate(['/'])
+    // }, err =>{
+    //   this.sharedService.addToast("Error", "Error occurred!", "error");
+    // })
   }
   format(arrayOfStrings){
     let result = []
