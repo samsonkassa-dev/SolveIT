@@ -69,8 +69,23 @@
                                 <p>* This field is required.</p>
                             </div>
                         </div>
-                    </div>
 
+                        
+
+                          <div class="input-field" style="margin-top:1em">
+                            <ng-multiselect-dropdown [placeholder]="'Which areas do you need support'"[settings]="dropDownSettings2" [data]="mapSupportToDropDown()"
+                              formControlName="supportNeeded" (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)"
+                              (onSelect)="onItemSelected($event)" [(ngModel)]="innovationInfo.supportNeeded" (onDeSelect)="onItemDeselected($event)" [settings]="dropdownSettings">
+                            </ng-multiselect-dropdown>
+                  
+                            <div class="error-message" *ngIf="form.controls.innovationInfo.controls.supportNeeded.invalid &&
+                            form.controls.innovationInfo.controls.supportNeeded.touched">
+                              <p>* This field is required.</p>
+                            </div>
+                  
+                          </div>
+                    </div>
+                    
                     <div class="furtherInfo" *ngIf="currentForm === formSteps[1]" formGroupName="furtherInfo">
                         <h6 class="title">Further Info</h6>
                         <div class="input-field">
@@ -136,6 +151,20 @@
                                 <p>* This field is required.</p>
                             </div>
                         </div>
+                        <div class="input-field" style="margin-top: 1em">
+                            <ng-select formControlName="financialKnowHow"
+                              placeholder="Do you have the know how on getting financial aid ?" [(ngModel)]="furtherInfo.financialKnowHow" [searchable]="false" [clearable]="false"
+                              [items]="yesNoOptions" bindLabel="label" bindValue="label">
+                            </ng-select>
+                            
+                          </div>
+                  
+                          <div class="input-field" style="margin-top: 1em">
+                            <ng-select formControlName="financialAccess"[(ngModel)]="furtherInfo.financialAccess" placeholder="Do you have access to get financial investment?"
+                              [searchable]="false" [clearable]="false" [items]="yesNoOptions" bindLabel="label" bindValue="label">
+                            </ng-select>
+                           
+                          </div>
                     </div>
                     <div class="actions">
                       <button *ngIf="currentForm === formSteps[0]" (click)="onNext()" class="main-btn">Next</button>

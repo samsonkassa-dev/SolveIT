@@ -27,7 +27,9 @@ export class JoinCompetitionComponent implements OnInit {
     otherSector: "",
     description: "",
     whatProblem: "",
-    howToSolve: ""
+    howToSolve: "",
+    supportNeeded:[],
+    parentsOccupation:""
   };
   productTypes = [
     "Software (for Mobile Application)",
@@ -53,6 +55,33 @@ export class JoinCompetitionComponent implements OnInit {
     "Other"
   ];
 
+  parentOccupationOptions = [
+    "Employee (Full time)",
+    "Employee (Part time)",
+    "Unemployed",
+    "Business Owner",
+    "Student",
+    "Other"
+  ]
+
+  yesNoOptions = [
+    "Yes",
+    "No"
+  ]
+
+  supportOptions = [
+    "Business Support",
+    "Financial Support",
+    "Technical Support"
+  ]
+  languageOptions = [
+    "Amharic",
+    "English"
+  ]
+
+
+
+
   // further info
   furtherInfo = {
     whyParticipate: "",
@@ -61,7 +90,9 @@ export class JoinCompetitionComponent implements OnInit {
     everBeenInCompetition: "",
     competitionEverBeen: "",
     mediaResource: [],
-    mediaName: ""
+    mediaName: "",
+    financialKnowHow:null,
+    financialAccess:null
   };
 
   infoSources = [
@@ -90,7 +121,15 @@ export class JoinCompetitionComponent implements OnInit {
   // form steps
   formSteps = ["step-1", "step-2"];
   currentForm = this.formSteps[0];
-
+  dropDownSettings2 = {
+    singleSelection: false,
+    idField: "item_id",
+    textField: "item_text",
+    selectAllText: "Select All",
+    unSelectAllText: "UnSelect All",
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
   constructor(public fb: FormBuilder) {}
 
   ngOnInit() {
@@ -103,7 +142,8 @@ export class JoinCompetitionComponent implements OnInit {
         otherSector: ["", Validators.required],
         description: ["", Validators.required],
         whatProblem: ["", Validators.required],
-        howToSolve: ["", Validators.required]
+        howToSolve: ["", Validators.required],
+        supportNeeded : [null, Validators.required],
       }),
       furtherInfo: this.fb.group({
         whyParticipate: ["", Validators.required],
@@ -112,7 +152,9 @@ export class JoinCompetitionComponent implements OnInit {
         everBeenInCompetition: ["", Validators.required],
         competitionEverBeen: ["", Validators.required],
         mediaResource: [[], Validators.required],
-        mediaName: ["", Validators.required]
+        mediaName: ["", Validators.required],
+        financialKnowHow : [null, Validators.required],
+        financialAccess : [null, Validators.required],
       })
     });
     this.dropdownSettings = {
@@ -121,7 +163,7 @@ export class JoinCompetitionComponent implements OnInit {
       textField: "item_text",
       selectAllText: "Select All",
       unSelectAllText: "UnSelect All",
-      itemsShowLimit: 3,
+      itemsShowLimit: 5,
       allowSearchFilter: true
     };
   }
@@ -194,6 +236,16 @@ export class JoinCompetitionComponent implements OnInit {
       ) {
         this.furtherInfo.competitionEverBeen = "";
       }
+      this.innovationInfo = {
+        ...this.innovationInfo,
+        ...this.form.controls.innovationInfo["controls"].value
+      }
+
+      this.furtherInfo = {
+        ...this.furtherInfo,
+        ...this.form.controls.furtherInfo["controls"].value
+      }
+
       this.join.emit({
         data: {
           competition: this.competition,
@@ -220,14 +272,9 @@ export class JoinCompetitionComponent implements OnInit {
     });
   }
 
-  onItemSelect(item: any) {
-    // this.furtherInfo.mediaResource.push(item);
-  }
-  onSelectAll(items: any) {
-    // items.forEach(item => {
-    //   this.furtherInfo.mediaResource.push(item);
-    // });
-  }
+  // onItemSelect(item: any) {
+  //   // this.furtherInfo.mediaResource.push(item);
+  // }
 
   toggleForm(value) {
     this.currentForm = this.formSteps[value];
@@ -258,5 +305,40 @@ export class JoinCompetitionComponent implements OnInit {
     } else {
       return "not selected";
     }
+  }
+
+  
+  mapSupportToDropDown() {
+    let result = [];
+    this.supportOptions.forEach(item => {
+      result.push({ item_id: item, item_text: item });
+    });
+
+    return result;
+  }
+
+  onItemSelected(item) {
+    if (this.innovationInfo.supportNeeded.indexOf(item.item_id) === -1) {
+      this.innovationInfo.supportNeeded.push(item.item_id);
+    }else{
+      console.log("In ELSe")
+    }
+  }
+
+  onItemDeselected(item) {
+    this.innovationInfo.supportNeeded.splice(
+      this.innovationInfo.supportNeeded.indexOf(item.item_id),
+      1
+    );
+  }
+
+  onSelectAll(items) {
+    items.forEach(item => {
+      this.onItemSelected(item);
+    });
+  }
+
+  onDeselectAll(items) {
+    this.innovationInfo.supportNeeded = [];
   }
 }
