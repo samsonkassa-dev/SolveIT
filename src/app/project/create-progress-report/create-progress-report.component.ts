@@ -48,7 +48,8 @@ export class CreateProgressReportComponent implements OnInit {
       date:["",],
       communicationAbout:[""],
       progress:[""],
-      meetingDate:[""]
+      meetingDate:[""],
+      modeOfCommunication:[""]
     });
   }
 
