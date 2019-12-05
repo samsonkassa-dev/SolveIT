@@ -52,7 +52,7 @@
                 class="btn btn-warn"
                 (click)="viewDetails(judge)"
               >
-                Edit
+                View Details
               </button>
               <button
                 type="button"
@@ -65,6 +65,14 @@
           </tr>
         </tbody>
       </table>
+      <div class="not-found" *ngIf="judgeList == undefined || judgeList.length == 0">
+        <div class="no-resource-found">
+          <app-not-found
+        message="> No Judge Applicants registered, yet."
+        type="fetch"
+      ></app-not-found>
+        </div>
+      </div>
       <!-- <div class="not-found" *ngIf="backUpteamMemebers == undefined || backUpteamMembers.length == 0">
         <div class="no-resource-found">
           <p><i class="fa  fa-frown-o"></i> Members are not created yet.</p>
