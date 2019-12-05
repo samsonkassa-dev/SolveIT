@@ -111,6 +111,18 @@
     "languageOption": {
       "type": "string",
       "default": "English"
+    },
+    "educationalInstitute":{
+      "type":"string"
+    },
+    "englishReading": {
+      "type": "string"
+    },
+    "englishWriting": {
+      "type": "string"
+    },
+    "englishSpeaking": {
+      "type": "string"
     }
   },
   "validations": [],
