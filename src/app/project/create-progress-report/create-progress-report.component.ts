@@ -41,6 +41,9 @@ export class CreateProgressReportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if(this.authService.isSolveitParticipant()){
+      this.types.splice(2,1)
+    }
     this.reportForm = this.formBuilder.group({
       title: ["", Validators.required],
       type: [null, Validators.required],

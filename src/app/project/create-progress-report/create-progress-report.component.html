@@ -41,7 +41,7 @@
             (change)="handleFileSelection($event)"
           />
         </div>
-        <div *ngIf="report.type == types[2].id">
+        <div *ngIf="authService.isSolveitTeam() && report.type == types[2].id">
             <div class="form-group" >
                 <label id="proposal-label" for="proposal">When did the meeting take place</label>
                 <input
