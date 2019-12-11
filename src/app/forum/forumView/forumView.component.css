@@ -54,7 +54,7 @@
 .menu-title {
   float: right;
   margin-left: 0.5em;
-  font-family: "Varela Round", "sans-serif";
+  font-family: 'Source Sans Pro', sans-serif !important;;
 }
 
 tr {
