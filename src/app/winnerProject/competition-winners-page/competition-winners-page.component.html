@@ -20,6 +20,7 @@
               <div class="city-winners">
                 <div class="winner col-sm-2" *ngFor="let winner of city.winners">
                   <img [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
+                  <p>RANK : {{winner.rank}}</p>
                   <div  data-toggle="modal"  data-target="#winnerInfo" (click)="setUpViewWinners(winner)"  style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
                 </div>
               </div>
@@ -39,10 +40,10 @@
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
-        <h3 class ="modal-title">Winner Details - <span style="font-weight: 300;">{{competitionWinner?.solveitproject.title}}</span></h3>
+        <h3 class ="modal-title">Winner Details - <span style="font-weight: 300;">{{competitionWinner?.solveitproject?.title}}</span></h3>
       </div>
       <div class="modal-body">
-          <p>{{competitionWinner.solveitproject.description}}</p>
+          <p>{{competitionWinner.description || 'No Description Added Yet !!'}}</p>
       </div>
     </div>
   </div>
