@@ -58,6 +58,18 @@
     background: #2ba692;
     padding: 1.5em;
   }
+
+  .row-service {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+  }
+  .row-service > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+  }
   
   /*
     ##Device = Desktops
