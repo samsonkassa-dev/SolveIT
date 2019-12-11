@@ -59,6 +59,9 @@ ul.dropdown1 {
   text-justify: inter-word;
 }
 
+.no-border{
+  border: none !important
+}
 /*
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
@@ -143,4 +146,22 @@ width: 11px;}
 
 .gradient {
   background: linear-gradient(90deg, #ffdd00 0%, #fbb034 100%);
+}
+
+/* 
+* Make the services equal height
+*/
+
+.row-service {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.row-service > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }
