@@ -11,13 +11,28 @@
     </div>
     <!-- Event list -->
     <ng-container class="row" *ngIf="events.length > 0">
+      
+
+
+      <div class="button_cont" *ngIf="events.length > 0" ><a  (click)="toggleArchiveView()"class="example_a" >
+
+          <p *ngIf="showArchivedPosts"> Hide Archived Events</p>
+          <p *ngIf="!showArchivedPosts"> Show Archived Events</p>
+      </a></div>
+      <div class="clear-fix"></div>
+      <div *ngIf="!checkForPassedEvents() && !showArchivedPosts" class="no-resource-found">
+          <app-not-found
+            message="No Events So Far."
+            type="fetch"
+          ></app-not-found>
+        </div>
       <div
         class="col-lg-4 col-md-4 col-sm-6"
         *ngFor="
           let event of (events | paginate: { itemsPerPage: 10, currentPage: p })
         "
       >
-        <div class="service" id="event">
+        <div    *ngIf="!isPassed(event) || showArchivedPosts" class="service" id="event">
           <i class="fa fa-calendar"></i>
           <h3>{{ getLimmitedEventTitle(event.title, 16) }}</h3>
           <i class="fa fa-map-marker"></i>

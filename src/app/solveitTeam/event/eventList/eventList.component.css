@@ -21,6 +21,38 @@
   margin: 4em auto 2em;
 }
 
+.example_a {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #288B7B;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-top:20px;
+  margin-right:20px;
+  float: right;
+  }
+
+  .example_a:hover {
+    cursor: pointer;
+    background: #C43C36;
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.2s ease 0s;
+    }
+
+    .clear-fix{
+      width:100%;
+      clear: both;
+    }
+
+    
+
 #event-time-icon {
   font-size: 1.5em;
   position: relative;
