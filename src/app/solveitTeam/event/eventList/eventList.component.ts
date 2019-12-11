@@ -15,6 +15,7 @@ export class EventListComponent implements OnInit {
   public searchKey = "";
   public p = 1;
   public selectedEvent = null;
+  public showArchivedPosts = false;
   @Output() edit = new EventEmitter();
 
   constructor(
@@ -72,6 +73,7 @@ export class EventListComponent implements OnInit {
     this.service.getEventsList().subscribe(
       res => {
         this.events = res;
+        console.log(res)
         this.store = this.events;
         this.spinner.hide();
       },
@@ -80,9 +82,21 @@ export class EventListComponent implements OnInit {
       }
     );
   }
-
+  toggleArchiveView(){
+    this.showArchivedPosts = !this.showArchivedPosts
+  }
   viewEvent() {
     this.selected = "view-event";
+  }
+
+  checkForPassedEvents(){
+    let result = []
+    this.events.forEach(event =>{
+      if(!this.isPassed(event)){
+        result.push(event)
+      }
+    })
+    return result.length > 0
   }
 
   onSearch($event) {
