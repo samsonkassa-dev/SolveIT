@@ -85,69 +85,69 @@
                 <p>{{ user.userType }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Education Level</label></div>
               <div class="col-md-6">
                 <p>{{ user.educationLevel }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Work Status</label></div>
               <div class="col-md-6">
                 <p>{{ user.workStatus }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Emergency Contact Name</label></div>
               <div class="col-md-6">
                 <p>{{ user.address.emergencyContact?.fullName }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Emergency Contact Phone Number</label></div>
               <div class="col-md-6">
                 <p>{{ user.address.emergencyContact?.phoneNumber }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Parents Occupation : </label></div>
               <div class="col-md-6">
                 <p>{{ user.parentsOccupation }}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>What Kind of Support Needed : </label></div>
               <div *ngIf = "user.supportNeeded!= undefined && user.supportNeeded.length >= 1" class="col-md-6">
                 <p  *ngFor="let support of user.supportNeeded; let i= index">{{ support}}<span *ngIf="i<user.supportNeeded.length-1"> ,</span></p>
               </div>
             </div>
 
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Has the Financial Know How : </label></div>
               <div class="col-md-6">
                 <p>{{ user.financialKnowHow}}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Has Financial Access: </label></div>
               <div class="col-md-6">
                 <p>{{ user.financialAccess}}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Preferred Language: </label></div>
               <div class="col-md-6">
                 <p>{{ user.languageOption}}</p>
               </div>
             </div>
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
                 <div class="col-md-6"><label>Currently Attending Educational Institute: </label></div>
                 <div class="col-md-6">
                   <p>{{ user.educationalInstitute}}</p>
                 </div>
               </div>
 
-            <div class="row">
+            <div *ngIf = "authService.isSolveitParticipant()" class="row">
                 <div class="col-md-6"><label>English Skills: </label></div>
                 <div class="col-md-6">
                   <p>Writing : {{ user.englishReading || "Not Rated"}}</p>
