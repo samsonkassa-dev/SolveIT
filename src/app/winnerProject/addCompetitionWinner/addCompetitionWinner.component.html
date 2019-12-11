@@ -14,7 +14,21 @@
         <p>* Competition is required.</p>
       </div>
     </div>
-
+    <div class="input-field" style="margin-top: 1em">
+        <select class="form-control" name="rank" id="rank"  formControlName="rank" [(ngModel)]="competitionWinner.rank">
+          <option selected value="" [selected]="true">Select Rank</option>
+          <option value="Gold">Gold</option>
+          <option value="Silver">Silver</option>
+          <option value="Bronze">Bronze</option>
+          <option value="Honorable-Mention">Honorable-Mention</option>
+        </select>
+        <div class="error-message" *ngIf="
+          competitionWinnerForm.controls.rank.invalid &&
+          competitionWinnerForm.controls.rank.touched
+        ">
+        <p>* Rank is required.</p>
+      </div>
+      </div>
     <div class="input-field" style="margin-top: 1em">
       <select class="form-control" name="city" id="city" [(ngModel)]="competitionWinner.city"
         (change)="filterProjectByCity()" formControlName="city">

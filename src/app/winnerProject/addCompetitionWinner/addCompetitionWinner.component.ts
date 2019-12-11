@@ -14,7 +14,7 @@ import { configs } from "../../app.config";
   styleUrls: ["addCompetitionWinner.component.css"]
 })
 export class AddCompetitionWinnerComponent implements OnInit {
-  public competitionWinner: any = { competitionId: "", projectId: "", city: '', thumnbinal: {} };
+  public competitionWinner: any = { competitionId: "", projectId: "", city: '', thumnbinal: {} , rank : ""};
   public competitionWinnerForm: FormGroup;
   public projects = [];
   public projectsBackup = [];
@@ -39,7 +39,8 @@ export class AddCompetitionWinnerComponent implements OnInit {
     this.competitionWinnerForm = this.fb.group({
       project: ["", Validators.required],
       competition: ["", Validators.required],
-      city: ['', Validators.required]
+      city: ['', Validators.required],
+      rank:['', Validators.required]
     });
   }
 
