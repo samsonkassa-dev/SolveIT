@@ -64,7 +64,7 @@ export class SolveItTeamMemberAddComponent implements OnInit {
           res => {
             this.sharedService.addToast(
               "Success",
-              "New Competition Winner Added!.",
+              "New Solve IT team member Added!.",
               "success"
             );
             this.solveItMember = { fullName: "", position: "", linkedln_link: '', twitter_link: "", image:{} };
