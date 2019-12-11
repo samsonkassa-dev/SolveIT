@@ -61,6 +61,8 @@
         <form [formGroup]="competitionWinnerForm" *ngIf="authService.isAuthenticated()">
           <!-- <h4 class="title" id="form-title">Add Competition Winner</h4> -->
           <div id="resource-form">
+              <textarea type="text" class="form-control" name="title" placeholder="Project Description" formControlName="description"
+               ></textarea>
             <!-- <div class="input-field" style="margin-top: 1em">
               <select name="competition" class="form-control" id="competition" [(ngModel)]="competitionWinner.competitionId"
                 formControlName="competition">
@@ -108,7 +110,18 @@
                 <p>* Project is required.</p>
               </div>
             </div> -->
-        
+            <div class="input-field" style="margin-top: 1em">
+                <select class="form-control" name="rank" id="rank"  formControlName="rank">
+                  <option selected value="" [selected]="true">Select Rank</option>
+                  <option value="Gold">Gold</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Bronze">Bronze</option>
+                  <option value="Honorable-Mention">Honorable-Mention</option>
+                </select>
+               
+              </div>
+
+
             <div class="input-field" style="margin-top: 1em">
               <div class="upload-btn-wrapper">
                 <button class="btn-custom">Select Project Thumbinal</button>
@@ -117,14 +130,12 @@
               <div  class="preview">
                 <img [src]="filePreviewPath" alt="">
               </div>
-              <div class="error-message" *ngIf="!isFileSelected && isCreateButtonClicked">
-                <p>* Project Thumbinal is required.</p>
-              </div>
+            
         
             </div>
         
             <div class="form-group" id="resource-upload-btn">
-              <input type="button" (click)="addCompetitionWinner()" class="main-btn" value="Create" />
+              <input type="button" (click)="addCompetitionWinner(competitionWinnerForm.value)" class="main-btn" value="Update" />
             </div>
           </div>
         </form>

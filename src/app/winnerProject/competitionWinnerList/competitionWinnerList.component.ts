@@ -1,6 +1,6 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from './../../Auth/services/auth.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 import { ParsedResponseHeaders } from 'ng2-file-upload';
 import { FileItem } from 'ng2-file-upload';
@@ -34,7 +34,8 @@ export class CompetitionWinnerListComponent implements OnInit {
     public fb:FormBuilder
   ) { 
     this.competitionWinnerForm = this.fb.group({
-
+      description:[''],
+      rank:['']
     })
   }
 
@@ -52,6 +53,7 @@ export class CompetitionWinnerListComponent implements OnInit {
     this.competitionWinner = winner
     //console.log(this.competitionWinner)
     this.filePreviewPath = this.getImageUrl(winner.thumbinal)
+    this.competitionWinnerForm.patchValue(this.competitionWinner)
 
   }
   removeCompetitionWinnerLabel(winner) {
@@ -70,7 +72,7 @@ export class CompetitionWinnerListComponent implements OnInit {
     );
   }
 
-  addCompetitionWinner() {
+  addCompetitionWinner(form) {
     this.isCreateButtonClicked = true;
     if (this.competitionWinnerForm.valid && this.isFileSelected) {
       this.isUploading = true;
@@ -81,7 +83,9 @@ export class CompetitionWinnerListComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
+        this.competitionWinner.description = form.description
         this.competitionWinner.thumbinal = JSON.parse(response).result.files.file[0];
+        this.competitionWinner.rank = form.rank
         this.service.editCompetitionWinner(this.competitionWinner).subscribe(
           res => {
             this.sharedService.addToast(
@@ -89,8 +93,7 @@ export class CompetitionWinnerListComponent implements OnInit {
               "Competition Winner Info Updated Successfully!.",
               "success"
             );
-            this.competitionWinner = { competitionId: "", projectId: "", city: '', thumbinal: {} }
-            this.competitionWinnerForm.reset();
+            this.ngOnInit();
             this.isUploading = false;
             this.isCreateButtonClicked = false;
             this.isFileSelected = false;
@@ -140,7 +143,30 @@ export class CompetitionWinnerListComponent implements OnInit {
           this.uploader.queue.pop();
         }
       };
-    } 
+    }else{
+      this.competitionWinner.description = form.description
+      this.competitionWinner.rank = form.rank
+      console.log("Info Updated ")
+      this.service.editCompetitionWinner(this.competitionWinner).subscribe(
+          res => {
+            this.sharedService.addToast(
+              "Success",
+              "Competition Winner Info Updated Successfully!.",
+              "success"
+            );
+            this.ngOnInit();
+            this.isUploading = false;
+            this.isCreateButtonClicked = false;
+            this.isFileSelected = false;
+          },
+          err => {
+            this.sharedService.addToast("Error", "Error occurred!", "error");
+            this.isUploading = false;
+            this.isCreateButtonClicked = false;
+            this.isFileSelected = false;
+          }
+        );
+    }
   }
   handleFileSelection($event) {
     this.isFileSelected = true;
