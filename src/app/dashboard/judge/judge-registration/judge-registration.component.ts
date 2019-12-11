@@ -30,9 +30,6 @@ export class JudgeRegistrationComponent implements OnInit {
   };
 
   educationalBackgroundOptions = [
-    "No formal education",
-    "Primary education",
-    "Secondary education",
     "Undergraduate",
     "Bachelor Degree",
     "Master degree",
@@ -80,7 +77,9 @@ export class JudgeRegistrationComponent implements OnInit {
       interestInInvesting:['', Validators.required],
       shortDescription: ['', Validators.required],
       techOpinion:[''],
-      fieldOfExpertise:[null, Validators.required]
+      fieldOfExpertise:[null, Validators.required],
+      investmentCapital:[''],
+      sector:['']
     })
   }
 

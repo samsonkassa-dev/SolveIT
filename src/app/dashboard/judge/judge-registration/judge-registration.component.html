@@ -1,6 +1,6 @@
 <app-header></app-header>
-<form [formGroup]="judgeForm" >
-  <h4 class="title" id="form-title">Commpetition Judge Registration</h4>
+<form [formGroup]="judgeForm">
+  <h4 class="title" id="form-title">Judge Registration</h4>
   <div id="resource-form">
     <div class="input-field" style="margin-top: 1em">
       <label>Full Name:</label>
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div class="input-field" style="margin-top: 1em">
+    <!-- <div class="input-field" style="margin-top: 1em">
       <label>Field of Expertise:</label>
       <ng-select formControlName="fieldOfExpertise" placeholder="Select your field of expertise"
       [searchable]="false" [clearable]="false"  [items]="fieldOfExpertiseOptions" bindLabel="label" bindValue="label" >
@@ -57,12 +57,26 @@
         ">
         <p>* Educational Background is required.</p>
       </div>
-    </div>
+    </div> -->
+    <div class="input-field" style="margin-top: 1em">
+      <label>Professional Bio:</label>
+      <textarea type="text" class="form-control" name="title"
+        placeholder="Professional Bio please include your Educational and Professional Background"
+        formControlName="shortDescription">
 
+        </textarea>
+      <div class="error-message" *ngIf="
+            judgeForm.controls.shortDescription.invalid &&
+            judgeForm.controls.shortDescription.touched
+          ">
+        <p>* Short Description is required.</p>
+      </div>
+    </div>
     <div class="input-field" style="margin-top: 1em">
       <label>Professional Background:</label>
       <ng-select formControlName="professionalBackground" placeholder="Select Professional Background"
-      [searchable]="false" [clearable]="false" [items]="professionalBackgroundOptions" bindLabel="label" bindValue="label" [(ngModel)]="judge.professionalBackground">
+        [searchable]="false" [clearable]="false" [items]="professionalBackgroundOptions" bindLabel="label"
+        bindValue="label" [(ngModel)]="judge.professionalBackground">
       </ng-select>
       <div class="error-message" *ngIf="
           judgeForm.controls.professionalBackground.invalid &&
@@ -98,7 +112,8 @@
 
     <div class="input-field" style="margin-top: 1em">
       <label>What have you heard about Solve It:</label>
-      <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?" formControlName="solveItKnowledge" />
+      <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?"
+        formControlName="solveItKnowledge" />
       <div class="error-message" *ngIf="
           judgeForm.controls.solveItKnowledge.invalid &&
           judgeForm.controls.solveItKnowledge.touched
@@ -106,20 +121,39 @@
         <p>* this field is required.</p>
       </div>
     </div>
-    
+
     <div class="input-field" style="margin-top: 1em">
       <label>Are You Interested in Investing:</label>
-      <ng-select formControlName="interestInInvesting" placeholder="Select Interest in Investment"
-      [searchable]="false" [clearable]="false" [items]="investmentOptions" bindLabel="label" bindValue="label" [(ngModel)]="judge.interestInInvesting">
+      <ng-select formControlName="interestInInvesting" placeholder="Select Interest in Investment" [searchable]="false"
+        [clearable]="false" [items]="investmentOptions" bindLabel="label" bindValue="label"
+        [(ngModel)]="judge.interestInInvesting">
       </ng-select>
       <div class="error-message" *ngIf="
           judgeForm.controls.interestInInvesting.invalid &&
           judgeForm.controls.interestInInvesting.touched
         ">
-        <p>* Professional Background is required.</p>
+        <p>* this info is required.</p>
       </div>
     </div>
-    <div class="input-field" style="margin-top: 1em">
+
+
+    <div *ngIf="judge.interestInInvesting == 'Yes'">
+      <div class="input-field" style="margin-top: 1em">
+        <label>What Sector are you interested in investing:</label>
+        <input type="text" class="form-control" name="title" placeholder="What sector do you want to invest in?"
+          formControlName="sector" />
+      
+      </div>
+      <div class="input-field" style="margin-top: 1em">
+        <label>Investment Capital:</label>
+        <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?"
+          formControlName="investmentCapital" />
+     
+      </div>
+    </div>
+
+
+    <!-- <div class="input-field" style="margin-top: 1em">
       <label>Professional Bio:</label>
       <textarea type="text" class="form-control" name="title" placeholder="Short Description"
         formControlName="shortDescription">
@@ -129,14 +163,15 @@
             judgeForm.controls.shortDescription.invalid &&
             judgeForm.controls.shortDescription.touched
           ">
-        <p>* Short Description is required.</p>
+        <p>* Professional Bio is required.</p>
       </div>
-    </div>
+    </div> -->
 
 
     <div class="clear"></div>
     <div class="form-group" id="resource-upload-btn">
-      <input type="button"  [disabled]="!judgeForm.valid" (click)="registerJudge(judgeForm.value)" class="main-btn" value="Create" />
+      <input type="button" [disabled]="!judgeForm.valid" (click)="registerJudge(judgeForm.value)" class="main-btn"
+        value="Create" />
     </div>
   </div>
 </form>
