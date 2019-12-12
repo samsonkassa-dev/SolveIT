@@ -2,7 +2,7 @@
 <header id="home">
         <!-- Background Video -->
         <!-- Background Image -->
-        <div class="bg-img" style="background-image: url('../../assets/img/solve-it-bg.jpg');">
+        <div class="bg-img" style="background-image: url('../../assets/img/solve-IT-2020 bg.jpg');">
           <div class="overlay"></div>
         </div>
         <!-- /Background Image -->
@@ -36,7 +36,26 @@
                 <li [class.active]="router.isActive('', true)">
                   <a routerLink="">Home</a>
                 </li>
-                
+                <li [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)" 
+                class="has-dropdown">
+                <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
+                <ul class="dropdown1">
+                  <!-- <li *ngIf="authService.isSolveitParticipant()">
+                    <a routerLink="/my-projects">My Projects</a>
+                  </li> -->
+                  <li class="no-border"><a href="#service">Services</a></li>
+                  <!-- <li ">
+                    <a routerLink="/gallery">Gallery</a>
+                  </li> -->
+                  <li >
+                    <a routerLink="/team/list">Our Team</a>
+                  </li>
+                  <li >
+                    <a routerLink="/winners/list">Winners</a>
+                  </li>
+              
+                </ul>
+              </li>
              
                 
                 <li [class.active]="router.isActive('dashboard', false)" *ngIf="
@@ -71,27 +90,7 @@
                 <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('my-projects', false)">
                   <a routerLink="/my-projects">My Projects</a>
                 </li>
-                <li [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)" 
-                class="has-dropdown">
-                <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
-                <ul class="dropdown1">
-                  <!-- <li *ngIf="authService.isSolveitParticipant()">
-                    <a routerLink="/my-projects">My Projects</a>
-                  </li> -->
-                  <li class="no-border"><a href="#features">About Solve IT</a></li>
-                  <li class="no-border"><a href="#service">Services</a></li>
-                  <!-- <li ">
-                    <a routerLink="/gallery">Gallery</a>
-                  </li> -->
-                  <li >
-                    <a routerLink="/team/list">Our Team</a>
-                  </li>
-                  <li >
-                    <a routerLink="/winners/list">Winners</a>
-                  </li>
-              
-                </ul>
-              </li>
+                
                 <li [class.active]="router.isActive('help', false)">
                     <a routerLink="/help">Help</a>
                   </li>
@@ -211,7 +210,9 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-cogs"></i>
+                <!-- <i class="fa fa-cogs"></i> -->
+                <img src="../../assets/icons/training.png" width="80px" height="80px" class="service-icons">
+
                 <h3>Trainings</h3>
                 <p>
                   Hard work pays off. Contestants get extensive soft skill, business and technical trainings in order to ameliorate their projects. In addition, they are trained to deliver effective strategic pitch to funders or partners.
@@ -223,7 +224,9 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-handshake-o"></i>
+                <!-- <i class="fa fa-handshake-o"></i> -->
+                <img src="../../assets/icons/mentorship.png" width="80px" height="80px" class="service-icons">
+
                 <h3>Mentorships</h3>
                 <p>
                   A unique and highly regarded component of Solve IT is our mentoring service. Each contestant has the opportunity to work with a mentor that provides one-on-one, and in-depth guidance throughout the competition and follow-up on the growth of their projects. 
@@ -235,7 +238,9 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-briefcase"></i>
+                <!-- <i class="fa fa-briefcase"></i> -->
+                <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons">
+
                 <h3>Exposure</h3>
                 <p>
                   Get new friends and make new memories. Our competitors get to meet
@@ -249,7 +254,7 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-rocket"></i>
+                <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons">
                 <h3>Incubation</h3>
                 <p>
                   Think Big, Start Small, Scale Fast! To help them create successful startups, contestants are provided with a systemized and comprehensive range of support, including expertise assistance, business support services, and vast networking opportunities.
@@ -261,7 +266,9 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-usd"></i>
+                <!-- <i class="fa fa-usd"></i> -->
+                <img src="../../assets/icons/investor.png" width="80px" height="80px" class="service-icons">
+
                 <h3>Investor connections</h3>
                 <p>
                   Grow your connections, Our platform enables contestants to meet and present their projects to investors both on national and international grounds.
@@ -273,7 +280,9 @@
             <!-- service -->
             <div class="col-md-4 col-sm-6">
               <div class="service">
-                <i class="fa fa-bandcamp"></i>
+                <!-- <i class="fa fa-bandcamp"></i> -->
+                <img src="../../assets/icons/bootcamp.png" width="80px" height="80px" class="service-icons">
+
                 <!-- <img src="../../assets/img/icons/bootcamp.png" style="width:40px; height:40px; position:absolute; left:5px"/> -->
                 <h3>Boot camp</h3>
                 <p>
@@ -364,7 +373,7 @@
       <!-- /Numbers -->
       
       <!-- Pricing -->
-      <app-weekly-winner> </app-weekly-winner>
+      <app-weekly-winner *ngIf="authService.isAuthenticated()"> </app-weekly-winner>
       <!-- Pricing -->
       
       <!-- Team -->
@@ -379,11 +388,30 @@
             </div>
             <!-- /Section header -->
       
-          
+            <div *ngFor="let member of solveItTeam ;let i=index;" class="col-sm-3" >
+       
+                <div class="team">
+                    <div class="team-img">
+                      <img class="img-responsive" [src]="getImageUrl(member.picture)" style="width:210px; height:200px;" alt="" />
+                      <div class="overlay">
+                        <div class="team-social">
+                          <a *ngIf="member.linkedln_link != undefined && member.linkedln_link.length > 5"
+                            href="{{member.linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                          <a *ngIf="member.twitter_link != undefined && member.twitter_link.length > 5"
+                            href="{{member.twitter_link}}"><i class="fa fa-twitter"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="team-content">
+                      <h3>{{member.fullName}}</h3>
+                      <span>{{member.position}}</span>
+                    </div>
+                  </div>
+              </div>
             <!-- /team -->
       
             <!-- team -->
-            <div class="col-sm-3 col-md-push-1">
+            <div *ngIf ="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
               <div class="team">
                 <div class="team-img">
                   <img class="img-responsive" src="../../assets/img/bezawit.jpg" alt="" />
@@ -400,7 +428,7 @@
             <!-- /team -->
       
             <!-- team -->
-            <div class="col-sm-3 col-md-push-1">
+            <div *ngIf ="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
               <div class="team">
                 <div class="team-img">
                   <img class="img-responsive" src="../../assets/img/hruy.jpg" alt="" />
@@ -420,7 +448,7 @@
             </div>
       
             <!-- team -->
-            <div class="col-sm-3 col-md-push-1">
+            <div *ngIf ="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
               <div class="team">
                 <div class="team-img">
                   <img class="img-responsive" src="../../assets/img/Betelhem%20Dessie.jpg" alt="" />
@@ -514,7 +542,7 @@
             <!-- Section-header -->
             <div class="section-header text-center">
               <h2 class="title">Get in touch</h2>
-              <p style="font-size:20px; font-weight: 800;">If you would like to sponsor please contact us .</p>
+              <p style="font-size:20px; font-weight: 800;">Be part of This Initiative</p>
             </div>
             <!-- /Section-header -->
       

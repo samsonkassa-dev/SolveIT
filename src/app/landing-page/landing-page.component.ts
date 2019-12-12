@@ -32,7 +32,12 @@ export class LandingPageComponent implements OnInit {
     
     this.commonService.getSolveItTeam()
     .subscribe(res =>{
-      this.solveItTeam = res
+      if(res.length > 4){
+        this.solveItTeam = res.slice(0,4)
+      }else{
+        this.solveItTeam = res
+
+      }
     })
   
      

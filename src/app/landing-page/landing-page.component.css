@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+#service p{
+  font-size:14px;
+}
+
 .register-now-container {
   display: flex;
   flex-direction: column;
@@ -59,6 +63,12 @@ ul.dropdown1 {
   text-justify: inter-word;
 }
 
+
+.service-icons{
+  position:absolute !important; 
+  left: 0px !important;
+  top:10px !important;
+}
 .no-border{
   border: none !important
 }
@@ -164,4 +174,10 @@ width: 11px;}
 .row-service > [class*='col-'] {
   display: flex;
   flex-direction: column;
+}
+
+.row-service p{
+
+    word-spacing: 0px !important;
+
 }
