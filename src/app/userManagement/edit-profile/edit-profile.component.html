@@ -112,7 +112,7 @@
           <p>* Incorrect phone number.</p>
           <p>* e.g 9xxxxxxxx</p>
         </div>
-        <div class="input-field">
+        <div *ngIf = "!authService.isSolveitTeam()"  class="input-field">
           <input
             [owlDateTime]="dt2"
             [owlDateTimeTrigger]="dt2"
@@ -134,7 +134,7 @@
             <p>* Birth date is required.</p>
           </div>
         </div>
-        <div class="input-field">
+        <div *ngIf = "!authService.isSolveitTeam()"  class="input-field">
           <select
             class="form-control"
             name="sex"
@@ -155,7 +155,7 @@
             <p>* Gender is required.</p>
           </div>
         </div>
-        <div class="input-field">
+        <div *ngIf = "!authService.isSolveitTeam()"  class="input-field">
           <select
             class="form-control"
             name="region"
@@ -179,7 +179,7 @@
             <p>* Region is required.</p>
           </div>
         </div>
-        <div class="input-field">
+        <div *ngIf = "!authService.isSolveitTeam()"  class="input-field">
           <select
             class="form-control"
             name="city"

@@ -1,3 +1,4 @@
+import { AuthService } from './../../Auth/services/auth.service';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from '../userManagament.service';
@@ -20,7 +21,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
   regions = [];
   regionId = '';
 
-  constructor(private spinner: NgxSpinnerService, private fb: FormBuilder,
+  constructor(private spinner: NgxSpinnerService, private fb: FormBuilder,public authService:AuthService,
               private service: UserManagementService, public sharedService: SharedService) { }
 
   ngOnInit() {
@@ -30,10 +31,10 @@ export class EditProfileComponent implements OnInit, OnChanges {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      sex: ['', Validators.required],
-      age: ['', Validators.required],
-      region: ['', Validators.required],
-      city: ['', Validators.required]
+      sex: [''],
+      age: [''],
+      region: [''],
+      city: ['']
     });
 
     const regionsPromise = this.service.getRegions();
