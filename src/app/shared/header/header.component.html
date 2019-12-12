@@ -28,12 +28,28 @@
           <li [class.active]="router.isActive('', true)">
             <a routerLink="">Home</a>
           </li>
-          <li *ngIf="router.isActive('', true)">
-            <a href="#features">About</a>
-          </li>
-          <li *ngIf="router.isActive('', true)">
-            <a href="#service">Services</a>
-          </li>
+          <li
+          [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)"
+          class="has-dropdown">
+          <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
+          <ul class="dropdown1">
+            <!-- <li *ngIf="authService.isSolveitParticipant()">
+            <a routerLink="/my-projects">My Projects</a>
+          </li> -->
+            <li class="no-border"><a href="#service">Services</a></li>
+            <!-- <li ">
+            <a routerLink="/gallery">Gallery</a>
+          </li> -->
+            <li>
+              <a routerLink="/team/list">Our Team</a>
+            </li>
+            <li>
+              <a routerLink="/winners/list">Winners</a>
+            </li>
+
+          </ul>
+        </li>
+         
           <li [class.active]="router.isActive('dashboard', false)" *ngIf="
               authService.isSolveitTeam() ||
               authService.isSolveitManager() ||
@@ -48,9 +64,9 @@
           <li [class.active]="router.isActive('forums', false)">
             <a routerLink="/forums">Forums</a>
           </li>
-          <li [class.active]="router.isActive('news', false)">
+          <!-- <li [class.active]="router.isActive('news', false)">
             <a routerLink="/news">News</a>
-          </li>
+          </li> -->
           <li [class.active]="router.isActive('resources', false)">
             <a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a>
           </li>
@@ -59,28 +75,7 @@
             <a routerLink="/sponsors">Sponsors</a>
           </li>
    
-          <li
-            [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)"
-            class="has-dropdown">
-            <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
-            <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-              <a routerLink="/my-projects">My Projects</a>
-            </li> -->
-              <li class="no-border"><a href="#features">About Solve IT</a></li>
-              <li class="no-border"><a href="#service">Services</a></li>
-              <!-- <li ">
-              <a routerLink="/gallery">Gallery</a>
-            </li> -->
-              <li>
-                <a routerLink="/team/list">Our Team</a>
-              </li>
-              <li>
-                <a routerLink="/winners/list">Winners</a>
-              </li>
-
-            </ul>
-          </li>
+         
           <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('my-projects', false)">
             <a routerLink="/my-projects">My Projects</a>
           </li>
