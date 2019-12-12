@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JudgeRegistrationComponent implements OnInit {
   public judgeForm: FormGroup
-  public judge = {cities : [], professionalBackground:null, educationalBackground:null, interestInInvesting:null}
+  public judge = {cities : [], professionalBackground:null, educationalBackground:null, interestInInvesting:null, sector: null}
   public cities = [];
   public isCreateButtonClicked = false;
   dropdownSettings = {
@@ -57,6 +57,22 @@ export class JudgeRegistrationComponent implements OnInit {
     "Technical",
     "Other"
   ]
+
+  public sectors = [
+    "Agriculture and Fishery",
+    "Health",
+    "Education",
+    "Finance",
+    "Construction Industry",
+    "Metallurgical Industry",
+    "Transportation Sector",
+    "Food and Beverage Processing",
+    "Entertainment",
+    "Tourism and Culture",
+    "Other"
+  ];
+
+
   constructor(
     public judgeService: JudgeService,
     public sharedService: SharedService,
@@ -69,15 +85,15 @@ export class JudgeRegistrationComponent implements OnInit {
       fullName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
-      educationalBackground: ['', Validators.required],
-      professionalBackground: ['', Validators.required],
+      educationalBackground: [''],
+      professionalBackground: [''],
       solveItKnowledge:['', Validators.required],
       judgeExperience:[''],
       cities:['', Validators.required],
       interestInInvesting:['', Validators.required],
       shortDescription: ['', Validators.required],
       techOpinion:[''],
-      fieldOfExpertise:[null, Validators.required],
+      fieldOfExpertise:[null],
       investmentCapital:[''],
       sector:['']
     })
@@ -88,6 +104,7 @@ export class JudgeRegistrationComponent implements OnInit {
     this.investmentOptions = this.format(this.investmentOptions)
     this.professionalBackgroundOptions = this.format(this.professionalBackgroundOptions)
     this.fieldOfExpertiseOptions = this.format(this.fieldOfExpertiseOptions)
+    this.sectors = this.format(this.sectors)
     //console.log(this.investmentOptions)
     this.getCities()
   }
@@ -99,18 +116,18 @@ export class JudgeRegistrationComponent implements OnInit {
   }
   registerJudge(judgeForm){
     console.log(judgeForm)
-    // this.judgeService.addJudge(judgeForm)
-    // .subscribe(res =>{
-    //   this.sharedService.addToast(
-    //     "Success",
-    //     "Registration Successful!.",
-    //     "success"
-    //   );
-    //   this.judgeForm.reset()
-    //   this.router.navigate(['/'])
-    // }, err =>{
-    //   this.sharedService.addToast("Error", "Error occurred!", "error");
-    // })
+    this.judgeService.addJudge(judgeForm)
+    .subscribe(res =>{
+      this.sharedService.addToast(
+        "Success",
+        "Registration Successful!.",
+        "success"
+      );
+      this.judgeForm.reset()
+      this.router.navigate(['/'])
+    }, err =>{
+      this.sharedService.addToast("Error", "Error occurred!", "error");
+    })
   }
   format(arrayOfStrings){
     let result = []

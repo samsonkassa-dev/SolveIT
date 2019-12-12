@@ -38,22 +38,11 @@
             <div class="row">
               <div class="col-md-6"><label>Phone Number</label></div>
               <div class="col-md-6">
-                <p>{{ judge.phone }}</p>
+                <p>{{ judge.phoneNumber || judge.phone }}</p>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6"><label>Educational Background</label></div>
-              <div class="col-md-6">
-                <p>{{ judge.educationalBackground }}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6"><label>Professional Background</label></div>
-              <div class="col-md-6">
-                <p>{{ judge.professionalBackground }}</p>
-              </div>
-            </div>
+          
             <div class="row">
                 <div class="col-md-6"><label>Cities Interested In: </label></div>
                 <div class="col-md-6">
@@ -69,7 +58,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6"><label>Previous Solve It Experience</label></div>
+              <div class="col-md-6"><label>Previous Solve IT Experience</label></div>
               <div class="col-md-6">
                 <p>{{ judge.solveItKnowledge }}</p>
               </div>
@@ -80,6 +69,18 @@
                 <p>{{ judge.interestInInvesting }}</p>
               </div>
             </div>
+            <div class="row" *ngIf = "judge.interestInInvesting  == 'Yes'">
+                <div class="col-md-6"><label>Sectors Interested In</label></div>
+                <div class="col-md-6">
+                  <p>{{ judge.sector }}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf = "judge.interestInInvesting  == 'Yes'">
+                  <div class="col-md-6"><label>Investment Capiral</label></div>
+                  <div class="col-md-6">
+                    <p>{{ judge.investmentCapital }}</p>
+                  </div>
+                </div>
             <div class="row">
               <div class="col-md-6"><label>Short Personal Description</label></div>
               <div class="col-md-6">
@@ -87,12 +88,7 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6"><label>Field of Expertise</label></div>
-              <div class="col-md-6">
-                <p>{{ judge.fieldOfExpertise }}</p>
-              </div>
-            </div>
+        
             
 
 

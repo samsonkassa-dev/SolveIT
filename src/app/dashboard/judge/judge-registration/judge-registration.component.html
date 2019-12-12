@@ -72,7 +72,7 @@
         <p>* Short Description is required.</p>
       </div>
     </div>
-    <div class="input-field" style="margin-top: 1em">
+    <!-- <div class="input-field" style="margin-top: 1em">
       <label>Professional Background:</label>
       <ng-select formControlName="professionalBackground" placeholder="Select Professional Background"
         [searchable]="false" [clearable]="false" [items]="professionalBackgroundOptions" bindLabel="label"
@@ -84,7 +84,7 @@
         ">
         <p>* Professional Background is required.</p>
       </div>
-    </div>
+    </div> -->
     <label>Select Cities you are interested in judging in:</label>
     <ng-multiselect-dropdown [placeholder]="'Cities'" [data]="mapCitiesToDropDownList(cities)" formControlName="cities"
       (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)" (onSelect)="onItemSelected($event)"
@@ -111,7 +111,7 @@
 
 
     <div class="input-field" style="margin-top: 1em">
-      <label>What have you heard about Solve It:</label>
+      <label>What have you heard about Solve IT:</label>
       <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?"
         formControlName="solveItKnowledge" />
       <div class="error-message" *ngIf="
@@ -140,13 +140,18 @@
     <div *ngIf="judge.interestInInvesting == 'Yes'">
       <div class="input-field" style="margin-top: 1em">
         <label>What Sector are you interested in investing:</label>
-        <input type="text" class="form-control" name="title" placeholder="What sector do you want to invest in?"
+        <ng-select formControlName="sector" placeholder="Select Sector" [searchable]="false"
+        [clearable]="false" [items]="sectors" bindLabel="label" bindValue="label"
+        [(ngModel)]="judge.sector">
+      </ng-select>
+
+        <input type="text" class="form-control" *ngIf="judge.sector == 'Other'" style="margin-top : 20px" name="title" placeholder="What sector do you want to invest in?"
           formControlName="sector" />
       
       </div>
       <div class="input-field" style="margin-top: 1em">
         <label>Investment Capital:</label>
-        <input type="text" class="form-control" name="title" placeholder="What do you know about Solve It ?"
+        <input type="text" class="form-control" name="title" placeholder="What is your investment Capital ?"
           formControlName="investmentCapital" />
      
       </div>
