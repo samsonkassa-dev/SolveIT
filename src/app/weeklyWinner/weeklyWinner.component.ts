@@ -1,3 +1,4 @@
+import { AuthService } from './../Auth/services/auth.service';
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../shared/services/common.service";
 
@@ -13,9 +14,12 @@ export class WeeklyWinnerComponent implements OnInit {
 
     public winners = [];
 
-    constructor(public service: CommonService) { }
+    constructor(
+        public authService: AuthService,
+        public service: CommonService) { }
 
     ngOnInit() {
+        
         this.getWeeklyWinners();
     }
 
