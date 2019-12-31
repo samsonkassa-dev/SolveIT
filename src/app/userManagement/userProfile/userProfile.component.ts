@@ -51,7 +51,13 @@ export class UserProfileComponent implements OnInit {
     this.spinner.show();
     this.service.getUser(this.userId).subscribe(
       res => {
+     
         this.user = res;
+        if(this.user.role){
+          if(this.user.role.name == 'solve-it-team'){
+            this.user.role.name = 'Mentor'
+          }
+        }
         //console.log(res)
         this.updatedUser =  {
           firstName: this.user.firstName,

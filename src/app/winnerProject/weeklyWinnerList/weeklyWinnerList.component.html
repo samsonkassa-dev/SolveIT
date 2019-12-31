@@ -20,6 +20,22 @@
           <td>{{ winner.rank }}</td>
           <td>
             <span *ngIf="!winner.active">INACTIVE</span>
+            <button
+            type="button"
+            data-toggle="modal"
+            data-target="#editWinner"         
+            class="btn btn-primary"
+            (click)="setUpEditWinners(winner)"
+          >
+            Edit
+          </button>
+          <!-- <button
+            type="button"      
+            class="btn btn-danger"
+            (click)="deleteWeeklyWinner(winner)"
+          >
+            Delete
+          </button> -->
             <button *ngIf="winner.active" (click)="removeWeeklyWinnerLabel(winner)" type="button"
               class="btn btn-danger">
               Deactivate
@@ -39,3 +55,52 @@
   </div>
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+<div id="editWinner" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Edit Project Winners</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="weeklyWinnerForm">
+          <h4 class="title" id="form-title">Edit Weekly Winner</h4>
+          <div id="resource-form">
+            <div id="input-field">
+              <input type="text" class="form-control" name="title" placeholder="Week Name" formControlName="week"
+                [(ngModel)]="weeklyWinner.week" />
+              <div class="error-message" *ngIf="
+                  weeklyWinnerForm.controls.week.invalid &&
+                  weeklyWinnerForm.controls.week.touched
+                ">
+                <p>* Week is required.</p>
+              </div>
+            </div>
+           
+            <div class="input-field" style="margin-top: 1em">
+              <select class="form-control" name="rank" id="rank" [(ngModel)]="weeklyWinner.rank" formControlName="rank">
+                <option selected value="" [selected]="true">Select Rank</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Bronze">Bronze</option>
+              </select>
+              <div class="error-message" *ngIf="
+                  weeklyWinnerForm.controls.rank.invalid &&
+                  weeklyWinnerForm.controls.rank.touched
+                ">
+                <p>* Rank is required.</p>
+              </div>
+            </div>
+            <div class="form-group" id="resource-upload-btn">
+              <input type="button" (click)="updateWeeklyWinner()" class="main-btn" value="Save" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

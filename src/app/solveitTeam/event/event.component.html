@@ -34,6 +34,12 @@
             </div>
           </div>
         </div>
+
+          
+      <a   (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-right:20px;">
+        <p *ngIf="showArchivedPosts"> Hide Previous Events</p>
+        <p *ngIf="!showArchivedPosts"> Show Previous Events</p></a>
+    
       </div>
     </div>
   </div>
@@ -41,6 +47,7 @@
 <app-event-list
   #list
   (edit)="editEvent($event)"
+  [showArchivedPosts] = "showArchivedPosts"
   *ngIf="selected == 'events-list'"
 ></app-event-list>
 <app-event-create

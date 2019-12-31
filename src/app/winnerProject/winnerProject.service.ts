@@ -14,7 +14,9 @@ export class WinnerProjectService {
   labelAlmuniProject(almuni) {
     return this.apiService.post(`almuniProjects/`, almuni);
   }
-
+  updateWeeklyWinner(winner){
+    return this.apiService.put(`weekTopProjects/${winner.id}`, winner);
+  }
   labelWeeklyWinner(winner) {
     return this.apiService.post(`weekTopProjects/`, winner);
   }
@@ -53,5 +55,9 @@ export class WinnerProjectService {
     return this.apiService.patch(`weekTopProjects/${winnerId}`, {
       active: false
     });
+  }
+
+  removeWeeklyWinner(winnerId) {
+    return this.apiService.delete(`weekTopProjects/${winnerId}`);
   }
 }

@@ -12,6 +12,7 @@ import { CommonService } from '../../shared/services/common.service';
 export class EventsComponent implements  OnInit {
   public selected = 'events-list';
   public isEdit = false;
+  public showArchivedPosts;
   public event = {
     title: '',
     description: '',
@@ -27,7 +28,9 @@ export class EventsComponent implements  OnInit {
   public selectedCity = '';
 
   constructor(public authService: AuthService, public cityService: CommonService) {}
-
+  toggleArchiveView(){
+    this.showArchivedPosts = !this.showArchivedPosts
+  }
   ngOnInit(): void {
     this.getCities();
   }

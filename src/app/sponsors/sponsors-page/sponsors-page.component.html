@@ -4,14 +4,14 @@
     <img style="width:100px;height:100px;" src="../../../assets/img/sponsors.jpg">
   </div>
 -->
-<a (click)="toggleArchived()" class="download-btn" style="float:right;margin-right:20px;margin-top:20px;">
-    <span *ngIf="showArchivedPartner">Hide Archived Sponsors</span> 
-    <span *ngIf="!showArchivedPartner">Show Archived Sponsors</span>
+<a (click)="toggleArchived()" class="download-btn" style="float:right;margin-right:8%;margin-top:40px;">
+    <span *ngIf="showArchivedPartner">Hide 2019 Sponsors</span> 
+    <span *ngIf="!showArchivedPartner">Show 2019 Sponsors</span>
 </a>
 
 <div class="clear-fix"></div>
 <div>
-  <div *ngIf="!showArchivedPartner" class="no-resource-found">
+  <div *ngIf="!showArchivedPartner" class="no-resource-found" style="margin-bottom: 50%;">
     <app-not-found message="No Sponsors yet." type="fetch"></app-not-found>
   </div>
 </div>

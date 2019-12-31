@@ -91,6 +91,22 @@
                 <p>{{ user.educationLevel }}</p>
               </div>
             </div>
+
+            <div *ngIf = "authService.isSolveitParticipant() && user.educationLevel && user.educationLevel == 'HighSchool'" class="row">
+              <div class="col-md-6"><label>Parents Name</label></div>
+              <div class="col-md-6">
+                <p>{{ user.parentFullName }}</p>
+              </div>
+            </div>
+
+            <div *ngIf = "authService.isSolveitParticipant() && user.educationLevel && user.educationLevel == 'HighSchool'" class="row">
+              <div class="col-md-6"><label>Parents Contact Info</label></div>
+              <div class="col-md-6">
+                <p>{{ user.parentContact }}</p>
+              </div>
+            </div>
+
+            
             <div *ngIf = "authService.isSolveitParticipant()" class="row">
               <div class="col-md-6"><label>Work Status</label></div>
               <div class="col-md-6">

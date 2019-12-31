@@ -14,9 +14,6 @@
       
 
 
-      <a   (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-right:20px;margin-top:20px;">
-        <p *ngIf="showArchivedPosts"><i class="fa fa-archive"></i> Hide Archived Events</p>
-        <p *ngIf="!showArchivedPosts"><i class="fa fa-archive"></i> Show Archived Events</p></a>
       
 
       <div class="clear-fix"></div>
@@ -83,7 +80,7 @@
       </div>
     </ng-container>
     <!-- /Event list -->
-    <div *ngIf="events.length > 8" class="row" style="clear: both">
+    <div *ngIf="events.length > 8 && checkForPassedEvents() && showArchivedPosts" class="row" style="clear: both">
       <div class="events-pagination">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, Input } from "@angular/core";
 import { SolveitTeamService } from "../../solveitTeam.service";
 import { AuthService } from "../../../Auth/services/auth.service";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -15,7 +15,7 @@ export class EventListComponent implements OnInit {
   public searchKey = "";
   public p = 1;
   public selectedEvent = null;
-  public showArchivedPosts = false;
+  @Input() showArchivedPosts;
   @Output() edit = new EventEmitter();
 
   constructor(
@@ -27,7 +27,7 @@ export class EventListComponent implements OnInit {
   ngOnInit() {
     this.getEventsList();
   }
-
+  
   limitVenue(place, venue) {
     venue = place + ", " + venue;
     if (venue.trim().length > 45) {
@@ -82,9 +82,7 @@ export class EventListComponent implements OnInit {
       }
     );
   }
-  toggleArchiveView(){
-    this.showArchivedPosts = !this.showArchivedPosts
-  }
+
   viewEvent() {
     this.selected = "view-event";
   }

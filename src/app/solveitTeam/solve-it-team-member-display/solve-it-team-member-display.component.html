@@ -6,40 +6,183 @@
   <div class="container">
     <!-- Row -->
     <div class="section-header text-center">
-        <h2 class="title">Our Team</h2>
-      </div>
-    <div class="row-service">
+      <h2 class="title">Our Team</h2>
+    </div>
+    <div class="">
       <!-- Section header -->
-     
+
 
       <!-- team -->
-      <div *ngFor="let member of solveItTeam ;let i=index;" class="col-sm-3" >
-       
-        <div class="team">
-            <div class="team-img">
-              <img class="img-responsive" [src]="getImageUrl(member.picture)" style="width:210px; height:200px;" alt="" />
-              <div class="overlay">
-                <div class="team-social">
-                  <a *ngIf="member.linkedln_link != undefined && member.linkedln_link.length > 5"
-                    href="{{member.linkedln_link}}"><i class="fa fa-linkedin"></i></a>
-                  <a *ngIf="member.twitter_link != undefined && member.twitter_link.length > 5"
-                    href="{{member.twitter_link}}"><i class="fa fa-twitter"></i></a>
+      <div *ngFor="let formation of solveitTeamInFormation ;">
+        <div class="row" *ngIf="formation.length == 4">
+          <div *ngFor="let member of formation let i=index;" class="col-sm-3">
+
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(member.picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="member.linkedln_link != undefined && member.linkedln_link.length > 5"
+                      href="{{member.linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="member.twitter_link != undefined && member.twitter_link.length > 5"
+                      href="{{member.twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="team-content">
-              <h3>{{member.fullName}}</h3>
-              <span>{{member.position}}</span>
+              <div class="team-content">
+                <h3>{{member.fullName}}</h3>
+                <span>{{member.position}}</span>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div class="row" *ngIf="formation.length == 2">
+          <div class="col-sm-3 col-sm-push-3">
+
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[0].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[0].linkedln_link != undefined && formation[0].linkedln_link.length > 5"
+                      href="{{formation[0].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[0].twitter_link != undefined && formation[0].twitter_link.length > 5"
+                      href="{{formation[0].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[0].fullName}}</h3>
+                <span>{{formation[0].position}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-push-3">
+
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[1].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[1].linkedln_link != undefined && formation[1].linkedln_link.length > 5"
+                      href="{{formation[1].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[1].twitter_link != undefined && formation[1].twitter_link.length > 5"
+                      href="{{formation[1].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[1].fullName}}</h3>
+                <span>{{formation[1].position}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="formation.length == 1">
+          <div class="col-sm-3 col-sm-push-4" style="margin-left:50px;">
+
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[0].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[0].linkedln_link != undefined && formation[0].linkedln_link.length > 5"
+                      href="{{formation[0].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[0].twitter_link != undefined && formation[0].twitter_link.length > 5"
+                      href="{{formation[0].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[0].fullName}}</h3>
+                <span>{{formation[0].position}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="formation.length == 3" style="margin-left:7%">
+
+          <div class="col-sm-3 col-sm-push-1">
+  
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[0].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[0].linkedln_link != undefined && formation[0].linkedln_link.length > 5"
+                      href="{{formation[0].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[0].twitter_link != undefined && formation[0].twitter_link.length > 5"
+                      href="{{formation[0].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[0].fullName}}</h3>
+                <span>{{formation[0].position}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-push-1">
+  
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[1].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[1].linkedln_link != undefined && formation[1].linkedln_link.length > 5"
+                      href="{{formation[1].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[1].twitter_link != undefined && formation[1].twitter_link.length > 5"
+                      href="{{formation[1].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[1].fullName}}</h3>
+                <span>{{formation[1].position}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-push-1">
+  
+            <div class="team">
+              <div class="team-img">
+                <img class="img-responsive" [src]="getImageUrl(formation[2].picture)" style="width:210px; height:200px;"
+                  alt="" />
+                <div class="overlay">
+                  <div class="team-social">
+                    <a *ngIf="formation[2].linkedln_link != undefined && formation[2].linkedln_link.length > 5"
+                      href="{{formation[2].linkedln_link}}"><i class="fa fa-linkedin"></i></a>
+                    <a *ngIf="formation[2].twitter_link != undefined && formation[2].twitter_link.length > 5"
+                      href="{{formation[2].twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-content">
+                <h3>{{formation[2].fullName}}</h3>
+                <span>{{formation[2].position}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+ 
 
       <div class="not-found" *ngIf="solveItTeam.length == 0">
         <div class="no-resource-found">
-          <app-not-found
-            message="Team Members Are Not Added Yet."
-            type="fetch"
-          ></app-not-found>
+          <app-not-found message="Team Members Are Not Added Yet." type="fetch"></app-not-found>
         </div>
       </div>
     </div>
