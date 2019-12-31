@@ -52,6 +52,13 @@ export class JudgeRegistrationComponent implements OnInit {
 
   ]
 
+
+  genderOptions = [
+    "Male",
+    "Female"
+  ]
+
+
   fieldOfExpertiseOptions = [
     "Business",
     "Technical",
@@ -95,7 +102,9 @@ export class JudgeRegistrationComponent implements OnInit {
       techOpinion:[''],
       fieldOfExpertise:[null],
       investmentCapital:[''],
-      sector:['']
+      sector:[''],
+      gender:[null, Validators.required],
+      dateOfBirth:['', Validators.required]
     })
   }
 
@@ -105,6 +114,7 @@ export class JudgeRegistrationComponent implements OnInit {
     this.professionalBackgroundOptions = this.format(this.professionalBackgroundOptions)
     this.fieldOfExpertiseOptions = this.format(this.fieldOfExpertiseOptions)
     this.sectors = this.format(this.sectors)
+    this.genderOptions = this.format(this.genderOptions)
     //console.log(this.investmentOptions)
     this.getCities()
   }

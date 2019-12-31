@@ -33,6 +33,28 @@
       </div>
     </div>
 
+    <div class="input-field" style="margin-top: 1em">
+      <label>Date of Birth:</label>
+      <input type="date" class="form-control" name="title" placeholder="Date of Birth" formControlName="dateOfBirth" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.dateOfBirth.invalid &&
+          judgeForm.controls.dateOfBirth.touched
+        ">
+        <p>* Date of Birth is required.</p>
+      </div>
+    </div>
+    <div class="input-field" style="margin-top: 1em">
+      <label>Gender:</label>
+      <ng-select formControlName="gender" placeholder="Select your gender"
+      [searchable]="false" [clearable]="false"  [items]="genderOptions" bindLabel="label" bindValue="label" >
+    </ng-select>
+      <div class="error-message" *ngIf="
+          judgeForm.controls.gender.invalid &&
+          judgeForm.controls.gender.touched
+        ">
+        <p>* Gender is required.</p>
+      </div>
+    </div>
     <!-- <div class="input-field" style="margin-top: 1em">
       <label>Field of Expertise:</label>
       <ng-select formControlName="fieldOfExpertise" placeholder="Select your field of expertise"
@@ -61,7 +83,7 @@
     <div class="input-field" style="margin-top: 1em">
       <label>Professional Bio:</label>
       <textarea type="text" class="form-control" name="title"
-        placeholder="Please include your Educational and Professional Background"
+        placeholder="Please include your Educational Background, Current Work Status and Company you work for "
         formControlName="shortDescription">
 
         </textarea>
