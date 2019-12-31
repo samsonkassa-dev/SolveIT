@@ -251,6 +251,29 @@
             <p>* Education Level is required.</p>
           </div>
         </div>
+        <div class="input-field">
+          <select
+            name="status"
+            id="status"
+            class="form-control"
+            [(ngModel)]="user.workStatus"
+            formControlName="status"
+          >
+            <option value="" selected>Current Status</option>
+            <option *ngFor="let stat of status" value="{{stat}}">{{
+              stat.toUpperCase()
+            }}</option>
+          </select>
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.controls.status.invalid &&
+              registerForm.controls.status.touched
+            "
+          >
+            <p>* Work status is required.</p>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -25,6 +25,8 @@ export class RegisterComponent implements OnInit {
   public educationLevels = [
     "Elementary",
     "HighSchool",
+    "Private Colledge",
+    "TVET",
     "University Degree",
     "Post Graduate",
     "University Dropout",
@@ -40,6 +42,14 @@ export class RegisterComponent implements OnInit {
     "Student",
     "Other"
   ];
+
+  parentOccupationOptions = [
+    "Employee (Full time)",
+    "Employee (Part time)",
+    "Unemployed",
+    "Business Owner",
+    "Student"
+  ]
   public user: User = {
     firstName: "",
     middleName: "",
@@ -55,11 +65,14 @@ export class RegisterComponent implements OnInit {
     cityId: null,
     previousCompetitions: "",
     previousInnovations: "",
-    parentsOccupation: "",
+    parentsOccupation: null,
     supportNeeded: "",
     financialKnowHow: "",
     financialAccess: "",
-    languageOption: ""
+    languageOption: "",
+    parentFullName : "",
+    parentContact:"",
+ 
   };
   public address = {
     regionId: null,
@@ -74,7 +87,8 @@ export class RegisterComponent implements OnInit {
   public extraParams = {
     rePassword: "",
     otherEducationLevel: "",
-    otherStatus: ""
+    otherStatus: "",
+
   };
   public registerForm: FormGroup;
   public isBasicFormActive = true;
@@ -90,7 +104,11 @@ export class RegisterComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
+
+
+
   ngOnInit() {
+    this.parentOccupationOptions = this.format(this.parentOccupationOptions)
     this.registerForm = this.formBuilder.group(
       {
         firstName: ["", Validators.required],
@@ -106,7 +124,10 @@ export class RegisterComponent implements OnInit {
         status: ["", Validators.required],
         educationLevel: ["", Validators.required],
         otherStatus: [""],
-        otherEduvationLevel: [""]
+        otherEduvationLevel: [""],
+        parentFullName:[""],
+        parentContact:[""],
+        parentsOccupation:[null]
       },
       {
         validator: Validators.compose([
@@ -140,6 +161,16 @@ export class RegisterComponent implements OnInit {
     } else {
       return "";
     }
+  }
+
+
+  
+  format(arrayOfStrings){
+    let result = []
+    arrayOfStrings.forEach(element => {
+      result.push({label:element, value:element})
+    });
+    return result
   }
 
   isFormValid() {
@@ -203,11 +234,9 @@ export class RegisterComponent implements OnInit {
       ...this.user,
       previousCompetitions: form.previousCompetitions,
       previousInnovations: form.previousInnovations,
-      parentsOccupation: form.parentsOccupation,
       supportNeeded: form.supportNeeded,
       financialKnowHow: form.financialKnowHow,
       financialAccess: form.financialAccess,
-      languageOption: form.languageOption,
       educationalInstitute: form.educationalInstitute,
       englishReading: form.englishReading,
       englishWriting: form.englishWriting,

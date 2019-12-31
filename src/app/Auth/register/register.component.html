@@ -251,6 +251,61 @@
             <p>* Education Level is required.</p>
           </div>
         </div>
+ 
+        <div class="input-field" *ngIf=" user.educationLevel != '' && user.educationLevel != 'University Degree' && user.educationLevel != 'Post Graduate'">
+          <input
+            type="text"
+            name="otherEducationLevel"
+            id="otherEducationLevel"
+            class="form-control"
+            placeholder="Parent's Full Name"
+            [(ngModel)]="user.parentFullName"
+            formControlName="parentFullName"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              user.educationLevel === 'HighSchool' &&
+              user.parentFullName === '' &&
+              registerForm.controls.parentFullName.touched
+            "
+          >
+            <p>* Parents Full Name is required.</p>
+          </div>
+        </div>
+
+        <div class="input-field"  *ngIf=" user.educationLevel != '' && user.educationLevel != 'University Degree' && user.educationLevel != 'Post Graduate'">
+          <input
+            type="text"
+            name="otherEducationLevel"
+            id="otherEducationLevel"
+            class="form-control"
+            placeholder="Parents Phone Number"
+            [(ngModel)]="user.parentContact"
+            formControlName="parentContact"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              user.educationLevel === 'HighSchool' &&
+              user.parentContact === '' &&
+              registerForm.controls.parentContact.touched
+            "
+          >
+            <p>* Education Level is required.</p>
+          </div>
+        </div>
+        <div class="input-field" style="margin-top: 1em"  *ngIf=" user.educationLevel != '' && user.educationLevel != 'University Degree' && user.educationLevel != 'Post Graduate'">
+          <ng-select formControlName="parentsOccupation" placeholder="Parents Occupation"  [(ngModel)]="user.parentsOccupation" [searchable]="false"
+            [clearable]="false" [items]="parentOccupationOptions" bindLabel="label" bindValue="label">
+          </ng-select>
+          <div class="error-message" *ngIf="
+          registerForm.controls.parentsOccupation.invalid &&
+          registerForm.controls.parentsOccupation.touched
+              ">
+            <p>* Parent's Occupation is required.</p>
+          </div>
+        </div>
         <div class="input-field">
           <select
             name="status"
@@ -259,7 +314,7 @@
             [(ngModel)]="user.workStatus"
             formControlName="status"
           >
-            <option value="" selected>Work Status</option>
+            <option value="" selected>Current Status</option>
             <option *ngFor="let stat of status" value="{{stat}}">{{
               stat.toUpperCase()
             }}</option>

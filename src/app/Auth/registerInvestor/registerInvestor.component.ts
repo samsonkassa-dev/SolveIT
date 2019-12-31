@@ -22,13 +22,20 @@ declare var $: any;
 })
 export class RegisterInvestorComponent implements OnInit {
   public educationLevels = [
-    "Elementary",
-    "HighSchool",
     "University Degree",
     "Post Graduate",
     "University Dropout",
     "HighSchool Dropout",
     "Elementary Dropout",
+    "Other"
+  ];
+
+  public status = [
+    "Employee (Full time)",
+    "Employee (Part time)",
+    "Unemployed",
+    "Business Owner",
+    "Student",
     "Other"
   ];
   public user: User = {
@@ -42,6 +49,7 @@ export class RegisterInvestorComponent implements OnInit {
     birthDate: "",
     gender: "",
     educationLevel: "",
+    workStatus:"",
     PO_Box: ""
   };
   public extraParams = {
@@ -74,7 +82,8 @@ export class RegisterInvestorComponent implements OnInit {
         sex: ["", Validators.required],
         age: ["", Validators.required],
         educationLevel: ["", Validators.required],
-        otherEduvationLevel: [""]
+        otherEduvationLevel: [""],
+        status:["",Validators.required]
       },
       {
         validator: Validators.compose([

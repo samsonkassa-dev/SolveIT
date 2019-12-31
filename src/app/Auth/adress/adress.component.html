@@ -79,7 +79,26 @@
             formControlName="educationalInstitute" />
         </div>
 
-
+        <h3 class="title">Emergecy Address</h3>
+        <div class="input-field">
+          <input type="text" name="emergency-fullname" placeholder="Contact Full Name" formControlName="fullName"
+                [(ngModel)]="address.emergencyContact.fullName">
+          <div class="error-message" *ngIf="addressForm.controls.fullName.invalid && addressForm.controls.fullName.touched">
+            <p> * Emergency Name is required. </p>
+          </div>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon"><b>+251</b></span>
+          <input type="tel" name="emergency-phoneNumber" placeholder="Phone Number" formControlName="phoneNumber"
+                [(ngModel)]="address.emergencyContact.phoneNumber">
+        </div>
+        <div class="error-message" *ngIf="addressForm.controls.phoneNumber.touched && addressForm.controls.phoneNumber.errors?.required">
+          <p> * Emergency Phone Number is required </p>
+        </div>
+        <div class="error-message" *ngIf="addressForm.controls.phoneNumber.touched && addressForm.controls.phoneNumber.errors?.incorrect">
+          <p> * Incorrect phone number. </p>
+          <p> * e.g 9xxxxxxxx </p>
+        </div>
        
         <!-- <div class="input-field" style="margin-top: 1em">
           <ng-select formControlName="hearOfSolveIt" placeholder="Where did you first hear of solveit" [searchable]="false"
@@ -93,7 +112,7 @@
           </div>
         </div> -->
 
-        <div class="input-field" style="margin-top: 1em">
+        <!-- <div class="input-field" style="margin-top: 1em">
           <ng-select formControlName="languageOption" placeholder="Language Options" [searchable]="false"
             [clearable]="false" [items]="languageOptions" bindLabel="label" bindValue="label">
           </ng-select>
@@ -103,18 +122,8 @@
                 ">
             <p>* Select your preferred language.</p>
           </div>
-        </div>
-        <div class="input-field" style="margin-top: 1em">
-          <ng-select formControlName="parentsOccupation" placeholder="Parents Occupation" [searchable]="false"
-            [clearable]="false" [items]="parentOccupationOptions" bindLabel="label" bindValue="label">
-          </ng-select>
-          <div class="error-message" *ngIf="
-            addressForm.controls.parentsOccupation.invalid &&
-            addressForm.controls.parentsOccupation.touched
-              ">
-            <p>* Parent's Occupation is required.</p>
-          </div>
-        </div>
+        </div> -->
+       
         
 
         
