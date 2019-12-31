@@ -4,7 +4,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Quicksand', sans-serif;
+
     background: #f9f9f9;
 }
 
@@ -245,12 +245,12 @@ body {
 }
 
 .content-bold {
-    font-size: 1.1em;
+    font-size: 18px;
     font-weight: 600;
 }
 
 .content-light {
-    font-size: 1.1em;
+    font-size: 18px;
     font-weight: 100;
 }
 

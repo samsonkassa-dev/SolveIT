@@ -25,4 +25,6 @@ export interface User {
   englishReading? : string,
   englishWriting? : string,
   englishSpeaking? : string,
+  parentFullName? : string,
+  parentContact?: string,
 }

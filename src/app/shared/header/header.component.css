@@ -9,7 +9,9 @@ ul.dropdown1 {
 ul.dropdown1 a{
   color:#2ba692;
 }
-
+.nav a{
+  font-weight: 600;
+}
 /*
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
