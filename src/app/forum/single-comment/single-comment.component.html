@@ -23,7 +23,7 @@
         >{{ replies.length }}&nbsp;Replies<i class="fa fa-reply"></i
       ></a>
     </h6>
-    <div class="" [innerHtml]="formatComment(comment.content)"></div>
+    <div  class="just" style="margin-top:20px" [innerHtml]="formatComment(comment.content)"></div>
   </div>
   <div class="comment-replies" *ngIf="isReplyActive">
     <div class="comment-reply" *ngFor="let reply of replies">
@@ -40,7 +40,7 @@
           {{ reply.user.username }}
           <span class="time">{{ reply.createdAt | amTimeAgo }}</span>
         </h6>
-        <div class="" [innerHtml]="formatComment(reply.content)"></div>
+        <div class="just" [innerHtml]="formatComment(reply.content)"></div>
       </div>
     </div>
     <!-- reply form -->

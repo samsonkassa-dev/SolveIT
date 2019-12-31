@@ -2,6 +2,11 @@
   max-width: 1.5em;
 }
 
+.just {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .reply {
   cursor: pointer;
 }
