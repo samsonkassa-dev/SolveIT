@@ -53,7 +53,21 @@ export class ForumListComponent implements OnInit, OnChanges {
           this.forumsBackup.forEach(item => {
             this.getForumDiscussionCount(item.id);
           });
+          let tempForums = []
+
           this.forums = this.forumsBackup;
+          this.forums.forEach((forum) =>{
+            if(forum.name == 'Welcome'){
+              tempForums.splice(0,0,forum)
+            }else if(forum.name == 'Weekly Discussion'){
+              tempForums.splice(1,0,forum)
+            }else if(forum.name == 'Help'){
+              tempForums.splice(1,0,forum)
+            }else{
+              tempForums.push(forum)
+            } 
+          })
+          this.forums = tempForums
           this.spinner.hide();
         },
         error => {

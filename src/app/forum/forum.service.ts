@@ -49,7 +49,7 @@ export class ForumService {
 
   getDiscussions(forumId) {
     return this.apiService.get(
-      `SolveITForums/${forumId}/discussions?filter={"include": "user"}`
+      `SolveITForums/${forumId}/discussions?filter={"include": "user", "order":["createdAt DESC"]}`
     );
   }
 
@@ -68,7 +68,7 @@ export class ForumService {
   }
 
   getAllForumList() {
-    return this.apiService.get(`SolveITForums?filter={"include": "category"}`);
+    return this.apiService.get(`SolveITForums?filter={"include": "category", "order":["created DESC"]}`);
   }
 
   getMyForumList(userId) {
@@ -78,7 +78,7 @@ export class ForumService {
   }
 
   getForum(slung) {
-    return this.apiService.get(`SolveITForums/${slung}/forum`);
+    return this.apiService.get(`SolveITForums/${slung}/forum?filter={"order":["createdAt DESC"]}`);
   }
 
   getForumById(id) {
