@@ -19,6 +19,8 @@
 
 
 
+
+
 ul.dropdown1 {
   background: #2ba692;
   padding: 1.5em;
@@ -95,6 +97,7 @@ ul.dropdown1 {
 
 .sponsor-container {
   margin-bottom: 2em;
-  background: rgba(250, 250, 250, 1);
+  padding:0;
+  /* background: rgba(250, 250, 250, 1); */
 
 }
