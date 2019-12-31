@@ -1,3 +1,5 @@
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { FileUploadModule } from 'ng2-file-upload';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -13,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EditCompetitionComponent } from './edit-competition/edit-competition.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CompetitionCreateProjectComponent } from './competition-create-project/competition-create-project.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CompetitionCreateComponent,
     CompetitionProjectsComponent,
     EditCompetitionComponent,
+    CompetitionCreateProjectComponent,
   ],
   imports: [
     SharedModule,
@@ -28,9 +32,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     ReactiveFormsModule,
     MomentModule,
+    FileUploadModule,
     NgxPaginationModule,
     NgMultiSelectDropDownModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgCircleProgressModule
 
   ],
   providers: [CompetitionService],

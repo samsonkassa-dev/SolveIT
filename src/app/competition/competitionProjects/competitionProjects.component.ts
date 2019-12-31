@@ -1,3 +1,6 @@
+import { configs } from './../../app.config';
+import { FileUploader } from 'ng2-file-upload';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CompetitionService } from "../competition.service";
@@ -6,13 +9,21 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from "../../Auth/services/auth.service";
 import { UserManagementService } from "../../userManagement/userManagament.service";
 import { fromPromise } from "rxjs/observable/fromPromise";
-
+declare var $: any;
 @Component({
   selector: "app-competition-projects",
   templateUrl: "./competitionProjects.component.html",
   styleUrls: ["competitionProjects.component.css"]
 })
 export class CompetitionProjectsComponent implements OnInit {
+  public projectForm: FormGroup;
+  public URL = `${configs.rootUrl}storages/proposals/upload`;
+  public uploader: FileUploader = new FileUploader({ url: this.URL });
+  public progress = 0;
+  public isUploading = false;
+  public isFileSelected = false;
+  public error = false;
+  public submitted = false;
   @Input() competition = null;
   competitionId = "";
   public isEdit = false;
@@ -24,6 +35,7 @@ export class CompetitionProjectsComponent implements OnInit {
   selectedCity = "";
 
   constructor(
+    
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
     public router: Router,
@@ -31,7 +43,12 @@ export class CompetitionProjectsComponent implements OnInit {
     public cityService: CityService,
     public authService: AuthService,
     public userService: UserManagementService
-  ) {}
+  ) {
+    this.projectForm = new FormGroup({
+      title: new FormControl("", Validators.required),
+      description: new FormControl("", Validators.required)
+    });
+  }
 
   ngOnInit() {
     this.getProjects();
@@ -42,7 +59,10 @@ export class CompetitionProjectsComponent implements OnInit {
     );
     // this.getCities();
   }
-
+  projectCreated() {
+    this.getProjects();
+    $("#createProjectModal").modal("hide");
+  }
   getCompetition() {
     this.service.getCompetition(this.route.snapshot.params["id"]).subscribe(
       res => {

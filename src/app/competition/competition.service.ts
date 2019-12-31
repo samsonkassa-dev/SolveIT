@@ -47,6 +47,14 @@ export class CompetitionService {
     );
   }
 
+  addProjectMember(member) {
+    return this.apiService.post(`/project-members`, member);
+  }
+  createProject(project) {
+    return this.apiService.post(`/Solveitprojects`, project);
+  }
+
+
   updateCompetition(competition) {
     return this.apiService.patch(
       `solvieITCompetitions/${competition.id}`,
