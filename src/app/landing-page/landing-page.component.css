@@ -212,7 +212,7 @@ width: 11px;}
 }
 
 .blink {
-  animation: blinker 3s linear infinite;
+  animation: blinker 1s linear infinite;
   color: #1c87c9;
   font-size: 30px;
   font-weight: bold;
