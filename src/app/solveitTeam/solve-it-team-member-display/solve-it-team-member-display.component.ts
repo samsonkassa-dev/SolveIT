@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolveItTeamMemberDisplayComponent implements OnInit {
   solveItTeam = []
-  formation = [2,1,4,3]
+  formation = [2,1,3,3]
   defaultFormation = 4
   solveitTeamInFormation = []
   constructor(public commonService: CommonService) { }
