@@ -4,7 +4,9 @@
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
-          <img src="../../../assets/img/profile.svg" alt="" />
+          <img *ngIf = "!user.gender || user.gender =='M'" src="../../../assets/img/profile.svg" alt="" />
+          <img *ngIf = "user.gender =='F'" style="width:150; height:150; border-radius:50%;" src="../../../assets/img/female-profile.png" alt="" />
+
         </div>
       </div>
       <div class="col-md-6">
