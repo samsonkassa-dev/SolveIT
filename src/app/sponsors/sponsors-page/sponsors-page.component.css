@@ -6,6 +6,10 @@ img {
   width: 70%;
   margin: auto;
   padding: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cube {
