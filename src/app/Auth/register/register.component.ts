@@ -25,9 +25,9 @@ export class RegisterComponent implements OnInit {
   public educationLevels = [
     "Elementary",
     "HighSchool",
-    "Private Colledge",
+    "Private College",
     "TVET",
-    "University Degree",
+    "University",
     "Post Graduate",
     "University Dropout",
     "HighSchool Dropout",
