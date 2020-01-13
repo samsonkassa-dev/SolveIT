@@ -4,7 +4,7 @@ let STATUS = require("../configs/config");
 let url = require("../configs/urlConfig");
 const uniqueid = require("uniqid");
 
-module.exports = function(Useraccount) {
+module.exports = function (Useraccount) {
   // remove username validation
   delete Useraccount.validations.username;
 
@@ -16,21 +16,297 @@ module.exports = function(Useraccount) {
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;
 
-  Useraccount.observe("after save", function(ctx, next) {
+  Useraccount.observe("after save", function (ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
       let cId = uniqueid();
       let email = ctx.instance.email;
       let userId = ctx.instance.id;
-      let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
-                    <a href="${url}/confirm/${userId}-${cId}">confirmation link</a>`;
+      // let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
+      //               <a href="${url}/confirm/${userId}-${cId}">confirmation link</a>`;
+      let action_url =`${url}/confirm/${userId}-${cId}`
+      let html = `
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Verify your email address</title>
+  <style type="text/css" rel="stylesheet" media="all">
+    /* Base ------------------------------ */
+    *:not(br):not(tr):not(html) {
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100% !important;
+      height: 100%;
+      margin: 0;
+      line-height: 1.4;
+      background-color: #F5F7F9;
+      color: #839197;
+      -webkit-text-size-adjust: none;
+    }
+    a {
+      color: #414EF9;
+    }
+    /* Layout ------------------------------ */
+    .email-wrapper {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #F5F7F9;
+    }
+    .email-content {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    /* Masthead ----------------------- */
+    .email-masthead {
+      padding: 25px 0;
+      text-align: center;
+    }
+    .email-masthead_logo {
+      max-width: 400px;
+      border: 0;
+    }
+    .email-masthead_name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #839197;
+      text-decoration: none;
+      text-shadow: 0 1px 0 white;
+    }
+    /* Body ------------------------------ */
+    .email-body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #E7EAEC;
+      border-bottom: 1px solid #E7EAEC;
+      background-color: #FFFFFF;
+    }
+    .email-body_inner {
+      width: 570px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .email-footer {
+      width: 570px;
+      margin: 0 auto;
+      padding: 0;
+      text-align: center;
+    }
+    .email-footer p {
+      color: #839197;
+    }
+    .body-action {
+      width: 100%;
+      margin: 30px auto;
+      padding: 0;
+      text-align: center;
+    }
+    .body-sub {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid #E7EAEC;
+    }
+    .content-cell {
+      padding: 35px;
+    }
+    .align-right {
+      text-align: right;
+    }
+    /* Type ------------------------------ */
+    h1 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 19px;
+      font-weight: bold;
+      text-align: left;
+    }
+    h2 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+    }
+    h3 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: left;
+    }
+    p {
+      margin-top: 0;
+      color: #839197;
+      font-size: 16px;
+      line-height: 1.5em;
+      text-align: left;
+    }
+    p.sub {
+      font-size: 12px;
+    }
+    p.center {
+      text-align: center;
+    }
+    /* Buttons ------------------------------ */
+    .button {
+      display: inline-block;
+      width: 200px;
+      background-color: #414EF9;
+      border-radius: 3px;
+      color: #ffffff;
+      font-size: 15px;
+      line-height: 45px;
+      text-align: center;
+      text-decoration: none;
+      -webkit-text-size-adjust: none;
+      mso-hide: all;
+    }
+    .button--green {
+      background-color: #28DB67;
+    }
+    .button--red {
+      background-color: #FF3665;
+    }
+    .button--blue {
+      background-color: #414EF9;
+      color:white !important;
+    }
+    /*Media Queries ------------------------------ */
+    @media only screen and (max-width: 600px) {
+      .email-body_inner,
+      .email-footer {
+        width: 100% !important;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .button {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
+          <!-- Logo -->
+          <tr>
+            <td class="email-masthead">
+              <a class="email-masthead_name">Solve IT 2020</a>
+            </td>
+          </tr>
+          <!-- Email Body -->
+          <tr>
+            <td class="email-body" width="100%">
+              <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
+                <!-- Body content -->
+                <tr>
+                  <td class="content-cell">
+                    <h1 style='text-align:center'">Verify your email address</h1>
+                    <p style='font-weight:600'>Dear ${ctx.instance.firstName}</p>
+                    <p>You have successfully registered on the Solve IT website. We are so happy you joined our community. Now, you can sign in to your account using your email address and password both on the website and mobile application.</p>
+                    <!-- Action -->
+                    <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <div>
+                            <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${action_url}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
+                            <v:fill type="tile" color="#414EF9" />
+                            <w:anchorlock/>
+                            <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Verify Email</center>
+                          </v:roundrect><![endif]-->
+                            <a href="${action_url}" class="button button--blue" >Verify Email</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <p>Thanks,<br>The Solve IT Team</p>
+                    <p>
+                    We invite you to visit our social media platforms<br/>
+                    
+             
+                   
+                    <table>
+                    <tr>
+                    <td><img  src="https://img.icons8.com/color/48/000000/facebook-new.png"></td>
+                    <td><p> Facebook : Solve IT by iCog</p></td>
+                    </tr>
+
+                    <tr>
+                    <td> <img  src="https://img.icons8.com/color/48/000000/telegram-app.png"></td>
+                    <td><p> Telegram : iCog Solve IT</p></td>
+                    </tr>
+                    <tr>
+                    <td> <img  src="https://img.icons8.com/color/48/000000/twitter.png"></td>
+                    <td><p> Twitter : iCogSolveIT</p></td>
+                    </tr>
+                    <tr>
+                    <td>   <img  src="https://img.icons8.com/color/48/000000/instagram-new.png"></td>
+                    <td><p> Instagram : icog_solveit</p></td>
+                    </tr>
+                    <tr>
+                    <td> <img  src="https://img.icons8.com/color/48/000000/linkedin.png"></td>
+                    <td><p> LinkedIn : iCog Labs</p></td>
+                    </tr>
+                    <tr>
+                    <td>  <img  src="https://img.icons8.com/color/48/000000/youtube.png"> </td>
+                    <td><p>YouTube : @icoglabsofficial</p></td>
+                    </tr>
+                    </table>
+                    </p>
+
+                    <!-- Sub copy -->
+                    <table class="body-sub">
+                      <tr>
+                        <td>
+                          <p class="sub">If you’re having trouble clicking the button, copy and paste the URL below into your web browser.
+                          </p>
+                          <p class="sub"><a href="${action_url}">${action_url}</a></p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-cell">
+                    <p class="sub center">
+                      iCog Labs.
+                      <br>Airport Road, Yeshi Building 10th floor
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+
+        `
       emailConfirmationId.create(
         {
           cId: cId,
           userId: userId
         },
-        function(err, data) {
+        function (err, data) {
           if (err) {
             next(err);
             return;
@@ -42,7 +318,7 @@ module.exports = function(Useraccount) {
               subject: "Welcome to SolveIT",
               html: html
             },
-            function(err, mail) {
+            function (err, mail) {
               if (err) {
                 console.log("Error while sending email ", err);
                 next(err);
@@ -59,7 +335,7 @@ module.exports = function(Useraccount) {
   });
 
   // check password  request change is correct
-  Useraccount.changePassword = function(key, cb) {
+  Useraccount.changePassword = function (key, cb) {
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
     const ids = key.split(",");
@@ -71,7 +347,7 @@ module.exports = function(Useraccount) {
           id: cid
         }
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           cb(new Error("Error while checking request"));
           return;
@@ -85,7 +361,7 @@ module.exports = function(Useraccount) {
             {
               inactive: true
             },
-            function(err, response) {
+            function (err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -121,7 +397,7 @@ module.exports = function(Useraccount) {
   });
 
   // check if email is verified before login
-  Useraccount.beforeRemote("login", function(ctx, unused, next) {
+  Useraccount.beforeRemote("login", function (ctx, unused, next) {
     let email = ctx.args.credentials.email;
     let pass = ctx.args.credentials.password;
     Useraccount.findOne(
@@ -130,7 +406,7 @@ module.exports = function(Useraccount) {
           email: { like: email, options: "i" }
         }
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
@@ -296,7 +572,7 @@ module.exports = function(Useraccount) {
   };
 
   // confirm email address
-  Useraccount.confirmEmail = function(userId, cid, cb) {
+  Useraccount.confirmEmail = function (userId, cid, cb) {
     let { emailConfirmationId } = Useraccount.app.models;
     emailConfirmationId.findOne(
       {
@@ -304,7 +580,7 @@ module.exports = function(Useraccount) {
           cId: cid
         }
       },
-      function(err, record) {
+      function (err, record) {
         if (record !== null && userId === record.userId) {
           console.log("record ", record);
           Useraccount.updateAll(
@@ -314,7 +590,7 @@ module.exports = function(Useraccount) {
             {
               emailVerified: true
             },
-            function(err, data) {
+            function (err, data) {
               if (err) {
                 console.log("error");
                 cb(err);
@@ -349,7 +625,7 @@ module.exports = function(Useraccount) {
   };
 
   // request password change
-  Useraccount.requestPasswordChange = function(email, cb) {
+  Useraccount.requestPasswordChange = function (email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -359,7 +635,7 @@ module.exports = function(Useraccount) {
           }
         }
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           cb(new Error("Error while searching user"));
         } else {
@@ -371,7 +647,7 @@ module.exports = function(Useraccount) {
                 id: requestId,
                 userId: data.id
               },
-              function(err, res) {
+              function (err, res) {
                 if (err) {
                   cb(
                     new Error(
@@ -397,7 +673,7 @@ module.exports = function(Useraccount) {
                       subject: "Confirmation for password change",
                       html: html
                     },
-                    function(err, mail) {
+                    function (err, mail) {
                       if (err) {
                         console.log("Error while sending email ", err);
                         cb(new Error("Error while sending email."), {
@@ -427,7 +703,7 @@ module.exports = function(Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function(id, password, cb) {
+  Useraccount.updatePassword = function (id, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
@@ -441,12 +717,12 @@ module.exports = function(Useraccount) {
           id: id
         }
       },
-      function(err, user) {
+      function (err, user) {
         if (err) {
           cb(buildError("INVALID_OPERATION", "unable to find user."));
           return;
         }
-        user.updateAttribute("password", password, function(err, user) {
+        user.updateAttribute("password", password, function (err, user) {
           if (err) {
             cb(buildError("INVALID_OPERATION", err));
             return;
@@ -461,7 +737,7 @@ module.exports = function(Useraccount) {
   };
 
   // chek if email is unique
-  Useraccount.isEmailUnique = function(email, cb) {
+  Useraccount.isEmailUnique = function (email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -471,7 +747,7 @@ module.exports = function(Useraccount) {
           }
         }
       },
-      function(err, user) {
+      function (err, user) {
         if (err) {
           cb(err);
           return;
@@ -492,7 +768,7 @@ module.exports = function(Useraccount) {
   };
 
   // search password
-  Useraccount.searchUser = function(keyword, userId, cb) {
+  Useraccount.searchUser = function (keyword, userId, cb) {
     let trimedKeyword = keyword.trim();
     if (
       trimedKeyword.startsWith("+2519") ||
@@ -556,7 +832,7 @@ module.exports = function(Useraccount) {
                     ]
                   }
                 },
-                function(err, users) {
+                function (err, users) {
                   cb(null, users);
                 }
               );
@@ -572,7 +848,7 @@ module.exports = function(Useraccount) {
                     ]
                   }
                 },
-                function(err, role) {
+                function (err, role) {
                   Useraccount.find(
                     {
                       where: {
@@ -620,7 +896,7 @@ module.exports = function(Useraccount) {
                         ]
                       }
                     },
-                    function(err, users) {
+                    function (err, users) {
                       cb(null, users);
                     }
                   );
@@ -636,14 +912,14 @@ module.exports = function(Useraccount) {
   };
 
   // get users by role
-  Useraccount.getUserListByRole = function(roleId, cb) {
+  Useraccount.getUserListByRole = function (roleId, cb) {
     Useraccount.find(
       {
         where: {
           roleId: roleId
         }
       },
-      function(err, users) {
+      function (err, users) {
         cb(null, users);
       }
     );
@@ -706,11 +982,11 @@ module.exports = function(Useraccount) {
       statusQuery = { workStatus: status };
     }
 
-    if(age != 0){
+    if (age != 0) {
       let now = new Date()
       let ageParam = now.setFullYear(now.getFullYear() - age)
       ageParam = new Date(ageParam)
-      ageQuery = { birthDate : {gte : ageParam}}
+      ageQuery = { birthDate: { gte: ageParam } }
     }
 
 
@@ -851,7 +1127,7 @@ module.exports = function(Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = async function(id) {
+  Useraccount.getAssignedCities = async function (id) {
     const { AssignedCity } = Useraccount.app.models;
     try {
       const cities = await AssignedCity.findOne({ where: { userId: id } });
@@ -1192,7 +1468,7 @@ module.exports = function(Useraccount) {
     }
   });
 
-  Useraccount.signInWithFB = function(user, cb) {
+  Useraccount.signInWithFB = function (user, cb) {
     const { AccessToken } = Useraccount.app.models;
     if (user.authResponse.userID && user.authResponse.userID === "") {
       return cb(new Error("Invalid user data."));
