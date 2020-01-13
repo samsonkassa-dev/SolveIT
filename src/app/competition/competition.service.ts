@@ -53,7 +53,9 @@ export class CompetitionService {
   createProject(project) {
     return this.apiService.post(`/Solveitprojects`, project);
   }
-
+  addToCompetition(projectCompetition){
+    return this.apiService.post(`/CompetitionProjects`, projectCompetition);
+  }
 
   updateCompetition(competition) {
     return this.apiService.patch(
