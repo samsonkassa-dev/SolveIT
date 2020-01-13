@@ -29,7 +29,7 @@ ScrollReveal().reveal('#section5', {
 
 /* typewriter animation */
 var i = 0;
-var txt = 'Hey, Do you need help?';
+var txt = 'Hello, Do you need help?';
 var speed = 50;
 
 function typeWriter() {
