@@ -13,7 +13,12 @@ declare var $: any;
 export class WeeklyWinnerComponent implements OnInit {
 
     public winners = [];
-
+    rankConversion = {
+        "Gold":"First",
+        "Silver":"Second",
+        "Bronze":"Third",
+        "Honorable-Mentions":"Special Recognition"
+    }
     constructor(
         public authService: AuthService,
         public service: CommonService) { }

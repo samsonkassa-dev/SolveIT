@@ -27,9 +27,10 @@
     <div class="input-field" style="margin-top: 1em">
       <select class="form-control" name="rank" id="rank" [(ngModel)]="weeklyWinner.rank" formControlName="rank">
         <option selected value="" [selected]="true">Select Rank</option>
-        <option value="Gold">Gold</option>
-        <option value="Silver">Silver</option>
-        <option value="Bronze">Bronze</option>
+        <option value="First">First</option>
+        <option value="Second">Second</option>
+        <option value="Third">Third</option>
+        <option value="Special Recognition">Special Recognition</option>
       </select>
       <div class="error-message" *ngIf="
           weeklyWinnerForm.controls.rank.invalid &&
