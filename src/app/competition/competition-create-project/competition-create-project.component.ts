@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FileUploader, ParsedResponseHeaders, FileItem } from 'ng2-file-upload';
 import { AuthService } from './../../Auth/services/auth.service';
 import { SharedService } from './../../shared/services/shared.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CompetitionService } from './../competition.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
@@ -21,7 +21,7 @@ export class CompetitionCreateProjectComponent implements OnInit {
   public isFileSelected = false;
   public error = false;
   public submitted = false;
-
+  public compId;
   @Output() created = new EventEmitter();
   @Input() isEdit = false;
   @Input() project: any = {};
@@ -30,8 +30,10 @@ export class CompetitionCreateProjectComponent implements OnInit {
     public service: CompetitionService,
     public router: Router,
     public sharedService: SharedService,
-    public authService: AuthService
+    public authService: AuthService,
+    public route: ActivatedRoute
   ) {
+    this.compId = this.route.snapshot.params["id"]
     this.projectForm = new FormGroup({
       title: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required)
@@ -88,6 +90,8 @@ export class CompetitionCreateProjectComponent implements OnInit {
   }
 
   createProjectService(project){
+    console.log(localStorage.getItem("cityId"))
+    project.cities = [localStorage.getItem("cityId")]
     this.service.createProject(project).subscribe(
       res => {
         const userId = this.authService.getUserId();
@@ -96,12 +100,17 @@ export class CompetitionCreateProjectComponent implements OnInit {
             .addProjectMember({ projectId: res.id, userId: userId })
             .subscribe(res1 => {
               this.isUploading = false;
-              this.sharedService.addToast(
-                "Success",
-                "Project Created!",
-                "success"
-              );
-              this.created.emit();
+              this.service
+              .addToCompetition({projectId:res.id, competitionId : this.compId , questionnaireAnswers:{}})
+              .subscribe(res2 =>{
+                this.sharedService.addToast(
+                  "Success",
+                  "Project Created!",
+                  "success"
+                );
+                this.created.emit();
+              })
+              
             });
         }
       },

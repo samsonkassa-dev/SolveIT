@@ -86,8 +86,10 @@ export class CompetitionProjectsComponent implements OnInit {
             this.competitionId
           );
           const cities = this.cityService.getCities();
+          console.log(cities)
           fromPromise(Promise.all([competitionProjects, cities])).subscribe(
             responses => {
+              console.log(responses)
               responses[1].subscribe(citiesResponse => {
                 this.cities = citiesResponse.filter(
                   city => assignedCities.cities.indexOf(city.id) !== -1
@@ -123,9 +125,12 @@ export class CompetitionProjectsComponent implements OnInit {
       this.spinner.show();
       this.getCities();
       this.service.getProjects(this.competitionId).subscribe(
+        
         res => {
+          console.log(res)
           this.backupProjects = res.filter(project => project.solveitproject);
           this.projects = this.backupProjects;
+        
           this.spinner.hide();
         },
         error => {
@@ -165,7 +170,10 @@ export class CompetitionProjectsComponent implements OnInit {
 
   filterByCity() {
     if (this.selectedCity !== "") {
+      localStorage.setItem("cityId", this.selectedCity)
+      console.log("City Id "+ this.selectedCity)
       this.projects = this.backupProjects.filter(project => {
+        console.log(project)
         return project.cities.indexOf(this.selectedCity) !== -1;
       });
     } else {
