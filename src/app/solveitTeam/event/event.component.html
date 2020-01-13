@@ -35,10 +35,12 @@
           </div>
         </div>
 
-          
-      <a   (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-right:20px;">
-        <p *ngIf="showArchivedPosts"> Hide Previous Events</p>
-        <p *ngIf="!showArchivedPosts"> Show Previous Events</p></a>
+        <div class ="col-md-4 col-md-push-6">
+          <a   (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-top:12px;">
+            <p *ngIf="showArchivedPosts"> Hide Previous Events</p>
+            <p *ngIf="!showArchivedPosts"> Show Previous Events</p></a>
+        </div>
+     
     
       </div>
     </div>
