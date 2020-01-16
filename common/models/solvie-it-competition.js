@@ -25,6 +25,7 @@ module.exports = function(Solvieitcompetition) {
 
     for (let i = 0; i < competitionProjects.length; i++) {
       const element = competitionProjects[i];
+      
       let members = await ProjectMember.find({
         where: {projectId: element.projectId},
         include: ['userAccount'],
@@ -35,15 +36,18 @@ module.exports = function(Solvieitcompetition) {
 
         let project = await element.solveitproject.getAsync({})
         console.log(project)
-        if(project.cities || project.cities != undefined ){
-          console.log("HERERERER______________+ve")
-          element['cities'] = project.cities
-        }else{
-          console.log("HERERERER______________-veee") 
-          if (member.userAccount()) {
-            element['cities'] = [member.userAccount().cityId];           
+        if(project){
+          if(project.cities || project.cities != undefined ){
+            console.log("HERERERER______________+ve")
+            element['cities'] = project.cities
+          }else{
+            console.log("HERERERER______________-veee") 
+            if (member.userAccount()) {
+              element['cities'] = [member.userAccount().cityId];           
+            }
           }
         }
+        
         console.log(element)
         
        
