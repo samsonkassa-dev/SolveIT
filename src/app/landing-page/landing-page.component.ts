@@ -23,28 +23,52 @@ export class LandingPageComponent implements OnInit {
   solveItTeam = [];
   constructor(
     public authService: AuthService,
-    private commonService : CommonService,
+    private commonService: CommonService,
     public router: Router,
     public http: Http
-  ) {}
+  ) { }
 
   ngOnInit() {
-    
-    this.commonService.getSolveItTeam()
-    .subscribe(res =>{
-      if(res.length > 4){
-        this.solveItTeam = res.slice(0,4)
-      }else{
-        this.solveItTeam = res
+    var i = 0;
+    var txt = 'Be part of This Initiative';
+    var speed = 50;
 
+    function typeWriter() {
+      console.log("Called")
+      if (i < txt.length) {
+        document.getElementById("be-part").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
       }
-    })
-  
-     
-     
-      
-     
- 
+    }
+    $(window).scroll(function () {
+      if ($('#be-part').offset() != undefined) {
+        var hT = $('#be-part').offset().top,
+          hH = $('#be-part').outerHeight(),
+          wH = $(window).height(),
+          wS = $(this).scrollTop();
+        if (wS > (hT + hH - wH)) {
+          setTimeout(typeWriter, 1000);
+        }
+      }
+
+    });
+
+    this.commonService.getSolveItTeam()
+      .subscribe(res => {
+        if (res.length > 4) {
+          this.solveItTeam = res.slice(0, 4)
+        } else {
+          this.solveItTeam = res
+
+        }
+      })
+
+
+
+
+
+
   }
 
   toggleMenu() {
