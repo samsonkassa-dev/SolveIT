@@ -12,6 +12,7 @@ export class AuthService {
   public logout_path = "UserAccounts/logout";
   public register_path_participant = "UserAccounts/register-participants";
   public register_path_investor = "UserAccounts/register-investor";
+  public register_path_judge = "UserAccounts/register-judge";
   public register_mgt_path = "UserAccounts/register-solveit-mgt";
   public register_team_path = "UserAccounts/register-solveit-team";
 
@@ -20,7 +21,8 @@ export class AuthService {
     "solve-it-team",
     "solve-it-participants",
     "admin",
-    "solve-it-investor"
+    "solve-it-investor",
+    "solve-it-judge"
   ];
 
   constructor(public router: Router, public apiService: ApiService) {}
@@ -117,6 +119,10 @@ export class AuthService {
     return this.apiService.post(`${this.register_path_investor}`, user);
   }
 
+  registerJudge(user){
+    return this.apiService.post(`${this.register_path_judge}`, user);
+  }
+
   isAuthenticated(): boolean {
     try {
       return !this.isTokenExpired(this.TOKEN);
@@ -179,6 +185,8 @@ export class AuthService {
       return this.apiService.post(this.register_path_participant, user);
     } else if (role === this.ICOG_ROLE[4]) {
       return this.apiService.post(this.register_path_investor, user);
+    }else if(role === this.ICOG_ROLE[5]){
+      return this.apiService.post(this.register_path_judge, user)
     }
   }
 

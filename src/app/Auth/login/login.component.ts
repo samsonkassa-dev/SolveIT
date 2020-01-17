@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     "solve-it-team",
     "solve-it-participants",
     "admin",
-    "solve-it-investor"
+    "solve-it-investor",
+    "solve-it-judge"
   ];
   public isLoading = false;
 
