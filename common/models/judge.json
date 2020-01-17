@@ -9,10 +9,25 @@
     "fullName": {
       "type": "string",
       "required": true
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "judge": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "judgeId"
+    },
+    "role": {
+      "type": "belongsTo",
+      "model": "Icog-Role",
+      "foreignKey": "roleId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
