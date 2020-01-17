@@ -53,7 +53,15 @@ module.exports = function(app) {
 				.then(instance => Promise.resolve(instance))
 				.catch(err => Promise.reject(err));
 	};
+// Seed SolveIT Judge role
+const createSolveItJudgeRole = async () => {
+	const role = { name: "solve-it-judge", description: "SolveIT Judge role." };
 
+	return IcogRole.findOrCreate({ where: { name: "solve-it-judge" } }, role)
+		.then(createdRole => {})
+		.then(instance => Promise.resolve(instance))
+		.catch(err => Promise.reject(err));
+};
 
 
   createIcogAminRole();
@@ -61,5 +69,6 @@ module.exports = function(app) {
 	createSolveItTeamRole();
 	createSolveItParticipantsRole();
 	createSolveItInvestorRole();
+	createSolveItJudgeRole();
 
 };
