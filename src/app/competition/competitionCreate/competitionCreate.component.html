@@ -18,7 +18,8 @@
             </div>
           </div>
           <div class="input-field">
-            <ng-multiselect-dropdown [placeholder]="'Cities'" [data]="mapCitiesToDropDownList(cities)" formControlName="cities"
+            <ng-multiselect-dropdown [placeholder]="'Cities'" 
+                                    [data]="mapCitiesToDropDownList(cities)" formControlName="cities"
                                      (onDeSelectAll)="onDeselectAll($event)" (onSelectAll)="onSelectAll($event)"
                                      (onSelect)="onItemSelected($event)" (onDeSelect)="onItemDeselected($event)"
                                      [settings]="dropdownSettings">

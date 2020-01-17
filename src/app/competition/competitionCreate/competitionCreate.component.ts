@@ -20,7 +20,7 @@ export class CompetitionCreateComponent {
   @Input() isEdit = false;
 
   dropdownSettings = {
-    singleSelection: false,
+
     idField: "item_id",
     textField: "item_text",
     selectAllText: "Select All",
@@ -77,6 +77,7 @@ export class CompetitionCreateComponent {
   }
 
   onItemSelected(item) {
+    console.log("ITITITI")
     if (this.competition.cities.indexOf(item.item_id) === -1) {
       this.competition.cities.push(item.item_id);
     }
