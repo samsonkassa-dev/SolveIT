@@ -6,7 +6,7 @@
     clear: both;
     text-align: center;
     color: #2ba692;
-    margin-bottom: 1em;
+    margin-top:2em;
 }
 
 .competition-winners {
@@ -43,15 +43,12 @@
 .winner > img { 
     width: 80%;
     margin: 1em auto;
-    height: 10em;
+    height: 80%;
 }
-.filter {
-    float: right;
-    margin: 0 auto 4em;
-}
+
 /* Custom dropdown */
 .custom-dropdown {
-    position: relative;
+   
     display: inline-block;
     vertical-align: middle;
     margin: 10px; /* demo only */

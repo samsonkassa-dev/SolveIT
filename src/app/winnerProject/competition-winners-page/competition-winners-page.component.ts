@@ -4,14 +4,14 @@ import { CommonService } from '../../shared/services/common.service';
 import { configs } from '../../app.config';
 import { AuthService } from '../../Auth/services/auth.service';
 import { Router } from '@angular/router';
-
+declare var $: any;
 @Component({
   selector: 'app-competition-winners-page',
   templateUrl: './competition-winners-page.component.html',
   styleUrls: ['./competition-winners-page.component.css']
 })
 export class CompetitionWinnersPageComponent implements OnInit {
-  public competitionWinner = {title:"", description:"",solveitproject:null, thumbinal:""};
+  public competitionWinner = { title: "", description: "", solveitproject: null, thumbinal: "" };
   public competitionWinners = [];
   public cities = [];
   public competitions = [];
@@ -19,21 +19,51 @@ export class CompetitionWinnersPageComponent implements OnInit {
   public filteredWinners = [];
   public filterKeyWord = '';
   rankConversion = {
-    "Gold":"First",
-    "Silver":"Second",
-    "Bronze":"Third",
-    "Honorable-Mentions":"Special Recognition"
-}
+    "Gold": "First",
+    "Silver": "Second",
+    "Bronze": "Third",
+    "Honorable-Mentions": "Special Recognition"
+  }
   constructor(private service: WinnerProjectService, private commonService: CommonService,
     private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    setTimeout(this.check, 1000)
+    $(window).scroll(this.check);
     if (this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitTeam()) {
       this.router.navigate(['winners/admin']);
+    } else {
+      
     }
     this.fetchParams();
   }
-  setUpViewWinners(winner){
+
+  i = 0;
+  check(){
+    
+    var txt = 'Interested in working with these projects?';
+    var speed = 50;
+
+    function typeWriter() {
+ 
+      var i = document.getElementById("initiative").innerHTML.length || 0
+      if (i-1 < txt.length) {
+        document.getElementById("initiative").innerHTML += txt.charAt(i-1);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    if ($('#initiative').offset() != undefined) {
+      var hT = $('#initiative').offset().top,
+        hH = $('#initiative').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+      if (wS > (hT + hH - wH)) {
+        setTimeout(typeWriter, 1000);
+      }
+    }
+  }
+  setUpViewWinners(winner) {
     //console.log(winner)
     this.competitionWinner = winner
   }

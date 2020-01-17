@@ -1,16 +1,24 @@
 <app-header></app-header>
 <div id="winners-page">
-  <div class="filter">
-    <span class="custom-dropdown big">
-      <select [(ngModel)]="filterKeyWord" (change)="filter($event)">
-        <option value="">Filter by competition</option>
-        <option *ngFor="let competition of competitions" [value]="competition.name">{{competition.name}}</option>
-      </select>
-    </span>
-  </div>
+ 
   <div *ngFor="let competition of filteredWinners ">
     <div *ngIf="competition.winners.length > 0">
-      <h3 class="competition-name">Winners Of {{competition.name}}</h3>
+      <div class="row col-md-12" >
+        <div class="col-md-4 col-md-push-4">
+          <h3 class="competition-name">Winners Of {{competition.name}}</h3>
+        </div>
+        <div class="col-md-4 col-md-push-6">
+          <div class="filter">
+            <span class="custom-dropdown big">
+              <select [(ngModel)]="filterKeyWord" (change)="filter($event)">
+                <option value="">Filter by competition</option>
+                <option *ngFor="let competition of competitions" [value]="competition.name">{{competition.name}}</option>
+              </select>
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div *ngFor="let city of competition.winners">
         <div class="competition-winners">
           <ng-container *ngIf="city.winners.length > 0">
@@ -18,7 +26,7 @@
             <hr>
             <div class="row">
               <div class="city-winners">
-                <div class="winner col-sm-2" *ngFor="let winner of city.winners">
+                <div class="winner col-sm-3" *ngFor="let winner of city.winners">
                   <img  data-toggle="modal"  data-target="#winnerInfo" (click)="setUpViewWinners(winner)" [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
                   <p>RANK : {{rankConversion[winner.rank] || " - "}}</p>
                   <div   style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
@@ -41,7 +49,7 @@
               <!-- Section-header -->
               <div class="section-header text-center">
               
-                <h2 style="font-size:20px; font-weight: 800;">Interested in working with these projects? </h2>
+                <h2 id="initiative" style="font-size:20px; font-weight: 800;"> </h2>
                 <h2 style="font-size:18px; font-weight: 800;">Contact Us</h2>
               </div>
               <!-- /Section-header -->
@@ -99,7 +107,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-4">
-            <img width="175px" height="225px" [src]="getImageUrl(competitionWinner.thumbinal)" alt="thumbinal">
+            <img width="100%" height="100%" [src]="getImageUrl(competitionWinner.thumbinal)" alt="thumbinal">
           </div>
           <div class="col-md-8 just">
             <p>{{competitionWinner.description || 'No Description Added Yet !!'}}</p>
