@@ -3,20 +3,14 @@
     <div id="aside" class="col-md-offset-2 col-md-6">
       <div class="widget">
         <div class="widget-search">
-          <input
-            class="search-input"
-            type="text"
-            placeholder="search"
-            [(ngModel)]="key"
-            (keyup)="onSearch($event)"
-          />
+          <input class="search-input" type="text" placeholder="search" [(ngModel)]="key" (keyup)="onSearch($event)" />
           <button class="search-btn" type="button">
             <i class="fa fa-search"></i>
           </button>
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
 <div class="competetion-list-content">
@@ -27,37 +21,38 @@
           <tr>
             <th>#</th>
             <th> Full Name</th>
+            <th>Email</th>
             <th> Occupation</th>
             <th> Actions</th>
 
           </tr>
         </thead>
-        <tbody >
-          <tr
-            *ngFor="let judge of judgeList; let i = index;"
-          >
+        <tbody>
+          <tr *ngFor="let judge of judgeList; let i = index;">
             <td>{{ i + 1 }}</td>
 
             <td>{{ judge.fullName }}</td>
+            <td>{{ judge.email }}</td>
             <td>{{ judge.occupation }}</td>
-    
+
 
             <td>
-                <button
-                type="button"
-                data-toggle="modal"
-                data-target="#editMember"         
-                class="btn btn-warn"
-                (click)="viewDetails(judge)"
-              >
+              <button type="button" data-toggle="modal" data-target="#editMember" class="btn btn-warn"
+                (click)="viewDetails(judge)">
                 View Details
               </button>
-              <button
-                type="button"
-                (click)="deleteJudge(judge)"
-                class="btn btn-danger"
+              <button *ngIf="!judge.approved" type="button" (click)="approveJudge(judge)" class="btn btn-danger">
+                Approve
+              </button>
+              <button 
+              type="button" 
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#editCategory"         
+              class="btn btn-warn"
+              (click)="selectJudge(judge)"
               >
-                Delete
+                Assign City
               </button>
             </td>
           </tr>
@@ -65,10 +60,7 @@
       </table>
       <div class="not-found" *ngIf="judgeList == undefined || judgeList.length == 0">
         <div class="no-resource-found">
-          <app-not-found
-        message="> No Judge Applicants registered, yet."
-        type="fetch"
-      ></app-not-found>
+          <app-not-found message="> No Judge Applicants registered, yet." type="fetch"></app-not-found>
         </div>
       </div>
       <!-- <div class="not-found" *ngIf="backUpteamMemebers == undefined || backUpteamMembers.length == 0">
@@ -85,14 +77,41 @@
   </div>
   <div class="row">
     <div class="pagination">
-      <pagination-controls
-        *ngIf="backupJudgeList.length > 6"
-        (pageChange)="page = $event"
-      ></pagination-controls>
+      <pagination-controls *ngIf="backupJudgeList.length > 6" (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>
 
+<div id="editCategory" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Assign Competition</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="assignCompetition" *ngIf="authService.isAuthenticated()">
+          <div id="resource-form">
+            <div class="form-group">
+              <label>Select Competitions:</label>
+              <ng-select formControlName="competitions"  placeholder="Select Competition?"
+               [multiple]="true" [searchable]="false" [clearable]="false" [items]="competitions" bindLabel="name"
+                bindValue="id">
+              </ng-select>
+            </div>
 
-  
+            <div class="form-group" id="resource-upload-btn">
+              <input type="submit" (click)="assignCompetitionToJudge(assignCompetition.value)" [disabled]="!assignCompetition.valid"
+                data-dismiss="modal" class="main-btn" value="Edit" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <ng2-toasty [position]="'top-right'"></ng2-toasty>

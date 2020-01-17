@@ -126,7 +126,7 @@ export class JudgeRegistrationComponent implements OnInit {
   }
   registerJudge(judgeForm){
     console.log(judgeForm)
-    this.judgeService.addJudge(judgeForm)
+    this.authService.registerJudge({ user: judgeForm })
     .subscribe(res =>{
       this.sharedService.addToast(
         "Success",
