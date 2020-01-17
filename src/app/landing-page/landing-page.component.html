@@ -381,7 +381,7 @@
       <!-- Pricing -->
       
       <!-- Team -->
-      <div id="team" class="section md-padding">
+      <div id="team" style="width:100%;" class="section md-padding">
         <!-- Container -->
         <div class="container">
           <!-- Row -->
@@ -391,10 +391,10 @@
               <h2 class="title">Our Team</h2>
             </div>
             <!-- /Section header -->
-      
-            <div *ngFor="let member of solveItTeam ;let i=index;" class="col-sm-3" >
+            <div class="our-team">
+              <div *ngFor="let member of solveItTeam ;let i=index;" class="team-member" >
        
-                <div class="team">
+                <div class="team" style=" height: 100% !important;width:100% !important;">
                     <div class="team-img">
                       <img class="img-responsive" [src]="getImageUrl(member.picture)" style="width:210px; height:200px;" alt="" />
                       <div class="overlay">
@@ -412,6 +412,8 @@
                     </div>
                   </div>
               </div>
+            </div>
+          
             <!-- /team -->
       
             <!-- team -->
@@ -546,7 +548,7 @@
             <!-- Section-header -->
             <div class="section-header text-center">
               <h2 class="title">Get in touch</h2>
-              <p style="font-size:20px; font-weight: 800;">Be part of This Initiative</p>
+              <p id="be-part" style="font-size:20px; font-weight: 800;"></p>
             </div>
             <!-- /Section-header -->
       

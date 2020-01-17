@@ -203,7 +203,15 @@ width: 11px;}
     font-size: medium;
     font-weight: 600;
 }
+.our-team { 
+  display:flex;
+  justify-content: space-between;
+}
 
+.team-member {
+  box-sizing: border-box;
+  flex-basis:24% !important;
+}
 @media (min-width:900px){
   .row-service{
     display: flex;
