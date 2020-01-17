@@ -27,7 +27,12 @@
 #aside {
   float: right;
 }
-
+.right > button{
+  padding-top:0.4em !important;
+  padding-bottom:0.4em !important;
+  padding-left:0.6em !important;
+  padding-right:0.6em !important;
+}
 .left > p {
   float: left;
   font-size: 1.1em;
