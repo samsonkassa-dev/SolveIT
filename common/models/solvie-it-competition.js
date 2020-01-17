@@ -35,23 +35,15 @@ module.exports = function(Solvieitcompetition) {
         let member = members[0];
 
         let project = await element.solveitproject.getAsync({})
-        console.log(project)
         if(project){
           if(project.cities || project.cities != undefined ){
-            console.log("HERERERER______________+ve")
             element['cities'] = project.cities
           }else{
-            console.log("HERERERER______________-veee") 
             if (member.userAccount()) {
               element['cities'] = [member.userAccount().cityId];           
             }
           }
         }
-        
-        console.log(element)
-        
-       
-        
       }
     }
     return competitionProjects;
