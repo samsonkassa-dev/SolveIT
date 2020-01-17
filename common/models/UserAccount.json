@@ -378,6 +378,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "registerInvestor"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "registerSolveItJudge"
     }
   ],
   "methods": {}

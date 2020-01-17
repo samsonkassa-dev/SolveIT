@@ -510,6 +510,30 @@ module.exports = function (Useraccount) {
     return user;
   };
 
+
+  // register SolveIT Judge
+  Useraccount.registerSolveItJudge = async (
+    user
+  ) => {
+    let { IcogRole, judge } = Useraccount.app.models;
+    let userRole = await IcogRole.findOne({
+      where: {
+        name: "solve-it-judge"
+      }
+    });
+
+    user["roleId"] = userRole.id;
+    user["created"] = new Date().toISOString();
+    user["password"] = user.password + "";
+    user["phoneNumber"] = user.phoneNumber + "";
+
+
+    let newUser = await Useraccount.create(user);
+    let profile = judge.create({ judgeId: newUser.id, ...user });
+
+    return newUser;
+  };
+
   // register SolveIT participants
   Useraccount.registerParticipants = async user => {
     let { IcogRole } = Useraccount.app.models;
@@ -1314,7 +1338,7 @@ module.exports = function (Useraccount) {
   });
 
   Useraccount.remoteMethod("registerParticipants", {
-    desctiption: "Register SolveIT teams.",
+    description: "Register SolveIT teams.",
     accepts: [
       {
         arg: "user",
@@ -1333,7 +1357,7 @@ module.exports = function (Useraccount) {
   });
 
   Useraccount.remoteMethod("registerInvestor", {
-    desctiption: "Register SolveIT Investor.",
+    description: "Register SolveIT Investor.",
     accepts: [
       {
         arg: "user",
@@ -1344,6 +1368,24 @@ module.exports = function (Useraccount) {
     http: {
       verb: "post",
       path: "/register-investor"
+    },
+    returns: {
+      type: "object",
+      root: true
+    }
+  });
+  Useraccount.remoteMethod("registerSolveItJudge", {
+    description: "Register SolveIT Judge.",
+    accepts: [
+      {
+        arg: "user",
+        type: "object",
+        required: true
+      }
+    ],
+    http: {
+      verb: "post",
+      path: "/register-judge"
     },
     returns: {
       type: "object",
