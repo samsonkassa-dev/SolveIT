@@ -18,6 +18,8 @@ export class CompetitionWinnersPageComponent implements OnInit {
   public catagorizedWinnersList = [];
   public filteredWinners = [];
   public filterKeyWord = '';
+  public FetchHubs = false;
+  public addisHubs = []
   rankConversion = {
     "Gold": "First",
     "Silver": "Second",
@@ -106,10 +108,45 @@ export class CompetitionWinnersPageComponent implements OnInit {
           }
         });
         if (temp1.winners.length > 0) { temp['winners'].push(temp1); }
+        if(city.name == "Addis Ababa") { this.getHubs(temp1.winners)}
       });
       if (temp.winners.length > 0) { this.catagorizedWinnersList.push(temp); }
     });
     this.filteredWinners = this.catagorizedWinnersList;
+  }
+
+  getHubs(winners){
+
+    let hub1 = ["Essential hide glue","Truth Machine (Smart Decenteralzied And Blockchain Based Voting System)", "Augmentation and Induction Monitoring Device ", ]
+    let hub2 = ["GETCOIN ", "Classification of plant disease using neural network", "Modern Hydroculture"]
+    let hub3 = ["IOT based Smart Home", "Multi-purpose Mechanical Charger and Lighter", "Imran abdela"]
+    let hub1Winners = {
+      name:"Hub 1",
+      winners:[]
+    }
+    let hub2Winners = {
+      name:"Hub 2",
+      winners:[]
+    }
+    let hub3Winners = {
+      name:"Hub 3",
+      winners:[]
+    }
+    winners.forEach(element => {
+      if(hub1.indexOf(element.solveitproject.title) >= 0){
+        hub1Winners.winners.push(element)
+      }else if(hub2.indexOf(element.solveitproject.title) >= 0){
+        hub2Winners.winners.push(element)
+      }else if(hub3.indexOf(element.solveitproject.title) >= 0){
+        hub3Winners.winners.push(element)
+      }
+    });
+
+    let final = []
+    final.push(hub1Winners)
+    final.push(hub2Winners)
+    final.push(hub3Winners)
+    this.addisHubs = final
   }
 
   getImageUrl(item) {
@@ -127,7 +164,7 @@ export class CompetitionWinnersPageComponent implements OnInit {
   }
 
   getProjectTitle(title) {
-    return title.length < 28 ? `<h6 class="title">${title}</h6>` + '<br>' : `<h6 class="title">${title}</h6>`;
+    return title.length < 28 ? `<h6 >${title}</h6>` + '<br>' : `<h6 >${title}</h6>`;
   }
 
 }

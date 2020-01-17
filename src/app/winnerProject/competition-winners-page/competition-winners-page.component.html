@@ -1,9 +1,9 @@
 <app-header></app-header>
 <div id="winners-page">
- 
+
   <div *ngFor="let competition of filteredWinners ">
     <div *ngIf="competition.winners.length > 0">
-      <div class="row col-md-12" >
+      <div class="row col-md-12">
         <div class="col-md-4 col-md-push-4">
           <h3 class="competition-name">Winners Of {{competition.name}}</h3>
         </div>
@@ -12,7 +12,8 @@
             <span class="custom-dropdown big">
               <select [(ngModel)]="filterKeyWord" (change)="filter($event)">
                 <option value="">Filter by competition</option>
-                <option *ngFor="let competition of competitions" [value]="competition.name">{{competition.name}}</option>
+                <option *ngFor="let competition of competitions" [value]="competition.name">{{competition.name}}
+                </option>
               </select>
             </span>
           </div>
@@ -26,12 +27,34 @@
             <hr>
             <div class="row">
               <div class="city-winners">
-                <div class="winner col-sm-3" *ngFor="let winner of city.winners">
-                  <img  data-toggle="modal"  data-target="#winnerInfo" (click)="setUpViewWinners(winner)" [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
-                  <p>RANK : {{rankConversion[winner.rank] || " - "}}</p>
-                  <div   style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
-                </div>
+           
+                  <ng-container *ngIf="city.name != 'Addis Ababa'">
+                    <div class="winner col-sm-3" *ngFor="let winner of city.winners">
+                      <img data-toggle="modal" data-target="#winnerInfo" (click)="setUpViewWinners(winner)"
+                        [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
+                      <p>RANK : {{rankConversion[winner.rank] || " - "}}</p>
+                      <div style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
+                    </div>
+
+                  </ng-container>
               </div>
+              <ng-container *ngIf="city.name == 'Addis Ababa'">
+                <ng-container  *ngFor="let hub of addisHubs">
+                  <h5 class="city-name" style="margin-top:30px">{{hub.name}}</h5>
+                  <hr>
+                  <div class="city-winners">
+                    <div class="winner" *ngFor="let winner of hub.winners">
+                      <img data-toggle="modal" data-target="#winnerInfo" (click)="setUpViewWinners(winner)"
+                        [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
+                      <p>RANK : {{rankConversion[winner.rank] || " - "}}</p>
+                      <div style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
+                    </div>
+                  </div>
+                  
+                </ng-container>
+
+
+              </ng-container>
             </div>
           </ng-container>
         </div>
@@ -40,58 +63,58 @@
   </div>
 </div>
 
-      <!-- Contact -->
-      <div id="contact" class="section md-padding">
-          <!-- Container -->
-          <div class="container">
-            <!-- Row -->
-            <div class="row">
-              <!-- Section-header -->
-              <div class="section-header text-center">
-              
-                <h2 id="initiative" style="font-size:20px; font-weight: 800;"> </h2>
-                <h2 style="font-size:18px; font-weight: 800;">Contact Us</h2>
-              </div>
-              <!-- /Section-header -->
-        
-              <!-- contact -->
-              <div class="col-sm-4">
-                <div class="contact">
-                  <i class="fa fa-phone"></i>
-                  <h3>Phone</h3>
-                  <p>+251 118 62-5056</p>
-                </div>
-              </div>
-              <!-- /contact -->
-        
-              <!-- contact -->
-              <div class="col-sm-4">
-                <div class="contact">
-                  <i class="fa fa-envelope"></i>
-                  <h3>Email</h3>
-                  <p>info@icog-solveit.com</p>
-                </div>
-              </div>
-              <!-- /contact -->
-        
-              <!-- contact -->
-              <div class="col-sm-4">
-                <div class="contact">
-                  <i class="fa fa-map-marker"></i>
-                  <h3>Address</h3>
-                  <p>
-                    Addis Ababa, Bole, Yeshi Building, 10th Floor, Infront of Bole
-                    printing
-                  </p>
-                </div>
-              </div>
-              <!-- /contact -->
-            </div>
-            <!-- /Row -->
-          </div>
-          <!-- /Container -->
+<!-- Contact -->
+<div id="contact" class="section md-padding">
+  <!-- Container -->
+  <div class="container">
+    <!-- Row -->
+    <div class="row">
+      <!-- Section-header -->
+      <div class="section-header text-center">
+
+        <h2 id="initiative" style="font-size:20px; font-weight: 800;"> </h2>
+        <h2 style="font-size:18px; font-weight: 800;">Contact Us</h2>
+      </div>
+      <!-- /Section-header -->
+
+      <!-- contact -->
+      <div class="col-sm-4">
+        <div class="contact">
+          <i class="fa fa-phone"></i>
+          <h3>Phone</h3>
+          <p>+251 118 62-5056</p>
         </div>
-        <!-- /Contact -->
+      </div>
+      <!-- /contact -->
+
+      <!-- contact -->
+      <div class="col-sm-4">
+        <div class="contact">
+          <i class="fa fa-envelope"></i>
+          <h3>Email</h3>
+          <p>info@icog-solveit.com</p>
+        </div>
+      </div>
+      <!-- /contact -->
+
+      <!-- contact -->
+      <div class="col-sm-4">
+        <div class="contact">
+          <i class="fa fa-map-marker"></i>
+          <h3>Address</h3>
+          <p>
+            Addis Ababa, Bole, Yeshi Building, 10th Floor, Infront of Bole
+            printing
+          </p>
+        </div>
+      </div>
+      <!-- /contact -->
+    </div>
+    <!-- /Row -->
+  </div>
+  <!-- /Container -->
+</div>
+<!-- /Contact -->
 
 
 <div id="winnerInfo" class="modal fade lg" role="modal">
@@ -102,7 +125,8 @@
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
-        <h3 class ="modal-title">Winner Details - <span style="font-weight: 300;">{{competitionWinner?.solveitproject?.title}}</span></h3>
+        <h3 class="modal-title">Winner Details - <span
+            style="font-weight: 300;">{{competitionWinner?.solveitproject?.title}}</span></h3>
       </div>
       <div class="modal-body">
         <div class="row">
