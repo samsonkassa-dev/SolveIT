@@ -47,6 +47,91 @@
 </div>
 
 <div class="content">
+    <!-- Videos -->
+    <div id="videos" class="section md-padding">
+      <!-- Container -->
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+          <!-- Section header -->
+          <div><p id="resource-list-title" class="title">Videos</p></div>
+          <!-- /Section header -->
+  
+          <div
+            class="no-resource-found"
+            *ngIf="
+              (backUpVidResources.length === 0 && keyword === '') ||
+              (vid_resources.length === 0 && filterCategory !== '')
+            "
+          >
+            <app-not-found
+              message="No video resource uploaded, yet."
+            ></app-not-found>
+            <i
+              *ngIf="
+                (authService.isSolveitTeam() ||
+                  authService.isSolveitManager() ||
+                  authService.isAdmin()) &&
+                resources.length === 0
+              "
+              class="link"
+              (click)="uploadResource()"
+              >create here.</i
+            >
+          </div>
+  
+          <div
+            class="no-resource-found"
+            *ngIf="vid_resources.length === 0 && keyword !== ''"
+          >
+            <app-not-found
+              message="Video resource '{{ keyword }}'' not found."
+              type="search"
+            ></app-not-found>
+          </div>
+  
+          <div
+            class="col-md-3 col-sm-2"
+            *ngFor="
+              let resource of (vid_resources
+                | paginate
+                  : { id: 'vids', itemsPerPage: 8, currentPage: vidResourcePage })
+            "
+          >
+            <div
+              class="video-resource"
+              data-toggle="modal"
+              data-target="#myModal"
+            >
+              <img
+                [src]="getVideoThumbinal(resource.url)"
+                (click)="onChoosingVideoResource(resource)"
+                alt="video thumbinal"
+              />
+              <div class="info">
+                <p (click)="onChoosingVideoResource(resource)">
+                  {{ resource.createdAt | amTimeAgo }}
+                </p>
+                <h6 (click)="onChoosingVideoResource(resource)" class="title">
+                  {{ getLimittedTitle(resource.title, 28) }}
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div class="pagination">
+            <pagination-controls
+              responsive="true"
+              id="vids"
+              *ngIf="vid_resources.length > 8"
+              (pageChange)="vidResourcePage = $event"
+            ></pagination-controls>
+          </div>
+        </div>
+        <!-- /Row -->
+      </div>
+      <!-- /Container -->
+    </div>
+    <!-- /Videos -->
   <div id="about" class="section md-padding">
     <!-- Documents -->
     <div class="container">
@@ -184,91 +269,7 @@
     <!-- /Documents -->
   </div>
 
-  <!-- Videos -->
-  <div id="videos" class="section md-padding">
-    <!-- Container -->
-    <div class="container">
-      <!-- Row -->
-      <div class="row">
-        <!-- Section header -->
-        <div><p id="resource-list-title" class="title">Videos</p></div>
-        <!-- /Section header -->
 
-        <div
-          class="no-resource-found"
-          *ngIf="
-            (backUpVidResources.length === 0 && keyword === '') ||
-            (vid_resources.length === 0 && filterCategory !== '')
-          "
-        >
-          <app-not-found
-            message="No video resource uploaded, yet."
-          ></app-not-found>
-          <i
-            *ngIf="
-              (authService.isSolveitTeam() ||
-                authService.isSolveitManager() ||
-                authService.isAdmin()) &&
-              resources.length === 0
-            "
-            class="link"
-            (click)="uploadResource()"
-            >create here.</i
-          >
-        </div>
-
-        <div
-          class="no-resource-found"
-          *ngIf="vid_resources.length === 0 && keyword !== ''"
-        >
-          <app-not-found
-            message="Video resource '{{ keyword }}'' not found."
-            type="search"
-          ></app-not-found>
-        </div>
-
-        <div
-          class="col-md-3 col-sm-2"
-          *ngFor="
-            let resource of (vid_resources
-              | paginate
-                : { id: 'vids', itemsPerPage: 8, currentPage: vidResourcePage })
-          "
-        >
-          <div
-            class="video-resource"
-            data-toggle="modal"
-            data-target="#myModal"
-          >
-            <img
-              [src]="getVideoThumbinal(resource.url)"
-              (click)="onChoosingVideoResource(resource)"
-              alt="video thumbinal"
-            />
-            <div class="info">
-              <p (click)="onChoosingVideoResource(resource)">
-                {{ resource.createdAt | amTimeAgo }}
-              </p>
-              <h6 (click)="onChoosingVideoResource(resource)" class="title">
-                {{ getLimittedTitle(resource.title, 28) }}
-              </h6>
-            </div>
-          </div>
-        </div>
-        <div class="pagination">
-          <pagination-controls
-            responsive="true"
-            id="vids"
-            *ngIf="vid_resources.length > 8"
-            (pageChange)="vidResourcePage = $event"
-          ></pagination-controls>
-        </div>
-      </div>
-      <!-- /Row -->
-    </div>
-    <!-- /Container -->
-  </div>
-  <!-- /Videos -->
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
 
