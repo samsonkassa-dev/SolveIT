@@ -61,6 +61,7 @@
                 <li [class.active]="router.isActive('dashboard', false)" *ngIf="
                     authService.isSolveitTeam() ||
                     authService.isSolveitManager() ||
+                    authService.isSolveitJudge() ||
                     authService.isAdmin()
                   ">
                   <a routerLink="/dashboard">Dashboard</a>
