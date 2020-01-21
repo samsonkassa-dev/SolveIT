@@ -17,7 +17,7 @@
           ">
           <th scope="row">{{ winner.week }}</th>
           <td>{{ winner.solveitproject.title }}</td>
-          <td>{{ rankConversion[winner.rank] }}</td>
+          <td>{{ rankConversion[winner.rank]|| winner.rank || " - " }}</td>
           <td>
             <span *ngIf="!winner.active">INACTIVE</span>
             <button
