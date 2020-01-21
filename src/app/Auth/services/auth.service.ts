@@ -122,7 +122,10 @@ export class AuthService {
   registerJudge(user){
     return this.apiService.post(`${this.register_path_judge}`, user);
   }
-
+  
+  getJudge(user){
+    return this.apiService.get(`judges?filter={"where": {"judgeId": "${user}"}}`)
+  }
   isAuthenticated(): boolean {
     try {
       return !this.isTokenExpired(this.TOKEN);
@@ -149,6 +152,15 @@ export class AuthService {
     }
   }
 
+
+  isSolveitJudge() {
+    try {
+      const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
+      return data.role === this.ICOG_ROLE[5];
+    } catch (e) {
+      return false;
+    }
+  }
   isSolveitTeam() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));

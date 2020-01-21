@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
           this.authService.setSession(res);
           this.isLoading = false;
           this.authService.getUserRole(res.userId).subscribe(res1 => {
+            console.log(res1.name)
             if (res1.name === this.ICOG_ROLE[2]) {
               this.router.navigate(["/my-projects"]);
             } else if (res1.name === this.ICOG_ROLE[4]) {

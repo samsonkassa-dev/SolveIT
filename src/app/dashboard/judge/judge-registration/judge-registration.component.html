@@ -34,6 +34,17 @@
     </div>
 
     <div class="input-field" style="margin-top: 1em">
+      <label>Password:</label>
+      <input type="password" class="form-control" name="title" placeholder="Password" formControlName="password" />
+      <div class="error-message" *ngIf="
+          judgeForm.controls.password.invalid &&
+          judgeForm.controls.password.touched
+        ">
+        <p>* Password is required.</p>
+      </div>
+    </div>
+
+    <div class="input-field" style="margin-top: 1em">
       <label>Date of Birth:</label>
       <input type="date" class="form-control" name="title" placeholder="Date of Birth" formControlName="dateOfBirth" />
       <div class="error-message" *ngIf="

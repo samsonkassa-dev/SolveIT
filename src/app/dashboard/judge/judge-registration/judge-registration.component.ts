@@ -92,6 +92,7 @@ export class JudgeRegistrationComponent implements OnInit {
       fullName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
+      password:['123123123',Validators.required],
       educationalBackground: [''],
       professionalBackground: [''],
       solveItKnowledge:['', Validators.required],
