@@ -25,6 +25,7 @@
           <span class="icon"><i class="fa fa-star"></i></span> Competitions
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/judges'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -34,6 +35,7 @@
           <span class="icon"><i class="fa fa-gavel"></i></span> Judges
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/categories'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -43,6 +45,7 @@
           <span class="icon"><i class="fa fa-table"></i></span> Categories
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/attendance'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -52,6 +55,7 @@
           <span class="icon"><i class="fa fa-calendar"></i></span> Attendance
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/tags'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -61,6 +65,7 @@
           <span class="icon"><i class="fa fa-tags"></i></span> Tags
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/cities'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -80,6 +85,7 @@
           <span class="icon"><i class="fa fa-eye"></i></span> Review Discussion
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/solveit-team'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
@@ -89,6 +95,7 @@
           <span class="icon"><i class="fa fa-users"></i></span> Solve IT Team
         </li>
         <li
+          *ngIf="!this.authService.isSolveitJudge()"
           (click)="router.navigate(['dashboard/export-data'])"
           class="dashboard-menu-item"
           [class.dashboard-menu-item-selected]="
