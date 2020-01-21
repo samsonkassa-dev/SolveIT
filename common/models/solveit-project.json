@@ -28,7 +28,13 @@
     "createdAt": {
       "type": "date",
       "defaultfun": "now"
+    },
+    "score":{
+      "type":"array",
+      "default":[]
     }
+    
+    
   },
   "validations": [],
   "relations": {
