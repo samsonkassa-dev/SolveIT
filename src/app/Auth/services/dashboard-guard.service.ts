@@ -13,6 +13,7 @@ export class DashboardGuardService implements CanActivate {
       (this.authService.isAdmin() ||
         this.authService.isSolveitManager() ||
         this.authService.isSolveitTeam() ||
+        this.authService.isSolveitJudge() ||
         this.authService.isAdmin())
     ) {
       return true;
