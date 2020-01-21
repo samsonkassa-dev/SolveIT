@@ -37,9 +37,22 @@ export class CompetitionListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.competitions = this.backupCompetitions;
+    if(this.authService.isSolveitJudge()){
+      this.filterCompetitions();
+    }
     this.user = this.authService.getUserSession();
   }
+  filterCompetitions(){
 
+    this.authService.getJudge(this.authService.getUserId()).subscribe((res=>{
+      if(res[0] && res[0]!=undefined && res[0].competitions != undefined){
+        this.competitions = this.competitions.filter((competition)=>res[0].competitions.indexOf(competition.id) >= 0)
+
+      }else{
+        this.competitions = []
+      }
+    }))
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.backupCompetitions = changes.backupCompetitions.currentValue;
     this.competitions = this.backupCompetitions;

@@ -15,6 +15,12 @@ export class ProjectService {
     return this.apiService.get(`Solveitprojects/${projectId}`);
   }
 
+  getJudges(competitionId){
+    return this.apiService.get(`judges`)
+  }
+  addScore(projectId, score) {
+    return this.apiService.patch(`Solveitprojects/${projectId}`, score)
+  }
   getMyProjects(userId) {
     return this.apiService.get(`/UserAccounts/${userId}/projects`);
   }

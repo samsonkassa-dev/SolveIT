@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div *ngIf="!authService.isSolveitJudge()" class="col-md-2">
         <button
           data-toggle="modal"
           data-target="#createCompetitionModal"
