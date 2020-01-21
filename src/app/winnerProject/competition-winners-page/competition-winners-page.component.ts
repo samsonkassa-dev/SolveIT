@@ -24,7 +24,7 @@ export class CompetitionWinnersPageComponent implements OnInit {
     "Gold": "First",
     "Silver": "Second",
     "Bronze": "Third",
-    "Honorable-Mentions": "Special Recognition"
+    "Honorable-Mentions": "Special Recognition",
   }
   constructor(private service: WinnerProjectService, private commonService: CommonService,
     private authService: AuthService, private router: Router) { }
