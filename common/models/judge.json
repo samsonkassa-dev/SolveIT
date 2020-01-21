@@ -13,6 +13,9 @@
     "approved": {
       "type": "boolean",
       "default": false
+    },
+    "competitions":{
+      "type":["string"]
     }
   },
   "validations": [],
