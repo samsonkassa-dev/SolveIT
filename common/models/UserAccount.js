@@ -4,7 +4,7 @@ let STATUS = require("../configs/config");
 let url = require("../configs/urlConfig");
 const uniqueid = require("uniqid");
 
-module.exports = function (Useraccount) {
+module.exports = function(Useraccount) {
   // remove username validation
   delete Useraccount.validations.username;
 
@@ -16,7 +16,7 @@ module.exports = function (Useraccount) {
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;
 
-  Useraccount.observe("after save", function (ctx, next) {
+  Useraccount.observe("after save", function(ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
@@ -25,7 +25,7 @@ module.exports = function (Useraccount) {
       let userId = ctx.instance.id;
       // let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
       //               <a href="${url}/confirm/${userId}-${cId}">confirmation link</a>`;
-      let action_url =`${url}/confirm/${userId}-${cId}`
+      let action_url = `${url}/confirm/${userId}-${cId}`;
       let html = `
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -237,29 +237,24 @@ module.exports = function (Useraccount) {
                    
                     <table>
                     <tr>
-                    <td><img  src="https://img.icons8.com/color/48/000000/facebook-new.png"></td>
-                    <td><p> Facebook : Solve IT by iCog</p></td>
-                    </tr>
-
-                    <tr>
                     <td> <img  src="https://img.icons8.com/color/48/000000/telegram-app.png"></td>
-                    <td><p> Telegram : iCog Solve IT</p></td>
+                    <td><p> Telegram : <a href="https://t.me/iCogSolveIT"> iCog Solve IT</a></p></td>
                     </tr>
                     <tr>
                     <td> <img  src="https://img.icons8.com/color/48/000000/twitter.png"></td>
-                    <td><p> Twitter : iCogSolveIT</p></td>
+                    <td><p> Twitter : <a href="https://twitter.com/iCogSolveIT">iCogSolveIT</a></p></td>
                     </tr>
                     <tr>
                     <td>   <img  src="https://img.icons8.com/color/48/000000/instagram-new.png"></td>
-                    <td><p> Instagram : icog_solveit</p></td>
+                    <td><p> Instagram : <a href="https://www.instagram.com/icog_solveit/"> icog_solveit </a></p></td>
                     </tr>
                     <tr>
                     <td> <img  src="https://img.icons8.com/color/48/000000/linkedin.png"></td>
-                    <td><p> LinkedIn : iCog Labs</p></td>
+                    <td><p> LinkedIn : <a href="https://www.linkedin.com/company/icog-labs/">iCog Labs</a></p></td>
                     </tr>
                     <tr>
                     <td>  <img  src="https://img.icons8.com/color/48/000000/youtube.png"> </td>
-                    <td><p>YouTube : @icoglabsofficial</p></td>
+                    <td><p>YouTube :<a href="https://www.youtube.com/channel/UCip0sTC3ncW06xXGuoeioWA"> @icoglabsofficial</a></p></td>
                     </tr>
                     </table>
                     </p>
@@ -300,13 +295,13 @@ module.exports = function (Useraccount) {
 </body>
 </html>
 
-        `
+        `;
       emailConfirmationId.create(
         {
           cId: cId,
           userId: userId
         },
-        function (err, data) {
+        function(err, data) {
           if (err) {
             next(err);
             return;
@@ -318,7 +313,7 @@ module.exports = function (Useraccount) {
               subject: "Welcome to SolveIT",
               html: html
             },
-            function (err, mail) {
+            function(err, mail) {
               if (err) {
                 console.log("Error while sending email ", err);
                 next(err);
@@ -335,7 +330,7 @@ module.exports = function (Useraccount) {
   });
 
   // check password  request change is correct
-  Useraccount.changePassword = function (key, cb) {
+  Useraccount.changePassword = function(key, cb) {
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
     const ids = key.split(",");
@@ -347,7 +342,7 @@ module.exports = function (Useraccount) {
           id: cid
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           cb(new Error("Error while checking request"));
           return;
@@ -361,7 +356,7 @@ module.exports = function (Useraccount) {
             {
               inactive: true
             },
-            function (err, response) {
+            function(err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -397,7 +392,7 @@ module.exports = function (Useraccount) {
   });
 
   // check if email is verified before login
-  Useraccount.beforeRemote("login", function (ctx, unused, next) {
+  Useraccount.beforeRemote("login", function(ctx, unused, next) {
     let email = ctx.args.credentials.email;
     let pass = ctx.args.credentials.password;
     Useraccount.findOne(
@@ -406,7 +401,7 @@ module.exports = function (Useraccount) {
           email: { like: email, options: "i" }
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
@@ -510,11 +505,8 @@ module.exports = function (Useraccount) {
     return user;
   };
 
-
   // register SolveIT Judge
-  Useraccount.registerSolveItJudge = async (
-    user
-  ) => {
+  Useraccount.registerSolveItJudge = async user => {
     let { IcogRole, judge } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
@@ -527,9 +519,8 @@ module.exports = function (Useraccount) {
     user["password"] = user.password + "";
     user["phoneNumber"] = user.phoneNumber + "";
 
-
     let newUser = await Useraccount.create(user);
-    let profile = judge.create({ judgeId: newUser.id, ...user });
+    let profile = judge.create({ judgeId: newUser.id, ...newUser });
 
     return newUser;
   };
@@ -596,7 +587,7 @@ module.exports = function (Useraccount) {
   };
 
   // confirm email address
-  Useraccount.confirmEmail = function (userId, cid, cb) {
+  Useraccount.confirmEmail = function(userId, cid, cb) {
     let { emailConfirmationId } = Useraccount.app.models;
     emailConfirmationId.findOne(
       {
@@ -604,7 +595,7 @@ module.exports = function (Useraccount) {
           cId: cid
         }
       },
-      function (err, record) {
+      function(err, record) {
         if (record !== null && userId === record.userId) {
           console.log("record ", record);
           Useraccount.updateAll(
@@ -614,7 +605,7 @@ module.exports = function (Useraccount) {
             {
               emailVerified: true
             },
-            function (err, data) {
+            function(err, data) {
               if (err) {
                 console.log("error");
                 cb(err);
@@ -649,7 +640,7 @@ module.exports = function (Useraccount) {
   };
 
   // request password change
-  Useraccount.requestPasswordChange = function (email, cb) {
+  Useraccount.requestPasswordChange = function(email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -659,7 +650,7 @@ module.exports = function (Useraccount) {
           }
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           cb(new Error("Error while searching user"));
         } else {
@@ -671,7 +662,7 @@ module.exports = function (Useraccount) {
                 id: requestId,
                 userId: data.id
               },
-              function (err, res) {
+              function(err, res) {
                 if (err) {
                   cb(
                     new Error(
@@ -697,7 +688,7 @@ module.exports = function (Useraccount) {
                       subject: "Confirmation for password change",
                       html: html
                     },
-                    function (err, mail) {
+                    function(err, mail) {
                       if (err) {
                         console.log("Error while sending email ", err);
                         cb(new Error("Error while sending email."), {
@@ -727,7 +718,7 @@ module.exports = function (Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function (id, password, cb) {
+  Useraccount.updatePassword = function(id, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
@@ -741,12 +732,12 @@ module.exports = function (Useraccount) {
           id: id
         }
       },
-      function (err, user) {
+      function(err, user) {
         if (err) {
           cb(buildError("INVALID_OPERATION", "unable to find user."));
           return;
         }
-        user.updateAttribute("password", password, function (err, user) {
+        user.updateAttribute("password", password, function(err, user) {
           if (err) {
             cb(buildError("INVALID_OPERATION", err));
             return;
@@ -761,7 +752,7 @@ module.exports = function (Useraccount) {
   };
 
   // chek if email is unique
-  Useraccount.isEmailUnique = function (email, cb) {
+  Useraccount.isEmailUnique = function(email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -771,7 +762,7 @@ module.exports = function (Useraccount) {
           }
         }
       },
-      function (err, user) {
+      function(err, user) {
         if (err) {
           cb(err);
           return;
@@ -792,7 +783,7 @@ module.exports = function (Useraccount) {
   };
 
   // search password
-  Useraccount.searchUser = function (keyword, userId, cb) {
+  Useraccount.searchUser = function(keyword, userId, cb) {
     let trimedKeyword = keyword.trim();
     if (
       trimedKeyword.startsWith("+2519") ||
@@ -856,7 +847,7 @@ module.exports = function (Useraccount) {
                     ]
                   }
                 },
-                function (err, users) {
+                function(err, users) {
                   cb(null, users);
                 }
               );
@@ -872,7 +863,7 @@ module.exports = function (Useraccount) {
                     ]
                   }
                 },
-                function (err, role) {
+                function(err, role) {
                   Useraccount.find(
                     {
                       where: {
@@ -920,7 +911,7 @@ module.exports = function (Useraccount) {
                         ]
                       }
                     },
-                    function (err, users) {
+                    function(err, users) {
                       cb(null, users);
                     }
                   );
@@ -936,14 +927,14 @@ module.exports = function (Useraccount) {
   };
 
   // get users by role
-  Useraccount.getUserListByRole = function (roleId, cb) {
+  Useraccount.getUserListByRole = function(roleId, cb) {
     Useraccount.find(
       {
         where: {
           roleId: roleId
         }
       },
-      function (err, users) {
+      function(err, users) {
         cb(null, users);
       }
     );
@@ -1007,12 +998,11 @@ module.exports = function (Useraccount) {
     }
 
     if (age != 0) {
-      let now = new Date()
-      let ageParam = now.setFullYear(now.getFullYear() - age)
-      ageParam = new Date(ageParam)
-      ageQuery = { birthDate: { gte: ageParam } }
+      let now = new Date();
+      let ageParam = now.setFullYear(now.getFullYear() - age);
+      ageParam = new Date(ageParam);
+      ageQuery = { birthDate: { gte: ageParam } };
     }
-
 
     for (const city of cities) {
       users = await Useraccount.find({
@@ -1151,7 +1141,7 @@ module.exports = function (Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = async function (id) {
+  Useraccount.getAssignedCities = async function(id) {
     const { AssignedCity } = Useraccount.app.models;
     try {
       const cities = await AssignedCity.findOne({ where: { userId: id } });
@@ -1510,7 +1500,7 @@ module.exports = function (Useraccount) {
     }
   });
 
-  Useraccount.signInWithFB = function (user, cb) {
+  Useraccount.signInWithFB = function(user, cb) {
     const { AccessToken } = Useraccount.app.models;
     if (user.authResponse.userID && user.authResponse.userID === "") {
       return cb(new Error("Invalid user data."));
