@@ -29,12 +29,14 @@
       "type": "date",
       "defaultfun": "now"
     },
-    "score":{
-      "type":"array",
-      "default":[]
+    "score": {
+      "type": "array",
+      "default": []
+    },
+    "unregisteredMembers": {
+      "type": "array",
+      "default": []
     }
-    
-    
   },
   "validations": [],
   "relations": {
