@@ -160,11 +160,6 @@
       "type": "hasMany",
       "model": "investorProfile",
       "foreignKey": "investorId"
-    },
-    "notifications": {
-      "type": "hasMany",
-      "model": "Notification",
-      "foriegnKey": "userId"
     }
   },
   "acls": [
