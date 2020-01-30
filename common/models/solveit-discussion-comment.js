@@ -34,7 +34,8 @@ module.exports = function(Solveitdiscussioncomment) {
   ) {
     const {
       Solveitdiscussion,
-      UserAccount
+      UserAccount,
+      Notification
     } = Solveitdiscussioncomment.app.models;
     var commentCount = 0;
 
@@ -62,6 +63,7 @@ module.exports = function(Solveitdiscussioncomment) {
             }
             if (discussion.user.oneSignalUserID) {
               const reciverPlayerId = discussion.user.oneSignalUserID;
+              const reciverUserId = discussion.user.id;
               const reciverFirstName = discussion.user.firstName;
               UserAccount.findOne(
                 { where: { id: context.args.data.userId } },
@@ -79,6 +81,10 @@ module.exports = function(Solveitdiscussioncomment) {
                       message,
                       { include_player_ids: [reciverPlayerId] }
                     );
+                    Notification.create({
+                      content: message,
+                      userId: reciverUserId
+                    });
                     NotificationUtils.sendNotification(notification);
                   }
                 }

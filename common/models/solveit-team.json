@@ -20,8 +20,7 @@
     },
     "twitter_link": {
       "type": "string"
-    }
-    ,
+    },
     "picture": {
       "type": "object",
       "required": true
