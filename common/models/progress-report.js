@@ -1,7 +1,7 @@
 "use strict";
 const NotificationUtils = require("../utils/notificationUtil");
 
-module.exports = function (Progressreport) {
+module.exports = function(Progressreport) {
   //  disable delete end point
   Progressreport.disableRemoteMethod("deleteById", true);
   Progressreport.disableRemoteMethod("destroyById", true);
@@ -53,8 +53,8 @@ module.exports = function (Progressreport) {
 
       let newNotification = {
         userId: assignedCities[0].userId,
-        notificationMessage : message
-      }
+        notificationMessage: message
+      };
       if (userDeviceIds.length > 0) {
         const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
         const notification = NotificationUtils.createNotification(message, {
@@ -69,22 +69,12 @@ module.exports = function (Progressreport) {
       console.log(error);
       throw error;
     }
-      mentorNotification.create(newNotification, (err, succ)=>{
-        if(err){
-          console.log(err)
-        }else{
-          console.log(succ)
-        }
-      })
-
-    // if (userDeviceIds.length > 0) {
-    //   const notification = NotificationUtils.createNotification(message, {
-    //     include_player_ids: [...userDeviceIds]
-    //   });
-    //   NotificationUtils.sendNotification(notification);
-    // }
-  } catch (error) {
-    console.log(error);
-  }
-});
+    mentorNotification.create(newNotification, (err, succ) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(succ);
+      }
+    });
+  });
 };
