@@ -139,7 +139,7 @@ module.exports = function (Useraccount) {
           if (data.emailVerified && data.status === "ACTIVE") {
             next();
           } else {
-            let error = new Error();
+            let error = new Error('Verify');
             next(error);
           }
         } else {
