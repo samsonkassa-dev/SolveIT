@@ -1005,8 +1005,10 @@ module.exports = function(Useraccount) {
     }
 
     for (const city of cities) {
+      let now = new Date(2020, 0, 1);
       users = await Useraccount.find({
         where: {
+          created: { gte: now },
           cityId: city.id,
           ...genderQuery,
           ...educationQuery,
