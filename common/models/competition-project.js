@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 module.exports = function(Competitionproject) {
   //  disable delete end point
-  Competitionproject.disableRemoteMethod('deleteById', true);
-  Competitionproject.disableRemoteMethod('destroyById', true);
-  Competitionproject.disableRemoteMethod('removeById', true);
+  // Competitionproject.disableRemoteMethod('deleteById', true);
+  // Competitionproject.disableRemoteMethod('destroyById', true);
+  // Competitionproject.disableRemoteMethod('removeById', true);
 
   Competitionproject.enroll = function(
     competitionId,
@@ -12,9 +12,13 @@ module.exports = function(Competitionproject) {
     questionnaireAnswers,
     cb
   ) {
-    const temp = {competitionId, projectId, questionnaireAnswers};
+    const temp = { competitionId, projectId, questionnaireAnswers };
     Competitionproject.findOrCreate(
-      {where: {and: [{competitionId: competitionId}, {projectId: projectId}]}},
+      {
+        where: {
+          and: [{ competitionId: competitionId }, { projectId: projectId }]
+        }
+      },
       temp,
       (error, response) => {
         if (error) cb(error);
@@ -25,7 +29,7 @@ module.exports = function(Competitionproject) {
 
   Competitionproject.getProjectEnrollmentStatus = async projectId => {
     const status = await Competitionproject.find({
-      where: {projectId: projectId},
+      where: { projectId: projectId }
     });
 
     return status.length > 0 ? true : false;
@@ -38,7 +42,7 @@ module.exports = function(Competitionproject) {
       productTypeView,
       sectorView,
       Solveitproject,
-      investorProfile,
+      investorProfile
     } = Competitionproject.app.models;
     const userId = req.accessToken.userId;
 
@@ -62,28 +66,28 @@ module.exports = function(Competitionproject) {
     }
 
     let productTypeMetrics = await productTypeView.find({
-      where: {userId: userId},
+      where: { userId: userId }
     });
-    let totalProductTypeViewCount = productTypeMetrics.sum('viewCount');
+    let totalProductTypeViewCount = productTypeMetrics.sum("viewCount");
     productTypeMetrics = productTypeMetrics.map(object => ({
       ...object,
-      percentage: (object.viewCount / totalProductTypeViewCount) * 100,
+      percentage: (object.viewCount / totalProductTypeViewCount) * 100
     }));
 
-    let sectorMetrics = await sectorView.find({where: {userId: userId}});
-    let totalSectorViewCount = sectorMetrics.sum('viewCount');
+    let sectorMetrics = await sectorView.find({ where: { userId: userId } });
+    let totalSectorViewCount = sectorMetrics.sum("viewCount");
     sectorMetrics = sectorMetrics.map(object => ({
       ...object,
-      percentage: (object.viewCount / totalSectorViewCount) * 100,
+      percentage: (object.viewCount / totalSectorViewCount) * 100
     }));
 
-    let profile = await investorProfile.find({where: {investorId: userId}});
+    let profile = await investorProfile.find({ where: { investorId: userId } });
 
     let productTypes = productTypeMetrics.map(metrics => metrics.productTypeId);
     let sectors = sectorMetrics.map(metrics => metrics.sectorId);
 
     let competitionProjects = await Competitionproject.find({
-      include: ['solveitproject'],
+      include: ["solveitproject"]
     });
     let recommendedProjects = competitionProjects.filter(item => {
       return (
@@ -101,7 +105,7 @@ module.exports = function(Competitionproject) {
           productTypeMetrics.indexOf(
             findWithAttr(
               productTypeMetrics,
-              'productTypeId',
+              "productTypeId",
               object.questionnaireAnswers.innovationInfo.productType
             )
           )
@@ -111,12 +115,12 @@ module.exports = function(Competitionproject) {
           sectorMetrics.indexOf(
             findWithAttr(
               sectorMetrics,
-              'sectorId',
+              "sectorId",
               object.questionnaireAnswers.innovationInfo.sector
             )
           )
         ].percentage /
-          2,
+          2
     }));
 
     return recommendedProjects;
@@ -126,13 +130,13 @@ module.exports = function(Competitionproject) {
     const {
       solvieITCompetition,
       UserAccount,
-      city,
+      city
     } = Competitionproject.app.models;
 
     let assignedProjects = [];
 
     const activeCompetition = await solvieITCompetition.findOne({
-      where: {active: true},
+      where: { active: true }
     });
     try {
       const cities = await UserAccount.getAssignedCities(userid);
@@ -154,95 +158,95 @@ module.exports = function(Competitionproject) {
           });
         }
       });
-      return {assignedProjects, assignedCities: cities.cities};
+      return { assignedProjects, assignedCities: cities.cities };
     } catch (error) {
       console.log(error);
       return [];
     }
   };
 
-  Competitionproject.remoteMethod('enroll', {
-    description: 'Enroll project to competition.',
+  Competitionproject.remoteMethod("enroll", {
+    description: "Enroll project to competition.",
     accepts: [
       {
-        arg: 'competitionId',
-        type: 'string',
-        require: true,
+        arg: "competitionId",
+        type: "string",
+        require: true
       },
       {
-        arg: 'projectId',
-        type: 'string',
-        require: true,
+        arg: "projectId",
+        type: "string",
+        require: true
       },
       {
-        arg: 'questionnaireAnswers',
-        type: 'object',
-        require: true,
-      },
+        arg: "questionnaireAnswers",
+        type: "object",
+        require: true
+      }
     ],
     http: {
-      verb: 'post',
-      path: '/enroll',
+      verb: "post",
+      path: "/enroll"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Competitionproject.remoteMethod('getProjectEnrollmentStatus', {
-    description: 'Get status of enrollment of a project.',
+  Competitionproject.remoteMethod("getProjectEnrollmentStatus", {
+    description: "Get status of enrollment of a project.",
     accepts: [
       {
-        arg: 'projectId',
-        type: 'string',
-        require: true,
-      },
+        arg: "projectId",
+        type: "string",
+        require: true
+      }
     ],
     http: {
-      verb: 'get',
-      path: '/getProjectEnrollmentStatus/:projectId',
+      verb: "get",
+      path: "/getProjectEnrollmentStatus/:projectId"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Competitionproject.remoteMethod('recommendation', {
-    description: 'Recommend projects for the investor',
+  Competitionproject.remoteMethod("recommendation", {
+    description: "Recommend projects for the investor",
     accepts: [
       {
-        arg: 'req',
-        type: 'object',
-        http: {source: 'req'},
-      },
+        arg: "req",
+        type: "object",
+        http: { source: "req" }
+      }
     ],
     http: {
-      verb: 'get',
-      path: '/recommendations',
+      verb: "get",
+      path: "/recommendations"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 
-  Competitionproject.remoteMethod('getAssignedProjects', {
-    description: 'return assigned projects for mentors',
+  Competitionproject.remoteMethod("getAssignedProjects", {
+    description: "return assigned projects for mentors",
     accepts: [
       {
-        arg: 'userId',
-        type: 'string',
-      },
+        arg: "userId",
+        type: "string"
+      }
     ],
     http: {
-      verb: 'get',
-      path: '/getAssignedProjects/:userId',
+      verb: "get",
+      path: "/getAssignedProjects/:userId"
     },
     returns: {
-      type: 'object',
-      root: true,
-    },
+      type: "object",
+      root: true
+    }
   });
 };
