@@ -51,7 +51,7 @@ h6 {
 }
 .main-color,
 a {
-  color: #2ba692;
+  color: #000;
 }
 h1 {
   font-size: 54px;
@@ -1190,6 +1190,8 @@ header {
   font-size: 14px;
   text-transform: uppercase;
   margin: 0;
+  color: black;
+  font-weight: 600;
 }
 @media only screen and (max-width: 767px) {
   .section-header h2.title {
@@ -1398,7 +1400,8 @@ header {
 select {
   -moz-appearance: none;
   height: 4em;
-  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    no-repeat right #ddd;
   -webkit-appearance: none;
 }
 
