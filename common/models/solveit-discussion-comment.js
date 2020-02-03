@@ -32,10 +32,12 @@ module.exports = function(Solveitdiscussioncomment) {
     unused,
     next
   ) {
+    console.log("After Creating");
     const {
       Solveitdiscussion,
       UserAccount,
-      Notification
+      Notification,
+      mentorNotification
     } = Solveitdiscussioncomment.app.models;
     var commentCount = 0;
 
@@ -62,6 +64,7 @@ module.exports = function(Solveitdiscussioncomment) {
               next(err);
             }
             if (discussion.user.oneSignalUserID) {
+              console.log("HAS SIGN");
               const reciverPlayerId = discussion.user.oneSignalUserID;
               const reciverUserId = discussion.user.id;
               const reciverFirstName = discussion.user.firstName;
@@ -86,6 +89,47 @@ module.exports = function(Solveitdiscussioncomment) {
                       userId: reciverUserId
                     });
                     NotificationUtils.sendNotification(notification);
+                    let newNotification = {
+                      userId: reciverUserId,
+                      notificationMessage: message
+                    };
+                    mentorNotification.create(newNotification, (err, succ) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        console.log(succ);
+                      }
+                    });
+                  }
+                }
+              );
+            } else {
+              const reciverUserId = discussion.user.id;
+              const reciverFirstName = discussion.user.firstName;
+              UserAccount.findOne(
+                { where: { id: context.args.data.userId } },
+                function(err1, user) {
+                  if (err1) {
+                    const err1 = new Error();
+                    console.log(err1);
+                  } else {
+                    const commenter =
+                      discussion.user.username === user.username
+                        ? "You"
+                        : user.firstName + " " + user.middleName;
+                    const message = `Dear ${reciverFirstName}, ${commenter} added a comment on your discussion.`;
+
+                    let newNotification = {
+                      userId: reciverUserId,
+                      notificationMessage: message
+                    };
+                    mentorNotification.create(newNotification, (err, succ) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        console.log(succ);
+                      }
+                    });
                   }
                 }
               );
