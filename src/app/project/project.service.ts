@@ -4,7 +4,6 @@ import { from } from "../../../node_modules/rxjs/observable/from";
 
 @Injectable()
 export class ProjectService {
-  
   constructor(public apiService: ApiService) {}
 
   createProject(project) {
@@ -15,11 +14,11 @@ export class ProjectService {
     return this.apiService.get(`Solveitprojects/${projectId}`);
   }
 
-  getJudges(competitionId){
-    return this.apiService.get(`judges`)
+  getJudges(competitionId) {
+    return this.apiService.get(`judges`);
   }
   addScore(projectId, score) {
-    return this.apiService.patch(`Solveitprojects/${projectId}`, score)
+    return this.apiService.patch(`Solveitprojects/${projectId}`, score);
   }
   getMyProjects(userId) {
     return this.apiService.get(`/UserAccounts/${userId}/projects`);
@@ -38,7 +37,9 @@ export class ProjectService {
   }
 
   getMembers(projectId) {
-    return this.apiService.get(`Solveitprojects/${projectId}/members`);
+    return this.apiService.get(
+      `Solveitprojects/${projectId}/members?filter={"include": "role"}`
+    );
   }
 
   joinCompetition(project, data) {
@@ -97,7 +98,7 @@ export class ProjectService {
   }
 
   removeBookmark(bookmarkId) {
-    return this.apiService.delete(`projectBookmarks/${bookmarkId}`)
+    return this.apiService.delete(`projectBookmarks/${bookmarkId}`);
   }
 
   rateProject(ratingObject) {
@@ -121,11 +122,13 @@ export class ProjectService {
   }
 
   getProjectRatings(projectId) {
-      return this.apiService.get(`projectRatings/${projectId}/ratings`);
+    return this.apiService.get(`projectRatings/${projectId}/ratings`);
   }
 
   registerView(projectViewObject) {
-      return this.apiService.post(`projectViews/registerView`, {projectViewObject: {projectViewObject}});
+    return this.apiService.post(`projectViews/registerView`, {
+      projectViewObject: { projectViewObject }
+    });
   }
 
   getSectors() {

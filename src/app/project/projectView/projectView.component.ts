@@ -1,5 +1,5 @@
-import { SharedService } from './../../shared/services/shared.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SharedService } from "./../../shared/services/shared.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { ProjectService } from "../project.service";
@@ -31,7 +31,7 @@ export class ProjectViewComponent implements OnInit {
   public activeCompetitions = [];
   public isJoinCompetitionSuccessfull = null;
 
-  public projects = { judge: null }
+  public projects = { judge: null };
   public addScoreForm: FormGroup;
   constructor(
     public route: ActivatedRoute,
@@ -44,9 +44,9 @@ export class ProjectViewComponent implements OnInit {
     public fb: FormBuilder
   ) {
     this.addScoreForm = this.fb.group({
-      score: ['', Validators.required],
-      judge: ''
-    })
+      score: ["", Validators.required],
+      judge: ""
+    });
   }
 
   ngOnInit() {
@@ -58,94 +58,104 @@ export class ProjectViewComponent implements OnInit {
         this.activeCompetitions = this.activeCompetitions.filter(item => {
           return item.active;
         });
+        let userRegisteredYear = new Date(
+          this.authService.getUserSession().user.created
+        ).getFullYear();
+        let year = new Date("2020, 1,1").getFullYear();
+        if (userRegisteredYear < year) {
+          this.activeCompetitions = [];
+        }
       },
-      error => { }
+      error => {}
     );
     this.service.getMembers(id).subscribe(res => {
       res.forEach(item => {
         this.members.push(item.id);
       });
     });
-
-
   }
   getJudges(competitionId) {
-    let temp = []
+    let temp = [];
     this.service.getJudges(competitionId).subscribe(res => {
       res.forEach(element => {
-        if (element.competitions && element.competitions != undefined && element.competitions.indexOf(competitionId) >= 0) {
-          temp.push(element)
+        if (
+          element.competitions &&
+          element.competitions != undefined &&
+          element.competitions.indexOf(competitionId) >= 0
+        ) {
+          temp.push(element);
         }
-      }); 
-      
-     this.judges = [...temp]
-    })
+      });
+
+      this.judges = [...temp];
+    });
   }
   toggleView(view) {
     this.selected = view;
   }
   setupScore() {
-    console.log("Setting")
-   if(this.authService.isSolveitJudge()){
-    if (this.project.score) {
-      console.log(this.project.score)
-      this.project.score.forEach(element => {
-        if (element.judgeId == this.authService.getUserId()) {
-          let score = { score: element.score }
-          this.addScoreForm.patchValue(score);
-        }
-      });
+    console.log("Setting");
+    if (this.authService.isSolveitJudge()) {
+      if (this.project.score) {
+        console.log(this.project.score);
+        this.project.score.forEach(element => {
+          if (element.judgeId == this.authService.getUserId()) {
+            let score = { score: element.score };
+            this.addScoreForm.patchValue(score);
+          }
+        });
+      }
     }
-   }
- 
   }
 
-  selectJudge(){
+  selectJudge() {
     this.project.score.forEach(element => {
       if (element.judgeId == this.projects.judge) {
-        let score = { score: element.score }
+        let score = { score: element.score };
         this.addScoreForm.patchValue(score);
       }
     });
   }
   addScore() {
- 
-      if (!this.addScoreForm.invalid) {
-        let formVal = this.addScoreForm.value
-        if (formVal && formVal != undefined) {
-          let judgeScoreFound = false
-          let judgeId = null
-          if(this.authService.isSolveitJudge()){
-            judgeId = this.authService.getUserId()
-          }else{
-            if(!formVal.judge){
-              return;
-            }else{
-              judgeId = formVal.judge
-            }
+    if (!this.addScoreForm.invalid) {
+      let formVal = this.addScoreForm.value;
+      if (formVal && formVal != undefined) {
+        let judgeScoreFound = false;
+        let judgeId = null;
+        if (this.authService.isSolveitJudge()) {
+          judgeId = this.authService.getUserId();
+        } else {
+          if (!formVal.judge) {
+            return;
+          } else {
+            judgeId = formVal.judge;
           }
-          this.project.score = this.project.score == undefined ? [] : this.project.score
-          this.project.score.forEach(element => {
-            if(element.judgeId == judgeId){
-              element.score = formVal.score
-              judgeScoreFound = true
-            }
-          });
-          console.log(this.project.score)
-          let projectScore = this.project.score
-          if(!judgeScoreFound){
-            projectScore.push({ judgeId: judgeId, score: formVal.score })
-          }
-          this.service.addScore(this.project.id, { score: projectScore }).subscribe(res => {
-            this.project = res
-            this.sharedService.addToast("Success", "Score Has Been Added", "success")
-          })
         }
+        this.project.score =
+          this.project.score == undefined ? [] : this.project.score;
+        this.project.score.forEach(element => {
+          if (element.judgeId == judgeId) {
+            element.score = formVal.score;
+            judgeScoreFound = true;
+          }
+        });
+        console.log(this.project.score);
+        let projectScore = this.project.score;
+        if (!judgeScoreFound) {
+          projectScore.push({ judgeId: judgeId, score: formVal.score });
+        }
+        this.service
+          .addScore(this.project.id, { score: projectScore })
+          .subscribe(res => {
+            this.project = res;
+            this.sharedService.addToast(
+              "Success",
+              "Score Has Been Added",
+              "success"
+            );
+          });
       }
-
-    
-
-
+    }
   }
   getProject(projectId) {
     this.service.getProject(projectId).subscribe(
@@ -171,7 +181,7 @@ export class ProjectViewComponent implements OnInit {
       projectId: this.project.id,
       userId: 0
     };
-    this.service.addProjectMember(member).subscribe(res => { });
+    this.service.addProjectMember(member).subscribe(res => {});
   }
 
   toggleUploadReport(value) {
@@ -191,7 +201,7 @@ export class ProjectViewComponent implements OnInit {
         window.URL.revokeObjectURL(url);
         a.remove(); // remove the element
       },
-      error => { }
+      error => {}
     );
   }
 
@@ -229,9 +239,8 @@ export class ProjectViewComponent implements OnInit {
       if (res.length == 0) {
         this.isEnrolled = false;
       } else {
-
-        this.competitionId = res[0].id
-        this.getJudges(res[0].id)
+        this.competitionId = res[0].id;
+        this.getJudges(res[0].id);
         this.isEnrolled = true;
       }
       if (!this.isEnrolled && this.count === 0) {
