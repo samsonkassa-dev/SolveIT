@@ -11,30 +11,19 @@
       <div id="aside" class="col-md-6">
         <div class="widget">
           <div class="widget-search">
-            <input
-              class="search-input form-control"
-              type="text"
-              placeholder="search"
-              [(ngModel)]="keyword"
-              (keyup)="searchProject($event)"
-            />
+            <input class="search-input form-control" type="text" placeholder="search" [(ngModel)]="keyword"
+              (keyup)="searchProject($event)" />
             <button class="search-btn" type="button">
               <i class="fa fa-search"></i>
             </button>
           </div>
         </div>
       </div>
-      <div class="col-md-3" >
+      <div class="col-md-3">
         <div class="widget">
           <div class="widget-search">
-            <select
-              name="city"
-              class="form-control"
-              aria-placeholder="Filter By City"
-              id="city"
-              [(ngModel)]="selectedCity"
-              (change)="filterByCity()"
-            >
+            <select name="city" class="form-control" aria-placeholder="Filter By City" id="city"
+              [(ngModel)]="selectedCity" (change)="filterByCity()">
               <option value="" selected>Filter By City</option>
               <option value="">All</option>
               <option *ngFor="let city of cities" value="{{city.id}}">{{
@@ -45,18 +34,12 @@
         </div>
       </div>
 
-      <div class = "col-md-2" *ngIf="selectedCity && selectedCity != undefined && !authService.isSolveitJudge()">
+      <div class="col-md-2" *ngIf="selectedCity && selectedCity != undefined && !authService.isSolveitJudge()">
         <div class="widget">
-          <button
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Create new project"
-          type="button"
-          data-toggle="modal"
-          data-target="#createProjectModal">
+          <button data-toggle="tooltip" data-placement="top" title="Create new project" type="button"
+            data-toggle="modal" data-target="#createProjectModal">
             Create a Project
-          </button
-          >
+          </button>
         </div>
       </div>
     </div>
@@ -68,31 +51,28 @@
         <tr>
           <th>#</th>
           <th>Project Title</th>
+          <th *ngIf="authService.isAdmin()">action</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          class="project-items"
-          *ngFor="
+        <tr class="project-items" *ngFor="
             let project of (projects
               | paginate: { itemsPerPage: 15, currentPage: page });
             let i = index
-          "
-          (click)="viewProject(project.solveitproject)"
-        >
+          ">
           <th>{{ i + 1 }}</th>
-          <td>
+          <td (click)="viewProject(project.solveitproject)">
             {{
               project.solveitproject ? project.solveitproject.title : "Unknown"
             }}
           </td>
+          <td *ngIf="authService.isAdmin() || authService.isSolveitTeam()"><button class="btn btn-danger"
+              data-toggle="modal" data-target="#myModal" (click)="selectProject(project.id)">Remove Project</button>
+          </td>
         </tr>
       </tbody>
     </table>
-    <pagination-controls
-      *ngIf="projects.length > 15"
-      (pageChange)="page = $event"
-    ></pagination-controls>
+    <pagination-controls *ngIf="projects.length > 15" (pageChange)="page = $event"></pagination-controls>
     <div class="not-found" *ngIf="backupProjects.length == 0 && keyword === ''">
       <div class="no-resource-found">
         <p><i class="fa  fa-frown-o"></i> No Projects Joined, yet.</p>
@@ -105,17 +85,37 @@
     </div>
   </div>
 </div>
-<app-competition-create-project
-[isEdit]="false"
-(created)="projectCreated()">
+<app-competition-create-project [isEdit]="false" (created)="projectCreated()">
 
-</app-competition-create-project
->
-<ngx-spinner
-  bdColor="rgba(51, 51, 51, 0.8)"
-  size="medium"
-  color="#2ba692"
-  type="ball-triangle-path"
->
+</app-competition-create-project>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#2ba692" type="ball-triangle-path">
   <p style="font-size: 20px; color: white">Loading ...</p>
 </ngx-spinner>
+
+
+<!-- Confirmation Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to remove this project from this competition ?</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteCompetitionProject()" type="button" class="btn main-btn" data-dismiss="modal">
+          Yes
+        </button>
+        <button type="button" class="btn outline-btn" data-dismiss="modal">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->

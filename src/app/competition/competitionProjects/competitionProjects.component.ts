@@ -1,6 +1,7 @@
-import { configs } from './../../app.config';
-import { FileUploader } from 'ng2-file-upload';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SharedService } from "./../../shared/services/shared.service";
+import { configs } from "./../../app.config";
+import { FileUploader } from "ng2-file-upload";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CompetitionService } from "../competition.service";
@@ -33,16 +34,16 @@ export class CompetitionProjectsComponent implements OnInit {
   public page = 1;
   public cities = [];
   selectedCity = "";
-
+  selectedProject = null;
   constructor(
-    
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
     public router: Router,
     public service: CompetitionService,
     public cityService: CityService,
     public authService: AuthService,
-    public userService: UserManagementService
+    public userService: UserManagementService,
+    public sharedService: SharedService
   ) {
     this.projectForm = new FormGroup({
       title: new FormControl("", Validators.required),
@@ -86,10 +87,10 @@ export class CompetitionProjectsComponent implements OnInit {
             this.competitionId
           );
           const cities = this.cityService.getCities();
-          console.log(cities)
+          console.log(cities);
           fromPromise(Promise.all([competitionProjects, cities])).subscribe(
             responses => {
-              console.log(responses)
+              console.log(responses);
               responses[1].subscribe(citiesResponse => {
                 this.cities = citiesResponse.filter(
                   city => assignedCities.cities.indexOf(city.id) !== -1
@@ -125,12 +126,10 @@ export class CompetitionProjectsComponent implements OnInit {
       this.spinner.show();
       this.getCities();
       this.service.getProjects(this.competitionId).subscribe(
-        
         res => {
-          console.log(res)
           this.backupProjects = res.filter(project => project.solveitproject);
           this.projects = this.backupProjects;
-        
+          console.log(this.projects);
           this.spinner.hide();
         },
         error => {
@@ -139,7 +138,23 @@ export class CompetitionProjectsComponent implements OnInit {
       );
     }
   }
+  deleteCompetitionProject() {
+    console.log(this.selectedProject);
+    this.service
+      .deleteCompetitionProject(this.selectedProject)
+      .subscribe(res => {
+        this.ngOnInit();
+        this.sharedService.addToast(
+          "Success",
+          "Successfully removed project from competition",
+          "success"
+        );
+      });
+  }
 
+  selectProject(project) {
+    this.selectedProject = project;
+  }
   getCities() {
     this.cityService.getCities().subscribe(
       res => {
@@ -170,10 +185,10 @@ export class CompetitionProjectsComponent implements OnInit {
 
   filterByCity() {
     if (this.selectedCity !== "") {
-      localStorage.setItem("cityId", this.selectedCity)
-      console.log("City Id "+ this.selectedCity)
+      localStorage.setItem("cityId", this.selectedCity);
+      console.log("City Id " + this.selectedCity);
       this.projects = this.backupProjects.filter(project => {
-        console.log(project)
+        console.log(project);
         return project.cities.indexOf(this.selectedCity) !== -1;
       });
     } else {

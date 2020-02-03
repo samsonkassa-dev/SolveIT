@@ -6,10 +6,9 @@ export class CompetitionService {
   constructor(private apiService: ApiService) {}
 
   getProjects(competitionId) {
-    return this.apiService.post(
-      `solvieITCompetitions/competition-projects`,
-      {competitionId}
-    );
+    return this.apiService.post(`solvieITCompetitions/competition-projects`, {
+      competitionId
+    });
   }
 
   getCompetitions() {
@@ -18,6 +17,10 @@ export class CompetitionService {
 
   getCompetition(id) {
     return this.apiService.get(`solvieITCompetitions/${id}`);
+  }
+
+  deleteCompetitionProject(id) {
+    return this.apiService.delete(`CompetitionProjects/${id}`);
   }
 
   createCompetition(competition) {
@@ -53,7 +56,7 @@ export class CompetitionService {
   createProject(project) {
     return this.apiService.post(`/Solveitprojects`, project);
   }
-  addToCompetition(projectCompetition){
+  addToCompetition(projectCompetition) {
     return this.apiService.post(`/CompetitionProjects`, projectCompetition);
   }
 
