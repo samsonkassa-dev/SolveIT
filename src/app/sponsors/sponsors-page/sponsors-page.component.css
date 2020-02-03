@@ -12,8 +12,8 @@ img {
 }
 
 .cube {
-  height:12em;
-  width:12em;
+  height: 12em;
+  width: 12em;
   margin-bottom: 1em;
   border: 10px solid #ffffff;
   border-radius: 50%;
@@ -37,32 +37,30 @@ img {
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #288B7B;
+  background: #288b7b;
   padding: 10px;
   border-radius: 5px;
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
-  margin-top:20px;
-  margin-right:20px;
+  margin-top: 20px;
+  margin-right: 20px;
   float: right;
-  }
-  .download-btn{
-    border: solid 2px #288B7B;
-    padding:10px;
-    color:black;
-  }
-  
-  .download-btn:hover{
-    transition: 0.3s;
-    background-color: #288B7B;
-    color:white;
-    cursor: pointer;
-  }
-  
-    .clear-fix{
-      width:100%;
-      clear: both;
-    }
+}
+.download-btn {
+  border: solid 2px #288b7b;
+  padding: 10px;
+  color: black;
+}
 
-    
+.download-btn:hover {
+  transition: 0.3s;
+  background-color: #288b7b;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-fix {
+  width: 100%;
+  clear: both;
+}
