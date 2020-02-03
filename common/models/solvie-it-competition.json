@@ -21,10 +21,12 @@
       "defaultFn": "now"
     },
     "cities": {
-      "type": [
-        "string"
-      ],
+      "type": ["string"],
       "required": true
+    },
+    "createdAt": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
