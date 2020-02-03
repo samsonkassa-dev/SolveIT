@@ -5,12 +5,14 @@ import { FileUploader } from "ng2-file-upload";
 
 @Injectable()
 export class ResourcesService {
-  public resources_path = `resources?filter={"order":["createdAt DESC"]}`;
+  public resources_path = `resources`;
 
   constructor(public apiService: ApiService) {}
 
   getResources() {
-    return this.apiService.get(this.resources_path);
+    return this.apiService.get(
+      this.resources_path + '?filter={"order":["createdAt DESC"]}'
+    );
   }
 
   getResource(id: string) {
