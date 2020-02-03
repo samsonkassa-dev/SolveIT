@@ -63,6 +63,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   uploadResource() {
+    console.log("KILL EM");
     this.router.navigate(["resources/upload"]);
   }
 
