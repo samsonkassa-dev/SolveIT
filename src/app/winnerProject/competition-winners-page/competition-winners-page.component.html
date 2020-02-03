@@ -27,19 +27,19 @@
             <hr>
             <div class="row">
               <div class="city-winners">
-           
-                  <ng-container *ngIf="city.name != 'Addis Ababa'">
-                    <div class="winner col-sm-3" *ngFor="let winner of city.winners">
-                      <img data-toggle="modal" data-target="#winnerInfo" (click)="setUpViewWinners(winner)"
-                        [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
-                      <p>RANK : {{rankConversion[winner.rank] || winner.rank || " - "}}</p>
-                      <div style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
-                    </div>
 
-                  </ng-container>
+                <ng-container *ngIf="city.name != 'Addis Ababa'">
+                  <div class="winner" *ngFor="let winner of city.winners">
+                    <img data-toggle="modal" data-target="#winnerInfo" (click)="setUpViewWinners(winner)"
+                      [src]="getImageUrl(winner.thumbinal)" alt="thumbinal">
+                    <p>RANK : {{rankConversion[winner.rank] || winner.rank || " - "}}</p>
+                    <div style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
+                  </div>
+
+                </ng-container>
               </div>
               <ng-container *ngIf="city.name == 'Addis Ababa'">
-                <ng-container  *ngFor="let hub of addisHubs">
+                <ng-container *ngFor="let hub of addisHubs">
                   <h5 class="city-name" style="margin-top:30px">{{hub.name}}</h5>
                   <hr>
                   <div class="city-winners">
@@ -50,7 +50,7 @@
                       <div style="height: 5em" [innerHtml]="getProjectTitle(winner?.solveitproject.title)"></div>
                     </div>
                   </div>
-                  
+
                 </ng-container>
 
 
