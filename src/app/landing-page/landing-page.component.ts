@@ -37,14 +37,22 @@ export class LandingPageComponent implements OnInit {
 
     var i = 0;
     var txt = "Be part of This Initiative";
+    var txt2 = "BBBBEEEEEee ppppaaaa";
     var speed = 125;
     let called = [];
     function typeWriter() {
-      if (i < txt.length && called.indexOf(i) <= 0) {
+      if (
+        i < txt.length &&
+        called.indexOf(i) <= 0 &&
+        txt.includes(document.getElementById("be-part").innerHTML)
+      ) {
         document.getElementById("be-part").innerHTML += txt.charAt(i);
         called.push(i);
         i++;
         setTimeout(typeWriter, speed);
+      } else {
+        document.getElementById("be-part").innerHTML = txt;
+        i = txt.length;
       }
     }
     $(window).scroll(function() {
