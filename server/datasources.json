@@ -27,12 +27,12 @@
     "transports": [
       {
         "type": "SMTP",
-        "host": "52jx-5625.accessdomain.com",
+        "host": "smtp.zoho.com",
         "secure": true,
         "port": 465,
         "auth": {
-          "user": "email@icog-labs.com",
-          "pass": "eO*-P2k5}gd"
+          "user": "email@icog-solveit.com",
+          "pass": "ICSI@2020"
         }
       }
     ]
