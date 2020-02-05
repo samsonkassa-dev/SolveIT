@@ -29,11 +29,12 @@ export class WeeklyWinnerComponent implements OnInit {
       this.winners = [];
       let temp = [];
       res.forEach(element => {
-        if (temp.indexOf(element.name) <= 0) {
-          temp.push(element.name);
+        if (temp.indexOf(element.projectId) < 0) {
+          temp.push(element.projectId);
           this.winners.push(element);
         }
       });
+      console.log(this.winners);
     });
   }
 
