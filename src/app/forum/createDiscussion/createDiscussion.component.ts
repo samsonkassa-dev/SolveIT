@@ -201,6 +201,10 @@ export class CreateDiscussionComponent implements OnInit {
   public onCreateDiscussion() {
     this.discussion["forumId"] = this.forum.id;
     this.discussion.slung = this.discussion.title.replace(" ", "-");
+    this.discussion.slung = this.discussion.slung.replace("?", "-");
+    this.discussion.slung = this.discussion.slung.replace("!", "-");
+    this.discussion.slung = this.discussion.slung.replace("*", "-");
+    console.log(this.discussion.slung);
     this.discussion.createdAt = new Date();
     this.service.createDiscussion(this.discussion).subscribe(
       res => {
