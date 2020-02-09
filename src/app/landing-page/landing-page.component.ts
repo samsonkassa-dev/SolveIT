@@ -37,7 +37,6 @@ export class LandingPageComponent implements OnInit {
 
     var i = 0;
     var txt = "Be part of This Initiative";
-    var txt2 = "BBBBEEEEEee ppppaaaa";
     var speed = 125;
     let called = [];
     function typeWriter() {
