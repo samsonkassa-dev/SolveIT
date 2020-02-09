@@ -66,8 +66,8 @@
               project.solveitproject ? project.solveitproject.title : "Unknown"
             }}
           </td>
-          <td *ngIf="authService.isAdmin() || authService.isSolveitTeam()"><button class="btn btn-danger"
-              data-toggle="modal" data-target="#myModal" (click)="selectProject(project.id)">Remove Project</button>
+          <td *ngIf="authService.isAdmin() "><button class="btn btn-danger" data-toggle="modal" data-target="#myModal"
+              (click)="selectProject(project.id)">Remove Project</button>
           </td>
         </tr>
       </tbody>
