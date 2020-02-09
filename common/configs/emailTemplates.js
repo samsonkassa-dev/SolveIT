@@ -1,6 +1,6 @@
-'use-strict';
+"use-strict";
 module.exports = {
-    header: `<!DOCTYPE html
+  header: `<!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -361,13 +361,41 @@ module.exports = {
                                                   <p
                                                       style="line-height: 1.5; word-break: break-word; text-align: center; font-family: inherit; font-size: 16px; mso-line-height-alt: 24px; margin: 0;">
                                                       <span style="font-size: 16px; color: #2a272b;">`,
-    middle: `<br>
+  middle: `<br>
   You have successfully registered to SolveIT. To activate
   your account please click confirm button and login to your
   account.</span></p>
 <p
 style="line-height: 1.5; word-break: break-word; font-family: inherit; mso-line-height-alt: NaNpx; margin: 0;">
  </p>
+
+<p style="font-size: 16px; color: #2a272b;">
+We invite you to visit our social media platforms<br/>
+
+<table>
+<tr>
+<td> <img  src="https://img.icons8.com/color/48/000000/telegram-app.png"></td>
+<td><p style="font-size: 16px; color: #2a272b;"> Telegram : <a href="https://t.me/iCogSolveIT"> iCog Solve IT</a></p></td>
+</tr>
+<tr>
+<td> <img  src="https://img.icons8.com/color/48/000000/twitter.png"></td>
+<td><p style="font-size: 16px; color: #2a272b;"> Twitter : <a href="https://twitter.com/iCogSolveIT">iCogSolveIT</a></p></td>
+</tr>
+<tr>
+<td>   <img  src="https://img.icons8.com/color/48/000000/instagram-new.png"></td>
+<td><p style="font-size: 16px; color: #2a272b;"> Instagram : <a href="https://www.instagram.com/icog_solveit/"> icog_solveit </a></p></td>
+</tr>
+<tr>
+<td> <img  src="https://img.icons8.com/color/48/000000/linkedin.png"></td>
+<td><p style="font-size: 16px; color: #2a272b;"> LinkedIn : <a href="https://www.linkedin.com/company/icog-labs/">iCog Labs</a></p></td>
+</tr>
+<tr>
+<td>  <img  src="https://img.icons8.com/color/48/000000/youtube.png"> </td>
+<td><p style="font-size: 16px; color: #2a272b;">YouTube :<a href="https://www.youtube.com/channel/UCip0sTC3ncW06xXGuoeioWA"> @icoglabsofficial</a></p></td>
+</tr>
+</table>
+</p>
+<p style="font-size: 16px; color: #2a272b;">Thanks,<br>The Solve IT Team</p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -375,7 +403,7 @@ style="line-height: 1.5; word-break: break-word; font-family: inherit; mso-line-
 style="padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:45pt; width:138pt; v-text-anchor:middle;" arcsize="100%" stroke="false" fillcolor="#028476"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]-->
 <a href="`,
-    footer: `" target="_blank"
+  footer: `" target="_blank"
 style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#028476;border-radius:60px;-webkit-border-radius:60px;-moz-border-radius:60px;width:auto; width:auto;;border-top:1px solid #028476;border-right:1px solid #028476;border-bottom:1px solid #028476;border-left:1px solid #028476;padding-top:12px;padding-bottom:16px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;">
 <span
     style="padding-left:32px;padding-right:32px;font-size:16px;display:inline-block; color: white; text-decoration: none;"><span
@@ -557,6 +585,5 @@ valign="top" width="100%">
 <!--[if (IE)]></div><![endif]-->
 </body>
 
-</html>`,
-}
-    ;
+</html>`
+};
