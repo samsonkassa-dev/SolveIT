@@ -204,7 +204,6 @@ export class CreateDiscussionComponent implements OnInit {
     this.discussion.slung = this.discussion.slung.replace("?", "-");
     this.discussion.slung = this.discussion.slung.replace("!", "-");
     this.discussion.slung = this.discussion.slung.replace("*", "-");
-    console.log(this.discussion.slung);
     this.discussion.createdAt = new Date();
     this.service.createDiscussion(this.discussion).subscribe(
       res => {

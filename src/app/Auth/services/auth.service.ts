@@ -92,7 +92,6 @@ export class AuthService {
   // }
 
   signOut(){
-    console.log(JSON.parse(window.localStorage.getItem(this.TOKEN)).id);
     if(this.isAuthenticated()){
         this.apiService.post(`${this.user_Path}/logout-user`, {
           tokenId: JSON.parse(window.localStorage.getItem(this.TOKEN)).id

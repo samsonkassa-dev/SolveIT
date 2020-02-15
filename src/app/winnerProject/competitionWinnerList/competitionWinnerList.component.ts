@@ -1,9 +1,9 @@
-import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from './../../Auth/services/auth.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
-import { ParsedResponseHeaders } from 'ng2-file-upload';
-import { FileItem } from 'ng2-file-upload';
+import { DomSanitizer } from "@angular/platform-browser";
+import { AuthService } from "./../../Auth/services/auth.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FileUploader } from "ng2-file-upload";
+import { ParsedResponseHeaders } from "ng2-file-upload";
+import { FileItem } from "ng2-file-upload";
 import { Component, OnInit } from "@angular/core";
 import { WinnerProjectService } from "../winnerProject.service";
 import { SharedService } from "../../shared/services/shared.service";
@@ -15,28 +15,33 @@ import { configs } from "../../app.config";
   styleUrls: ["competitionWinnerList.component.css"]
 })
 export class CompetitionWinnerListComponent implements OnInit {
-  public competitionWinner: any = { competitionId: "", projectId: "", city: '', thumnbinal: {} };
+  public competitionWinner: any = {
+    competitionId: "",
+    projectId: "",
+    city: "",
+    thumnbinal: {}
+  };
   public competitionWinnerForm: FormGroup;
   public competitionWinners = [];
   public page: number = 1;
   public isUploading = false;
   public isFileSelected = false;
   public isCreateButtonClicked = false;
-  public filePreviewPath: any = '';
+  public filePreviewPath: any = "";
   public progress = 0;
   private uploadUrl = `${configs.rootUrl}storages/winner-thumbinals/upload`;
   public uploader: FileUploader = new FileUploader({ url: this.uploadUrl });
   constructor(
     public sanitizer: DomSanitizer,
-    public authService : AuthService,
+    public authService: AuthService,
     public service: WinnerProjectService,
     public sharedService: SharedService,
-    public fb:FormBuilder
-  ) { 
+    public fb: FormBuilder
+  ) {
     this.competitionWinnerForm = this.fb.group({
-      description:[''],
-      rank:['']
-    })
+      description: [""],
+      rank: [""]
+    });
   }
 
   ngOnInit() {
@@ -48,13 +53,12 @@ export class CompetitionWinnerListComponent implements OnInit {
       this.competitionWinners = res;
     });
   }
-  setUpEditWinners(winner){
+  setUpEditWinners(winner) {
     //console.log(winner)
-    this.competitionWinner = winner
+    this.competitionWinner = winner;
     //console.log(this.competitionWinner)
-    this.filePreviewPath = this.getImageUrl(winner.thumbinal)
-    this.competitionWinnerForm.patchValue(this.competitionWinner)
-
+    this.filePreviewPath = this.getImageUrl(winner.thumbinal);
+    this.competitionWinnerForm.patchValue(this.competitionWinner);
   }
   removeCompetitionWinnerLabel(winner) {
     this.service.removeCompetitionWinnerLabel(winner.id).subscribe(
@@ -83,9 +87,11 @@ export class CompetitionWinnerListComponent implements OnInit {
         status: number,
         headers: ParsedResponseHeaders
       ) => {
-        this.competitionWinner.description = form.description
-        this.competitionWinner.thumbinal = JSON.parse(response).result.files.file[0];
-        this.competitionWinner.rank = form.rank
+        this.competitionWinner.description = form.description;
+        this.competitionWinner.thumbinal = JSON.parse(
+          response
+        ).result.files.file[0];
+        this.competitionWinner.rank = form.rank;
         this.service.editCompetitionWinner(this.competitionWinner).subscribe(
           res => {
             this.sharedService.addToast(
@@ -109,10 +115,7 @@ export class CompetitionWinnerListComponent implements OnInit {
           this.uploader.queue.pop();
         }
       };
-      this.uploader.onProgressItem = (
-        fileItem: FileItem,
-        progress: any
-      ) => {
+      this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
         this.progress = progress;
       };
       this.uploader.onCancelItem = (
@@ -143,35 +146,37 @@ export class CompetitionWinnerListComponent implements OnInit {
           this.uploader.queue.pop();
         }
       };
-    }else{
-      this.competitionWinner.description = form.description
-      this.competitionWinner.rank = form.rank
-      console.log("Info Updated ")
+    } else {
+      this.competitionWinner.description = form.description;
+      this.competitionWinner.rank = form.rank;
       this.service.editCompetitionWinner(this.competitionWinner).subscribe(
-          res => {
-            this.sharedService.addToast(
-              "Success",
-              "Competition Winner Info Updated Successfully!.",
-              "success"
-            );
-            this.ngOnInit();
-            this.isUploading = false;
-            this.isCreateButtonClicked = false;
-            this.isFileSelected = false;
-          },
-          err => {
-            this.sharedService.addToast("Error", "Error occurred!", "error");
-            this.isUploading = false;
-            this.isCreateButtonClicked = false;
-            this.isFileSelected = false;
-          }
-        );
+        res => {
+          this.sharedService.addToast(
+            "Success",
+            "Competition Winner Info Updated Successfully!.",
+            "success"
+          );
+          this.ngOnInit();
+          this.isUploading = false;
+          this.isCreateButtonClicked = false;
+          this.isFileSelected = false;
+        },
+        err => {
+          this.sharedService.addToast("Error", "Error occurred!", "error");
+          this.isUploading = false;
+          this.isCreateButtonClicked = false;
+          this.isFileSelected = false;
+        }
+      );
     }
   }
   handleFileSelection($event) {
     this.isFileSelected = true;
-    this.filePreviewPath = this.sanitizer.
-      bypassSecurityTrustUrl((window.URL.createObjectURL(this.uploader.queue[this.uploader.queue.length - 1]._file)));
+    this.filePreviewPath = this.sanitizer.bypassSecurityTrustUrl(
+      window.URL.createObjectURL(
+        this.uploader.queue[this.uploader.queue.length - 1]._file
+      )
+    );
     //console.log(this.filePreviewPath);
   }
   getImageUrl(item) {

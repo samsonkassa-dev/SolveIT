@@ -94,10 +94,8 @@ export class ProjectViewComponent implements OnInit {
     this.selected = view;
   }
   setupScore() {
-    console.log("Setting");
     if (this.authService.isSolveitJudge()) {
       if (this.project.score) {
-        console.log(this.project.score);
         this.project.score.forEach(element => {
           if (element.judgeId == this.authService.getUserId()) {
             let score = { score: element.score };
@@ -139,7 +137,6 @@ export class ProjectViewComponent implements OnInit {
             judgeScoreFound = true;
           }
         });
-        console.log(this.project.score);
         let projectScore = this.project.score;
         if (!judgeScoreFound) {
           projectScore.push({ judgeId: judgeId, score: formVal.score });

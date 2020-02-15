@@ -87,7 +87,6 @@ export class CompetitionProjectsComponent implements OnInit {
             this.competitionId
           );
           const cities = this.cityService.getCities();
-          console.log(cities);
           fromPromise(Promise.all([competitionProjects, cities])).subscribe(
             responses => {
               console.log(responses);

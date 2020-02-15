@@ -25,7 +25,6 @@ export class WeeklyWinnerComponent implements OnInit {
 
   getWeeklyWinners() {
     this.service.getWeeklyWinners().subscribe(res => {
-      console.log(res);
       this.winners = [];
       let temp = [];
       res.forEach(element => {
@@ -34,7 +33,6 @@ export class WeeklyWinnerComponent implements OnInit {
           this.winners.push(element);
         }
       });
-      console.log(this.winners);
     });
   }
 

@@ -28,8 +28,8 @@ export class JoinCompetitionComponent implements OnInit {
     description: "",
     whatProblem: "",
     howToSolve: "",
-    supportNeeded:[],
-    parentsOccupation:""
+    supportNeeded: [],
+    parentsOccupation: ""
   };
   productTypes = [
     "Software (for Mobile Application)",
@@ -62,25 +62,16 @@ export class JoinCompetitionComponent implements OnInit {
     "Business Owner",
     "Student",
     "Other"
-  ]
+  ];
 
-  yesNoOptions = [
-    "Yes",
-    "No"
-  ]
+  yesNoOptions = ["Yes", "No"];
 
   supportOptions = [
     "Business Support",
     "Financial Support",
     "Technical Support"
-  ]
-  languageOptions = [
-    "Amharic",
-    "English"
-  ]
-
-
-
+  ];
+  languageOptions = ["Amharic", "English"];
 
   // further info
   furtherInfo = {
@@ -91,8 +82,8 @@ export class JoinCompetitionComponent implements OnInit {
     competitionEverBeen: "",
     mediaResource: [],
     mediaName: "",
-    financialKnowHow:null,
-    financialAccess:null
+    financialKnowHow: null,
+    financialAccess: null
   };
 
   infoSources = [
@@ -143,7 +134,7 @@ export class JoinCompetitionComponent implements OnInit {
         description: ["", Validators.required],
         whatProblem: ["", Validators.required],
         howToSolve: ["", Validators.required],
-        supportNeeded : [null, Validators.required],
+        supportNeeded: [null, Validators.required]
       }),
       furtherInfo: this.fb.group({
         whyParticipate: ["", Validators.required],
@@ -153,8 +144,8 @@ export class JoinCompetitionComponent implements OnInit {
         competitionEverBeen: ["", Validators.required],
         mediaResource: [[], Validators.required],
         mediaName: ["", Validators.required],
-        financialKnowHow : [null, Validators.required],
-        financialAccess : [null, Validators.required],
+        financialKnowHow: [null, Validators.required],
+        financialAccess: [null, Validators.required]
       })
     });
     this.dropdownSettings = {
@@ -239,12 +230,12 @@ export class JoinCompetitionComponent implements OnInit {
       this.innovationInfo = {
         ...this.innovationInfo,
         ...this.form.controls.innovationInfo["controls"].value
-      }
+      };
 
       this.furtherInfo = {
         ...this.furtherInfo,
         ...this.form.controls.furtherInfo["controls"].value
-      }
+      };
 
       this.join.emit({
         data: {
@@ -307,7 +298,6 @@ export class JoinCompetitionComponent implements OnInit {
     }
   }
 
-  
   mapSupportToDropDown() {
     let result = [];
     this.supportOptions.forEach(item => {
@@ -320,8 +310,7 @@ export class JoinCompetitionComponent implements OnInit {
   onItemSelected(item) {
     if (this.innovationInfo.supportNeeded.indexOf(item.item_id) === -1) {
       this.innovationInfo.supportNeeded.push(item.item_id);
-    }else{
-      console.log("In ELSe")
+    } else {
     }
   }
 

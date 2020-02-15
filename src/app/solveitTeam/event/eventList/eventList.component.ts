@@ -27,7 +27,7 @@ export class EventListComponent implements OnInit {
   ngOnInit() {
     this.getEventsList();
   }
-  
+
   limitVenue(place, venue) {
     venue = place + ", " + venue;
     if (venue.trim().length > 45) {
@@ -73,7 +73,6 @@ export class EventListComponent implements OnInit {
     this.service.getEventsList().subscribe(
       res => {
         this.events = res;
-        console.log(res)
         this.store = this.events;
         this.spinner.hide();
       },
@@ -87,14 +86,14 @@ export class EventListComponent implements OnInit {
     this.selected = "view-event";
   }
 
-  checkForPassedEvents(){
-    let result = []
-    this.events.forEach(event =>{
-      if(!this.isPassed(event)){
-        result.push(event)
+  checkForPassedEvents() {
+    let result = [];
+    this.events.forEach(event => {
+      if (!this.isPassed(event)) {
+        result.push(event);
       }
-    })
-    return result.length > 0
+    });
+    return result.length > 0;
   }
 
   onSearch($event) {

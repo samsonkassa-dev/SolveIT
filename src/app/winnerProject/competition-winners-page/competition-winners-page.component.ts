@@ -147,8 +147,6 @@ export class CompetitionWinnersPageComponent implements OnInit {
           temp["winners"].push(temp1);
         }
         if (city.name == "Addis Ababa") {
-          console.log("Gettting hubs");
-          console.log(temp1.winners);
           if (temp1.winners.length > 0) {
             this.getHubs(temp1.winners);
           }

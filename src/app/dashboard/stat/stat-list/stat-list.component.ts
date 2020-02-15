@@ -141,7 +141,6 @@ export class StatListComponent implements OnInit {
     this.page = 1;
 
     this.selectedRole = this.views[parseInt(index)];
-    console.log(this.selectedRole);
     this.filterUsers();
   }
 
@@ -149,10 +148,8 @@ export class StatListComponent implements OnInit {
     if (this.selectedRole.name === "participant") {
       if (parseInt(this.selectedCity.toString()) === 0) {
         this.selectedUsers = this.allUsers.filter(item => {
-          console.log(item);
-          var date = new Date(item.birthDate);
+          var date = new Date(item.created);
           var year = date.getFullYear();
-          console.log(year);
           if (this.selectedStatus === "confirmed") {
             return (
               item.roleId === this.selectedRole.id &&
@@ -207,7 +204,6 @@ export class StatListComponent implements OnInit {
       res => {
         this.backupProjects = res.filter(project => project.solveitproject);
         this.projects = this.backupProjects;
-        console.log(this.projects);
       },
       error => {}
     );
@@ -220,12 +216,9 @@ export class StatListComponent implements OnInit {
   filterByCity() {
     if (this.selectedCityComp !== "" && this.selectedCityComp != "0") {
       localStorage.setItem("cityId", this.selectedCityComp);
-      console.log("City Id " + this.selectedCityComp);
       this.projects = this.backupProjects.filter(project => {
-        console.log(project);
         return project.cities.indexOf(this.selectedCityComp) !== -1;
       });
-      console.log(this.projects);
     } else {
       this.projects = this.backupProjects;
     }
