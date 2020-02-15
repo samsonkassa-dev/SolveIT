@@ -263,7 +263,7 @@ module.exports = {
                                                   style="line-height: 1.8; font-size: 12px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #555555; mso-line-height-alt: 22px;">
                                                   <p
                                                       style="font-size: 14px; line-height: 1.8; word-break: break-word; text-align: left; font-family: inherit; mso-line-height-alt: 25px; margin: 0;">
-                                                      <span style="color: #2a272b;"><strong>SolveIT
+                                                      <span style="color: #2a272b;"><strong>Solve IT
                                                           </strong></span></p>
                                               </div>
                                           </div>
@@ -349,7 +349,7 @@ module.exports = {
                                                   <p
                                                       style="font-size: 42px; line-height: 1.2; word-break: break-word; text-align: center; font-family: inherit; mso-line-height-alt: 50px; margin: 0;">
                                                       <span style="font-size: 42px; color: #2a272b;"><strong>Thank you
-                                                              for being a part of SolveIT!</strong></span></p>
+                                                              for being a part of Solve IT!</strong></span></p>
                                               </div>
                                           </div>
                                           <!--[if mso]></td></tr></table><![endif]-->
@@ -362,7 +362,7 @@ module.exports = {
                                                       style="line-height: 1.5; word-break: break-word; text-align: center; font-family: inherit; font-size: 16px; mso-line-height-alt: 24px; margin: 0;">
                                                       <span style="font-size: 16px; color: #2a272b;">`,
   middle: `<br>
-  You have successfully registered to SolveIT. To activate
+  You have successfully registered to Solve IT. To activate
   your account please click confirm button and login to your
   account.</span></p>
 <p
