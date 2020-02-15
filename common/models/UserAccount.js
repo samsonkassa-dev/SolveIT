@@ -310,7 +310,7 @@ module.exports = function(Useraccount) {
             {
               to: email,
               from: "email@icog-solveit.com",
-              subject: "Welcome to SolveIT",
+              subject: "Welcome to Solve IT",
               html: html
             },
             function(err, mail) {
