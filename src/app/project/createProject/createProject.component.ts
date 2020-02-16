@@ -45,7 +45,7 @@ export class CreateProjectComponent implements OnInit {
     if (this.projectForm.valid) {
       //console.log("Project Valid")
       if (this.isFileSelected) {
-        //console.log('File Selected')
+        // console.log("File Selected");
         this.isUploading = true;
         this.error = false;
         this.uploader.queue[0].upload();
@@ -58,6 +58,7 @@ export class CreateProjectComponent implements OnInit {
           this.project.proposal = JSON.parse(response).result.files.file[0];
           this.project.createdAt = new Date();
           this.uploader.queue.pop();
+          this.createProjectService(this.project);
         };
         this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
           this.progress = progress;
@@ -81,9 +82,9 @@ export class CreateProjectComponent implements OnInit {
           this.isUploading = false;
           this.uploader.queue.pop();
         };
+      } else {
+        this.createProjectService(this.project);
       }
-      this.createProjectService(this.project)
-
     } else {
       this.markFormGroupTouched(this.projectForm);
     }
@@ -134,8 +135,7 @@ export class CreateProjectComponent implements OnInit {
     }
   }
 
-
-  createProjectService(project){
+  createProjectService(project) {
     this.service.createProject(project).subscribe(
       res => {
         const userId = this.authService.getUserId();
@@ -161,7 +161,6 @@ export class CreateProjectComponent implements OnInit {
       }
     );
   }
-
 
   onFormSubmit() {
     if (this.isEdit) {
