@@ -21,8 +21,8 @@
           Project
         </li>
 
-        <li [class.selected]="selected === views[3]"  (click)="toggleView('score')">
-          <span class="icon"><i class="fa fa-star "></i></span>  Project Score
+        <li [class.selected]="selected === views[3]" (click)="toggleView('score')">
+          <span class="icon"><i class="fa fa-star "></i></span> Project Score
         </li>
         <li (click)="backToCompetitionProjects()" *ngIf="
             authService.isAdmin() ||
@@ -43,11 +43,14 @@
           <span id="download" (click)="addScore()" data-toggle="modal" data-target="#editCategory" class="btn btn-warn"
             (click)="setupScore()">
             <i style="margin-right: 1em" class="fa fa-file"></i>Score</span>
-        </p >
+        </p>
         <h4 id="proposal-label">Proposal</h4>
         <p id="proposal-description">
-          <span id="download" (click)="downloadProposal(project.proposal.name)">
+          <span *ngIf="project.proposal" id="download" (click)="downloadProposal(project.proposal)">
             <i style="margin-right: 1em" class="fa fa-file"></i>Download</span>
+          <a *ngIf="!project.proposal" id="download" data-toggle="modal" data-target="#createProjectModal"
+            data-backdrop="static">
+            <i style="margin-right: 1em" class="fa fa-file"></i>Upload</a>
         </p>
         <h4 id="status-label">Status</h4>
         <p id="status-description" *ngIf="!isEnrolled" data-toggle="modal" data-target="#myModal"
@@ -63,11 +66,12 @@
         <div class="panel panel-default">
           <div id="progress-report-heading">
             <h3 id="progress-report-title">Progress reports</h3>
-            <button class="main-btn" (click)="toggleUploadReport(true)" *ngIf="!uploadReport && !authService.isSolveitJudge()"
-              id="upload-progress-report">
+            <button class="main-btn" (click)="toggleUploadReport(true)"
+              *ngIf="!uploadReport && !authService.isSolveitJudge()" id="upload-progress-report">
               Upload
             </button>
-            <button class="main-btn" (click)="toggleUploadReport(false)" *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
+            <button class="main-btn" (click)="toggleUploadReport(false)"
+              *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
               Back
             </button>
           </div>
@@ -146,20 +150,20 @@
         <h4 class="modal-title">Add Score</h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="addScoreForm"  *ngIf="authService.isAuthenticated()">
+        <form [formGroup]="addScoreForm" *ngIf="authService.isAuthenticated() && !authService.isSolveitParticipant()">
           <div id="resource-form">
             <div *ngIf="!authService.isSolveitJudge()" class="form-group">
               <label>Judge: </label>
-              <ng-select (change)="selectJudge()" [(ngModel)]="projects.judge" formControlName="judge"  [searchable]="false" [clearable]="false" [items]="judges" bindLabel="fullName" bindValue="judgeId" >
-          </ng-select>
+              <ng-select (change)="selectJudge()" [(ngModel)]="projects.judge" formControlName="judge"
+                [searchable]="false" [clearable]="false" [items]="judges" bindLabel="fullName" bindValue="judgeId">
+              </ng-select>
             </div>
-            <div  class="form-group">
+            <div class="form-group">
               <label>Score:</label>
               <input type="text" class="form-control" name="title" placeholder="Score" formControlName="score" />
             </div>
             <div class="form-group" id="resource-upload-btn">
-              <input type="submit" (click)="addScore()"
-                data-dismiss="modal" class="main-btn" value="Add Score" />
+              <input type="submit" (click)="addScore()" data-dismiss="modal" class="main-btn" value="Add Score" />
             </div>
           </div>
         </form>

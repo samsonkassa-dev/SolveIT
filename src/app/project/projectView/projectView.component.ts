@@ -186,14 +186,14 @@ export class ProjectViewComponent implements OnInit {
   }
 
   downloadProposal(content) {
-    this.service.downloadProposal(content).subscribe(
+    this.service.downloadProposal(content.name).subscribe(
       res => {
         const url = window.URL.createObjectURL(res.data);
         const a = document.createElement("a");
         document.body.appendChild(a);
         a.setAttribute("style", "display: none");
         a.href = url;
-        a.download = res.fileName;
+        a.download = content.originalFilename || "project proposal ";
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove(); // remove the element
