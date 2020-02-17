@@ -24,6 +24,7 @@ import { SolveitMgmtGuardService } from "./services/solveit-mgmt-guard.service";
 import { SolveitTeamGuardService } from "./services/solveit-team-guard.service";
 import { UserModuleGuardService } from "./services/userModuleGuard.service";
 import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.component";
+import { TosComponent } from './tos/tos.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.c
     QuestionariesComponent,
     EmailConfirmationComponent,
     ForgetPasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    TosComponent
   ],
   imports: [
     FormsModule,

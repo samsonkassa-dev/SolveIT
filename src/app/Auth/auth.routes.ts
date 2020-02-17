@@ -1,3 +1,4 @@
+import { TosComponent } from "./tos/tos.component";
 import { Routes } from "@angular/router";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
@@ -29,7 +30,8 @@ export const AUTH_ROUTES: Routes = [
     canActivate: [NotSignedinGuardService]
   },
   { path: "forget-password", component: ForgetPasswordComponent },
-  { path: "change-password/:key", component: NewPasswordComponent }
+  { path: "change-password/:key", component: NewPasswordComponent },
+  { path: "tos", component: TosComponent }
 ];
 
 //http://localhost:4200/change-password/5n7aykpjjofx1kh9-5n7aykpjjofx1kh9
