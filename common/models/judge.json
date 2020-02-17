@@ -14,8 +14,8 @@
       "type": "boolean",
       "default": false
     },
-    "competitions":{
-      "type":["string"]
+    "competitions": {
+      "type": ["string"]
     }
   },
   "validations": [],
@@ -31,6 +31,14 @@
       "foreignKey": "roleId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "participant",
+      "permission": "DENY",
+      "property": "*"
+    }
+  ],
   "methods": {}
 }

@@ -11,7 +11,7 @@
       "required": true
     }
   },
-  "validations": [],  
+  "validations": [],
   "relations": {
     "UserAccount": {
       "type": "belongsTo",
@@ -19,6 +19,14 @@
       "foreignKey": "userId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "participant",
+      "permission": "DENY",
+      "property": "*"
+    }
+  ],
   "methods": {}
 }

@@ -13,6 +13,14 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "participant",
+      "permission": "DENY",
+      "property": "*"
+    }
+  ],
   "methods": {}
 }
