@@ -38,6 +38,44 @@ button {
   right: 0;
   animation: border 2s 1s infinite, borderColor 2s 1s infinite;
 }
+.app-get-zmall {
+  width: 100%;
+  margin: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.get-text {
+  margin-top: 15px;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #555;
+  text-align: center;
+}
+#playstore_link :hover {
+  padding: 5px;
+  background-color: #f7b42c;
+  background-image: linear-gradient(315deg, #f7b42c 0%, #fc575e 74%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.get-text > strong {
+  background-color: #f7b42c;
+  background-image: linear-gradient(315deg, #f7b42c 0%, #fc575e 74%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-link {
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 15px;
+}
 
 @keyframes border {
   0% {
