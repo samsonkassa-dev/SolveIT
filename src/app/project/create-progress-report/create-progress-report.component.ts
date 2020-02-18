@@ -19,16 +19,26 @@ export class CreateProgressReportComponent implements OnInit {
     report: "",
     userId: ""
   };
+  public allowedMimeType = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ];
+
   public URL = `${configs.rootUrl}storages/reports/upload`;
-  public uploader: FileUploader = new FileUploader({ url: this.URL });
+  public uploader: FileUploader = new FileUploader({
+    url: this.URL,
+    allowedMimeType: this.allowedMimeType
+  });
   public progress = 0;
   public isUploading = false;
   public isFileSelected = false;
   public error = false;
+  public errorType = false;
   public types = [
     { id: "attachment", name: "Attach Document" },
     { id: "simple", name: "Simple Report" },
-    { id: "communication", name:"Communication Report"}
+    { id: "communication", name: "Communication Report" }
   ];
   @Input() project: any = {};
   @Output() created = new EventEmitter();
@@ -41,18 +51,18 @@ export class CreateProgressReportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if(!this.authService.isSolveitTeam()){
-      this.types.splice(2,1)
+    if (!this.authService.isSolveitTeam()) {
+      this.types.splice(2, 1);
     }
     this.reportForm = this.formBuilder.group({
       title: ["", Validators.required],
       type: [null, Validators.required],
-      report: ["",],
-      date:["",],
-      communicationAbout:[""],
-      progress:[""],
-      meetingDate:[""],
-      modeOfCommunication:[""]
+      report: [""],
+      date: [""],
+      communicationAbout: [""],
+      progress: [""],
+      meetingDate: [""],
+      modeOfCommunication: [""]
     });
   }
 
@@ -62,11 +72,18 @@ export class CreateProgressReportComponent implements OnInit {
       this.report.projectId = this.project.id;
       const userId = this.authService.getUserId();
       this.report.userId = userId;
-      if (this.report.type === this.types[0].id ) {
+      if (this.report.type === this.types[0].id) {
         this.error = false;
-
-        this.isUploading = true;
-        this.uploader.queue[0].upload();
+        if (this.uploader.queue[0]) {
+          this.errorType = false;
+          this.isUploading = true;
+          this.uploader.queue[0].upload();
+        } else {
+          console.log("TOOTI");
+          this.uploader.queue.pop();
+          this.errorType = true;
+          return;
+        }
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
@@ -77,7 +94,7 @@ export class CreateProgressReportComponent implements OnInit {
           this.report = {
             ...this.report,
             ...this.reportForm.value
-          }
+          };
           //console.log(this.report)
           this.service.uploadProgressReport(this.report).subscribe(
             res => {
@@ -122,11 +139,14 @@ export class CreateProgressReportComponent implements OnInit {
           this.isUploading = false;
           this.uploader.queue.pop();
         };
-      } else if (this.report.type === this.types[1].id || this.report.type == this.types[2].id) {
+      } else if (
+        this.report.type === this.types[1].id ||
+        this.report.type == this.types[2].id
+      ) {
         this.report = {
           ...this.report,
           ...this.reportForm.value
-        }
+        };
         this.service.uploadProgressReport(this.report).subscribe(
           res => {
             this.sharedService.addToast(
@@ -160,7 +180,7 @@ export class CreateProgressReportComponent implements OnInit {
         return this.isFileSelected;
       } else if (this.report.type === this.types[1].id) {
         return this.report.report !== "";
-      }else if(this.report.type === this.types[2].id){
+      } else if (this.report.type === this.types[2].id) {
         return this.reportForm.controls.communicationAbout.value !== "";
       }
       return false;

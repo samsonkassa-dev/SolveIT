@@ -15,12 +15,22 @@ import { AuthService } from "../../Auth/services/auth.service";
 export class CreateProjectComponent implements OnInit {
   public projectForm: FormGroup;
   public URL = `${configs.rootUrl}storages/proposals/upload`;
-  public uploader: FileUploader = new FileUploader({ url: this.URL });
+  public allowedMimeType = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ];
+
+  public uploader: FileUploader = new FileUploader({
+    url: this.URL,
+    allowedMimeType: this.allowedMimeType
+  });
   public progress = 0;
   public isUploading = false;
   public isFileSelected = false;
   public error = false;
   public submitted = false;
+  public errorType = false;
 
   @Output() created = new EventEmitter();
   @Input() isEdit = false;
@@ -46,9 +56,17 @@ export class CreateProjectComponent implements OnInit {
       //console.log("Project Valid")
       if (this.isFileSelected) {
         // console.log("File Selected");
-        this.isUploading = true;
         this.error = false;
-        this.uploader.queue[0].upload();
+        if (this.uploader.queue[0]) {
+          this.errorType = false;
+          this.isUploading = true;
+          this.uploader.queue[0].upload();
+        } else {
+          this.uploader.queue.pop();
+          this.errorType = true;
+          return;
+        }
+
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
@@ -78,6 +96,7 @@ export class CreateProjectComponent implements OnInit {
           status: number,
           headers: ParsedResponseHeaders
         ) => {
+          console.log(response);
           this.error = true;
           this.isUploading = false;
           this.uploader.queue.pop();
@@ -93,8 +112,15 @@ export class CreateProjectComponent implements OnInit {
   editProject() {
     if (this.projectForm.valid) {
       if (this.isFileSelected) {
-        this.isUploading = true;
-        this.uploader.queue[0].upload();
+        if (this.uploader.queue[0]) {
+          this.errorType = false;
+          this.isUploading = true;
+          this.uploader.queue[0].upload();
+        } else {
+          this.uploader.queue.pop();
+          this.errorType = true;
+          return;
+        }
         this.uploader.onSuccessItem = (
           item: FileItem,
           response: string,
