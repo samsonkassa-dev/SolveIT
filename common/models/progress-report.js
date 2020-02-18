@@ -55,6 +55,15 @@ module.exports = function(Progressreport) {
         userId: assignedCities[0].userId,
         notificationMessage: message
       };
+      if (newNotification) {
+        mentorNotification.create(newNotification, (err, succ) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(succ);
+          }
+        });
+      }
       if (userDeviceIds.length > 0) {
         const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
         const notification = NotificationUtils.createNotification(message, {
@@ -69,12 +78,5 @@ module.exports = function(Progressreport) {
       console.log(error);
       throw error;
     }
-    mentorNotification.create(newNotification, (err, succ) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(succ);
-      }
-    });
   });
 };
