@@ -718,35 +718,77 @@ module.exports = function(Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function(id, password, cb) {
+  Useraccount.updatePassword = function(id, token, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
       err.code = code;
       return err;
     };
-
-    Useraccount.findOne(
+    let key = token;
+    let { forgotPasswordRequest } = Useraccount.app.models;
+    console.log(key);
+    const ids = key.split("-");
+    const cid = ids[1];
+    console.log(cid);
+    forgotPasswordRequest.findOne(
       {
         where: {
-          id: id
+          id: cid
         }
       },
-      function(err, user) {
+      function(err, data) {
         if (err) {
-          cb(buildError("INVALID_OPERATION", "unable to find user."));
+          cb(new Error("Error while checking request"));
           return;
         }
-        user.updateAttribute("password", password, function(err, user) {
-          if (err) {
-            cb(buildError("INVALID_OPERATION", err));
-            return;
-          }
 
-          // successful,
-          // notify that everything is OK!
-          cb(null, true);
-        });
+        if (data && !data.inactive && data.userId === ids[0]) {
+          forgotPasswordRequest.updateAll(
+            {
+              id: ids[1]
+            },
+            {
+              inactive: true
+            },
+            function(err, response) {
+              console.log("update", response);
+              if (err) {
+                console.log("error while updating");
+                cb(err);
+                return;
+              }
+              Useraccount.findOne(
+                {
+                  where: {
+                    id: id
+                  }
+                },
+                function(err, user) {
+                  if (err) {
+                    cb(buildError("INVALID_OPERATION", "unable to find user."));
+                    return;
+                  }
+                  user.updateAttribute("password", password, function(
+                    err,
+                    user
+                  ) {
+                    if (err) {
+                      cb(buildError("INVALID_OPERATION", err));
+                      return;
+                    }
+
+                    // successful,
+                    // notify that everything is OK!
+                    cb(null, true);
+                  });
+                }
+              );
+            }
+          );
+        } else {
+          cb(null, false);
+        }
       }
     );
   };
@@ -848,6 +890,12 @@ module.exports = function(Useraccount) {
                   }
                 },
                 function(err, users) {
+                  users = users.map(user => ({
+                    id: user.id,
+                    firstName: user.firstName,
+                    middleName: user.middleName,
+                    lastName: user.lastName
+                  }));
                   cb(null, users);
                 }
               );
@@ -1152,7 +1200,64 @@ module.exports = function(Useraccount) {
       return error;
     }
   };
+  Useraccount.exportMention = async (selectionOptions, res) => {
+    var workbook = new Excel.Workbook();
+    var sheet = workbook.addWorksheet("report");
 
+    const { IcogRole } = Useraccount.app.models;
+    const CompetitionProjects = Useraccount.app.models.CompetitionProjects;
+
+    sheet.columns = [
+      { header: "Region", key: "region", width: 10 },
+      { header: "City", key: "city", width: 10 }
+    ];
+
+    let now = new Date(2020, 0, 1);
+    competitionProjects = await CompetitionProjects.find({});
+    console.log(competitionProjects);
+    // for (const projects of competitionProjects) {
+    //   sheet.addRow({
+    //     region: JSON.parse(JSON.stringify(city)).region.name,
+    //     city: city.name,
+    //     firstName: user.firstName,
+    //     middleName: user.middleName,
+    //     lastName: user.lastName,
+    //     sex: user.gender,
+    //     phoneNumber: user.phoneNumber,
+    //     educationLevel: user.educationLevel,
+    //     workStatus: user.workStatus,
+    //     birthDate: user.birthDate.toString().substr(0, 10),
+    //     emergencyName: user.address.emergencyContact.fullName,
+    //     emergencyContact: user.address.emergencyContact.phoneNumber
+    //   });
+    // }
+
+    // await sendWorkbook(workbook, res);
+  };
+  Useraccount.remoteMethod("exportMention", {
+    description: "return data.",
+    accepts: [
+      {
+        arg: "selectionOptions",
+        type: "object"
+      },
+      {
+        arg: "res",
+        type: "object",
+        http: {
+          source: "res"
+        }
+      }
+    ],
+    http: {
+      verb: "post",
+      path: "/exportMention"
+    },
+    returns: {
+      type: "object",
+      root: true
+    }
+  });
   Useraccount.remoteMethod("exportData", {
     description: "return data.",
     accepts: [
@@ -1390,6 +1495,11 @@ module.exports = function(Useraccount) {
     accepts: [
       {
         arg: "id",
+        type: "string",
+        required: true
+      },
+      {
+        arg: "token",
         type: "string",
         required: true
       },
