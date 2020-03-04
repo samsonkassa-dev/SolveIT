@@ -960,6 +960,12 @@ module.exports = function(Useraccount) {
                       }
                     },
                     function(err, users) {
+                      users = users.map(user => ({
+                        id: user.id,
+                        firstName: user.firstName,
+                        middleName: user.middleName,
+                        lastName: user.lastName
+                      }));
                       cb(null, users);
                     }
                   );
