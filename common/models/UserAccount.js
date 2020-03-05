@@ -1238,11 +1238,11 @@ module.exports = function(Useraccount) {
     const CompetitionProjects = Useraccount.app.models.CompetitionProject;
 
     mediaNameSheet.columns = [
-      { header: "Name", key: "name", width: 10 },
+      { header: "Name", key: "name", width: 30 },
       { header: "Count", key: "count", width: 10 }
     ];
     mediaResourcesSheet.columns = [
-      { header: "Media Resource", key: "name", width: 10 },
+      { header: "Media Resource", key: "name", width: 30 },
       { header: "Count", key: "count", width: 10 }
     ];
     let now = new Date(2020, 0, 1);
@@ -1271,7 +1271,7 @@ module.exports = function(Useraccount) {
 
     var occurences = {};
     for (var index = 0; index < others.length; index++) {
-      var value = others[index];
+      var value = others[index].toLowerCase().trim();
       occurences[value] = occurences[value] ? occurences[value] + 1 : 1;
     }
     let keys = Object.keys(occurences);
