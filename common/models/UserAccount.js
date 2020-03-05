@@ -728,9 +728,9 @@ module.exports = function(Useraccount) {
     let key = token;
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
-    const ids = key.split("-");
+    const ids = key.split(",");
     const cid = ids[1];
-    console.log(cid);
+    console.log("cid" + cid);
     forgotPasswordRequest.findOne(
       {
         where: {
@@ -739,11 +739,16 @@ module.exports = function(Useraccount) {
       },
       function(err, data) {
         if (err) {
+          console.log("ERr");
           cb(new Error("Error while checking request"));
           return;
         }
-
-        if (data && !data.inactive && data.userId === ids[0]) {
+        console.log(ids[0]);
+        console.log(data.userId);
+        console.log(ids[0] == data.userId);
+        console.log(!data.inactive);
+        if (data && data.userId === ids[0]) {
+          console.log("-------======Data Match ");
           forgotPasswordRequest.updateAll(
             {
               id: ids[1]
@@ -758,6 +763,7 @@ module.exports = function(Useraccount) {
                 cb(err);
                 return;
               }
+              console.log("No Error");
               Useraccount.findOne(
                 {
                   where: {
@@ -769,6 +775,7 @@ module.exports = function(Useraccount) {
                     cb(buildError("INVALID_OPERATION", "unable to find user."));
                     return;
                   }
+                  console.log("Foundnndn");
                   user.updateAttribute("password", password, function(
                     err,
                     user
@@ -776,6 +783,8 @@ module.exports = function(Useraccount) {
                     if (err) {
                       cb(buildError("INVALID_OPERATION", err));
                       return;
+                    } else {
+                      console.log("Successful");
                     }
 
                     // successful,
@@ -787,6 +796,7 @@ module.exports = function(Useraccount) {
             }
           );
         } else {
+          console.log("NO DATA MATCH");
           cb(null, false);
         }
       }
@@ -1206,47 +1216,104 @@ module.exports = function(Useraccount) {
       return error;
     }
   };
-  Useraccount.exportMention = async (selectionOptions, res) => {
+  function groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach(item => {
+      const key = keyGetter(item);
+      const collection = map.get(key);
+      if (!collection) {
+        map.set(key, [item]);
+      } else {
+        collection.push(item);
+      }
+    });
+    return map;
+  }
+  Useraccount.exportMention = async res => {
     var workbook = new Excel.Workbook();
-    var sheet = workbook.addWorksheet("report");
+    var mediaResourcesSheet = workbook.addWorksheet("media-resource");
+    var mediaNameSheet = workbook.addWorksheet("media-name");
 
     const { IcogRole } = Useraccount.app.models;
-    const CompetitionProjects = Useraccount.app.models.CompetitionProjects;
+    const CompetitionProjects = Useraccount.app.models.CompetitionProject;
 
-    sheet.columns = [
-      { header: "Region", key: "region", width: 10 },
-      { header: "City", key: "city", width: 10 }
+    mediaNameSheet.columns = [
+      { header: "Name", key: "name", width: 10 },
+      { header: "Count", key: "count", width: 10 }
     ];
-
+    mediaResourcesSheet.columns = [
+      { header: "Media Resource", key: "name", width: 10 },
+      { header: "Count", key: "count", width: 10 }
+    ];
     let now = new Date(2020, 0, 1);
-    competitionProjects = await CompetitionProjects.find({});
-    console.log(competitionProjects);
-    // for (const projects of competitionProjects) {
-    //   sheet.addRow({
-    //     region: JSON.parse(JSON.stringify(city)).region.name,
-    //     city: city.name,
-    //     firstName: user.firstName,
-    //     middleName: user.middleName,
-    //     lastName: user.lastName,
-    //     sex: user.gender,
-    //     phoneNumber: user.phoneNumber,
-    //     educationLevel: user.educationLevel,
-    //     workStatus: user.workStatus,
-    //     birthDate: user.birthDate.toString().substr(0, 10),
-    //     emergencyName: user.address.emergencyContact.fullName,
-    //     emergencyContact: user.address.emergencyContact.phoneNumber
-    //   });
-    // }
+    let competitionProjects = await CompetitionProjects.find({});
 
-    // await sendWorkbook(workbook, res);
+    let mediaResources = [];
+    let others = [];
+    competitionProjects.forEach(project => {
+      if (project.questionnaireAnswers) {
+        if (project.questionnaireAnswers.furtherInfo) {
+          mediaResources = [
+            ...mediaResources,
+            ...project.questionnaireAnswers.furtherInfo.mediaResource
+          ];
+          others = [
+            ...others,
+            project.questionnaireAnswers.furtherInfo.mediaName
+          ];
+          // console.log(project.questionnaireAnswers.furtherInfo.mediaResource);
+        }
+      }
+    });
+    console.log("============Media Names ============");
+
+    console.log(others.length);
+
+    var occurences = {};
+    for (var index = 0; index < others.length; index++) {
+      var value = others[index];
+      occurences[value] = occurences[value] ? occurences[value] + 1 : 1;
+    }
+    let keys = Object.keys(occurences);
+    console.log("len " + keys.length);
+    let reso = [];
+    keys.forEach(key => {
+      if (occurences[key] > 1) {
+        let temp = {};
+        temp[key] = occurences[key];
+        reso.push(temp);
+      }
+    });
+    console.log(reso);
+
+    reso.forEach(resoo => {
+      let key = Object.keys(resoo)[0];
+      mediaNameSheet.addRow({
+        name: key,
+        count: resoo[key]
+      });
+    });
+    console.log("Media Resources ==============");
+    console.log(mediaResources.length);
+    const grouped = groupBy(mediaResources, media => media.item_id);
+    for (let i = 1; i <= 10; i++) {
+      console.log(i);
+      let group = grouped.get(i);
+      if (group) {
+        console.log(group.length);
+        console.log(group[0]);
+        mediaResourcesSheet.addRow({
+          name: group[0].item_text,
+          count: group.length
+        });
+      }
+    }
+    console.log("Herer");
+    await sendWorkbook(workbook, res);
   };
   Useraccount.remoteMethod("exportMention", {
     description: "return data.",
     accepts: [
-      {
-        arg: "selectionOptions",
-        type: "object"
-      },
       {
         arg: "res",
         type: "object",

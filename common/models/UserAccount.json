@@ -112,8 +112,8 @@
       "type": "string",
       "default": "English"
     },
-    "educationalInstitute":{
-      "type":"string"
+    "educationalInstitute": {
+      "type": "string"
     },
     "englishReading": {
       "type": "string"
@@ -287,6 +287,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "searchUser"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "exportMention"
     },
     {
       "accessType": "EXECUTE",
