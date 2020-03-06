@@ -64,6 +64,9 @@
                     <li class="nav-item">
                         <a href="#section3" class="nav-link">How to Register</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#section4" class="nav-link">General Terms and Conditions</a>
+                    </li>
                     <!-- <li class="nav-item">
                         <a href="#section3" class="nav-link">sed do eiusmod tempor </a>
                     </li>
@@ -140,7 +143,8 @@
                     </p>
 
                     <a class="download-btn" download="Judging Criteria For Solve IT 2020" target="_blank"
-                        style="font-size: 18px;" href="../../assets/document/judgingCriteria.pdf"><i
+                        style="font-size: 18px;"
+                        (click)='download("../../assets/document/judgingCriteria.pdf", "Judging Criteria For Solve IT 2020" )'><i
                             class="fa fa-download"></i> Download Judging
                         Criteria</a>
                 </div>
@@ -163,6 +167,35 @@
                     <a class="download-btn" download="Judging Criteria For Solve IT 2020" target="_blank"
                         style="font-size: 18px;" (click)="goTo('https://www.youtube.com/watch?v=XwnbsUdypWI')"> Video
                         Link</a>
+                </div>
+            </div>
+
+            <!-- section 4 -->
+            <div class="card" id="section4">
+                <div class="card-header">
+                    <h3 class="header-title">General Terms and Conditions</h3>
+                </div>
+                <div class="card-body">
+                    <p class="content" style="font-size: 18px; margin-bottom: 20px; text-align: justify;
+                    text-justify: inter-word;">
+                        IMPORTANT! Please, read carefully and review the documents linked below. Each of these documents
+                        is that of legal and procedural. If you fail to meet one of the required standards and practices
+                        mentioned and stated in these documents, you will be disqualified from Solve IT.
+                    </p>
+
+                    <a class="download-btn" target="_self" download="Solve IT Terms and Conditions"
+                        style="font-size: 18px;"
+                        (click)=' download("../../assets/document/tos.pdf", "Solve IT Terms and Conditions" )'><i
+                            class="fa fa-download"></i> Terms and Conditions</a>
+                    <a class="download-btn" download="Media Conduct" target="_blank"
+                        style="font-size: 18px; margin-left:5%"
+                        (click)='download("../../assets/document/mediaConduct.pdf", "Media Conduct")'><i
+                            class="fa fa-download"></i> Media Conduct</a>
+                    <a class="download-btn" target="_blank" style="font-size: 18px;margin-left:5%"
+                        (click)=' download("../../assets/document/fundAgreement.pdf", "Seed Fund Agreement" )'><i
+                            class="fa fa-download"></i> Seed
+                        Fund
+                        Agreement</a>
                 </div>
             </div>
             <!-- faq -->

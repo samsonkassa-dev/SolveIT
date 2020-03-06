@@ -6,15 +6,20 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./help-page.component.css"]
 })
 export class HelpPageComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.loadScript("help.js");
-    }, 1000);
+  ngAfterViewInit() {
+    this.loadScript("help.js");
   }
-  goTo(link) {
-    window.open(link, "_blank");
+  ngOnInit() {
+
+  }
+  download(link, name) {
+    var a = document.createElement("a");
+    a.href = link;
+    a.setAttribute("download", name);
+    a.click();
+    // window.open(link, "_blank");
   }
   public loadScript(jsFile) {
     let body = <HTMLDivElement>document.body;
