@@ -3,28 +3,16 @@
   <div class="events-list-header">
     <div class="header">
       <div class="row">
-        <div
-          class="col-sm-4"
-          *ngIf="authService.isSolveitManager() || authService.isAdmin()"
-        >
+        <div class="col-sm-4" *ngIf="authService.isSolveitManager() || authService.isAdmin()">
           <h4 (click)="showList()" class="title">Events</h4>
-          <button
-            type="button"
-            (click)="toggleView('create-event')"
-            class="btn main-btn btn-circle-xl"
-          >
+          <button type="button" (click)="toggleView('create-event')" class="btn main-btn btn-circle-xl">
             <i class="fa fa-plus"></i>
           </button>
         </div>
         <div class="col-md-2" *ngIf="selected == 'events-list'">
           <div class="widget">
             <div class="widget-search">
-              <select
-                name="city"
-                id="city"
-                [(ngModel)]="selectedCity"
-                (change)="filterByCity(this.selectedCity)"
-              >
+              <select name="city" id="city" [(ngModel)]="selectedCity" (change)="filterByCity(this.selectedCity)">
                 <option value="">Filter By City</option>
                 <option value="">All</option>
                 <option *ngFor="let city of cities" value="{{city.name}}">{{
@@ -35,26 +23,19 @@
           </div>
         </div>
 
-        <div class ="col-md-4 col-md-push-6">
-          <a   (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-top:12px;">
+        <div class="col-lg-4 col-lg-push-2">
+          <a (click)="toggleArchiveView()" class="download-btn" style="float:right;margin-top:12px;">
             <p *ngIf="showArchivedPosts"> Hide Previous Events</p>
-            <p *ngIf="!showArchivedPosts"> Show Previous Events</p></a>
+            <p *ngIf="!showArchivedPosts"> Show Previous Events</p>
+          </a>
         </div>
-     
-    
+
+
       </div>
     </div>
   </div>
 </div>
-<app-event-list
-  #list
-  (edit)="editEvent($event)"
-  [showArchivedPosts] = "showArchivedPosts"
-  *ngIf="selected == 'events-list'"
-></app-event-list>
-<app-event-create
-  [event]="event"
-  [isEdit]="isEdit"
-  (created)="toggleView('events-list')"
-  *ngIf="selected == 'create-event'"
-></app-event-create>
+<app-event-list #list (edit)="editEvent($event)" [showArchivedPosts]="showArchivedPosts"
+  *ngIf="selected == 'events-list'"></app-event-list>
+<app-event-create [event]="event" [isEdit]="isEdit" (created)="toggleView('events-list')"
+  *ngIf="selected == 'create-event'"></app-event-create>
