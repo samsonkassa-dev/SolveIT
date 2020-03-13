@@ -31,8 +31,10 @@ export class LandingPageComponent implements OnInit {
 
     $("a").on("click", function(e) {
       e.preventDefault();
-      document.querySelector(".nav-transparent").classList.remove("open");
-      document.querySelector(".navbar-collapse").classList.remove("in");
+      if (document.querySelector(".nav-transparent")) {
+        document.querySelector(".nav-transparent").classList.remove("open");
+        document.querySelector(".navbar-collapse").classList.remove("in");
+      }
     });
 
     var i = 0;
