@@ -91,24 +91,23 @@ export class AuthService {
   //   }
   // }
 
-  signOut(){
-    if(this.isAuthenticated()){
-        this.apiService.post(`${this.user_Path}/logout-user`, {
+  signOut() {
+    if (this.isAuthenticated()) {
+      this.apiService
+        .post(`${this.user_Path}/logout-user`, {
           tokenId: JSON.parse(window.localStorage.getItem(this.TOKEN)).id
         })
-          .subscribe(
-            res=>{
-              window.localStorage.removeItem(this.TOKEN);
-              this.router.navigate([""]);
-            }
-          );
-        this.router.navigate(['', 'login']);
+        .subscribe(res => {
+          window.localStorage.removeItem(this.TOKEN);
+          this.router.navigate([""]);
+        });
+      this.router.navigate(["", "login"]);
     }
     // if (this.isAuthenticated()) {
     //   window.localStorage.removeItem(this.TOKEN);
     //   this._router.navigate([""]);
     // }
-}
+  }
 
   registerParticipant(user) {
     return this.apiService.post(`${this.register_path_participant}`, user);
@@ -118,12 +117,14 @@ export class AuthService {
     return this.apiService.post(`${this.register_path_investor}`, user);
   }
 
-  registerJudge(user){
+  registerJudge(user) {
     return this.apiService.post(`${this.register_path_judge}`, user);
   }
-  
-  getJudge(user){
-    return this.apiService.get(`judges?filter={"where": {"judgeId": "${user}"}}`)
+
+  getJudge(user) {
+    return this.apiService.get(
+      `judges?filter={"where": {"judgeId": "${user}"}}`
+    );
   }
   isAuthenticated(): boolean {
     try {
@@ -150,7 +151,6 @@ export class AuthService {
       return false;
     }
   }
-
 
   isSolveitJudge() {
     try {
@@ -196,8 +196,8 @@ export class AuthService {
       return this.apiService.post(this.register_path_participant, user);
     } else if (role === this.ICOG_ROLE[4]) {
       return this.apiService.post(this.register_path_investor, user);
-    }else if(role === this.ICOG_ROLE[5]){
-      return this.apiService.post(this.register_path_judge, user)
+    } else if (role === this.ICOG_ROLE[5]) {
+      return this.apiService.post(this.register_path_judge, user);
     }
   }
 
@@ -214,9 +214,11 @@ export class AuthService {
     });
   }
 
-  restPassword(id, password) {
+  restPassword(id, token, password) {
+    console.log(token);
     const temp = {
       id: id,
+      token: token,
       password: password
     };
 
@@ -224,6 +226,7 @@ export class AuthService {
   }
 
   checkPasswordChangeRequest(key) {
+    console.log(key);
     return this.apiService.post(`${this.user_Path}/change-password`, {
       key: key
     });

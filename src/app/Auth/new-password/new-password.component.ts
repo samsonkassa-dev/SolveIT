@@ -18,7 +18,7 @@ export class NewPasswordComponent implements OnInit {
   public isLoading = false;
   public key = [];
   public isSuccess = false;
-
+  public token;
   constructor(
     public authService: AuthService,
     public fb: FormBuilder,
@@ -28,7 +28,9 @@ export class NewPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.token = this.route.snapshot.paramMap.get("key");
     this.key = this.route.snapshot.paramMap.get("key").split("-");
+    console.log(this.key);
     this.isLoading = true;
     this.authService.checkPasswordChangeRequest(this.key).subscribe(
       res => {
@@ -63,7 +65,7 @@ export class NewPasswordComponent implements OnInit {
 
   resetPassword(id, password) {
     if (this.newPasswordForm.valid) {
-      this.authService.restPassword(id, password).subscribe(
+      this.authService.restPassword(id, this.key, password).subscribe(
         res => {
           // show success popup
           this.isSuccess = true;
