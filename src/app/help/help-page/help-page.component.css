@@ -248,6 +248,7 @@ a:hover {
 .content-bold {
   font-size: 18px;
   font-weight: 600;
+  margin-top:20px;
 }
 
 .content-light {

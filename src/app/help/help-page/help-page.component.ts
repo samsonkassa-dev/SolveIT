@@ -14,6 +14,9 @@ export class HelpPageComponent implements OnInit {
   ngOnInit() {
 
   }
+  goTo(link) {
+    window.open(link, "_blank");
+  }
   download(link, name) {
     var a = document.createElement("a");
     a.href = link;
