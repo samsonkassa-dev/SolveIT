@@ -66,6 +66,43 @@ export class CreateEventComponent {
             }
           }
         );
+        // let cities: any = [
+        //   { place: "Hawassa", venue: "Technology Campus", host: " " },
+        //   { place: "Bahirdar", venue: "Wisdom Hall", host: "  " },
+        //   { place: "Gonder", venue: "Maraki Campus", host: " " },
+        //   {
+        //     place: "Mekelle",
+        //     venue: "Block A5 room 101 business",
+        //     host: "Adhaki  Campa"
+        //   },
+        //   { place: "Adama", venue: "Research park", host: " " },
+        //   {
+        //     place: "Semera",
+        //     venue: "New academy building assembly",
+        //     host: " "
+        //   },
+        //   { place: "Jimma", venue: "JIT administration" }
+        // ];
+        // for (let city of cities) {
+        //   this.event.city = city.place;
+        //   this.event.place = city.venue;
+        //   this.event.venue = city.host ? city.host : " ";
+        //   this.service.createEvent(this.event).subscribe(
+        //     res => {
+        //       this.toggleCreated();
+        //       this.sharedService.addToast(
+        //         "Success",
+        //         "Event created!",
+        //         "success"
+        //       );
+        //     },
+        //     err => {
+        //       if ((err.status = 422)) {
+        //         this.sharedService.addToast("", "Error occurred!", "error");
+        //       }
+        //     }
+        //   );
+        // }
       }
     } else {
       this.markFormGroupTouched(this.eventForm);
