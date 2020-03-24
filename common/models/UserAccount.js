@@ -1035,18 +1035,16 @@ module.exports = function(Useraccount) {
     sheet.columns = [
       { header: "Region", key: "region", width: 10 },
       { header: "City", key: "city", width: 10 },
-      { header: "First Name", key: "firstName", width: 15 },
-      { header: "Middle Name", key: "middleName", width: 15 },
-      { header: "Last Name", key: "lastName", width: 15 },
-      { header: "Gender", key: "sex", width: 5 },
+      { header: "First Name", key: "firstName", width: 10 },
+      { header: "Middle Name", key: "middleName", width: 10 },
+      { header: "Last Name", key: "lastName", width: 10 },
+      { header: "Gender", key: "sex", width: 10 },
       { header: "Phone Number", key: "phoneNumber", width: 10 },
-      { header: "Education Level", key: "educationLevel", width: 20 },
-      { header: "Work Status", key: "workStatus", width: 20 },
-      { header: "Age", key: "birthDate", width: 10 },
-      { header: "Emergency Name", key: "emergencyName", width: 20 },
-      { header: "Emergency Contact", key: "emergencyContact", width: 20 },
-      { header: "Email", key: "email", width: 20 },
-      { header: "Email Verified", key: "emailVerified", width: 10 }
+      { header: "Education Level", key: "educationLevel", width: 10 },
+      { header: "Work Status", key: "workStatus", width: 10 },
+      { header: "Birthdate", key: "birthDate", width: 10 },
+      { header: "Emergency Name", key: "emergencyName", width: 10 },
+      { header: "Emergency Contact", key: "emergencyContact", width: 10 }
     ];
     let genderQuery = {};
     let educationQuery = {};
@@ -1075,7 +1073,11 @@ module.exports = function(Useraccount) {
       users = await Useraccount.find({
         where: {
           created: { gte: now },
-          emailVerified: false
+          cityId: city.id,
+          ...genderQuery,
+          ...educationQuery,
+          ...statusQuery,
+          ...ageQuery
         }
       });
       for (const user of users) {
@@ -1096,9 +1098,7 @@ module.exports = function(Useraccount) {
           workStatus: user.workStatus,
           birthDate: yearDiff,
           emergencyName: user.address.emergencyContact.fullName,
-          emergencyContact: user.address.emergencyContact.phoneNumber,
-          email: user.email,
-          emailVerified: user.emailVerified
+          emergencyContact: user.address.emergencyContact.phoneNumber
         });
       }
     }
