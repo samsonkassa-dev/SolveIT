@@ -1075,11 +1075,6 @@ module.exports = function(Useraccount) {
       users = await Useraccount.find({
         where: {
           created: { gte: now },
-          cityId: city.id,
-          ...genderQuery,
-          ...educationQuery,
-          ...statusQuery,
-          ...ageQuery,
           emailVerified: false
         }
       });
