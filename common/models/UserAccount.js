@@ -5,7 +5,7 @@ let template = require("../configs/emailTemplates");
 let url = require("../configs/urlConfig");
 const uniqueid = require("uniqid");
 
-module.exports = function (Useraccount) {
+module.exports = function(Useraccount) {
   // remove username validation
   delete Useraccount.validations.username;
 
@@ -17,7 +17,7 @@ module.exports = function (Useraccount) {
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;
 
-  Useraccount.observe("after save", function (ctx, next) {
+  Useraccount.observe("after save", function(ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
@@ -301,7 +301,7 @@ module.exports = function (Useraccount) {
           cId: cId,
           userId: userId
         },
-        function (err, data) {
+        function(err, data) {
           if (err) {
             next(err);
             return;
@@ -313,7 +313,7 @@ module.exports = function (Useraccount) {
               subject: "Welcome to Solve IT",
               html: html
             },
-            function (err, mail) {
+            function(err, mail) {
               if (err) {
                 console.log("Error while sending email ", err);
                 next(err);
@@ -330,7 +330,7 @@ module.exports = function (Useraccount) {
   });
 
   // check password  request change is correct
-  Useraccount.changePassword = function (key, cb) {
+  Useraccount.changePassword = function(key, cb) {
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
     const ids = key.split(",");
@@ -342,7 +342,7 @@ module.exports = function (Useraccount) {
           id: cid
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           cb(new Error("Error while checking request"));
           return;
@@ -356,7 +356,7 @@ module.exports = function (Useraccount) {
             {
               inactive: true
             },
-            function (err, response) {
+            function(err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -392,7 +392,7 @@ module.exports = function (Useraccount) {
   });
 
   // check if email is verified before login
-  Useraccount.beforeRemote("login", function (ctx, unused, next) {
+  Useraccount.beforeRemote("login", function(ctx, unused, next) {
     let email = ctx.args.credentials.email;
     let pass = ctx.args.credentials.password;
     Useraccount.findOne(
@@ -401,7 +401,7 @@ module.exports = function (Useraccount) {
           email: { like: email, options: "i" }
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
@@ -587,7 +587,7 @@ module.exports = function (Useraccount) {
   };
 
   // confirm email address
-  Useraccount.confirmEmail = function (userId, cid, cb) {
+  Useraccount.confirmEmail = function(userId, cid, cb) {
     let { emailConfirmationId } = Useraccount.app.models;
     emailConfirmationId.findOne(
       {
@@ -595,7 +595,7 @@ module.exports = function (Useraccount) {
           cId: cid
         }
       },
-      function (err, record) {
+      function(err, record) {
         if (record !== null && userId === record.userId) {
           console.log("record ", record);
           Useraccount.updateAll(
@@ -605,7 +605,7 @@ module.exports = function (Useraccount) {
             {
               emailVerified: true
             },
-            function (err, data) {
+            function(err, data) {
               if (err) {
                 console.log("error");
                 cb(err);
@@ -640,7 +640,7 @@ module.exports = function (Useraccount) {
   };
 
   // request password change
-  Useraccount.requestPasswordChange = function (email, cb) {
+  Useraccount.requestPasswordChange = function(email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -650,7 +650,7 @@ module.exports = function (Useraccount) {
           }
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           cb(new Error("Error while searching user"));
         } else {
@@ -662,7 +662,7 @@ module.exports = function (Useraccount) {
                 id: requestId,
                 userId: data.id
               },
-              function (err, res) {
+              function(err, res) {
                 if (err) {
                   cb(
                     new Error(
@@ -688,7 +688,7 @@ module.exports = function (Useraccount) {
                       subject: "Confirmation for password change",
                       html: html
                     },
-                    function (err, mail) {
+                    function(err, mail) {
                       if (err) {
                         console.log("Error while sending email ", err);
                         cb(new Error("Error while sending email."), {
@@ -718,7 +718,7 @@ module.exports = function (Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function (id, token, password, cb) {
+  Useraccount.updatePassword = function(id, token, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
@@ -737,7 +737,7 @@ module.exports = function (Useraccount) {
           id: cid
         }
       },
-      function (err, data) {
+      function(err, data) {
         if (err) {
           console.log("ERr");
           cb(new Error("Error while checking request"));
@@ -756,7 +756,7 @@ module.exports = function (Useraccount) {
             {
               inactive: true
             },
-            function (err, response) {
+            function(err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -770,13 +770,13 @@ module.exports = function (Useraccount) {
                     id: id
                   }
                 },
-                function (err, user) {
+                function(err, user) {
                   if (err) {
                     cb(buildError("INVALID_OPERATION", "unable to find user."));
                     return;
                   }
                   console.log("Foundnndn");
-                  user.updateAttribute("password", password, function (
+                  user.updateAttribute("password", password, function(
                     err,
                     user
                   ) {
@@ -804,7 +804,7 @@ module.exports = function (Useraccount) {
   };
 
   // chek if email is unique
-  Useraccount.isEmailUnique = function (email, cb) {
+  Useraccount.isEmailUnique = function(email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
@@ -814,7 +814,7 @@ module.exports = function (Useraccount) {
           }
         }
       },
-      function (err, user) {
+      function(err, user) {
         if (err) {
           cb(err);
           return;
@@ -835,7 +835,7 @@ module.exports = function (Useraccount) {
   };
 
   // search password
-  Useraccount.searchUser = function (keyword, userId, cb) {
+  Useraccount.searchUser = function(keyword, userId, cb) {
     let trimedKeyword = keyword.trim();
     if (
       trimedKeyword.startsWith("+2519") ||
@@ -899,7 +899,7 @@ module.exports = function (Useraccount) {
                     ]
                   }
                 },
-                function (err, users) {
+                function(err, users) {
                   users = users.map(user => ({
                     id: user.id,
                     firstName: user.firstName,
@@ -921,7 +921,7 @@ module.exports = function (Useraccount) {
                     ]
                   }
                 },
-                function (err, role) {
+                function(err, role) {
                   Useraccount.find(
                     {
                       where: {
@@ -969,7 +969,7 @@ module.exports = function (Useraccount) {
                         ]
                       }
                     },
-                    function (err, users) {
+                    function(err, users) {
                       users = users.map(user => ({
                         id: user.id,
                         firstName: user.firstName,
@@ -991,14 +991,14 @@ module.exports = function (Useraccount) {
   };
 
   // get users by role
-  Useraccount.getUserListByRole = function (roleId, cb) {
+  Useraccount.getUserListByRole = function(roleId, cb) {
     Useraccount.find(
       {
         where: {
           roleId: roleId
         }
       },
-      function (err, users) {
+      function(err, users) {
         cb(null, users);
       }
     );
@@ -1035,16 +1035,18 @@ module.exports = function (Useraccount) {
     sheet.columns = [
       { header: "Region", key: "region", width: 10 },
       { header: "City", key: "city", width: 10 },
-      { header: "First Name", key: "firstName", width: 10 },
-      { header: "Middle Name", key: "middleName", width: 10 },
-      { header: "Last Name", key: "lastName", width: 10 },
-      { header: "Gender", key: "sex", width: 10 },
+      { header: "First Name", key: "firstName", width: 15 },
+      { header: "Middle Name", key: "middleName", width: 15 },
+      { header: "Last Name", key: "lastName", width: 15 },
+      { header: "Gender", key: "sex", width: 5 },
       { header: "Phone Number", key: "phoneNumber", width: 10 },
-      { header: "Education Level", key: "educationLevel", width: 10 },
-      { header: "Work Status", key: "workStatus", width: 10 },
-      { header: "Birthdate", key: "birthDate", width: 10 },
-      { header: "Emergency Name", key: "emergencyName", width: 10 },
-      { header: "Emergency Contact", key: "emergencyContact", width: 10 }
+      { header: "Education Level", key: "educationLevel", width: 20 },
+      { header: "Work Status", key: "workStatus", width: 20 },
+      { header: "Age", key: "birthDate", width: 10 },
+      { header: "Emergency Name", key: "emergencyName", width: 20 },
+      { header: "Emergency Contact", key: "emergencyContact", width: 20 },
+      { header: "Email", key: "email", width: 20 },
+      { header: "Email Verified", key: "emailVerified", width: 10 }
     ];
     let genderQuery = {};
     let educationQuery = {};
@@ -1077,7 +1079,8 @@ module.exports = function (Useraccount) {
           ...genderQuery,
           ...educationQuery,
           ...statusQuery,
-          ...ageQuery
+          ...ageQuery,
+          emailVerified: false
         }
       });
       for (const user of users) {
@@ -1098,7 +1101,9 @@ module.exports = function (Useraccount) {
           workStatus: user.workStatus,
           birthDate: yearDiff,
           emergencyName: user.address.emergencyContact.fullName,
-          emergencyContact: user.address.emergencyContact.phoneNumber
+          emergencyContact: user.address.emergencyContact.phoneNumber,
+          email: user.email,
+          emailVerified: user.emailVerified
         });
       }
     }
@@ -1212,7 +1217,7 @@ module.exports = function (Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = async function (id) {
+  Useraccount.getAssignedCities = async function(id) {
     const { AssignedCity } = Useraccount.app.models;
     try {
       const cities = await AssignedCity.findOne({ where: { userId: id } });
@@ -1690,7 +1695,7 @@ module.exports = function (Useraccount) {
     }
   });
 
-  Useraccount.signInWithFB = function (user, cb) {
+  Useraccount.signInWithFB = function(user, cb) {
     const { AccessToken } = Useraccount.app.models;
     if (user.authResponse.userID && user.authResponse.userID === "") {
       return cb(new Error("Invalid user data."));
