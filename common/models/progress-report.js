@@ -30,50 +30,54 @@ module.exports = function(Progressreport) {
 
       const assignedCities = await AssignedCity.find({ include: ["user"] });
 
-      let projectCity = assignedCities.find(
+      let projectCitys = assignedCities.filter(
         assigned => assigned.cities.indexOf(reportUploader.cityId + "") !== -1
       );
-      projectCity = projectCity.toJSON();
-      if (projectCity.user.oneSignalUserID) {
-        userDeviceIds.push(projectCity.user.oneSignalUserID);
-        userIds.push(projectCity.user.id);
-      }
 
-      const members = await projectMember.find({
-        where: { projectId: ctx.args.data.projectId },
-        include: ["userAccount"]
-      });
-      members.forEach(member => {
-        if (member.toJSON().oneSignalUserID) {
-          userDeviceIds.push(member.toJSON().oneSignalUserID);
-          userIds.push(member.toJSON().id);
+      projectCitys.forEach(async projectCity => {
+        projectCity = projectCity.toJSON();
+
+        if (projectCity.user.oneSignalUserID) {
+          userDeviceIds.push(projectCity.user.oneSignalUserID);
+          userIds.push(projectCity.user.id);
         }
-      });
-      const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
 
-      let newNotification = {
-        userId: assignedCities[0].userId,
-        notificationMessage: message
-      };
-      if (newNotification) {
-        mentorNotification.create(newNotification, (err, succ) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(succ);
+        const members = await projectMember.find({
+          where: { projectId: ctx.args.data.projectId },
+          include: ["userAccount"]
+        });
+        members.forEach(member => {
+          if (member.toJSON().oneSignalUserID) {
+            userDeviceIds.push(member.toJSON().oneSignalUserID);
+            userIds.push(member.toJSON().id);
           }
         });
-      }
-      if (userDeviceIds.length > 0) {
         const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
-        const notification = NotificationUtils.createNotification(message, {
-          include_player_ids: [...userDeviceIds]
-        });
-        userIds.forEach(id => {
-          Notification.create({ content: message, userId: id });
-        });
-        NotificationUtils.sendNotification(notification);
-      }
+
+        let newNotification = {
+          userId: projectCity.userId,
+          notificationMessage: message
+        };
+        if (newNotification) {
+          mentorNotification.create(newNotification, (err, succ) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(succ);
+            }
+          });
+        }
+        if (userDeviceIds.length > 0) {
+          const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
+          const notification = NotificationUtils.createNotification(message, {
+            include_player_ids: [...userDeviceIds]
+          });
+          userIds.forEach(id => {
+            Notification.create({ content: message, userId: id });
+          });
+          NotificationUtils.sendNotification(notification);
+        }
+      });
     } catch (error) {
       console.log(error);
       throw error;
