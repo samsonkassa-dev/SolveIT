@@ -134,6 +134,16 @@
                 <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
               </li>
             </ul>
+
+            <ul class="dropdown">
+              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
+                <a (click)="getUserProfile()">Profile</a>
+              </li>
+              <li>
+                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+              </li>
+
+            </ul>
           </li>
         </ul>
 

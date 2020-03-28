@@ -179,6 +179,15 @@
                 <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
               </li>
             </ul>
+            <ul class="dropdown">
+              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
+                <a (click)="getUserProfile()">Profile</a>
+              </li>
+              <li>
+                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+              </li>
+
+            </ul>
           </li>
         </ul>
       </div>
@@ -272,7 +281,7 @@
 <!-- /Why Choose Us -->
 
 <!-- Service -->
-<div id="service" class="section md-padding">
+<div id="service" class="section">
   <!-- Container -->
   <div class="container">
 
@@ -557,7 +566,7 @@
 <!-- testimonial Start
               ============================================================= -->
 
-<!--- 
+<!---
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -566,7 +575,7 @@
                             <h2  >What People say About Us</h2>
                     </div>
                 <div class="testimonial-area">
-                
+
                   <div class="tm-contant">
                     <div class="tm-contant-items" id="slide-testimonial">
                       <carousel-component>
@@ -603,11 +612,11 @@
                                 </div>
                               </div>
                             </div>
-      
-      
+
+
                       </carousel-component>
-      
-      
+
+
                     </div>
                   </div>
                 </div>
