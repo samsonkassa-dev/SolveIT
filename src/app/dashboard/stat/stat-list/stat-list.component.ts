@@ -143,10 +143,45 @@ export class StatListComponent implements OnInit {
     this.selectedRole = this.views[parseInt(index)];
     this.filterUsers();
   }
-
+  filterUsersPerCity() {
+    console.log("I am called");
+    console.log(this.selectedRole);
+    if (this.selectedRole.id) {
+      let temp = [];
+      let counter = 0;
+      this.cities.forEach(city => {
+        let res: any = [];
+        res = this.allUsers.filter(item => {
+          var date = new Date(item.created);
+          var year = date.getFullYear();
+          // console.log(
+          //   item.roleId === this.selectedRole.id &&
+          //     item.cityId === city.id &&
+          //     year >= parseInt("2020")
+          // );
+          return (
+            item.roleId === this.selectedRole.id &&
+            item.cityId === city.id &&
+            item.created >= parseInt("2020")
+          );
+        });
+        if (res) {
+          temp.push("City Name " + city.name + " Amount " + res.length);
+          counter += res.length;
+        }
+      });
+      console.log(temp);
+      console.log(counter);
+    }
+  }
   filterUsers() {
+    console.log(this.selectedCityComp);
     if (this.selectedRole.name === "participant") {
-      if (parseInt(this.selectedCity.toString()) === 0) {
+      // this.filterUsersPerCity();
+      if (
+        !this.selectedCityComp ||
+        parseInt(this.selectedCityComp.toString()) === 0
+      ) {
         this.selectedUsers = this.allUsers.filter(item => {
           var date = new Date(item.created);
           var year = date.getFullYear();
@@ -171,22 +206,27 @@ export class StatListComponent implements OnInit {
         });
       } else {
         this.selectedUsers = this.allUsers.filter(item => {
+          var date = new Date(item.created);
+          var year = date.getFullYear();
           if (this.selectedStatus === "confirmed") {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCity.toString() &&
-              item.emailVerified
+              item.cityId === this.selectedCityComp.toString() &&
+              item.emailVerified &&
+              year >= parseInt(this.selectedYear)
             );
           } else if (this.selectedStatus === "unconfirmed") {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCity.toString() &&
-              !item.emailVerified
+              item.cityId === this.selectedCityComp.toString() &&
+              !item.emailVerified &&
+              year >= parseInt(this.selectedYear)
             );
           } else {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCity.toString()
+              item.cityId === this.selectedCityComp.toString() &&
+              year >= parseInt(this.selectedYear)
             );
           }
         });

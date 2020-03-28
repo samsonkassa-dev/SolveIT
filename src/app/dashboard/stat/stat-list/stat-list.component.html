@@ -30,7 +30,7 @@
     <div class="filter" *ngIf="selectedRole.name == 'participant'">
       <label for="view-filter">Filter By City </label>
       <select name="city" class="form-control" aria-placeholder="Filter By City" id="city"
-        [(ngModel)]="selectedCityComp" (change)="filterByCity()">
+        [(ngModel)]="selectedCityComp" (change)="filterUsers()">
         <option value="" selected>Filter By City</option>
         <option value="">All</option>
         <option *ngFor="let city of cities" value="{{city.id}}">{{
@@ -115,9 +115,7 @@
               <li>
                 <a *ngIf="user.status == 'ACTIVE'" (click)="deactivateUser(user)">Deactivate</a>
               </li>
-              <li>
-                <a *ngIf="this.selectedRole.name === 'solveitteam'" (click)="showModal(user)">Assign Region</a>
-              </li>
+
               <li>
                 <a *ngIf="!user.isModerator && this.selectedRole.name != 'investor'"
                   (click)="processModerator(user)">Make
