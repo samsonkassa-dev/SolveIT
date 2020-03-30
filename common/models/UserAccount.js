@@ -975,7 +975,8 @@ module.exports = function(Useraccount) {
                         id: user.id,
                         firstName: user.firstName,
                         middleName: user.middleName,
-                        lastName: user.lastName
+                        lastName: user.lastName,
+                        username: user.username
                       }));
                       cb(null, users);
                     }
