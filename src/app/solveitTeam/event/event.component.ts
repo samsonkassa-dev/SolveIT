@@ -1,35 +1,39 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../../Auth/services/auth.service';
-import { EventListComponent } from './eventList/eventList.component';
-import { timeInterval } from 'rxjs/operators';
-import { CommonService } from '../../shared/services/common.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { AuthService } from "../../Auth/services/auth.service";
+import { EventListComponent } from "./eventList/eventList.component";
+import { timeInterval } from "rxjs/operators";
+import { CommonService } from "../../shared/services/common.service";
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  selector: "app-event",
+  templateUrl: "./event.component.html",
+  styleUrls: ["./event.component.css"]
 })
-export class EventsComponent implements  OnInit {
-  public selected = 'events-list';
+export class EventsComponent implements OnInit {
+  public selected = "events-list";
   public isEdit = false;
-  public showArchivedPosts;
+  public showArchivedPosts = false;
   public event = {
-    title: '',
-    description: '',
-    city: '',
-    place: '',
-    venue: '',
-    startDate: '',
-    endDate: ''
+    title: "",
+    description: "",
+    city: "",
+    place: "",
+    venue: "",
+    startDate: "",
+    endDate: ""
   };
   public cities = [];
-  @ViewChild('list')
+  @ViewChild("list")
   private list: EventListComponent;
-  public selectedCity = '';
+  public selectedCity = "";
 
-  constructor(public authService: AuthService, public cityService: CommonService) {}
-  toggleArchiveView(){
-    this.showArchivedPosts = !this.showArchivedPosts
+  constructor(
+    public authService: AuthService,
+    public cityService: CommonService
+  ) {}
+  toggleArchiveView() {
+    this.showArchivedPosts = !this.showArchivedPosts;
+    this.list.getEventsList();
   }
   ngOnInit(): void {
     this.getCities();
@@ -37,7 +41,7 @@ export class EventsComponent implements  OnInit {
 
   toggleView(view) {
     this.selected = view;
-    if (this.selected == 'events-list') {
+    if (this.selected == "events-list") {
       setTimeout(() => {
         this.filterByCity(this.selectedCity);
       }, 500);
@@ -47,19 +51,19 @@ export class EventsComponent implements  OnInit {
   editEvent($event) {
     this.event = $event.event;
     this.isEdit = true;
-    this.toggleView('create-event');
+    this.toggleView("create-event");
     this.filterByCity(this.selectedCity);
   }
   showList() {
-    this.toggleView('events-list');
+    this.toggleView("events-list");
     this.event = {
-      title: '',
-      description: '',
-      city: '',
-      place: '',
-      venue: '',
-      startDate: '',
-      endDate: ''
+      title: "",
+      description: "",
+      city: "",
+      place: "",
+      venue: "",
+      startDate: "",
+      endDate: ""
     };
     this.isEdit = false;
   }
@@ -69,10 +73,9 @@ export class EventsComponent implements  OnInit {
   }
 
   getCities() {
-    this.cityService.getCities()
-      .subscribe(res => {
-        this.cities = res;
-        this.filterByCity(this.selectedCity);
-      });
+    this.cityService.getCities().subscribe(res => {
+      this.cities = res;
+      this.filterByCity(this.selectedCity);
+    });
   }
 }

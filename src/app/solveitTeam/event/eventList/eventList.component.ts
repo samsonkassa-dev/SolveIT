@@ -10,6 +10,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class EventListComponent implements OnInit {
   public events = [];
+  public allEvents = [];
+  public latestEvents = [];
   public store = [];
   public selected = "events-list";
   public searchKey = "";
@@ -72,7 +74,20 @@ export class EventListComponent implements OnInit {
     this.spinner.show();
     this.service.getEventsList().subscribe(
       res => {
-        this.events = res;
+        this.events = [];
+        if (!this.showArchivedPosts) {
+          res.forEach(element => {
+            if (!this.isPassed(element)) {
+              this.events.push(element);
+            }
+          });
+          if (this.events.length == 0) {
+            this.events = res.slice(0, 4);
+          }
+        } else {
+          this.events = res;
+        }
+
         this.store = this.events;
         this.spinner.hide();
       },
