@@ -1,19 +1,30 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PhoneNumberValidation} from '../validator/phoneNumberValidation';
-import { CommonService } from '../../shared/services/common.service';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
+import { PhoneNumberValidation } from "../validator/phoneNumberValidation";
+import { CommonService } from "../../shared/services/common.service";
 
 @Component({
-  selector: 'app-adress',
-  templateUrl: './adress.component.html',
-  styleUrls: ['./adress.component.css']
+  selector: "app-adress",
+  templateUrl: "./adress.component.html",
+  styleUrls: ["./adress.component.css"]
 })
 export class AdressComponent implements OnInit, OnChanges {
-
   @Output() next = new EventEmitter<any>();
   @Output() back = new EventEmitter();
-
+  citiesToExclude = ["Addis Ababa", "Mekelle", "Semera", "Gondor", "Bahir Dar"];
   public addressForm: FormGroup;
   public regions = [];
   public cities = [];
@@ -28,31 +39,18 @@ export class AdressComponent implements OnInit, OnChanges {
     "Business Owner",
     "Student",
     "Other"
-  ]
+  ];
 
-  yesNoOptions = [
-    "Yes",
-    "No"
-  ]
+  yesNoOptions = ["Yes", "No"];
 
   supportOptions = [
     "Business Support",
     "Financial Support",
     "Technical Support"
-  ]
-  languageOptions = [
-    "Amharic",
-    "English"
-  ]
+  ];
+  languageOptions = ["Amharic", "English"];
 
-  oneToFive = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5"
-  ]
-
+  oneToFive = ["1", "2", "3", "4", "5"];
 
   dropdownSettings = {
     singleSelection: false,
@@ -63,53 +61,56 @@ export class AdressComponent implements OnInit, OnChanges {
     itemsShowLimit: 3,
     allowSearchFilter: true
   };
-  support = {supportNeeded : []}
+  support = { supportNeeded: [] };
   @Input() address;
   @Input() isLoading = false;
 
-  constructor(public formBuilder: FormBuilder, public userService: CommonService) { }
+  constructor(
+    public formBuilder: FormBuilder,
+    public userService: CommonService
+  ) {}
 
   ngOnInit() {
-    this.parentOccupationOptions = this.format(this.parentOccupationOptions)
-    this.yesNoOptions = this.format(this.yesNoOptions)
-    this.languageOptions = this.format(this.languageOptions)
-    this.userService.getAllRegions()
-      .subscribe(res => {
-        this.regions = res;
+    this.parentOccupationOptions = this.format(this.parentOccupationOptions);
+    this.yesNoOptions = this.format(this.yesNoOptions);
+    this.languageOptions = this.format(this.languageOptions);
+    this.userService.getAllRegions().subscribe(res => {
+      this.regions = res;
+    });
+
+    this.userService.getAllCities().subscribe(res => {
+      const filtteredCities = res.filter(item => {
+        return this.blockedCities.indexOf(item.name.toLowerCase()) == -1;
       });
 
-    this.userService.getAllCities()
-      .subscribe(res => {
-
-        const filtteredCities = res.filter(item => {
-          return this.blockedCities.indexOf(item.name.toLowerCase()) == -1;
-        });
-
-        this.cities = filtteredCities;
-        this.citiesBackup = filtteredCities;
-      });
+      this.cities = filtteredCities;
+      this.citiesBackup = filtteredCities;
+    });
 
     this.addressForm = this.formBuilder.group({
       region: [null, Validators.required],
       city: [null, Validators.required],
-      wereda: ['', Validators.required],
-      houseNo: [''],
-      fullName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      wereda: ["", Validators.required],
+      houseNo: [""],
+      fullName: ["", Validators.required],
+      phoneNumber: ["", Validators.required],
 
       // parentsOccupation : [null, Validators.required],
       // languageOption:[null, Validators.required],
-      educationalInstitute: ['', Validators.required],
-      englishReading : [null, Validators.required],
-      englishWriting : [null, Validators.required],
-      englishSpeaking : [null, Validators.required],
+      educationalInstitute: ["", Validators.required],
+      englishReading: [null, Validators.required],
+      englishWriting: [null, Validators.required],
+      englishSpeaking: [null, Validators.required]
     });
   }
 
   onRegionChange() {
-    if (this.address.regionId !== '') {
+    if (this.address.regionId !== "") {
       this.cities = this.citiesBackup.filter(item => {
-        return item.regionId === this.address.regionId;
+        return (
+          item.regionId === this.address.regionId &&
+          !this.citiesToExclude.includes(item.name)
+        );
       });
     } else {
       this.cities = this.citiesBackup;
@@ -127,7 +128,7 @@ export class AdressComponent implements OnInit, OnChanges {
   }
 
   onCityChange() {
-    if (this.address.regionId === '') {
+    if (this.address.regionId === "") {
       const city = this.getRegionFromCity(this.address.cityId);
       this.address.regionId = city.regionId;
     }
@@ -163,13 +164,12 @@ export class AdressComponent implements OnInit, OnChanges {
     this.isLoading = changes.isLoading.currentValue;
   }
 
-
-  format(arrayOfStrings){
-    let result = []
+  format(arrayOfStrings) {
+    let result = [];
     arrayOfStrings.forEach(element => {
-      result.push({label:element, value:element})
+      result.push({ label: element, value: element });
     });
-    return result
+    return result;
   }
 
   mapSupportToDropDown() {
@@ -203,5 +203,4 @@ export class AdressComponent implements OnInit, OnChanges {
   onDeselectAll(items) {
     this.support.supportNeeded = [];
   }
-
 }
