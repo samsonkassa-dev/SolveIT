@@ -28,6 +28,10 @@
       "type": "string",
       "required": true
     },
+    "is_archived": {
+      "type": "boolean",
+      "default": false
+    },
     "createdAt": {
       "type": "date",
       "defaultfun": "now"
