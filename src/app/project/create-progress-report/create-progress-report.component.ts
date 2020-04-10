@@ -38,8 +38,11 @@ export class CreateProgressReportComponent implements OnInit {
   public types = [
     { id: "attachment", name: "Attach Document" },
     { id: "simple", name: "Simple Report" },
-    { id: "communication", name: "Communication Report" }
+    { id: "communication", name: "Communication Report" },
+    { id: "activity", name: "Activity Report" }
   ];
+  commId = "communication";
+  actId = "activity";
   @Input() project: any = {};
   @Output() created = new EventEmitter();
 
@@ -72,14 +75,16 @@ export class CreateProgressReportComponent implements OnInit {
       this.report.projectId = this.project.id;
       const userId = this.authService.getUserId();
       this.report.userId = userId;
-      if (this.report.type === this.types[0].id) {
+      if (
+        this.report.type === this.types[0].id ||
+        this.report.type == "activity"
+      ) {
         this.error = false;
         if (this.uploader.queue[0]) {
           this.errorType = false;
           this.isUploading = true;
           this.uploader.queue[0].upload();
         } else {
-          console.log("TOOTI");
           this.uploader.queue.pop();
           this.errorType = true;
           return;
@@ -95,7 +100,6 @@ export class CreateProgressReportComponent implements OnInit {
             ...this.report,
             ...this.reportForm.value
           };
-          //console.log(this.report)
           this.service.uploadProgressReport(this.report).subscribe(
             res => {
               this.sharedService.addToast(
@@ -107,6 +111,7 @@ export class CreateProgressReportComponent implements OnInit {
               this.created.emit();
             },
             err => {
+              console.log(err);
               if ((err.status = 422)) {
                 this.sharedService.addToast("", "Error occurred!", "error");
               }
@@ -141,7 +146,7 @@ export class CreateProgressReportComponent implements OnInit {
         };
       } else if (
         this.report.type === this.types[1].id ||
-        this.report.type == this.types[2].id
+        this.report.type == this.commId
       ) {
         this.report = {
           ...this.report,
@@ -160,14 +165,14 @@ export class CreateProgressReportComponent implements OnInit {
           err => {
             if ((err.status = 422)) {
               //console.log("$@@")
-              //console.log(err)
+              console.log(err);
               this.sharedService.addToast("", "Error occurred!", "error");
             }
           }
         );
       }
     } else {
-      //console.log("In the lese ")
+      console.log("In the lese ");
       //console.log(this.report)
       //console.log(this.report.type == this.types[2].id)
       this.sharedService.addToast("", "Error occurred!", "error");
@@ -180,8 +185,11 @@ export class CreateProgressReportComponent implements OnInit {
         return this.isFileSelected;
       } else if (this.report.type === this.types[1].id) {
         return this.report.report !== "";
-      } else if (this.report.type === this.types[2].id) {
+      } else if (this.report.type === this.commId) {
         return this.reportForm.controls.communicationAbout.value !== "";
+      } else if (this.report.type === this.actId) {
+        console.log(this.isFileSelected);
+        return this.isFileSelected;
       }
       return false;
     }

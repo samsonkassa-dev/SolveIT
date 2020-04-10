@@ -70,6 +70,12 @@
               *ngIf="!uploadReport && !authService.isSolveitJudge()" id="upload-progress-report">
               Upload
             </button>
+            <div
+              style=" display: inline-block; margin-left:20px;z-index:999;width:300px;background-color: none !important;background: none !important;">
+              <ng-select placeholder="filter category" [items]="types" bindLabel="name" bindValue="id"
+                [(ngModel)]="report.type" [searchable]="false" (change)="onfilterChange()">
+              </ng-select>
+            </div>
             <button class="main-btn" (click)="toggleUploadReport(false)"
               *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
               Back

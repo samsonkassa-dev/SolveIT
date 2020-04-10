@@ -1,6 +1,6 @@
 import { SharedService } from "./../../shared/services/shared.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { ProjectService } from "../project.service";
 import { ApiService } from "../../shared/services/api.service";
@@ -20,13 +20,22 @@ export class ProjectViewComponent implements OnInit {
   public uploadReport = false;
   public project: any = null;
   public progressReports: any = [];
+  public backupProgress: any = [];
   public selectedProgressReport = null;
   public isEnrolled = false;
   public count = 0;
   public members = [];
   public judges: any = [];
   public competitionId;
-
+  public report = { type: null };
+  public types = [
+    { id: null, name: "All" },
+    { id: "attachment", name: "Attach Document" },
+    { id: "simple", name: "Simple Report" },
+    { id: "activity", name: "Activity Report" }
+  ];
+  commId = "communication";
+  actId = "activity";
   // for joining cometition
   public activeCompetitions = [];
   public isJoinCompetitionSuccessfull = null;
@@ -50,6 +59,12 @@ export class ProjectViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initState();
+    this.route.params.subscribe(params => {
+      this.initState();
+    });
+  }
+  initState() {
     const id = this.route.snapshot.paramMap.get("id");
     this.getProject(id);
     this.competitionService.getCompetitions().subscribe(
@@ -73,6 +88,15 @@ export class ProjectViewComponent implements OnInit {
         this.members.push(item.id);
       });
     });
+  }
+  onfilterChange() {
+    if (this.report.type) {
+      this.progressReports = this.backupProgress.filter(element => {
+        return element.type == this.report.type;
+      });
+    } else {
+      this.progressReports = this.backupProgress;
+    }
   }
   getJudges(competitionId) {
     let temp = [];
@@ -170,6 +194,7 @@ export class ProjectViewComponent implements OnInit {
   public getProgressReports() {
     this.service.getAllProgressReport(this.project.id).subscribe(res1 => {
       this.progressReports = res1;
+      this.backupProgress = res1;
     });
   }
 
