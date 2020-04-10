@@ -51,6 +51,7 @@
         <tr>
           <th>#</th>
           <th>Project Title</th>
+          <th>Activities</th>
           <th *ngIf="authService.isAdmin()">action</th>
         </tr>
       </thead>
@@ -64,6 +65,11 @@
           <td (click)="viewProject(project.solveitproject)">
             {{
               project.solveitproject ? project.solveitproject.title : "Unknown"
+            }}
+          </td>
+          <td (click)="viewProject(project.solveitproject)">
+            {{
+              project.solveitproject ? project.solveitproject.reports.length : "Unknown"
             }}
           </td>
           <td *ngIf="authService.isAdmin() "><button class="btn btn-danger" data-toggle="modal" data-target="#myModal"
