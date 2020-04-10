@@ -1,7 +1,7 @@
 "use strict";
 const NotificationUtils = require("../utils/notificationUtil");
 
-module.exports = function(Progressreport) {
+module.exports = function (Progressreport) {
   //  disable delete end point
   Progressreport.disableRemoteMethod("deleteById", true);
   Progressreport.disableRemoteMethod("destroyById", true);
@@ -15,26 +15,26 @@ module.exports = function(Progressreport) {
       Solveitproject,
       projectMember,
       mentorNotification,
-      Notification
+      Notification,
     } = Progressreport.app.models;
     try {
       let userDeviceIds = [];
       let userIds = [];
       const reportUploader = await UserAccount.findOne({
-        where: { id: ctx.args.data.userId }
+        where: { id: ctx.args.data.userId },
+        include: ["city"],
       });
 
       const project = await Solveitproject.findOne({
-        where: { id: ctx.args.data.projectId }
+        where: { id: ctx.args.data.projectId },
       });
 
       const assignedCities = await AssignedCity.find({ include: ["user"] });
 
       let projectCitys = assignedCities.filter(
-        assigned => assigned.cities.indexOf(reportUploader.cityId + "") !== -1
+        (assigned) => assigned.cities.indexOf(reportUploader.cityId + "") !== -1
       );
-
-      projectCitys.forEach(async projectCity => {
+      projectCitys.forEach(async (projectCity) => {
         projectCity = projectCity.toJSON();
 
         if (projectCity.user.oneSignalUserID) {
@@ -44,19 +44,20 @@ module.exports = function(Progressreport) {
 
         const members = await projectMember.find({
           where: { projectId: ctx.args.data.projectId },
-          include: ["userAccount"]
+          include: ["userAccount"],
         });
-        members.forEach(member => {
+        members.forEach((member) => {
           if (member.toJSON().oneSignalUserID) {
             userDeviceIds.push(member.toJSON().oneSignalUserID);
             userIds.push(member.toJSON().id);
           }
         });
         const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
-
+        console.log(projectCity);
         let newNotification = {
+          projectId: project.id,
           userId: projectCity.userId,
-          notificationMessage: message
+          notificationMessage: message,
         };
         if (newNotification) {
           mentorNotification.create(newNotification, (err, succ) => {
@@ -68,11 +69,11 @@ module.exports = function(Progressreport) {
           });
         }
         if (userDeviceIds.length > 0) {
-          const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title}".`;
+          const message = `Dear ${projectCity.user.firstName}, ${reportUploader.firstName} uploaded progress report on "${project.title} in city ".`;
           const notification = NotificationUtils.createNotification(message, {
-            include_player_ids: [...userDeviceIds]
+            include_player_ids: [...userDeviceIds],
           });
-          userIds.forEach(id => {
+          userIds.forEach((id) => {
             Notification.create({ content: message, userId: id });
           });
           NotificationUtils.sendNotification(notification);
