@@ -49,8 +49,22 @@ export class HeaderComponent implements OnInit {
 
   deleteNotification(notification) {
     //console.log(notification)
-    this.commonService.deleteNotification(notification).subscribe(res => {
-      this.ngOnInit();
-    });
+    if (notification.projectId) {
+      this.router
+        .navigate(["my-projects", notification.projectId])
+        .then(val => {
+          if (val) {
+            this.commonService
+              .deleteNotification(notification)
+              .subscribe(res => {
+                this.ngOnInit();
+              });
+          }
+        });
+    } else {
+      this.commonService.deleteNotification(notification).subscribe(res => {
+        this.ngOnInit();
+      });
+    }
   }
 }
