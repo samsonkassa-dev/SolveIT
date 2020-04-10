@@ -14,7 +14,19 @@
         <option *ngFor="let category of categories" [value]="category.category">{{ category.category }}</option>
       </select>
     </div>
-    <div class="col-md-offset-1 col-md-2" id="upload-btn-container" *ngIf="
+    <div class=" col-md-2" id="upload-btn-container" *ngIf="
+          (authService.isSolveitTeam() ||
+            authService.isSolveitManager() ||
+            authService.isAdmin()) &&
+          resources.length > 0
+        ">
+      <button id="upload-btn" class="outline-btn" (click)="toggleArchive()">
+        <i class="fa fa-archive"></i> <span *ngIf="is_archived">Hide Archived</span> <span *ngIf="!is_archived">Show
+          Archived</span>
+      </button>
+
+    </div>
+    <div class=" col-md-2" id="upload-btn-container" *ngIf="
           (authService.isSolveitTeam() ||
             authService.isSolveitManager() ||
             authService.isAdmin()) &&
@@ -23,7 +35,9 @@
       <button id="upload-btn" class="outline-btn" (click)="uploadResource()">
         <i class="fa fa-upload"></i> Upload
       </button>
+
     </div>
+
   </div>
 
   <div id="searchbar" class="row" *ngIf="resources.length > 0">
@@ -169,7 +183,11 @@
                   authService.isSolveitManager() ||
                   authService.isSolveitTeam()
                 " (click)="editResource(selectedResource)" class="fa fa-pencil close"></i>
-
+              <i *ngIf="
+                authService.isAdmin() ||
+                authService.isSolveitManager() ||
+                authService.isSolveitTeam()
+              " (click)="archiveResource(selectedResource)" class="fa fa-archive close"></i>
               <img class="resource-detail-img" src="../../../assets/img/pdfCover.jpg" alt="book cover" />
               <p>{{ selectedResource.createdAt | amTimeAgo }}</p>
               <h4 class="title">{{ selectedResource.title }}</h4>
@@ -194,7 +212,8 @@
 </div>
 <ng2-toasty [position]="'top-right'"></ng2-toasty>
 
-<app-modal (edit)="onEditVideo($event)" (delete)="deleteResource(choosenResource)" [resource]="choosenResource">
+<app-modal (edit)="onEditVideo($event)" (archive)="archiveResource($event)" (delete)="deleteResource(choosenResource)"
+  [resource]="choosenResource">
 </app-modal>
 
 <div id="deleteConfirmation" class="modal fade" role="dialog">

@@ -1,3 +1,4 @@
+import { resource } from "selenium-webdriver/http";
 import { Component, OnInit } from "@angular/core";
 import { ResourcesService } from "../service/resources.service";
 import { Resource } from "../models/resource";
@@ -29,7 +30,7 @@ export class ResourcesListComponent implements OnInit {
   public selectedResource: any = null;
   public backUpDocResources = [];
   public backUpVidResources = [];
-
+  public is_archived = false;
   constructor(
     public resourceService: ResourcesService,
     public router: Router,
@@ -42,11 +43,21 @@ export class ResourcesListComponent implements OnInit {
     this.resourceService.getResources().subscribe(
       res => {
         this.resources = res;
+        this.doc_resources = [];
+        this.vid_resources = [];
+        this.backUpDocResources = [];
+        this.backUpVidResources = [];
         res.filter(item => {
-          if (item.type === "document") {
+          if (
+            item.type === "document" &&
+            item.is_archived == this.is_archived
+          ) {
             this.doc_resources.push(item);
             this.backUpDocResources.push(item);
-          } else if (item.type === "video") {
+          } else if (
+            item.type === "video" &&
+            item.is_archived == this.is_archived
+          ) {
             this.vid_resources.push(item);
             this.backUpVidResources.push(item);
           }
@@ -61,12 +72,16 @@ export class ResourcesListComponent implements OnInit {
       this.categories = res;
     });
   }
-
+  toggleArchive() {
+    this.is_archived = !this.is_archived;
+    this.ngOnInit();
+  }
   uploadResource() {
     this.router.navigate(["resources/upload"]);
   }
 
   filterResource($event) {
+    console.log("Filter");
     this.keyword = "";
     if (this.filterCategory !== "") {
       this.vid_resources = this.backUpVidResources.filter(item => {
@@ -196,6 +211,30 @@ export class ResourcesListComponent implements OnInit {
   editResource(resource) {
     if (resource) {
       this.router.navigate(["resources/upload"], { queryParams: resource });
+    }
+  }
+
+  archiveResource(resource) {
+    if (resource.resource) {
+      resource = resource.resource;
+    }
+    resource.is_archived = !resource.is_archived;
+    if (resource.id) {
+      this.resourceService.updateResource(resource.id, resource).subscribe(
+        res => {
+          this.ngOnInit();
+          this.sharedService.addToast(
+            "Success",
+            "Resource Archived Successfuly!",
+            "success"
+          );
+        },
+        err => {
+          if ((err.status = 422)) {
+            this.sharedService.addToast("", "Error occured!", "error");
+          }
+        }
+      );
     }
   }
 }

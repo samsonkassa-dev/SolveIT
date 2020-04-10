@@ -16,6 +16,7 @@ export class ModalComponent implements OnInit {
   @Input() resource: Resource;
   @Output() delete = new EventEmitter();
   @Output() edit = new EventEmitter();
+  @Output() archive = new EventEmitter();
   public isClose = false;
 
   constructor(
@@ -69,7 +70,11 @@ export class ModalComponent implements OnInit {
     $("#myModal").modal("hide");
     this.edit.emit({ resource });
   }
-
+  onArchive(resource) {
+    this.resetResource();
+    $("#myModal").modal("hide");
+    this.archive.emit({ resource });
+  }
   resetResource() {
     this.isClose = true;
   }
