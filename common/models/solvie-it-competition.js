@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-module.exports = function(Solvieitcompetition) {
+module.exports = function (Solvieitcompetition) {
   //  disable delete end point
-  Solvieitcompetition.disableRemoteMethod('deleteById', true);
-  Solvieitcompetition.disableRemoteMethod('destroyById', true);
-  Solvieitcompetition.disableRemoteMethod('removeById', true);
+  Solvieitcompetition.disableRemoteMethod("deleteById", true);
+  Solvieitcompetition.disableRemoteMethod("destroyById", true);
+  Solvieitcompetition.disableRemoteMethod("removeById", true);
 
-  Solvieitcompetition.getActiveCompetition = function(cb) {
-    Solvieitcompetition.find({where: {active: true}}, function(
+  Solvieitcompetition.getActiveCompetition = function (cb) {
+    Solvieitcompetition.find({ where: { active: true } }, function (
       err,
       competition
     ) {
@@ -15,32 +15,48 @@ module.exports = function(Solvieitcompetition) {
     });
   };
 
-  Solvieitcompetition.getCompetitionProjectsWithCity = async competitionId => {
-    const {ProjectMember, CompetitionProject} = Solvieitcompetition.app.models;
+  Solvieitcompetition.getCompetitionProjectsWithCity = async (
+    competitionId
+  ) => {
+    const {
+      ProjectMember,
+      CompetitionProject,
+    } = Solvieitcompetition.app.models;
 
     let competitionProjects = await CompetitionProject.find({
-      where: {competitionId: competitionId},
-      include: ['solveitproject'],
+      where: { competitionId: competitionId },
+      include: {
+        relation: "solveitproject",
+        scope: {
+          include: {
+            relation: "reports",
+            scope: {
+              fields: { id: true, title: true },
+              where: { type: "activity" },
+            },
+          },
+        },
+      },
     });
 
     for (let i = 0; i < competitionProjects.length; i++) {
       const element = competitionProjects[i];
-      
+
       let members = await ProjectMember.find({
-        where: {projectId: element.projectId},
-        include: ['userAccount'],
+        where: { projectId: element.projectId },
+        include: ["userAccount"],
       });
 
       if (members.length > 0) {
         let member = members[0];
 
-        let project = await element.solveitproject.getAsync({})
-        if(project){
-          if(project.cities || project.cities != undefined ){
-            element['cities'] = project.cities
-          }else{
+        let project = await element.solveitproject.getAsync({});
+        if (project) {
+          if (project.cities || project.cities != undefined) {
+            element["cities"] = project.cities;
+          } else {
             if (member.userAccount()) {
-              element['cities'] = [member.userAccount().cityId];           
+              element["cities"] = [member.userAccount().cityId];
             }
           }
         }
@@ -51,51 +67,51 @@ module.exports = function(Solvieitcompetition) {
 
   Solvieitcompetition.getCompetitionAllProjects = async () => {
     const activeCompetition = await Solvieitcompetition.find({
-      where: {active: true},
+      where: { active: true },
     });
-    const {CompetitionProject} = Solvieitcompetition.app.models;
+    const { CompetitionProject } = Solvieitcompetition.app.models;
 
     let competitionProjects = await CompetitionProject.find({
-      where: {competitionId: activeCompetition[0].id},
-      include: ['solveitproject'],
+      where: { competitionId: activeCompetition[0].id },
+      include: ["solveitproject"],
     });
 
     return competitionProjects;
   };
 
-  Solvieitcompetition.remoteMethod('getCompetitionAllProjects', {
-    desctiption: 'get all projects in competition',
+  Solvieitcompetition.remoteMethod("getCompetitionAllProjects", {
+    desctiption: "get all projects in competition",
     http: {
-      verb: 'get',
-      path: '/all-projects',
+      verb: "get",
+      path: "/all-projects",
     },
     returns: {
-      type: 'object',
+      type: "object",
       root: true,
     },
   });
 
-  Solvieitcompetition.remoteMethod('getCompetitionProjectsWithCity', {
-    desctiption: 'get the city of project',
+  Solvieitcompetition.remoteMethod("getCompetitionProjectsWithCity", {
+    desctiption: "get the city of project",
     accepts: [
       {
-        arg: 'competitionId',
-        type: 'string',
+        arg: "competitionId",
+        type: "string",
         required: true,
       },
     ],
     http: {
-      verb: 'post',
-      path: '/competition-projects',
+      verb: "post",
+      path: "/competition-projects",
     },
     returns: {
-      type: 'object',
+      type: "object",
       root: true,
     },
   });
 
-  Solvieitcompetition.remoteMethod('getActiveCompetition', {
-    http: {path: '/active', verb: 'get'},
-    returns: {arg: 'Result', type: 'Object'},
+  Solvieitcompetition.remoteMethod("getActiveCompetition", {
+    http: { path: "/active", verb: "get" },
+    returns: { arg: "Result", type: "Object" },
   });
 };
