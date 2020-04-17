@@ -399,14 +399,23 @@ module.exports = function(Useraccount) {
       {
         where: {
           email: { like: email, options: "i" }
-        }
+        },
+        include: ["role","profile"]
       },
       function(err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
           if (data.emailVerified && data.status === "ACTIVE") {
-            next();
+            data = data.toJSON()
+            if(data.role && data.role.name == "solve-it-investor" && data.profile && !data.profile[0].approved){
+              let error = new Error("Verify");
+              next(error);
+
+            }else{
+              next();
+            }
+
           } else {
             let error = new Error("Verify");
             next(error);
@@ -422,7 +431,7 @@ module.exports = function(Useraccount) {
   // TODO: send user info and role
   Useraccount.afterRemote("login", (ctx, output, next) => {
     Useraccount.findOne(
-      { where: { id: output.userId }, include: ["role"] },
+      { where: { id: output.userId }, include: ["role","profile"] },
       (err, user) => {
         if (err) next(err);
         // output['user'] = user.toJSON();
