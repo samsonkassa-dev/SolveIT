@@ -1,3 +1,5 @@
+import { WaitingListComponent } from "./waiting/waiting-list/waiting-list.component";
+import { ActivitiesListComponent } from "./activity/activities-list/activities-list.component";
 import { StatListComponent } from "./stat/stat-list/stat-list.component";
 import { JudgeProfileComponent } from "./judge/judge-profile/judge-profile.component";
 import { JudgeListComponent } from "./judge/judge-list/judge-list.component";
@@ -47,6 +49,9 @@ export const DASHBOARD_ROUTES: Routes = [
         ]
       },
       { path: "categories", component: CategoriesListComponent },
+      { path: "activities", component: ActivitiesListComponent },
+      { path: "waiting", component: WaitingListComponent },
+
       { path: "tags", component: TagManagmentComponent },
       { path: "review-discussion", component: ReviewDiscussionComponent },
       { path: "stats", component: StatListComponent },

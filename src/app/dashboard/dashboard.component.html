@@ -17,6 +17,18 @@
           ">
           <span class="icon"><i class="fa fa-star"></i></span> Competitions
         </li>
+        <li *ngIf="!this.authService.isSolveitJudge()" (click)="router.navigate(['dashboard/activities'])"
+          class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
+          router.isActive('dashboard/activities', true)
+        ">
+          <span class="icon"><i class="fa fa-certificate"></i></span> Activities
+        </li>
+        <li *ngIf="!this.authService.isSolveitJudge()" (click)="router.navigate(['dashboard/waiting'])"
+          class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
+          router.isActive('dashboard/waiting', true)
+        ">
+          <span class="icon"><i class="fa fa-list"></i></span> Waiting List
+        </li>
         <li *ngIf="!this.authService.isSolveitJudge()" (click)="router.navigate(['dashboard/judges'])"
           class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
             router.isActive('dashboard/judges', true)

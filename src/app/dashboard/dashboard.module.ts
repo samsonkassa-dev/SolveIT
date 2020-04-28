@@ -1,3 +1,5 @@
+import { WaitingModule } from "./waiting/waiting.module";
+import { ActivityModule } from "./activity/activity.module";
 import { StatModule } from "./stat/stat.module";
 import { JudgeModule } from "./judge/judge.module";
 import { SolveItTeamMemberModule } from "./solveit-team-member/solveit-team-member.module";
@@ -35,6 +37,8 @@ import { AttendanceModule } from "./attendance/attendance.module";
     TagModule,
     StatModule,
     CityModule,
+    ActivityModule,
+    WaitingModule,
     SolveItTeamMemberModule,
     AttendanceModule,
     JudgeModule,
