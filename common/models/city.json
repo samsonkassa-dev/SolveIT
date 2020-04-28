@@ -9,6 +9,10 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "status": {
+      "type": "boolean",
+      "default": true
     }
   },
   "validations": [],
