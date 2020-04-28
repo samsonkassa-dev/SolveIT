@@ -1,19 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ProjectService } from '../project.service';
-import { SharedService } from '../../shared/services/shared.service';
-import { AuthService } from '../../Auth/services/auth.service';
-import { CommonService } from '../../shared/services/common.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { ProjectService } from "../project.service";
+import { SharedService } from "../../shared/services/shared.service";
+import { AuthService } from "../../Auth/services/auth.service";
+import { CommonService } from "../../shared/services/common.service";
 
 @Component({
-  selector: 'app-add-project-member',
-  templateUrl: './addMember.component.html',
-  styleUrls: ['./addMember.component.css']
+  selector: "app-add-project-member",
+  templateUrl: "./addMember.component.html",
+  styleUrls: ["./addMember.component.css"]
 })
 export class AddProjectMemberComponent implements OnInit {
   @Input() project;
   public users = [];
   public page = 1;
-  public keyword = '';
+  public keyword = "";
   public members = [];
 
   constructor(
@@ -36,11 +36,11 @@ export class AddProjectMemberComponent implements OnInit {
       res => {
         this.members.push(user);
         this.users.splice(this.users.indexOf(user), 1);
-        this.sharedService.addToast('Success', 'New Member Added!.', 'success');
+        this.sharedService.addToast("Success", "New Member Added!.", "success");
       },
       err => {
         if ((err.status = 422)) {
-          this.sharedService.addToast('', 'Error occured!', 'error');
+          this.sharedService.addToast("", "Error occured!", "error");
         }
       }
     );
@@ -53,12 +53,14 @@ export class AddProjectMemberComponent implements OnInit {
   }
 
   searchUser($event) {
-    if (this.keyword.trim() !== '') {
-      this.forumService.searchUser(this.keyword.trim(), this.authService.getUserId()).subscribe(res => {
-        this.users = res.Result.filter(item => {
-          return this.members.findIndex(x => x.id == item.id) == -1;
+    if (this.keyword.trim() !== "") {
+      this.forumService
+        .searchUser(this.keyword.trim(), this.authService.getUserId())
+        .subscribe(res => {
+          this.users = res.Result.filter(item => {
+            return this.members.findIndex(x => x.id == item.id) == -1;
+          });
         });
-      });
     } else {
       this.users = [];
     }
