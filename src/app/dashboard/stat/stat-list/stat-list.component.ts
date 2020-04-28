@@ -144,8 +144,6 @@ export class StatListComponent implements OnInit {
     this.filterUsers();
   }
   filterUsersPerCity() {
-    console.log("I am called");
-    console.log(this.selectedRole);
     if (this.selectedRole.id) {
       let temp = [];
       let counter = 0;
@@ -166,18 +164,15 @@ export class StatListComponent implements OnInit {
           );
         });
         if (res) {
-          temp.push("City Name " + city.name + " Amount " + res.length);
           counter += res.length;
         }
       });
-      console.log(temp);
-      console.log(counter);
     }
   }
   filterUsers() {
     console.log(this.selectedCityComp);
     if (this.selectedRole.name === "participant") {
-      // this.filterUsersPerCity();
+      this.filterUsersPerCity();
       if (
         !this.selectedCityComp ||
         parseInt(this.selectedCityComp.toString()) === 0
