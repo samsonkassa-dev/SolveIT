@@ -22,7 +22,9 @@ export class CompetitionService {
   deleteCompetitionProject(id) {
     return this.apiService.delete(`CompetitionProjects/${id}`);
   }
-
+  updateProject(body) {
+    return this.apiService.put(`Solveitprojects/${body.id}`, body);
+  }
   createCompetition(competition) {
     return this.apiService.post(`solvieITCompetitions/`, competition);
   }

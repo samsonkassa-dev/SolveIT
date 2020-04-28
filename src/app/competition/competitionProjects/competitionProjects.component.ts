@@ -34,7 +34,7 @@ export class CompetitionProjectsComponent implements OnInit {
   public page = 1;
   public cities = [];
   selectedCity = "";
-  selectedProject = null;
+  selectedProject: any = { level: 1 };
   constructor(
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
@@ -89,7 +89,6 @@ export class CompetitionProjectsComponent implements OnInit {
           const cities = this.cityService.getCities();
           fromPromise(Promise.all([competitionProjects, cities])).subscribe(
             responses => {
-              console.log(responses);
               responses[1].subscribe(citiesResponse => {
                 this.cities = citiesResponse.filter(
                   city => assignedCities.cities.indexOf(city.id) !== -1
@@ -101,7 +100,10 @@ export class CompetitionProjectsComponent implements OnInit {
                   );
                   this.backupProjects.forEach(project => {
                     this.cities.forEach(city => {
-                      if (project.cities.indexOf(city.id) !== -1) {
+                      if (
+                        project.cities &&
+                        project.cities.indexOf(city.id) !== -1
+                      ) {
                         temp.push(project);
                       }
                     });
@@ -150,9 +152,28 @@ export class CompetitionProjectsComponent implements OnInit {
         );
       });
   }
-
+  updateLevel() {
+    this.selectedProject.level = this.selectedProject.level + 1;
+    this.service.updateProject(this.selectedProject).subscribe(
+      res => {
+        this.ngOnInit();
+        this.sharedService.addToast(
+          "Success",
+          "Successfully update project to level " + this.selectedProject.level,
+          "success"
+        );
+      },
+      error => {
+        this.selectedProject.level -= 1;
+      }
+    );
+  }
   selectProject(project) {
-    this.selectedProject = project;
+    if (project.solveitproject) {
+      this.selectedProject = project.solveitproject;
+    } else {
+      this.selectedProject = project;
+    }
   }
   getCities() {
     this.cityService.getCities().subscribe(
