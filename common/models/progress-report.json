@@ -5,6 +5,7 @@
   "options": {
     "validateUpsert": true
   },
+  "injectOptionsFromRemoteContext": true,
   "properties": {
     "title": {
       "type": "string",
@@ -27,6 +28,11 @@
   },
   "validations": [],
   "relations": {
+    "activity": {
+      "type": "belongsTo",
+      "model": "activity",
+      "foreignKey": "activityId"
+    },
     "progressComments": {
       "type": "hasMany",
       "model": "progressComment",
