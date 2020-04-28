@@ -123,6 +123,10 @@
     },
     "englishSpeaking": {
       "type": "string"
+    },
+    "is_waiting": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],

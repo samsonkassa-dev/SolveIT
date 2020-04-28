@@ -5,7 +5,7 @@ let template = require("../configs/emailTemplates");
 let url = require("../configs/urlConfig");
 const uniqueid = require("uniqid");
 
-module.exports = function(Useraccount) {
+module.exports = function (Useraccount) {
   // remove username validation
   delete Useraccount.validations.username;
 
@@ -17,7 +17,7 @@ module.exports = function(Useraccount) {
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;
 
-  Useraccount.observe("after save", function(ctx, next) {
+  Useraccount.observe("after save", function (ctx, next) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
@@ -299,9 +299,9 @@ module.exports = function(Useraccount) {
       emailConfirmationId.create(
         {
           cId: cId,
-          userId: userId
+          userId: userId,
         },
-        function(err, data) {
+        function (err, data) {
           if (err) {
             next(err);
             return;
@@ -311,9 +311,9 @@ module.exports = function(Useraccount) {
               to: email,
               from: "email@icog-solveit.com",
               subject: "Welcome to Solve IT",
-              html: html
+              html: html,
             },
-            function(err, mail) {
+            function (err, mail) {
               if (err) {
                 console.log("Error while sending email ", err);
                 next(err);
@@ -330,7 +330,7 @@ module.exports = function(Useraccount) {
   });
 
   // check password  request change is correct
-  Useraccount.changePassword = function(key, cb) {
+  Useraccount.changePassword = function (key, cb) {
     let { forgotPasswordRequest } = Useraccount.app.models;
     console.log(key);
     const ids = key.split(",");
@@ -339,10 +339,10 @@ module.exports = function(Useraccount) {
     forgotPasswordRequest.findOne(
       {
         where: {
-          id: cid
-        }
+          id: cid,
+        },
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           cb(new Error("Error while checking request"));
           return;
@@ -351,12 +351,12 @@ module.exports = function(Useraccount) {
         if (data && !data.inactive && data.userId === ids[0]) {
           forgotPasswordRequest.updateAll(
             {
-              id: ids[1]
+              id: ids[1],
             },
             {
-              inactive: true
+              inactive: true,
             },
-            function(err, response) {
+            function (err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -378,44 +378,47 @@ module.exports = function(Useraccount) {
     accepts: {
       arg: "key",
       type: "string",
-      require: true
+      require: true,
     },
     http: {
       verb: "post",
-      path: "/change-password"
+      path: "/change-password",
     },
     returns: {
       type: "object",
       root: true,
-      arg: "success"
-    }
+      arg: "success",
+    },
   });
 
   // check if email is verified before login
-  Useraccount.beforeRemote("login", function(ctx, unused, next) {
+  Useraccount.beforeRemote("login", function (ctx, unused, next) {
     let email = ctx.args.credentials.email;
     let pass = ctx.args.credentials.password;
     Useraccount.findOne(
       {
         where: {
-          email: { like: email, options: "i" }
+          email: { like: email, options: "i" },
         },
-        include: ["role","profile"]
+        include: ["role", "profile"],
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           next(err);
         } else if (data !== null) {
           if (data.emailVerified && data.status === "ACTIVE") {
-            data = data.toJSON()
-            if(data.role && data.role.name == "solve-it-investor" && data.profile && !data.profile[0].approved){
+            data = data.toJSON();
+            if (
+              data.role &&
+              data.role.name == "solve-it-investor" &&
+              data.profile &&
+              !data.profile[0].approved
+            ) {
               let error = new Error("Verify");
               next(error);
-
-            }else{
+            } else {
               next();
             }
-
           } else {
             let error = new Error("Verify");
             next(error);
@@ -431,7 +434,7 @@ module.exports = function(Useraccount) {
   // TODO: send user info and role
   Useraccount.afterRemote("login", (ctx, output, next) => {
     Useraccount.findOne(
-      { where: { id: output.userId }, include: ["role","profile"] },
+      { where: { id: output.userId }, include: ["role", "profile"] },
       (err, user) => {
         if (err) next(err);
         // output['user'] = user.toJSON();
@@ -440,7 +443,7 @@ module.exports = function(Useraccount) {
           userId: output.userId,
           created: output.created,
           id: output.id,
-          user: user.toJSON()
+          user: user.toJSON(),
         };
         next();
       }
@@ -460,8 +463,8 @@ module.exports = function(Useraccount) {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: "solve-it-mgt"
-      }
+        name: "solve-it-mgt",
+      },
     });
     let user = {
       firstName: firstName,
@@ -472,7 +475,7 @@ module.exports = function(Useraccount) {
       email: email,
       username: username,
       roleId: userRole.id,
-      created: new Date().toISOString()
+      created: new Date().toISOString(),
     };
 
     user = await Useraccount.create(user);
@@ -493,8 +496,8 @@ module.exports = function(Useraccount) {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: "solve-it-team"
-      }
+        name: "solve-it-team",
+      },
     });
 
     let user = {
@@ -506,7 +509,7 @@ module.exports = function(Useraccount) {
       email: email,
       username: username,
       roleId: userRole.id,
-      created: new Date().toISOString()
+      created: new Date().toISOString(),
     };
 
     user = await Useraccount.create(user);
@@ -515,12 +518,12 @@ module.exports = function(Useraccount) {
   };
 
   // register SolveIT Judge
-  Useraccount.registerSolveItJudge = async user => {
+  Useraccount.registerSolveItJudge = async (user) => {
     let { IcogRole, judge } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: "solve-it-judge"
-      }
+        name: "solve-it-judge",
+      },
     });
 
     user["roleId"] = userRole.id;
@@ -535,12 +538,12 @@ module.exports = function(Useraccount) {
   };
 
   // register SolveIT participants
-  Useraccount.registerParticipants = async user => {
+  Useraccount.registerParticipants = async (user) => {
     let { IcogRole } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: "solve-it-participants"
-      }
+        name: "solve-it-participants",
+      },
     });
 
     user["roleId"] = userRole.id;
@@ -559,12 +562,12 @@ module.exports = function(Useraccount) {
   };
 
   // register SolveIT investor
-  Useraccount.registerInvestor = async user => {
+  Useraccount.registerInvestor = async (user) => {
     let { IcogRole, investorProfile } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
-        name: "solve-it-investor"
-      }
+        name: "solve-it-investor",
+      },
     });
 
     user["roleId"] = userRole.id;
@@ -584,10 +587,10 @@ module.exports = function(Useraccount) {
   };
 
   // activate registered user
-  Useraccount.activateUser = async userId => {
+  Useraccount.activateUser = async (userId) => {
     let user = await Useraccount.updateAll(
       {
-        id: userId
+        id: userId,
       },
       { status: STATUS[1] }
     );
@@ -596,25 +599,25 @@ module.exports = function(Useraccount) {
   };
 
   // confirm email address
-  Useraccount.confirmEmail = function(userId, cid, cb) {
+  Useraccount.confirmEmail = function (userId, cid, cb) {
     let { emailConfirmationId } = Useraccount.app.models;
     emailConfirmationId.findOne(
       {
         where: {
-          cId: cid
-        }
+          cId: cid,
+        },
       },
-      function(err, record) {
+      function (err, record) {
         if (record !== null && userId === record.userId) {
           console.log("record ", record);
           Useraccount.updateAll(
             {
-              id: userId
+              id: userId,
             },
             {
-              emailVerified: true
+              emailVerified: true,
             },
-            function(err, data) {
+            function (err, data) {
               if (err) {
                 console.log("error");
                 cb(err);
@@ -637,10 +640,10 @@ module.exports = function(Useraccount) {
     );
   };
 
-  Useraccount.deactivateUser = async userId => {
+  Useraccount.deactivateUser = async (userId) => {
     let user = await Useraccount.updateAll(
       {
-        id: userId
+        id: userId,
       },
       { status: STATUS[0] }
     );
@@ -649,17 +652,17 @@ module.exports = function(Useraccount) {
   };
 
   // request password change
-  Useraccount.requestPasswordChange = function(email, cb) {
+  Useraccount.requestPasswordChange = function (email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
         where: {
           email: {
-            like: pattern
-          }
-        }
+            like: pattern,
+          },
+        },
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           cb(new Error("Error while searching user"));
         } else {
@@ -669,9 +672,9 @@ module.exports = function(Useraccount) {
             forgotPasswordRequest.create(
               {
                 id: requestId,
-                userId: data.id
+                userId: data.id,
               },
-              function(err, res) {
+              function (err, res) {
                 if (err) {
                   cb(
                     new Error(
@@ -679,7 +682,7 @@ module.exports = function(Useraccount) {
                     ),
                     {
                       sucess: false,
-                      error: "recored"
+                      error: "recored",
                     }
                   );
                 } else {
@@ -695,20 +698,20 @@ module.exports = function(Useraccount) {
                       to: email,
                       from: "email@icog-solveit.com",
                       subject: "Confirmation for password change",
-                      html: html
+                      html: html,
                     },
-                    function(err, mail) {
+                    function (err, mail) {
                       if (err) {
                         console.log("Error while sending email ", err);
                         cb(new Error("Error while sending email."), {
                           sucess: false,
-                          error: "email"
+                          error: "email",
                         });
                       }
                       console.log("email sent!");
                       cb(null, {
                         sucess: true,
-                        error: null
+                        error: null,
                       });
                     }
                   );
@@ -718,7 +721,7 @@ module.exports = function(Useraccount) {
           } else {
             cb({
               sucess: false,
-              error: "notFound"
+              error: "notFound",
             });
           }
         }
@@ -727,7 +730,7 @@ module.exports = function(Useraccount) {
   };
 
   // reset password
-  Useraccount.updatePassword = function(id, token, password, cb) {
+  Useraccount.updatePassword = function (id, token, password, cb) {
     const buildError = (code, error) => {
       const err = new Error(error);
       err.statusCode = 400;
@@ -743,10 +746,10 @@ module.exports = function(Useraccount) {
     forgotPasswordRequest.findOne(
       {
         where: {
-          id: cid
-        }
+          id: cid,
+        },
       },
-      function(err, data) {
+      function (err, data) {
         if (err) {
           console.log("ERr");
           cb(new Error("Error while checking request"));
@@ -760,12 +763,12 @@ module.exports = function(Useraccount) {
           console.log("-------======Data Match ");
           forgotPasswordRequest.updateAll(
             {
-              id: ids[1]
+              id: ids[1],
             },
             {
-              inactive: true
+              inactive: true,
             },
-            function(err, response) {
+            function (err, response) {
               console.log("update", response);
               if (err) {
                 console.log("error while updating");
@@ -776,16 +779,16 @@ module.exports = function(Useraccount) {
               Useraccount.findOne(
                 {
                   where: {
-                    id: id
-                  }
+                    id: id,
+                  },
                 },
-                function(err, user) {
+                function (err, user) {
                   if (err) {
                     cb(buildError("INVALID_OPERATION", "unable to find user."));
                     return;
                   }
                   console.log("Foundnndn");
-                  user.updateAttribute("password", password, function(
+                  user.updateAttribute("password", password, function (
                     err,
                     user
                   ) {
@@ -813,17 +816,17 @@ module.exports = function(Useraccount) {
   };
 
   // chek if email is unique
-  Useraccount.isEmailUnique = function(email, cb) {
+  Useraccount.isEmailUnique = function (email, cb) {
     var pattern = new RegExp(".*" + email + ".*", "i");
     Useraccount.findOne(
       {
         where: {
           email: {
-            like: pattern
-          }
-        }
+            like: pattern,
+          },
+        },
       },
-      function(err, user) {
+      function (err, user) {
         if (err) {
           cb(err);
           return;
@@ -844,7 +847,7 @@ module.exports = function(Useraccount) {
   };
 
   // search password
-  Useraccount.searchUser = function(keyword, userId, cb) {
+  Useraccount.searchUser = function (keyword, userId, cb) {
     let trimedKeyword = keyword.trim();
     if (
       trimedKeyword.startsWith("+2519") ||
@@ -875,46 +878,46 @@ module.exports = function(Useraccount) {
                         or: [
                           {
                             email: {
-                              like: pattern
-                            }
+                              like: pattern,
+                            },
                           },
                           {
                             firstName: {
-                              like: pattern
-                            }
+                              like: pattern,
+                            },
                           },
                           {
                             middleName: {
-                              like: pattern
-                            }
+                              like: pattern,
+                            },
                           },
                           {
                             lastName: {
-                              like: pattern
-                            }
+                              like: pattern,
+                            },
                           },
                           {
                             username: {
-                              like: pattern
-                            }
+                              like: pattern,
+                            },
                           },
                           {
                             phoneNumber: {
-                              like: pattern
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                              like: pattern,
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
-                function(err, users) {
-                  users = users.map(user => ({
+                function (err, users) {
+                  users = users.map((user) => ({
                     id: user.id,
                     firstName: user.firstName,
                     middleName: user.middleName,
                     lastName: user.lastName,
-                    username: user.username
+                    username: user.username,
                   }));
                   cb(null, users);
                 }
@@ -927,65 +930,68 @@ module.exports = function(Useraccount) {
                   where: {
                     or: [
                       { name: "solve-it-team" },
-                      { name: "solve-it-participants" }
-                    ]
-                  }
+                      { name: "solve-it-participants" },
+                    ],
+                  },
                 },
-                function(err, role) {
+                function (err, role) {
+                  let city = user[0].toJSON().city;
+                  console.log(city.id);
                   Useraccount.find(
                     {
                       where: {
                         and: [
                           {
-                            roleId: role.id
+                            roleId: role.id,
                           },
                           {
-                            cityId: user[0].city.id
+                            cityId: city.id,
                           },
                           {
                             or: [
                               {
                                 email: {
-                                  like: pattern
-                                }
+                                  like: pattern,
+                                },
                               },
                               {
                                 firstName: {
-                                  like: pattern
-                                }
+                                  like: pattern,
+                                },
                               },
                               {
                                 middleName: {
-                                  like: pattern
-                                }
+                                  like: pattern,
+                                },
                               },
                               {
                                 lastName: {
-                                  like: pattern
-                                }
+                                  like: pattern,
+                                },
                               },
                               {
                                 username: {
-                                  like: pattern
-                                }
+                                  like: pattern,
+                                },
                               },
                               {
                                 phoneNumber: {
-                                  like: pattern
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                                  like: pattern,
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      include: "city",
                     },
-                    function(err, users) {
-                      users = users.map(user => ({
+                    function (err, users) {
+                      users = users.map((user) => ({
                         id: user.id,
                         firstName: user.firstName,
                         middleName: user.middleName,
                         lastName: user.lastName,
-                        username: user.username
+                        username: user.username,
                       }));
                       cb(null, users);
                     }
@@ -1002,14 +1008,14 @@ module.exports = function(Useraccount) {
   };
 
   // get users by role
-  Useraccount.getUserListByRole = function(roleId, cb) {
+  Useraccount.getUserListByRole = function (roleId, cb) {
     Useraccount.find(
       {
         where: {
-          roleId: roleId
-        }
+          roleId: roleId,
+        },
       },
-      function(err, users) {
+      function (err, users) {
         cb(null, users);
       }
     );
@@ -1024,7 +1030,7 @@ module.exports = function(Useraccount) {
     const City = Useraccount.app.models.City;
 
     const role = await IcogRole.findOne({
-      where: { name: "solve-it-participants" }
+      where: { name: "solve-it-participants" },
     });
 
     var sex = selectionOptions.sex;
@@ -1039,7 +1045,7 @@ module.exports = function(Useraccount) {
     } else {
       let city = await City.findOne({
         where: { id: selectionOptions.selectedCity },
-        include: "region"
+        include: "region",
       });
       cities.push(city);
     }
@@ -1055,7 +1061,7 @@ module.exports = function(Useraccount) {
       { header: "Work Status", key: "workStatus", width: 10 },
       { header: "Birthdate", key: "birthDate", width: 10 },
       { header: "Emergency Name", key: "emergencyName", width: 10 },
-      { header: "Emergency Contact", key: "emergencyContact", width: 10 }
+      { header: "Emergency Contact", key: "emergencyContact", width: 10 },
     ];
     let genderQuery = {};
     let educationQuery = {};
@@ -1083,13 +1089,14 @@ module.exports = function(Useraccount) {
       let now = new Date(2020, 0, 1);
       users = await Useraccount.find({
         where: {
+          is_waiting: false,
           created: { gte: now },
           cityId: city.id,
           ...genderQuery,
           ...educationQuery,
           ...statusQuery,
-          ...ageQuery
-        }
+          ...ageQuery,
+        },
       });
       for (const user of users) {
         let date = new Date(user.birthDate);
@@ -1109,7 +1116,7 @@ module.exports = function(Useraccount) {
           workStatus: user.workStatus,
           birthDate: yearDiff,
           emergencyName: user.address.emergencyContact.fullName,
-          emergencyContact: user.address.emergencyContact.phoneNumber
+          emergencyContact: user.address.emergencyContact.phoneNumber,
         });
       }
     }
@@ -1223,7 +1230,7 @@ module.exports = function(Useraccount) {
     response.end();
   }
 
-  Useraccount.getAssignedCities = async function(id) {
+  Useraccount.getAssignedCities = async function (id) {
     const { AssignedCity } = Useraccount.app.models;
     try {
       const cities = await AssignedCity.findOne({ where: { userId: id } });
@@ -1234,7 +1241,7 @@ module.exports = function(Useraccount) {
   };
   function groupBy(list, keyGetter) {
     const map = new Map();
-    list.forEach(item => {
+    list.forEach((item) => {
       const key = keyGetter(item);
       const collection = map.get(key);
       if (!collection) {
@@ -1245,7 +1252,7 @@ module.exports = function(Useraccount) {
     });
     return map;
   }
-  Useraccount.exportMention = async res => {
+  Useraccount.exportMention = async (res) => {
     var workbook = new Excel.Workbook();
     var mediaResourcesSheet = workbook.addWorksheet("media-resource");
     var mediaNameSheet = workbook.addWorksheet("media-name");
@@ -1255,27 +1262,27 @@ module.exports = function(Useraccount) {
 
     mediaNameSheet.columns = [
       { header: "Name", key: "name", width: 30 },
-      { header: "Count", key: "count", width: 10 }
+      { header: "Count", key: "count", width: 10 },
     ];
     mediaResourcesSheet.columns = [
       { header: "Media Resource", key: "name", width: 30 },
-      { header: "Count", key: "count", width: 10 }
+      { header: "Count", key: "count", width: 10 },
     ];
     let now = new Date(2020, 0, 1);
     let competitionProjects = await CompetitionProjects.find({});
 
     let mediaResources = [];
     let others = [];
-    competitionProjects.forEach(project => {
+    competitionProjects.forEach((project) => {
       if (project.questionnaireAnswers) {
         if (project.questionnaireAnswers.furtherInfo) {
           mediaResources = [
             ...mediaResources,
-            ...project.questionnaireAnswers.furtherInfo.mediaResource
+            ...project.questionnaireAnswers.furtherInfo.mediaResource,
           ];
           others = [
             ...others,
-            project.questionnaireAnswers.furtherInfo.mediaName
+            project.questionnaireAnswers.furtherInfo.mediaName,
           ];
           // console.log(project.questionnaireAnswers.furtherInfo.mediaResource);
         }
@@ -1293,7 +1300,7 @@ module.exports = function(Useraccount) {
     let keys = Object.keys(occurences);
     console.log("len " + keys.length);
     let reso = [];
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (occurences[key] > 1) {
         let temp = {};
         temp[key] = occurences[key];
@@ -1302,16 +1309,16 @@ module.exports = function(Useraccount) {
     });
     console.log(reso);
 
-    reso.forEach(resoo => {
+    reso.forEach((resoo) => {
       let key = Object.keys(resoo)[0];
       mediaNameSheet.addRow({
         name: key,
-        count: resoo[key]
+        count: resoo[key],
       });
     });
     console.log("Media Resources ==============");
     console.log(mediaResources.length);
-    const grouped = groupBy(mediaResources, media => media.item_id);
+    const grouped = groupBy(mediaResources, (media) => media.item_id);
     for (let i = 1; i <= 10; i++) {
       console.log(i);
       let group = grouped.get(i);
@@ -1320,7 +1327,7 @@ module.exports = function(Useraccount) {
         console.log(group[0]);
         mediaResourcesSheet.addRow({
           name: group[0].item_text,
-          count: group.length
+          count: group.length,
         });
       }
     }
@@ -1334,18 +1341,18 @@ module.exports = function(Useraccount) {
         arg: "res",
         type: "object",
         http: {
-          source: "res"
-        }
-      }
+          source: "res",
+        },
+      },
     ],
     http: {
       verb: "post",
-      path: "/exportMention"
+      path: "/exportMention",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
   Useraccount.remoteMethod("exportData", {
     description: "return data.",
@@ -1353,76 +1360,76 @@ module.exports = function(Useraccount) {
       {
         arg: "selectionOptions",
         type: "object",
-        required: true
+        required: true,
       },
       {
         arg: "res",
         type: "object",
         http: {
-          source: "res"
-        }
-      }
+          source: "res",
+        },
+      },
     ],
     http: {
       verb: "post",
-      path: "/exportData"
+      path: "/exportData",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("searchUser", {
     http: {
       path: "/search/:keyword/:userId",
-      verb: "get"
+      verb: "get",
     },
     accepts: [
       {
         arg: "keyword",
-        type: "string"
+        type: "string",
       },
       {
         arg: "userId",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     returns: {
       arg: "Result",
-      type: "Object"
-    }
+      type: "Object",
+    },
   });
 
   Useraccount.remoteMethod("getUserListByRole", {
     http: {
       path: "/role/:roleId/users",
-      verb: "get"
+      verb: "get",
     },
     accepts: {
       arg: "roleId",
-      type: "string"
+      type: "string",
     },
     returns: {
       arg: "Result",
-      type: "Object"
-    }
+      type: "Object",
+    },
   });
 
   Useraccount.remoteMethod("requestPasswordChange", {
     http: {
       path: "/request-password-change",
-      verb: "post"
+      verb: "post",
     },
     accepts: {
       arg: "email",
       type: "string",
-      required: true
+      required: true,
     },
     returns: {
       arg: "result",
-      type: "object"
-    }
+      type: "object",
+    },
   });
 
   Useraccount.remoteMethod("registerSolveItMgt", {
@@ -1431,47 +1438,47 @@ module.exports = function(Useraccount) {
       {
         arg: "firstName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "middleName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "lastName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "email",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "password",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "phoneNumber",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "username",
         type: "string",
-        require: true
-      }
+        require: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/register-solveit-mgt"
+      path: "/register-solveit-mgt",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("registerSolveItTeam", {
@@ -1480,47 +1487,47 @@ module.exports = function(Useraccount) {
       {
         arg: "firstName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "middleName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "lastName",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "email",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "password",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "phoneNumber",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "username",
         type: "string",
-        require: true
-      }
+        require: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/register-solveit-team"
+      path: "/register-solveit-team",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("registerParticipants", {
@@ -1529,17 +1536,17 @@ module.exports = function(Useraccount) {
       {
         arg: "user",
         type: "object",
-        required: true
-      }
+        required: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/register-participants"
+      path: "/register-participants",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("registerInvestor", {
@@ -1548,17 +1555,17 @@ module.exports = function(Useraccount) {
       {
         arg: "user",
         type: "object",
-        required: true
-      }
+        required: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/register-investor"
+      path: "/register-investor",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
   Useraccount.remoteMethod("registerSolveItJudge", {
     description: "Register SolveIT Judge.",
@@ -1566,17 +1573,17 @@ module.exports = function(Useraccount) {
       {
         arg: "user",
         type: "object",
-        required: true
-      }
+        required: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/register-judge"
+      path: "/register-judge",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("updatePassword", {
@@ -1585,28 +1592,28 @@ module.exports = function(Useraccount) {
       {
         arg: "id",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "token",
         type: "string",
-        required: true
+        required: true,
       },
       {
         arg: "password",
         type: "string",
-        required: true
-      }
+        required: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/update-password"
+      path: "/update-password",
     },
     returns: {
       type: "object",
       root: true,
-      arg: "success"
-    }
+      arg: "success",
+    },
   });
 
   Useraccount.remoteMethod("activateUser", {
@@ -1614,16 +1621,16 @@ module.exports = function(Useraccount) {
     accepts: {
       arg: "userId",
       type: "string",
-      require: true
+      require: true,
     },
     http: {
       verb: "post",
-      path: "/activate-user"
+      path: "/activate-user",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("deactivateUser", {
@@ -1631,16 +1638,16 @@ module.exports = function(Useraccount) {
     accepts: {
       arg: "userId",
       type: "string",
-      require: true
+      require: true,
     },
     http: {
       verb: "post",
-      path: "/deactivate-user"
+      path: "/deactivate-user",
     },
     returns: {
       type: "object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("confirmEmail", {
@@ -1649,59 +1656,59 @@ module.exports = function(Useraccount) {
       {
         arg: "userId",
         type: "string",
-        require: true
+        require: true,
       },
       {
         arg: "cid",
         type: "string",
-        require: true
-      }
+        require: true,
+      },
     ],
     http: {
       verb: "post",
-      path: "/confirmEmail"
+      path: "/confirmEmail",
     },
     returns: {
       type: "boolean",
-      arg: "result"
-    }
+      arg: "result",
+    },
   });
 
   Useraccount.remoteMethod("isEmailUnique", {
     http: {
       path: "/is-email-unique",
-      verb: "post"
+      verb: "post",
     },
     accepts: {
       arg: "email",
       type: "string",
-      require: true
+      require: true,
     },
     returns: {
       arg: "result",
       type: "Object",
-      root: true
-    }
+      root: true,
+    },
   });
 
   Useraccount.remoteMethod("getAssignedCities", {
     http: {
       path: "/:id/get-assigned-cities",
-      verb: "get"
+      verb: "get",
     },
     accepts: {
       arg: "id",
       type: "string",
-      require: true
+      require: true,
     },
     returns: {
       arg: "result",
       type: "Object",
-      root: true
-    }
+      root: true,
+    },
   });
 
-  Useraccount.signInWithFB = function(user, cb) {
+  Useraccount.signInWithFB = function (user, cb) {
     const { AccessToken } = Useraccount.app.models;
     if (user.authResponse.userID && user.authResponse.userID === "") {
       return cb(new Error("Invalid user data."));
@@ -1720,7 +1727,7 @@ module.exports = function(Useraccount) {
                   ttl: 1209600,
                   created: new Date(),
                   userId: data.id,
-                  id: token
+                  id: token,
                 };
 
                 AccessToken.create(accessToken, (err1, success) => {
@@ -1741,28 +1748,28 @@ module.exports = function(Useraccount) {
   Useraccount.remoteMethod("signInWithFB", {
     http: {
       path: "/signInWithFB",
-      verb: "post"
+      verb: "post",
     },
     accepts: {
       arg: "user",
       type: "object",
-      require: true
+      require: true,
     },
     returns: {
       arg: "result",
       type: "Object",
-      root: true
-    }
+      root: true,
+    },
   });
 
-  Useraccount.logoutUser = async tokenId => {
+  Useraccount.logoutUser = async (tokenId) => {
     const { AccessToken } = Useraccount.app.models;
     if (!tokenId) return true;
 
     const token = await AccessToken.findOne({
       where: {
-        id: tokenId
-      }
+        id: tokenId,
+      },
     });
 
     if (!token) return true;
@@ -1782,10 +1789,10 @@ module.exports = function(Useraccount) {
       {
         arg: "tokenId",
         type: "string",
-        required: true
-      }
+        required: true,
+      },
     ],
     returns: { type: "object", root: true },
-    http: { path: "/logout-user", verb: "post" }
+    http: { path: "/logout-user", verb: "post" },
   });
 };
