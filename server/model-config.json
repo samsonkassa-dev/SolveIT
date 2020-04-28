@@ -205,5 +205,9 @@
   "notfication": {
     "dataSource": "mongo",
     "public": true
+  },
+  "activity": {
+    "dataSource": "mongo",
+    "public": true
   }
 }
