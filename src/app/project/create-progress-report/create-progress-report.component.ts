@@ -17,7 +17,8 @@ export class CreateProgressReportComponent implements OnInit {
     title: "",
     type: null,
     report: "",
-    userId: ""
+    userId: "",
+    activityId: null
   };
   public allowedMimeType = [
     "application/pdf",
@@ -43,9 +44,10 @@ export class CreateProgressReportComponent implements OnInit {
   ];
   commId = "communication";
   actId = "activity";
+  activities = [];
   @Input() project: any = {};
   @Output() created = new EventEmitter();
-
+  isSubmit = false;
   constructor(
     public formBuilder: FormBuilder,
     public service: ProjectService,
@@ -54,6 +56,9 @@ export class CreateProgressReportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.service.getActivities(this.project.level).subscribe(res => {
+      this.activities = res;
+    });
     if (!this.authService.isSolveitTeam()) {
       this.types.splice(2, 1);
     }
@@ -65,12 +70,16 @@ export class CreateProgressReportComponent implements OnInit {
       communicationAbout: [""],
       progress: [""],
       meetingDate: [""],
-      modeOfCommunication: [""]
+      modeOfCommunication: [""],
+      activityId: [null]
     });
   }
 
   uploadProgressReport() {
+    this.isSubmit = true;
+
     if (this.isFormValid()) {
+      this.isSubmit = true;
       this.report.createdAt = new Date();
       this.report.projectId = this.project.id;
       const userId = this.authService.getUserId();
@@ -172,7 +181,6 @@ export class CreateProgressReportComponent implements OnInit {
         );
       }
     } else {
-      console.log("In the lese ");
       //console.log(this.report)
       //console.log(this.report.type == this.types[2].id)
       this.sharedService.addToast("", "Error occurred!", "error");
@@ -188,11 +196,12 @@ export class CreateProgressReportComponent implements OnInit {
       } else if (this.report.type === this.commId) {
         return this.reportForm.controls.communicationAbout.value !== "";
       } else if (this.report.type === this.actId) {
-        console.log(this.isFileSelected);
-        return this.isFileSelected;
+        return this.report.activity || this.isFileSelected;
       }
+
       return false;
     }
+
     return false;
   }
 

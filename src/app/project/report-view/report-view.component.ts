@@ -21,6 +21,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
   @Input() report;
   @Output() back = new EventEmitter();
   public reportCommentForm: FormGroup;
+  public reportScoreForm: FormGroup;
   public reportComments = [];
   public reportComment = {
     content: "",
@@ -28,6 +29,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
     reportId: "",
     createdAt: new Date()
   };
+
   public types = [
     { id: "attachment", name: "Attach Document" },
     { id: "simple", name: "Simple Report" },
@@ -47,6 +49,10 @@ export class ReportViewComponent implements OnInit, OnChanges {
     this.reportCommentForm = this.formBuilder.group({
       content: ["", Validators.required]
     });
+
+    this.reportScoreForm = this.formBuilder.group({
+      activity_score: [""]
+    });
     this.userId = this.authService.getUserId();
     this.getProjectReportComments();
   }
@@ -58,7 +64,11 @@ export class ReportViewComponent implements OnInit, OnChanges {
     this.userId = this.authService.getUserId();
     this.getProjectReportComments();
   }
-
+  remove() {
+    this.service.removeReport(this.report).subscribe(res => {
+      this.back.emit();
+    });
+  }
   getProjectReportComments() {
     this.service.fetchProjectReportComments(this.report.id).subscribe(res => {
       this.reportComments = res;
@@ -86,6 +96,22 @@ export class ReportViewComponent implements OnInit, OnChanges {
         }
       );
     }
+  }
+
+  addScore() {
+    let tempReport = {
+      ...this.report,
+      ...this.reportScoreForm.value
+    };
+    this.service.addPogressReportScore(tempReport).subscribe(
+      res => {
+        this.sharedService.addToast("Success", "Score Added!.", "success");
+        this.back.emit();
+      },
+      err => {
+        this.sharedService.addToast("", "Error occurred!", "error");
+      }
+    );
   }
 
   showDocument(content) {

@@ -249,6 +249,7 @@ export class ProjectViewComponent implements OnInit {
 
   back() {
     this.selectedProgressReport = null;
+    this.getProgressReports();
   }
 
   backToCompetitionProjects() {

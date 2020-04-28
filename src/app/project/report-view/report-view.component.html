@@ -3,6 +3,16 @@
     <div class="service">
       <i class="fa fa-file-text"></i>
       <h3>{{report.title}}</h3>
+      <h3 *ngIf="report.type === types[3].id ">Activity :
+        {{report.activity.activity_name}}</h3>
+      <h3 *ngIf=" report.type === types[3].id && report.activity_score ">Score : {{report.activity_score || 'TBA'}}
+      </h3>
+
+      <form *ngIf=" report.type === types[3].id && authService.isSolveitTeam()" [formGroup]="reportScoreForm">
+        <input type="number" placeholder="Add Score" formControlName="activity_score" />
+        <button [disabled]="!reportScoreForm.valid" type="submit" class="main-btn" (click)="addScore()">Add
+          Score</button>
+      </form>
       <p>{{report.createdAt| amTimeAgo }}</p>
       <button class="btn main-btn" *ngIf="report.type === types[0].id || report.type === types[3].id "
         (click)="showDocument(report.content.name)">Download Report</button>
@@ -10,6 +20,10 @@
         data-toggle="collapse" data-target="#report-content" aria-expanded="false" aria-controls="report-content">Read
         Report</button>
       <button class="btn outline-btn" (click)="backToProgressReportList()">Back</button>
+
+      <button class="btn outline-btn" (click)="remove()">Remove</button>
+
+
       <div class="collapse" *ngIf="report.type === types[1].id || report.type === types[2].id" id="report-content">
         <div class="card card-body">
           <h5 class="title">Report Content</h5>

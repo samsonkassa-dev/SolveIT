@@ -1,9 +1,9 @@
-#commenter-avatar  {
+#commenter-avatar {
   max-width: 1.5em;
 }
 
 .media {
-  border: 1px solid rgba(0,0,0,0.14);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   width: 50%;
   padding: 1em;
 }
@@ -11,7 +11,8 @@
   margin-bottom: 1.5em;
 }
 
-.media, .reply-form {
+.media,
+.reply-form {
   clear: both;
 }
 
@@ -29,5 +30,13 @@
 }
 
 .service:hover .title {
-  color: #2BA692;
+  color: #2ba692;
+}
+
+h4 {
+  color: white;
+}
+
+h5 {
+  color: white;
 }
