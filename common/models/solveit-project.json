@@ -5,6 +5,7 @@
   "options": {
     "validateUpsert": true
   },
+  "injectOptionsFromRemoteContext": true,
   "properties": {
     "title": {
       "type": "string",
@@ -24,6 +25,10 @@
     "showcased": {
       "type": "boolean",
       "default": false
+    },
+    "level": {
+      "type": "number",
+      "default": 1
     },
     "createdAt": {
       "type": "date",
