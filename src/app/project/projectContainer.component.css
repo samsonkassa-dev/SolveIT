@@ -5,7 +5,7 @@
 .header h4 {
   float: left;
   margin-right: 4em;
-  padding: 2px
+  padding: 2px;
 }
 
 .header button {
@@ -21,4 +21,28 @@
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   padding-right: 2em;
   cursor: pointer;
+}
+
+.err-icon {
+  background: #ec4643;
+}
+
+.input-field > input {
+  margin-bottom: 2em;
+}
+
+.error-message {
+  margin-top: -1.5em;
+}
+
+.error-message > p {
+  font-size: 0.8em;
+  color: #ec4643;
+  text-align: center;
+  background: #fde8e8;
+  padding: 1em;
+}
+
+.err {
+  border-color: #ec4643;
 }

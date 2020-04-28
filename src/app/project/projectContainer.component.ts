@@ -12,7 +12,7 @@ declare var $: any;
 export class ProjectContainerComponent implements OnInit {
   public projects = [];
   public selected = "project-list";
-
+  public currentUser: any;
   constructor(
     public service: ProjectService,
     public sharedService: SharedService,
@@ -20,6 +20,8 @@ export class ProjectContainerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.currentUser = this.authService.getUserSession().user;
+
     this.getProjectList();
   }
 
@@ -28,6 +30,7 @@ export class ProjectContainerComponent implements OnInit {
     if (userId) {
       this.service.getMyProjects(userId).subscribe(
         res => {
+          this.projects = [];
           res.forEach(item => {
             this.isProjectRegisteredToCompetition(item, isEnrolled => {
               this.projects.push({ ...item, isEnrolled: isEnrolled });
