@@ -9,22 +9,23 @@ export interface User {
   gender: string;
   birthDate: any;
   password: string;
+  is_waiting?: boolean;
   address?: object;
   cityId?: string;
   username?: string;
   facebook?: object;
   PO_Box?: string;
-  previousCompetitions? : string,
-  previousInnovations? : string,
-  parentsOccupation? : string,
-  supportNeeded? : string,
-  financialKnowHow? : string,
-  financialAccess? : string,
-  languageOption? : string,
-  educationalInstitute?: string,
-  englishReading? : string,
-  englishWriting? : string,
-  englishSpeaking? : string,
-  parentFullName? : string,
-  parentContact?: string,
+  previousCompetitions?: string;
+  previousInnovations?: string;
+  parentsOccupation?: string;
+  supportNeeded?: string;
+  financialKnowHow?: string;
+  financialAccess?: string;
+  languageOption?: string;
+  educationalInstitute?: string;
+  englishReading?: string;
+  englishWriting?: string;
+  englishSpeaking?: string;
+  parentFullName?: string;
+  parentContact?: string;
 }

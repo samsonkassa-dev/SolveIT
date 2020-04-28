@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     "Unemployed",
     "Business Owner",
     "Student"
-  ]
+  ];
   public user: User = {
     firstName: "",
     middleName: "",
@@ -70,9 +70,9 @@ export class RegisterComponent implements OnInit {
     financialKnowHow: "",
     financialAccess: "",
     languageOption: "",
-    parentFullName : "",
-    parentContact:"",
- 
+    parentFullName: "",
+    parentContact: "",
+    is_waiting: false
   };
   public address = {
     regionId: null,
@@ -87,28 +87,24 @@ export class RegisterComponent implements OnInit {
   public extraParams = {
     rePassword: "",
     otherEducationLevel: "",
-    otherStatus: "",
-
+    otherStatus: ""
   };
   public registerForm: FormGroup;
   public isBasicFormActive = true;
   public isAddressFormActive = false;
   public isQuestionariesActive = false;
   public isLoading = false;
-  public agreeTosError = null
+  public agreeTosError = null;
   constructor(
     public authService: AuthService,
     public router: Router,
     public formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute
-  ) { }
-
-
-
+  ) {}
 
   ngOnInit() {
-    this.parentOccupationOptions = this.format(this.parentOccupationOptions)
+    this.parentOccupationOptions = this.format(this.parentOccupationOptions);
     this.registerForm = this.formBuilder.group(
       {
         firstName: ["", Validators.required],
@@ -125,9 +121,9 @@ export class RegisterComponent implements OnInit {
         educationLevel: ["", Validators.required],
         otherStatus: [""],
         otherEduvationLevel: [""],
-        parentFullName:[""],
-        parentContact:[""],
-        parentsOccupation:[null]
+        parentFullName: [""],
+        parentContact: [""],
+        parentsOccupation: [null]
       },
       {
         validator: Validators.compose([
@@ -163,19 +159,17 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
-  
-  format(arrayOfStrings){
-    let result = []
+  format(arrayOfStrings) {
+    let result = [];
     arrayOfStrings.forEach(element => {
-      result.push({label:element, value:element})
+      result.push({ label: element, value: element });
     });
-    return result
+    return result;
   }
 
   isFormValid() {
     if (!this.agreeTos) {
-      this.agreeTosError = true
+      this.agreeTosError = true;
     }
     if (this.registerForm.valid) {
       if (
@@ -195,30 +189,26 @@ export class RegisterComponent implements OnInit {
     this.agreeTos = !this.agreeTos;
     //console.log(this.agreeTos)
     if (this.agreeTos) {
-      this.agreeTosError = false
+      this.agreeTosError = false;
     } else {
-      this.agreeTosError = true
+      this.agreeTosError = true;
     }
   }
   onRegister() {
-
     if (this.isFormValid()) {
       if (this.agreeTos) {
         this.isAddressFormActive = true;
         this.user.email = this.user.email.toLowerCase();
         this.isBasicFormActive = false;
-
       } else {
-        this.agreeTosError = true
+        this.agreeTosError = true;
       }
-
     } else {
       this.markFormGroupTouched(this.registerForm);
     }
   }
 
   onAdressNext(form) {
-
     this.isLoading = true;
     this.user.cityId = this.address.cityId;
     const temp = {
@@ -232,6 +222,7 @@ export class RegisterComponent implements OnInit {
     this.user.address = temp;
     this.user = {
       ...this.user,
+      is_waiting: form.is_waiting,
       previousCompetitions: form.previousCompetitions,
       previousInnovations: form.previousInnovations,
       supportNeeded: form.supportNeeded,
@@ -240,8 +231,8 @@ export class RegisterComponent implements OnInit {
       educationalInstitute: form.educationalInstitute,
       englishReading: form.englishReading,
       englishWriting: form.englishWriting,
-      englishSpeaking: form.englishSpeaking,
-    }
+      englishSpeaking: form.englishSpeaking
+    };
     //console.log(this.user)
     this.spinner.show();
     this.authService.registerParticipant({ user: this.user }).subscribe(

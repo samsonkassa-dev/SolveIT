@@ -24,7 +24,8 @@ import { CommonService } from "../../shared/services/common.service";
 export class AdressComponent implements OnInit, OnChanges {
   @Output() next = new EventEmitter<any>();
   @Output() back = new EventEmitter();
-  citiesToExclude = ["Addis Ababa", "Mekelle", "Semera", "Gondor", "Bahir Dar"];
+  // citiesToExclude = ["Addis Ababa", "Mekelle", "Semera", "Gondor", "Bahir Dar"];
+  citiesToExclude = [];
   public addressForm: FormGroup;
   public regions = [];
   public cities = [];
@@ -100,7 +101,8 @@ export class AdressComponent implements OnInit, OnChanges {
       educationalInstitute: ["", Validators.required],
       englishReading: [null, Validators.required],
       englishWriting: [null, Validators.required],
-      englishSpeaking: [null, Validators.required]
+      englishSpeaking: [null, Validators.required],
+      is_waiting: false
     });
   }
 
@@ -128,8 +130,12 @@ export class AdressComponent implements OnInit, OnChanges {
   }
 
   onCityChange() {
+    const city = this.getRegionFromCity(this.address.cityId);
+
+    let temp = { is_waiting: !city.status };
+    this.addressForm.patchValue(temp);
+
     if (this.address.regionId === "") {
-      const city = this.getRegionFromCity(this.address.cityId);
       this.address.regionId = city.regionId;
     }
   }
