@@ -75,8 +75,16 @@ export class ProjectService {
 
   getAllProgressReport(projectId) {
     return this.apiService.get(
-      `Solveitprojects/${projectId}/reports?filter={"include": "user"}`
+      `Solveitprojects/${projectId}/reports?filter={"include": ["user","activity"]}`
     );
+  }
+
+  addPogressReportScore(report) {
+    return this.apiService.put(`ProgressReports/${report.id}`, report);
+  }
+
+  removeReport(report) {
+    return this.apiService.delete(`ProgressReports/${report.id}`);
   }
 
   addPogressReportComment(comment) {
@@ -137,6 +145,12 @@ export class ProjectService {
 
   getProductTypes() {
     return this.apiService.get(`productTypes`);
+  }
+
+  getActivities(level) {
+    return this.apiService.get(
+      `activities?filter={"where":{ "level" : ${level}}}`
+    );
   }
 
   addProductTypeView(viewObject) {
