@@ -26,7 +26,7 @@ export class ProjectListComponent implements OnInit, OnChanges {
   @Input() isEnrolled = [];
 
   public p = 1;
-
+  currentUser: any;
   constructor(
     public service: ProjectService,
     public router: Router,
@@ -35,6 +35,7 @@ export class ProjectListComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
+    this.currentUser = this.authService.getUserSession().user;
     window.FB.XFBML.parse();
     $("#likeUsOnFB").modal("show");
   }
@@ -44,10 +45,19 @@ export class ProjectListComponent implements OnInit, OnChanges {
   }
 
   viewProject(project) {
-    this.router.navigate(["/my-projects/", project.id]);
+    console.log(this.currentUser.is_waiting);
+    if (this.currentUser.is_waiting) {
+      $("#registrationClosed").modal("show");
+    } else {
+      this.router.navigate(["/my-projects/", project.id]);
+    }
   }
 
   onCreateProject() {
-    this.create.emit();
+    if (this.currentUser.is_waiting) {
+      $("#registrationClosed").modal("show");
+    } else {
+      this.create.emit();
+    }
   }
 }

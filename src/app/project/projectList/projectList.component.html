@@ -1,14 +1,7 @@
 <div class="container" id="projects-list-content">
   <div class="info">
-    <button
-      class="btn outline-btn"
-      type="button"
-      data-toggle="collapse"
-      data-target="#instruction"
-      aria-expanded="false"
-      aria-controls="instruction"
-      style="margin-bottom: 2em;"
-    >
+    <button class="btn outline-btn" type="button" data-toggle="collapse" data-target="#instruction"
+      aria-expanded="false" aria-controls="instruction" style="margin-bottom: 2em;">
       Read Instruction
     </button>
 
@@ -53,45 +46,27 @@
 
   <div class="not-found">
     <div class="no-resource-found" *ngIf="projects.length === 0">
-      <app-not-found
-        message="You haven't created any project, yet."
-      ></app-not-found>
+      <app-not-found message="You haven't created any project, yet."></app-not-found>
     </div>
   </div>
 
   <div class="row">
     <!-- Projects list -->
     <ng-container *ngIf="projects.length > 0">
-      <div
-        class="col-md-3 col-sm-6"
-        *ngFor="
+      <div class="col-md-3 col-sm-6" *ngFor="
           let project of (projects
             | paginate: { itemsPerPage: 8, currentPage: p });
           let i;
           of: index
-        "
-      >
+        ">
         <div class="about">
           <i class="fa fa-briefcase"></i>
 
           <h3>{{ project.title }}</h3>
-          <a
-            style="cursor: pointer"
-            *ngIf="project.isEnrolled"
-            (click)="viewProject(project)"
-          >
-            <span
-              ><i
-                style="font-size: 1em; padding: .5em;"
-                class="fa fa-eye"
-              ></i></span
-            >View Project
+          <a style="cursor: pointer" *ngIf="project.isEnrolled" (click)="viewProject(project)">
+            <span><i style="font-size: 1em; padding: .5em;" class="fa fa-eye"></i></span>View Project
           </a>
-          <button
-            (click)="viewProject(project)"
-            class="main-btn"
-            *ngIf="!project.isEnrolled"
-          >
+          <button (click)="viewProject(project)" class="main-btn" *ngIf="!project.isEnrolled">
             Enroll
           </button>
         </div>
@@ -105,34 +80,35 @@
     </div>
   </div>
 </div>
-
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="likeUsOnFB"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="likeUsOnFB"
-  aria-hidden="true"
->
+<div class="modal fade" id="registrationClosed" tabindex="-1" role="dialog" aria-labelledby="registrationClosed"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="likeUsOnFB">Like Us On Facebook</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <h5 class="modal-title" id="registrationClosed">Registration Closed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span id="times" aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <fb-like
-          width="400"
-          href="https://www.facebook.com/SolveITbyiCog/"
-        ></fb-like>
+        You have been added to the waiting list. We'll contact you if any space opens up.
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="likeUsOnFB" tabindex="-1" role="dialog" aria-labelledby="likeUsOnFB" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="likeUsOnFB">Like Us On Facebook</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span id="times" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <fb-like width="400" href="https://www.facebook.com/SolveITbyiCog/"></fb-like>
       </div>
     </div>
   </div>
