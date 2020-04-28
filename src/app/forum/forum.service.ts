@@ -68,7 +68,9 @@ export class ForumService {
   }
 
   getAllForumList() {
-    return this.apiService.get(`SolveITForums?filter={"include": "category", "order":["created DESC"]}`);
+    return this.apiService.get(
+      `SolveITForums?filter={"include": "category", "order":["created DESC"]}`
+    );
   }
 
   getMyForumList(userId) {
@@ -78,7 +80,9 @@ export class ForumService {
   }
 
   getForum(slung) {
-    return this.apiService.get(`SolveITForums/${slung}/forum?filter={"order":["createdAt DESC"]}`);
+    return this.apiService.get(
+      `SolveITForums/${slung}/forum?filter={"order":["createdAt DESC"]}`
+    );
   }
 
   getForumById(id) {
@@ -91,6 +95,14 @@ export class ForumService {
 
   addMember(member) {
     return this.apiService.post(`forum_members`, member);
+  }
+
+  addCityMembers(cityId, forumId) {
+    let temp = {
+      forum_id: forumId,
+      city_id: cityId
+    };
+    return this.apiService.post(`SolveITForums/add-city-members`, temp);
   }
 
   addToFavourites(favourite) {
