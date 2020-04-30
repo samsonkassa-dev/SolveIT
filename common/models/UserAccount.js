@@ -1089,7 +1089,7 @@ module.exports = function (Useraccount) {
       let now = new Date(2020, 0, 1);
       users = await Useraccount.find({
         where: {
-          is_waiting: false,
+          is_waiting: { neq: true },
           created: { gte: now },
           cityId: city.id,
           ...genderQuery,
