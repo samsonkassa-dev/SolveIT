@@ -93,7 +93,7 @@ module.exports = function (Progressreport) {
       Solveitproject,
       projectMember,
       mentorNotification,
-      Notification,
+      Notfication,
     } = Progressreport.app.models;
     try {
       let userDeviceIds = [];
@@ -151,7 +151,7 @@ module.exports = function (Progressreport) {
             include_player_ids: [...userDeviceIds],
           });
           userIds.forEach((id) => {
-            Notification.create({ content: message, userId: id });
+            Notfication.create({ content: message, userId: id });
           });
           NotificationUtils.sendNotification(notification);
         }
