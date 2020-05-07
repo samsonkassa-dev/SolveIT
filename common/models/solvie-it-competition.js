@@ -28,13 +28,16 @@ module.exports = function (Solvieitcompetition) {
       include: {
         relation: "solveitproject",
         scope: {
-          include: {
-            relation: "reports",
-            scope: {
-              fields: { id: true, title: true },
-              where: { type: "activity" },
+          include: [
+            {
+              relation: "reports",
+              scope: {
+                fields: { id: true, title: true },
+                where: { type: "activity" },
+              },
             },
-          },
+            { relation: "members" },
+          ],
         },
       },
     });
@@ -46,7 +49,7 @@ module.exports = function (Solvieitcompetition) {
         where: { projectId: element.projectId },
         include: ["userAccount"],
       });
-
+      element.members = members;
       if (members.length > 0) {
         let member = members[0];
 
