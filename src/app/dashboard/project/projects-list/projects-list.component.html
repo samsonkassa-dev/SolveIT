@@ -1,0 +1,320 @@
+<div class="competetion-list-header">
+  <div class="row">
+    <div id="aside" class="col-md-offset-2 col-md-6">
+      <div class="widget">
+        <div class="widget-search">
+          <input class="search-input" type="text" placeholder="search" [(ngModel)]="key" (keyup)="onSearch($event)" />
+          <button class="search-btn" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="filter">
+        <label for="view-filter">Filter By Competition </label>
+        <select name="view" class="form-control" id="view-filter" [(ngModel)]="selectedCompetition"
+          (change)="getProjects(selectedCompetition)">
+          <option value="0">All</option>
+          <option *ngFor="let competition of competitions" value="{{competition.id}}">{{
+            competition.name
+          }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="competetion-list-content">
+  <div class="row">
+    <div class="">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Project Title</th>
+            <th>#</th>
+            <th>Members</th>
+            <th>Gender</th>
+            <th>Birth Date</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Educational Level</th>
+            <th>Work Status</th>
+            <th>Title And Description</th>
+            <th>Project Type</th>
+
+            <th>Project Sector</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="
+          let project of (projects
+            | paginate: { itemsPerPage: 15, currentPage: page });
+          let i = index
+        ">
+            <tr>
+              <td [attr.rowspan]="project.members.length">{{ i + 1 }}</td>
+              <td [attr.rowspan]="project.members.length" (click)="viewProject(project.solveitproject)">
+                <p class="a">{{project.solveitproject?.title}}</p>
+              </td>
+              <td>1</td>
+              <td (click)="viewUserProfile(project.members[0].userAccount)">
+                {{project.members[0].userAccount?.firstName + " " + project.members[0].userAccount?.lastName  }}
+              </td>
+              <td>{{project.members[0].userAccount?.gender}}</td>
+              <td>{{project.members[0].userAccount?.birthDate | date}}</td>
+              <td>{{project.members[0].userAccount?.phoneNumber}}</td>
+              <td>{{project.members[0].userAccount?.email}}</td>
+              <td>{{project.members[0].userAccount?.educationLevel}}</td>
+              <td>{{project.members[0].userAccount?.workStatus}}</td>
+              <td [attr.rowspan]="project.members.length" (click)="viewProject(project.solveitproject)">
+
+                <p class="a"><strong>Title</strong> - {{project.solveitproject?.title}}</p>
+                <p class="a"><strong>Description</strong> - {{project.solveitproject?.description.slice(0,50)+"..."}}
+                </p>
+
+
+              </td>
+              <td [attr.rowspan]="project.members.length">
+                <p class="a">{{project.questionnaireAnswers?.innovationInfo.productType}}</p>
+              </td>
+              <td [attr.rowspan]="project.members.length">
+                <p class="a">{{project.questionnaireAnswers?.innovationInfo.sector}}</p>
+              </td>
+              <td [attr.rowspan]="project.members.length">
+                <button data-toggle="modal" data-target="#myModal" (click)="selectProject(project)"
+                  class="btn btn-info"><i class="fa fa-edit"></i></button>
+              </td>
+            </tr>
+            <ng-container *ngFor="let member of project.members; let j= index;">
+              <tr *ngIf="j!=0">
+                <td>{{j+1 }}</td>
+                <td (click)="viewUserProfile(member.userAccount)">
+                  {{ member.userAccount?.firstName + " " + member.userAccount?.lastName }}</td>
+                <td>{{member.userAccount?.gender}}</td>
+                <td>{{member.userAccount?.birthDate | date}}</td>
+                <td>{{member.userAccount?.phoneNumber}}</td>
+                <td>{{member.userAccount?.email}}</td>
+                <td>{{member.userAccount?.educationLevel}}</td>
+                <td>{{member.userAccount?.workStatus}}</td>
+
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+      <div class="not-found" *ngIf="backUpprojects.length == 0">
+        <div class="no-resource-found">
+          <app-not-found message="Projects are not created, yet." type="fetch"></app-not-found>
+        </div>
+      </div>
+      <div class="not-found" *ngIf="projects.length == 0 && key !== ''">
+        <div class="no-resource-found">
+          <app-not-found message=" Project '{{ key }}' not found." type="fetch"></app-not-found>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="pagination">
+      <pagination-controls *ngIf="backUpprojects.length > 15" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" (click)="reset()" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Joining A Competition</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" id="join-competititon-form">
+
+
+
+          <div class="innovation-info" *ngIf="currentForm === formSteps[0]" formGroupName="innovationInfo">
+            <h6 class="title">Innovation Information</h6>
+            <div class="input-field">
+              <select id="productType" name="product" formControlName="productType"
+                [(ngModel)]="innovationInfo.productType">
+                <option value="" selected>What kind of product are you going to develop ? </option>
+                <option *ngFor="let type of productTypes" [value]="type">{{ type }}</option>
+              </select>
+              <input *ngIf="innovationInfo.productType === productTypes[productTypes.length - 1]" class="input"
+                type="text" formControlName="otherProductType" name="otherProductType" placeholder=""
+                [(ngModel)]="innovationInfo.otherProductType" />
+              <div class="error-message"
+                *ngIf="(form.controls.innovationInfo.controls.productType.invalid && form.controls.innovationInfo.controls.productType.touched) || (innovationInfo.productType ==  productTypes[productTypes.length - 1] && form.controls.innovationInfo.controls.otherProductType.invalid && form.controls.innovationInfo.controls.otherProductType.touched)">
+                <p>* Product Type is Required is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <select id="sectorInput" name="sector" formControlName="sector" [(ngModel)]="innovationInfo.sector">
+                <option value="">Select Sector</option>
+                <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+              </select>
+              <input *ngIf="innovationInfo.sector === sectors[sectors.length - 1]" class="input" type="text"
+                name="otherSector" formControlName="otherSector" placeholder=""
+                [(ngModel)]="innovationInfo.otherSector" />
+              <div class="error-message"
+                *ngIf="(form.controls.innovationInfo.controls.sector.invalid && form.controls.innovationInfo.controls.sector.touched) || (innovationInfo.sector == sectors[sectors.length - 1] && form.controls.innovationInfo.controls.otherSector.invalid && form.controls.innovationInfo.controls.otherSector.touched)">
+                <p>* Sector is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <textarea class="input" type="text" name="description"
+                placeholder="How would you describe your innovation" formControlName="description"
+                [(ngModel)]="innovationInfo.description">
+                          </textarea>
+              <div class="error-message"
+                *ngIf="form.controls.innovationInfo.controls.description.invalid && form.controls.innovationInfo.controls.description.touched">
+                <p>* Product Description is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <input class="input" type="text" name="whatProblem" placeholder="What problem is your innovation solving"
+                formControlName="whatProblem" [(ngModel)]="innovationInfo.whatProblem" />
+              <div class="error-message"
+                *ngIf="form.controls.innovationInfo.controls.whatProblem.invalid && form.controls.innovationInfo.controls.whatProblem.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <input class="input" type="text" name="howToSolve"
+                placeholder="How does your innovation solve this problem?" formControlName="howToSolve"
+                [(ngModel)]="innovationInfo.howToSolve" />
+              <div class="error-message"
+                *ngIf="form.controls.innovationInfo.controls.howToSolve.invalid && form.controls.innovationInfo.controls.howToSolve.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+
+
+
+            <div class="input-field" style="margin-top:1em">
+              <ng-multiselect-dropdown [placeholder]="'Which areas do you need support'" [settings]="dropDownSettings2"
+                [data]="mapSupportToDropDown()" formControlName="supportNeeded" (onDeSelectAll)="onDeselectAll($event)"
+                (onSelectAll)="onSelectAll($event)" (onSelect)="onItemSelected($event)"
+                [(ngModel)]="innovationInfo.supportNeeded" (onDeSelect)="onItemDeselected($event)"
+                [settings]="dropdownSettings">
+              </ng-multiselect-dropdown>
+
+              <div class="error-message" *ngIf="form.controls.innovationInfo.controls.supportNeeded.invalid &&
+                          form.controls.innovationInfo.controls.supportNeeded.touched">
+                <p>* This field is required.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="furtherInfo" *ngIf="currentForm === formSteps[1]" formGroupName="furtherInfo">
+            <h6 class="title">Further Info</h6>
+            <div class="input-field">
+              <input class="input" type="text" name="whyParticipate"
+                placeholder="Why do you want to be a part of this competition?" formControlName="whyParticipate"
+                [(ngModel)]="furtherInfo.whyParticipate" />
+              <div class="error-message"
+                *ngIf="form.controls.furtherInfo.controls.whyParticipate.invalid && form.controls.furtherInfo.controls.whyParticipate.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <select id="howToParticipateInput" name="howToParticipate" formControlName="teamOrNah"
+                [(ngModel)]="furtherInfo.teamOrNah">
+                <option value="">How do you want to be participate ?</option>
+                <option *ngFor="let item of howToParticipate" [value]="item">{{ item }}</option>
+              </select>
+              <div class="error-message"
+                *ngIf="form.controls.furtherInfo.controls.teamOrNah.invalid && form.controls.furtherInfo.controls.teamOrNah.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <input class="input" type="text" name="teamOrNahReason" placeholder="Why"
+                formControlName="teamOrNahReason" [(ngModel)]="furtherInfo.teamOrNahReason" />
+              <div class="error-message"
+                *ngIf="form.controls.furtherInfo.controls.teamOrNahReason.invalid && form.controls.furtherInfo.controls.teamOrNahReason.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <select id="everBeenInCompetitionInput" name="everBeenInCompetition"
+                formControlName="everBeenInCompetition" [(ngModel)]="furtherInfo.everBeenInCompetition">
+                <option value="">Have you ever been involved in a competition before?</option>
+                <option value="yes"> Yes </option>
+                <option value="no"> No </option>
+              </select>
+              <div class="error-message"
+                *ngIf="form.controls.furtherInfo.controls.everBeenInCompetition.invalid && form.controls.furtherInfo.controls.everBeenInCompetition.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <input *ngIf="furtherInfo.everBeenInCompetition === 'yes'" class="input" type="text"
+                name="everBeenInCompetition" placeholder="If so, which competition and when?"
+                formControlName="competitionEverBeen" [(ngModel)]="furtherInfo.competitionEverBeen" />
+              <div class="error-message"
+                *ngIf="furtherInfo.everBeenInCompetition === 'yes' && form.controls.furtherInfo.controls.competitionEverBeen.invalid &&
+                                                            form.controls.furtherInfo.controls.competitionEverBeen.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <ng-multiselect-dropdown [placeholder]="'How did you find out about this competition'"
+                [data]="infoSources" formControlName="mediaResource" [(ngModel)]="furtherInfo.mediaResource"
+                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+              <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaResource.invalid &&
+                                                            form.controls.furtherInfo.controls.mediaResource.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field">
+              <input class="input" type="text" name="mediaName"
+                placeholder="Please specify the exact name of the newspaper, radio station, TV station or website from which you found the information on"
+                [(ngModel)]="furtherInfo.mediaName" formControlName="mediaName" />
+              <div class="error-message" *ngIf="form.controls.furtherInfo.controls.mediaName.invalid &&
+                                                            form.controls.furtherInfo.controls.mediaName.touched">
+                <p>* This field is required.</p>
+              </div>
+            </div>
+            <div class="input-field" style="margin-top: 1em">
+              <ng-select formControlName="financialKnowHow"
+                placeholder="Do you have the know how on getting financial aid ?"
+                [(ngModel)]="furtherInfo.financialKnowHow" [searchable]="false" [clearable]="false"
+                [items]="yesNoOptions" bindLabel="label" bindValue="label">
+              </ng-select>
+
+            </div>
+
+            <div class="input-field" style="margin-top: 1em">
+              <ng-select formControlName="financialAccess" [(ngModel)]="furtherInfo.financialAccess"
+                placeholder="Do you have access to get financial investment?" [searchable]="false" [clearable]="false"
+                [items]="yesNoOptions" bindLabel="label" bindValue="label">
+              </ng-select>
+
+            </div>
+          </div>
+          <div class="actions">
+            <button *ngIf="currentForm === formSteps[0]" (click)="onNext()" class="main-btn">Next</button>
+            <div class="row">
+              <button *ngIf="currentForm === formSteps[1]" (click)="toggleForm(0)" class="outline-btn">Back</button>
+              <button *ngIf="currentForm === formSteps[1]" (click)="onJoin()" class="main-btn">Save</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>

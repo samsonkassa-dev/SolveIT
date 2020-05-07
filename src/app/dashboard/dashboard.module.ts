@@ -1,3 +1,4 @@
+import { ProjectModule } from "./project/project.module";
 import { WaitingModule } from "./waiting/waiting.module";
 import { ActivityModule } from "./activity/activity.module";
 import { StatModule } from "./stat/stat.module";
@@ -38,6 +39,7 @@ import { AttendanceModule } from "./attendance/attendance.module";
     StatModule,
     CityModule,
     ActivityModule,
+    ProjectModule,
     WaitingModule,
     SolveItTeamMemberModule,
     AttendanceModule,

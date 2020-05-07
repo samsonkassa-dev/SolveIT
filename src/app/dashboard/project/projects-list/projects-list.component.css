@@ -1,0 +1,111 @@
+.create {
+  margin-left: 1em;
+  padding: 0.3em 2em;
+}
+
+.no-resource-found {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 90%;
+  margin: auto auto 8em auto;
+  padding: 2em;
+}
+
+.competetion-list {
+  margin-bottom: 4em;
+}
+.container {
+  margin-bottom: 3em;
+}
+
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 4px;
+  overflow: hidden;
+}
+.a {
+  width: 300px;
+  display: block;
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  width: 250px;
+  word-wrap: break-word;
+}
+
+.b {
+  width: 300px;
+  text-align: left !important;
+  white-space: pre-wrap !important;
+}
+
+.b span {
+  text-align: start;
+  justify-content: left;
+}
+
+p {
+  justify-content: start;
+}
+
+#competitionInput,
+#productType,
+#regionInput,
+#sectorInput,
+#howToParticipateInput,
+#everBeenInCompetitionInput {
+  padding: 0.5em;
+  background: white;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.error-message p {
+  font-size: 0.7em;
+  text-align: center;
+  color: #ec4643;
+}
+
+.err {
+  border-color: #ec4643;
+}
+
+.input-field {
+  margin-bottom: 1em;
+}
+
+.actions,
+.info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+.competition-name {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.header {
+  font-size: 1.2em;
+  color: #2ba692;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.sucessfully-joined {
+  padding: 1em;
+}

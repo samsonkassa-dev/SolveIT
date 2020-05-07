@@ -1,3 +1,4 @@
+import { ProjectsListComponent } from "./project/projects-list/projects-list.component";
 import { WaitingListComponent } from "./waiting/waiting-list/waiting-list.component";
 import { ActivitiesListComponent } from "./activity/activities-list/activities-list.component";
 import { StatListComponent } from "./stat/stat-list/stat-list.component";
@@ -50,6 +51,8 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       { path: "categories", component: CategoriesListComponent },
       { path: "activities", component: ActivitiesListComponent },
+      { path: "projects", component: ProjectsListComponent },
+
       { path: "waiting", component: WaitingListComponent },
 
       { path: "tags", component: TagManagmentComponent },
