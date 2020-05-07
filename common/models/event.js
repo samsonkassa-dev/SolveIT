@@ -2,14 +2,14 @@
 const OneSignal = require("onesignal-node");
 const NotificationUtils = require("../utils/notificationUtil");
 
-module.exports = function(Event) {
+module.exports = function (Event) {
   //  disable delete end point
   Event.disableRemoteMethod("deleteById", true);
   Event.disableRemoteMethod("destroyById", true);
   Event.disableRemoteMethod("removeById", true);
 
   Event.observe("after save", async (ctx, next) => {
-    let { UserAccount, Notification } = Event.app.models;
+    let { UserAccount, Notfication } = Event.app.models;
     try {
       let users = await UserAccount.find({ include: ["city"] });
 
@@ -18,7 +18,7 @@ module.exports = function(Event) {
           user.oneSignalUserID &&
           user.toJSON().city &&
           user.toJSON().city.name.toLowerCase() ==
-            ctx.instance.city.toLowerCase()
+          ctx.instance.city.toLowerCase()
       );
 
       const userIds = [];
@@ -28,15 +28,15 @@ module.exports = function(Event) {
       });
       const notificationText = `There is a new event, "${
         ctx.instance.title
-      }", at ${ctx.instance.place}, ${
+        }", at ${ctx.instance.place}, ${
         ctx.instance.venue
-      } on ${ctx.instance.startDate.toDateString()}`;
+        } on ${ctx.instance.startDate.toDateString()}`;
       const notification = NotificationUtils.createNotification(
         notificationText,
         { include_player_ids: users }
       );
       userIds.forEach(id => {
-        Notification.create({ content: notificationText, userId: id });
+        Notfication.create({ content: notificationText, userId: id });
       });
       NotificationUtils.sendNotification(notification);
     } catch (error) {
