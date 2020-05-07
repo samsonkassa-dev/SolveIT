@@ -147,9 +147,9 @@ export class StatListComponent implements OnInit {
     if (this.selectedRole.id) {
       let temp = [];
       let counter = 0;
+      this.cities.push({ id: null });
       this.cities.forEach(city => {
-        let res: any = [];
-        res = this.allUsers.filter(item => {
+        let res = this.allUsers.filter(item => {
           var date = new Date(item.created);
           var year = date.getFullYear();
           // console.log(
@@ -157,22 +157,21 @@ export class StatListComponent implements OnInit {
           //     item.cityId === city.id &&
           //     year >= parseInt("2020")
           // );
-          return (
-            item.roleId === this.selectedRole.id &&
-            item.cityId === city.id &&
-            item.created >= parseInt("2020")
-          );
+          return item.cityId === city.id && year >= parseInt("2020");
         });
+        temp.push("City Name " + city.name + " Amount " + res.length);
         if (res) {
           counter += res.length;
         }
       });
+      console.log(temp);
+      console.log(counter);
     }
   }
   filterUsers() {
     console.log(this.selectedCityComp);
     if (this.selectedRole.name === "participant") {
-      this.filterUsersPerCity();
+      // this.filterUsersPerCity();
       if (
         !this.selectedCityComp ||
         parseInt(this.selectedCityComp.toString()) === 0
