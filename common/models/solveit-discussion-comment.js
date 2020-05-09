@@ -2,7 +2,7 @@
 let url = require("../configs/urlConfig");
 const NotificationUtils = require("../utils/notificationUtil");
 
-module.exports = function(Solveitdiscussioncomment) {
+module.exports = function (Solveitdiscussioncomment) {
   //  disable delete end point
   Solveitdiscussioncomment.disableRemoteMethod("deleteById", true);
   Solveitdiscussioncomment.disableRemoteMethod("destroyById", true);
@@ -11,23 +11,34 @@ module.exports = function(Solveitdiscussioncomment) {
   Solveitdiscussioncomment.seedReplyCount = async () => {
     let { Reply } = Solveitdiscussioncomment.app.models;
     const comments = await Solveitdiscussioncomment.find({});
-    comments.forEach(async comment => {
+    for (let comment of comments) {
       console.log(comment.id);
       const replies = await Reply.find({
-        where: { "solveIT-Discussion-CommentId": comment.id }
+        where: { "solveIT-Discussion-CommentId": comment.id },
       });
-      console.log(replies, " - replies");
+      console.log(replies.length, " - replies");
       if (replies.error) return replies.error;
       comment.replyCount = replies.length;
       const change = await Solveitdiscussioncomment.updateAll(
         { id: comment.id },
-        comment
+        comment.toJSON()
       );
       if (change.error) return change.error;
-    });
+    }
   };
-
-  Solveitdiscussioncomment.afterRemote("create", function(
+  Solveitdiscussioncomment.remoteMethod("seedReplyCount", {
+    description: "seed reply counts",
+    http: {
+      verb: "post",
+      path: "/seedReplyCount",
+    },
+    returns: {
+      arg: "result",
+      type: "Object",
+      root: true,
+    },
+  });
+  Solveitdiscussioncomment.afterRemote("create", function (
     context,
     unused,
     next
@@ -37,28 +48,28 @@ module.exports = function(Solveitdiscussioncomment) {
       Solveitdiscussion,
       UserAccount,
       Notfication,
-      mentorNotification
+      mentorNotification,
     } = Solveitdiscussioncomment.app.models;
     var commentCount = 0;
 
     Solveitdiscussion.findOne(
       {
         where: {
-          id: context.args.data.solveitdiscussionId
+          id: context.args.data.solveitdiscussionId,
         },
-        include: ["user"]
+        include: ["user"],
       },
-      function(err, discussion) {
+      function (err, discussion) {
         discussion = discussion.toJSON();
         commentCount = discussion.commentCount + 1;
         Solveitdiscussion.updateAll(
           {
-            id: context.args.data.solveitdiscussionId
+            id: context.args.data.solveitdiscussionId,
           },
           {
-            commentCount
+            commentCount,
           },
-          function(err, count) {
+          function (err, count) {
             if (err) {
               console.error(err);
               next(err);
@@ -70,7 +81,7 @@ module.exports = function(Solveitdiscussioncomment) {
               const reciverFirstName = discussion.user.firstName;
               UserAccount.findOne(
                 { where: { id: context.args.data.userId } },
-                function(err1, user) {
+                function (err1, user) {
                   if (err1) {
                     const err1 = new Error();
                     console.log(err1);
@@ -86,12 +97,12 @@ module.exports = function(Solveitdiscussioncomment) {
                     );
                     Notfication.create({
                       content: message,
-                      userId: reciverUserId
+                      userId: reciverUserId,
                     });
                     NotificationUtils.sendNotification(notification);
                     let newNotification = {
                       userId: reciverUserId,
-                      notificationMessage: message
+                      notificationMessage: message,
                     };
                     mentorNotification.create(newNotification, (err, succ) => {
                       if (err) {
@@ -108,7 +119,7 @@ module.exports = function(Solveitdiscussioncomment) {
               const reciverFirstName = discussion.user.firstName;
               UserAccount.findOne(
                 { where: { id: context.args.data.userId } },
-                function(err1, user) {
+                function (err1, user) {
                   if (err1) {
                     const err1 = new Error();
                     console.log(err1);
@@ -121,7 +132,7 @@ module.exports = function(Solveitdiscussioncomment) {
 
                     let newNotification = {
                       userId: reciverUserId,
-                      notificationMessage: message
+                      notificationMessage: message,
                     };
                     mentorNotification.create(newNotification, (err, succ) => {
                       if (err) {
@@ -139,18 +150,5 @@ module.exports = function(Solveitdiscussioncomment) {
         );
       }
     );
-  });
-
-  Solveitdiscussioncomment.remoteMethod("seedReplyCount", {
-    description: "seed reply counts",
-    http: {
-      verb: "post",
-      path: "/seedReplyCount"
-    },
-    returns: {
-      arg: "result",
-      type: "Object",
-      root: true
-    }
   });
 };
