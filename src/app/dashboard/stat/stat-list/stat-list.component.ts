@@ -35,6 +35,8 @@ export class StatListComponent implements OnInit {
   public selectedStatus = "";
   public selectedYear = "2018";
   public selectedMentorUser = null;
+  public cityProjects = [];
+  public totalInCity = 0;
 
   constructor(
     public service: StatService,
@@ -66,6 +68,7 @@ export class StatListComponent implements OnInit {
       res => {
         this.allUsers = res;
         this.filterUsers();
+        this.filterUsersPerCity();
       },
       error => {
         this.spinner.hide();
@@ -141,14 +144,16 @@ export class StatListComponent implements OnInit {
     this.page = 1;
 
     this.selectedRole = this.views[parseInt(index)];
+    console.log(this.selectedRole);
     this.filterUsers();
   }
   filterUsersPerCity() {
     if (this.selectedRole.id) {
       let temp = [];
       let counter = 0;
-      this.cities.push({ id: null });
+      this.cityProjects = [];
       this.cities.forEach(city => {
+        console.log("select len" + this.allUsers.length);
         let res = this.allUsers.filter(item => {
           var date = new Date(item.created);
           var year = date.getFullYear();
@@ -157,21 +162,27 @@ export class StatListComponent implements OnInit {
           //     item.cityId === city.id &&
           //     year >= parseInt("2020")
           // );
-          return item.cityId === city.id && year >= parseInt("2020");
+
+          return (
+            (item.cityId === city.id || item.address.cityId === city.id) &&
+            year >= parseInt("2020")
+          );
+        });
+        this.cityProjects.push({
+          name: city.name,
+          amount: res.length
         });
         temp.push("City Name " + city.name + " Amount " + res.length);
         if (res) {
           counter += res.length;
         }
       });
-      console.log(temp);
-      console.log(counter);
+      this.totalInCity = counter + 1;
     }
   }
   filterUsers() {
     console.log(this.selectedCityComp);
     if (this.selectedRole.name === "participant") {
-      // this.filterUsersPerCity();
       if (
         !this.selectedCityComp ||
         parseInt(this.selectedCityComp.toString()) === 0
@@ -205,21 +216,24 @@ export class StatListComponent implements OnInit {
           if (this.selectedStatus === "confirmed") {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCityComp.toString() &&
+              (item.cityId === this.selectedCityComp.toString() ||
+                item.address.cityId === this.selectedCityComp.toString()) &&
               item.emailVerified &&
               year >= parseInt(this.selectedYear)
             );
           } else if (this.selectedStatus === "unconfirmed") {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCityComp.toString() &&
+              (item.cityId === this.selectedCityComp.toString() ||
+                item.address.cityId === this.selectedCityComp.toString()) &&
               !item.emailVerified &&
               year >= parseInt(this.selectedYear)
             );
           } else {
             return (
               item.roleId === this.selectedRole.id &&
-              item.cityId === this.selectedCityComp.toString() &&
+              (item.cityId === this.selectedCityComp.toString() ||
+                item.address.cityId === this.selectedCityComp.toString()) &&
               year >= parseInt(this.selectedYear)
             );
           }
