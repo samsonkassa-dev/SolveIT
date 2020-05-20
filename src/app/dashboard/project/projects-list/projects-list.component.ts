@@ -20,6 +20,7 @@ export class ProjectsListComponent implements OnInit {
   public page = 1;
   public competitions = [];
   public selectedProject;
+  public selectedCompetition;
   constructor(
     public service: ProjectService,
     public fb: FormBuilder,
