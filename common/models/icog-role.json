@@ -12,6 +12,13 @@
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY",
+      "property": "*"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
       "principalId": "participant",
       "permission": "DENY",
       "property": "*"
