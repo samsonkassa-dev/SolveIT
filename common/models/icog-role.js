@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(Icogrole) {
+module.exports = function (Icogrole) {
 
   //  disable delete end point
   Icogrole.disableRemoteMethod("deleteById", true);
