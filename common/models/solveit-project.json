@@ -88,11 +88,10 @@
   },
   "acls": [
     {
-      "accessType": "WRITE",
+      "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$unauthenticated",
-      "permission": "DENY",
-      "property": "upsert"
+      "permission": "DENY"
     },
     {
       "accessType": "WRITE",

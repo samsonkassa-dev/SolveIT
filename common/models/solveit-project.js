@@ -1,6 +1,43 @@
 "use strict";
+const e = require("cors");
 const ValidateUtils = require("../utils/roleValidate");
 module.exports = function (Solveitproject) {
+
+  if (!!Solveitproject.prototype["find"]) {
+    Solveitproject.disableRemoteMethodByName('prototype.' + "find");
+  } else {
+    Solveitproject.disableRemoteMethodByName("find");
+  }
+
+  const getUnAuthorizedError = () => {
+    const error = new Error("Unauthorized");
+    error.status = 401;
+    return error;
+  }
+
+  Solveitproject.observe('access', async (ctx, next) => {
+    console.log(ctx.Model.modelName, ctx.query.where)
+    let { UserAccount, ProjectMember } = Solveitproject.app.models;
+    const token = ctx.options && ctx.options.accessToken;
+    const userId = token && token.userId;
+    const projectId = ctx.query.where && ctx.query.where.id || null;
+    if (!projectId) return
+    if (!token || !userId) return getUnAuthorizedError();
+
+    const user = await UserAccount.findOne({ where: { id: userId }, include: "role" })
+
+    if (!user) next(getUnAuthorizedError());
+    const allowedRoles = ["admin", "solve-it-mgt", "solve-it-team"];
+    if (!allowedRoles.includes(user.toJSON().role.name)) {
+      const membership = await ProjectMember.findOne({ where: { projectId, userId: user.id } });
+      console.log(Boolean(membership));
+      if (!Boolean(membership)) {
+        throw getUnAuthorizedError()
+      }
+    }
+  });
+
+
   //  disable delete end point
   Solveitproject.disableRemoteMethod("deleteById", true);
   Solveitproject.disableRemoteMethod("destroyById", true);
