@@ -7,7 +7,7 @@
     "name": "storage",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "./files",
+    "root": "server/files",
     "maxFileSize": "1004857600",
     "nameConflict": "makeUnique"
   },
@@ -27,12 +27,12 @@
     "transports": [
       {
         "type": "SMTP",
-        "host": "smtp.zoho.com",
+        "host": "smtp.gmail.com",
         "secure": true,
         "port": 465,
         "auth": {
-          "user": "email@icog-solveit.com",
-          "pass": "ICSI@2020"
+          "user": "dannyboy9917@gmail.com",
+          "pass": "szesfcivcfervcrm"
         }
       }
     ]

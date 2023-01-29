@@ -309,7 +309,7 @@ module.exports = function (Useraccount) {
           Email.send(
             {
               to: email,
-              from: "email@icog-solveit.com",
+              from: "dannyboy9917@gmail.com",
               subject: "Welcome to Solve IT",
               html: html,
             },
@@ -696,7 +696,7 @@ module.exports = function (Useraccount) {
                   Email.send(
                     {
                       to: email,
-                      from: "email@icog-solveit.com",
+                      from: "dannyboy9917@gmail.com",
                       subject: "Confirmation for password change",
                       html: html,
                     },

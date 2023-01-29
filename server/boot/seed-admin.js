@@ -9,7 +9,7 @@ module.exports = function(app) {
     let admin ={
       "email": "admin@solveit.com",
       "password": "solveitadminpass",
-      "roleId": role.id,
+      "roleId": role.id || "63d62f7dd0c8b38136777e4c",
       "username": "admin",
       "emailVerified": true
     }
