@@ -35,7 +35,7 @@ export class ModalComponent implements OnInit {
         const tempUrl =
           this.getVideoId(this.resource.url) +
           // "?control=1&origin=https://icog-solveit.com";
-          "?control=1&origin=https://localhost:4200";
+          "?control=1&origin=http://localhost:4200";
         return tempUrl;
       } else {
         this.isClose = false;
