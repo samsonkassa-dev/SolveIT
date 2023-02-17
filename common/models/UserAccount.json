@@ -47,8 +47,7 @@
       "default": "None"
     },
     "birthDate": {
-      "type": "date",
-      "default": "None"
+      "type": "date"
     },
     "educationLevel": {
       "type": "string",
