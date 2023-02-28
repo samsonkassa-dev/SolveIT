@@ -21,7 +21,8 @@ module.exports = function (Useraccount) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
-      let cId = uniqueid();
+      // let cId = uniqueid();
+      let cId = "1234";
       let email = ctx.instance.email;
       let userId = ctx.instance.id;
       // let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
@@ -600,44 +601,70 @@ module.exports = function (Useraccount) {
 
   // confirm email address
   Useraccount.confirmEmail = function (userId, cid, cb) {
-    let { emailConfirmationId } = Useraccount.app.models;
-    emailConfirmationId.findOne(
-      {
-        where: {
-          cId: cid,
+    try {
+      console.log("from link cid ", cid);
+      console.log("from link userId ", userId);
+      let { emailConfirmationId } = Useraccount.app.models;
+      // var temp = await emailConfirmationId.findOne(
+      //   {
+      //     where: {
+      //       // cId: cid,
+      //       userId: userId
+      //     },
+      //   }
+      // );
+      // console.log("temp", temp);
+        emailConfirmationId.findOne(
+        {
+          where: {
+            cId: cid,
+            // userId: userId
+          },
         },
-      },
-      function (err, record) {
-        if (record !== null && userId === record.userId) {
+        function (err, record) {
+
           console.log("record ", record);
-          Useraccount.updateAll(
-            {
-              id: userId,
-            },
-            {
-              emailVerified: true,
-            },
-            function (err, data) {
-              if (err) {
-                console.log("error");
-                cb(err);
-                return;
-              } else {
-                console.log("updated ", data);
-                cb(null, true);
-                return;
+
+
+          // if (record !== null && userId === record.userId) {
+            if (record !== null) {
+            console.log("record ", record);
+            Useraccount.updateAll(
+              {
+                id: userId,
+              },
+              {
+                emailVerified: true,
+              },
+              function (err, data) {
+                if (err) {
+                  console.log("error");
+                  cb(err);
+                  return;
+                } else {
+                  console.log("updated ", data);
+                  cb(null,true);
+                  return;
+                }
+                console.log("after updated");
               }
-              console.log("after updated");
-            }
-          );
-        } else {
-          console.log("final error");
-          let err = new Error();
-          cb(err);
-          return;
+            );
+          } else {
+            console.log("final error");
+            let err = new Error();
+            cb(err);
+            return;
+          }
         }
-      }
-    );
+      );
+      return;
+    }
+    catch (e) {
+      console.log("caught error", e.toString());
+      // let err = new Error(e.toString());
+      // cb(err);
+      // return;
+    }
   };
 
   Useraccount.deactivateUser = async (userId) => {
