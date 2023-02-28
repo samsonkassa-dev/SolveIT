@@ -63,7 +63,7 @@ export class AdressComponent implements OnInit, OnChanges {
     allowSearchFilter: true
   };
   support = { supportNeeded: [] };
-  @Input() address;
+  @Input() address = { regionId: "", cityId: "" };
   @Input() isLoading = false;
 
   constructor(
@@ -98,7 +98,7 @@ export class AdressComponent implements OnInit, OnChanges {
 
       // parentsOccupation : [null, Validators.required],
       // languageOption:[null, Validators.required],
-      educationalInstitute: ["", Validators.required],
+      educationalInstitute: [""],
       englishReading: [null, Validators.required],
       englishWriting: [null, Validators.required],
       englishSpeaking: [null, Validators.required],
