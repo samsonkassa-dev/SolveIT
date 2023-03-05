@@ -96,7 +96,7 @@ export class CreateForumComponent {
   }
 
   getType() {
-    if(this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitTeam() ) {
+    if(this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitTeam() || this.authService.isSolveitMentor() ) {
       return [{name:'Private', value: 1}, {name:'Public', value: 0}];
     }else {
       return [{name:'Private', value: 1}]

@@ -18,6 +18,7 @@ import { CompetitionModule } from "../competition/competition.module";
 import { CategoryModule } from "./category/category.module";
 import { TagModule } from "./tag/tag.module";
 import { AdminGuardService } from "../Auth/services/admin-guard.service";
+import { SolveitMentorGuardService } from "../Auth/services/solveit-mentor-guard.service";
 import { CityModule } from "./city/city.module";
 import { DASHBOARD_ROUTES } from "./dashboard.routes";
 import { ReviewDiscussionComponent } from "./reviewDiscussion/reviewDiscussion.component";

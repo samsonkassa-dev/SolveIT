@@ -10,7 +10,7 @@ export class UserModuleGuardService implements CanActivate {
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (
       (this.authService.isAuthenticated() && this.authService.isAdmin()) ||
-      this.authService.isSolveitManager()
+      this.authService.isSolveitManager() ||this.authService.isSolveitMentor()
     ) {
       return true;
     } else {

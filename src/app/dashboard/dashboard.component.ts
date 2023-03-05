@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../Auth/services/auth.service";
 import { Router } from "@angular/router";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-dashboard",
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
         this.isModerator = res.isModerator;
       });
     this.selected =
-      this.authService.isAdmin() || this.authService.isSolveitManager()
+      this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitMentor()
         ? this.views[0]
         : this.views[1];
   }

@@ -19,6 +19,7 @@ export const AUTH_ROUTES: Routes = [
     component: RegisterInvestorComponent,
     canActivate: [NotSignedinGuardService]
   },
+  
   {
     path: "login",
     component: LoginComponent,

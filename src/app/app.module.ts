@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthGuardService } from './Auth/services/auth-guard.service';
 import { SolveitTeamGuardService } from './Auth/services/solveit-team-guard.service';
 import { SolveitMgmtGuardService } from './Auth/services/solveit-mgmt-guard.service';
+import { SolveitMentorGuardService } from './Auth/services/solveit-mentor-guard.service';
 import { WinnerProjectModule } from './winnerProject/winnerProject.module';
 import { MomentModule } from 'angular2-moment';
 import { AlumunniDetailComponent } from './alumunni-detail/alumunni-detail.component';
@@ -58,7 +59,8 @@ import {CarouselModule} from "ngx-carousel-lib";
     ToastOptions,
     AuthGuardService,
     SolveitTeamGuardService,
-    SolveitMgmtGuardService
+    SolveitMgmtGuardService,
+    SolveitMentorGuardService
   ],
   bootstrap: [AppComponent]
 })

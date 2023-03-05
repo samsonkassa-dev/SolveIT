@@ -57,7 +57,8 @@ export class ProjectMemberList implements OnInit {
     if (
       this.authService.isAdmin() ||
       this.authService.isSolveitManager() ||
-      this.authService.isSolveitTeam()
+      this.authService.isSolveitTeam() ||
+      this.authService.isSolveitMentor()
     ) {
       this.router.navigate(["/dashboard/userProfile", member.id]);
     }

@@ -27,7 +27,8 @@ export class AddUserComponent implements OnInit {
   public userForm: FormGroup;
   public roles = [
     { id: 'solve-it-mgt', name: 'Management Team' },
-    { id: 'solve-it-team', name: 'Staff & Mentor Team' }
+    { id: 'solve-it-team', name: 'Staf Team' },
+    { id: 'solve-it-mentor', name: 'Mentor' },
   ];
   public role = '';
   public isPosting = false;

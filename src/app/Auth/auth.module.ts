@@ -22,6 +22,7 @@ import { NewPasswordComponent } from "./new-password/new-password.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SolveitMgmtGuardService } from "./services/solveit-mgmt-guard.service";
 import { SolveitTeamGuardService } from "./services/solveit-team-guard.service";
+import { SolveitMentorGuardService } from './services/solveit-mentor-guard.service';
 import { UserModuleGuardService } from "./services/userModuleGuard.service";
 import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.component";
 import { TosComponent } from './tos/tos.component';
@@ -54,6 +55,7 @@ import { TosComponent } from './tos/tos.component';
     AuthService,
     NotSignedinGuardService,
     AdminGuardService,
+    SolveitMentorGuardService,
     DashboardGuardService,
     SolveitTeamGuardService,
     SolveitMgmtGuardService,

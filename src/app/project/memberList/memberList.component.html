@@ -15,7 +15,7 @@
           <a *ngIf="member.id && member.role.name != 'admin' " (click)="showUserProfile(member)">
             {{ member.firstName + " " + member.middleName }}</a>
           <span (click)="toggleModal(member)" class="span"
-            *ngIf="member.id && members.length > 1 && (authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam()) ">
+            *ngIf="member.id && members.length > 1 && (authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam() || authService.isSolveitMentor()) ">
             <i class="fa fa-remove"></i>
           </span>
 

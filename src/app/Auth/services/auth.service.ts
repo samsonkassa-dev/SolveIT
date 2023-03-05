@@ -13,6 +13,7 @@ export class AuthService {
   public register_path_participant = "UserAccounts/register-participants";
   public register_path_investor = "UserAccounts/register-investor";
   public register_path_judge = "UserAccounts/register-judge";
+  public register_mentor_path = "UserAccounts/register-mentor";
   public register_mgt_path = "UserAccounts/register-solveit-mgt";
   public register_team_path = "UserAccounts/register-solveit-team";
 
@@ -21,6 +22,7 @@ export class AuthService {
     "solve-it-team",
     "solve-it-participants",
     "admin",
+    "solve-it-mentor",
     "solve-it-investor",
     "solve-it-judge"
   ];
@@ -116,7 +118,6 @@ export class AuthService {
   registerInvestor(user) {
     return this.apiService.post(`${this.register_path_investor}`, user);
   }
-
   registerJudge(user) {
     return this.apiService.post(`${this.register_path_judge}`, user);
   }
@@ -147,6 +148,15 @@ export class AuthService {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
       return data.role === this.ICOG_ROLE[3];
+    } catch (e) {
+      return false;
+    }
+  }
+
+  isSolveitMentor() {
+    try {
+      const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
+      return data.role === this.ICOG_ROLE[6];
     } catch (e) {
       return false;
     }
@@ -198,6 +208,8 @@ export class AuthService {
       return this.apiService.post(this.register_path_investor, user);
     } else if (role === this.ICOG_ROLE[5]) {
       return this.apiService.post(this.register_path_judge, user);
+    } else if (role === this.ICOG_ROLE[6]) {
+      return this.apiService.post(this.register_mentor_path, user);
     }
   }
 

@@ -14,6 +14,7 @@ export class DashboardGuardService implements CanActivate {
         this.authService.isSolveitManager() ||
         this.authService.isSolveitTeam() ||
         this.authService.isSolveitJudge() ||
+        this.authService.isSolveitMentor() ||
         this.authService.isAdmin())
     ) {
       return true;

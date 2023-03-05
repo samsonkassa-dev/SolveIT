@@ -101,16 +101,14 @@ export class CityListComponent implements OnInit {
   }
 
   deleteCity(city) {
-    this.service.deleteCity(city).subscribe(
-      res => {
+    this.service.deleteCity(city)
+    .subscribe(res => {
         this.cities.splice(this.cities.indexOf(city), 1);
         this.sharedService.addToast(
           "Success",
           "Deleted City Successfully!.",
-          "success"
-        );
-      },
-      err => {
+          "success" );
+      },  err => {
         this.sharedService.addToast("Error", "Error occurred!.", "error");
       }
     );
