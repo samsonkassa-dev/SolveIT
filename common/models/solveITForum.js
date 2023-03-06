@@ -2,9 +2,9 @@
 
 module.exports = function (Solveitforum) {
   //  disable delete end point
-  Solveitforum.disableRemoteMethod("deleteById", true);
-  Solveitforum.disableRemoteMethod("destroyById", true);
-  Solveitforum.disableRemoteMethod("removeById", true);
+  Solveitforum.disableRemoteMethodByName("deleteById", true);
+  Solveitforum.disableRemoteMethodByName("destroyById", true);
+  Solveitforum.disableRemoteMethodByName("removeById", true);
 
   Solveitforum.getBySlung = function (slung, cb) {
     Solveitforum.find({ where: { slung: slung } }, function (err, forum) {

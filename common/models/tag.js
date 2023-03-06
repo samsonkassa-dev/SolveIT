@@ -3,8 +3,8 @@
 module.exports = function(Tag) {
 
     //  disable delete end point
-  Tag.disableRemoteMethod("deleteById", true);
-  Tag.disableRemoteMethod("destroyById", true);
-  Tag.disableRemoteMethod("removeById", true);
+  Tag.disableRemoteMethodByName("deleteById", true);
+  Tag.disableRemoteMethodByName("destroyById", true);
+  Tag.disableRemoteMethodByName("removeById", true);
 
 };

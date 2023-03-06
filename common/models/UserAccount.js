@@ -10,9 +10,9 @@ module.exports = function (Useraccount) {
   delete Useraccount.validations.username;
 
   //  disable delete end point
-  Useraccount.disableRemoteMethod("deleteById", true);
-  Useraccount.disableRemoteMethod("destroyById", true);
-  Useraccount.disableRemoteMethod("removeById", true);
+  Useraccount.disableRemoteMethodByName("deleteById", true);
+  Useraccount.disableRemoteMethodByName("destroyById", true);
+  Useraccount.disableRemoteMethodByName("removeById", true);
 
   // disable case insensetive email
   Useraccount.settings.caseSensitiveEmail = false;

@@ -4,9 +4,9 @@ module.exports = function(News) {
 
 
     //  disable delete end point
-  News.disableRemoteMethod("deleteById", true);
-  News.disableRemoteMethod("destroyById", true);
-  News.disableRemoteMethod("removeById", true);
+  News.disableRemoteMethodByName("deleteById", true);
+  News.disableRemoteMethodByName("destroyById", true);
+  News.disableRemoteMethodByName("removeById", true);
     
 
 };

@@ -3,8 +3,8 @@
 module.exports = function(Weektopproject) {
 
     //  disable delete end point
-  Weektopproject.disableRemoteMethod("deleteById", true);
-  Weektopproject.disableRemoteMethod("destroyById", true);
-  Weektopproject.disableRemoteMethod("removeById", true);
+  Weektopproject.disableRemoteMethodByName("deleteById", true);
+  Weektopproject.disableRemoteMethodByName("destroyById", true);
+  Weektopproject.disableRemoteMethodByName("removeById", true);
 
 };

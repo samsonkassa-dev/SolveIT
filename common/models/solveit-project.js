@@ -39,9 +39,9 @@ module.exports = function (Solveitproject) {
 
 
   //  disable delete end point
-  Solveitproject.disableRemoteMethod("deleteById", true);
-  Solveitproject.disableRemoteMethod("destroyById", true);
-  Solveitproject.disableRemoteMethod("removeById", true);
+  Solveitproject.disableRemoteMethodByName("deleteById", true);
+  Solveitproject.disableRemoteMethodByName("destroyById", true);
+  Solveitproject.disableRemoteMethodByName("removeById", true);
 
   Solveitproject.observe("before save", async (ctx, next) => {
     let { UserAccount } = Solveitproject.app.models;
