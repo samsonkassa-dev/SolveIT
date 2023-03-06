@@ -2,9 +2,9 @@
 
 module.exports = function(Reply) {
   //  disable delete end point
-  Reply.disableRemoteMethod('deleteById', true);
-  Reply.disableRemoteMethod('destroyById', true);
-  Reply.disableRemoteMethod('removeById', true);
+  Reply.disableRemoteMethodByName('deleteById', true);
+  Reply.disableRemoteMethodByName('destroyById', true);
+  Reply.disableRemoteMethodByName('removeById', true);
 
   Reply.afterRemote('create', function(context, unused, next) {
     var replyCount = 0;

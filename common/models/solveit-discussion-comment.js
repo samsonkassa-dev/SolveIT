@@ -4,9 +4,9 @@ const NotificationUtils = require("../utils/notificationUtil");
 
 module.exports = function (Solveitdiscussioncomment) {
   //  disable delete end point
-  Solveitdiscussioncomment.disableRemoteMethod("deleteById", true);
-  Solveitdiscussioncomment.disableRemoteMethod("destroyById", true);
-  Solveitdiscussioncomment.disableRemoteMethod("removeById", true);
+  Solveitdiscussioncomment.disableRemoteMethodByName("deleteById", true);
+  Solveitdiscussioncomment.disableRemoteMethodByName("destroyById", true);
+  Solveitdiscussioncomment.disableRemoteMethodByName("removeById", true);
 
   Solveitdiscussioncomment.seedReplyCount = async () => {
     let { Reply } = Solveitdiscussioncomment.app.models;

@@ -4,9 +4,9 @@ const ValidateUtils = require("../utils/roleValidate");
 
 module.exports = function (Progressreport) {
   //  disable delete end point
-  // Progressreport.disableRemoteMethod("deleteById", true);
-  // Progressreport.disableRemoteMethod("destroyById", true);
-  // Progressreport.disableRemoteMethod("removeById", true);
+  // Progressreport.disableRemoteMethodByName("deleteById", true);
+  // Progressreport.disableRemoteMethodByName("destroyById", true);
+  // Progressreport.disableRemoteMethodByName("removeById", true);
   Progressreport.observe("before save", async (ctx, next) => {
     let { UserAccount, Activity, Solveitproject } = Progressreport.app.models;
     let token = ctx.options && ctx.options.accessToken;

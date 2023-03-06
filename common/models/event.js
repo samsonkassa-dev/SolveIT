@@ -4,9 +4,9 @@ const NotificationUtils = require("../utils/notificationUtil");
 
 module.exports = function (Event) {
   //  disable delete end point
-  Event.disableRemoteMethod("deleteById", true);
-  Event.disableRemoteMethod("destroyById", true);
-  Event.disableRemoteMethod("removeById", true);
+  Event.disableRemoteMethodByName("deleteById", true);
+  Event.disableRemoteMethodByName("destroyById", true);
+  Event.disableRemoteMethodByName("removeById", true);
 
   Event.observe("after save", async (ctx, next) => {
     let { UserAccount, Notfication } = Event.app.models;

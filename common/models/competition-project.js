@@ -2,9 +2,9 @@
 
 module.exports = function (Competitionproject) {
   //  disable delete end point
-  // Competitionproject.disableRemoteMethod("deleteById", true);
-  // Competitionproject.disableRemoteMethod("destroyById", true);
-  // Competitionproject.disableRemoteMethod("removeById", true);
+  // Competitionproject.disableRemoteMethodByName("deleteById", true);
+  // Competitionproject.disableRemoteMethodByName("destroyById", true);
+  // Competitionproject.disableRemoteMethodByName("removeById", true);
 
   Competitionproject.enroll = function (
     competitionId,

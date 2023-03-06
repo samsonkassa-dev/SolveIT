@@ -2,9 +2,9 @@
 
 module.exports = function (Solveitdiscussion) {
   //  disable delete end point
-  Solveitdiscussion.disableRemoteMethod("deleteById", true);
-  Solveitdiscussion.disableRemoteMethod("destroyById", true);
-  Solveitdiscussion.disableRemoteMethod("removeById", true);
+  Solveitdiscussion.disableRemoteMethodByName("deleteById", true);
+  Solveitdiscussion.disableRemoteMethodByName("destroyById", true);
+  Solveitdiscussion.disableRemoteMethodByName("removeById", true);
 
   Solveitdiscussion.getBySlung = function (slung, cb) {
     Solveitdiscussion.findOne(

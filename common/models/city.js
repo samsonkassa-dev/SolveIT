@@ -3,8 +3,8 @@
 module.exports = function(City) {
   City.validatesUniquenessOf('name', {ignoreCase: 'ignoreCase'});
   //  disable delete end point
-  City.disableRemoteMethod("deleteById", true);
-  City.disableRemoteMethod("destroyById", true);
-  City.disableRemoteMethod("removeById", true);
+  City.disableRemoteMethodByName("deleteById", true);
+  City.disableRemoteMethodByName("destroyById", true);
+  City.disableRemoteMethodByName("removeById", true);
 
 };

@@ -3,8 +3,8 @@
 module.exports = function(Competitionwinner) {
 
   //  disable delete end point
-  Competitionwinner.disableRemoteMethod("deleteById", true);
-  Competitionwinner.disableRemoteMethod("destroyById", true);
-  Competitionwinner.disableRemoteMethod("removeById", true);
+  Competitionwinner.disableRemoteMethodByName("deleteById", true);
+  Competitionwinner.disableRemoteMethodByName("destroyById", true);
+  Competitionwinner.disableRemoteMethodByName("removeById", true);
 
 };

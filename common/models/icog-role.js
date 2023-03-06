@@ -3,8 +3,8 @@
 module.exports = function (Icogrole) {
 
   //  disable delete end point
-  Icogrole.disableRemoteMethod("deleteById", true);
-  Icogrole.disableRemoteMethod("destroyById", true);
-  Icogrole.disableRemoteMethod("removeById", true);
+  Icogrole.disableRemoteMethodByName("deleteById", true);
+  Icogrole.disableRemoteMethodByName("destroyById", true);
+  Icogrole.disableRemoteMethodByName("removeById", true);
 
 };
