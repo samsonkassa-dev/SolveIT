@@ -22,6 +22,25 @@ module.exports = function (app) {
     }
   });
 
+  IcogRole.registerResolver("mentor", function (role, context, cb) {
+    console.log(context.accessToken);
+    if (!context.accessToken) {
+      cb(null, false);
+    } else {
+      UserAccount.findById(
+        context.accessToken.userId,
+        { include: "role" },
+        function (error, user) {
+          if (error || !user || user.toJSON().role.name !== "solve-it-mentor") {
+            cb(null, false);
+          } else {
+            cb(null, true);
+          }
+        }
+      );
+    }
+  });
+
   IcogRole.registerResolver("mgt", function (role, context, cb) {
     if (!context.accessToken) {
       cb(null, false);

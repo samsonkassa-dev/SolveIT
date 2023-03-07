@@ -67,6 +67,12 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
+      "principalId": "mentor",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "DENY"
     },

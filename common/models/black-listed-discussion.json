@@ -37,6 +37,13 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
+      "principalId": "mentor",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
       "principalId": "mgt",
       "permission": "ALLOW",
       "property": "*"

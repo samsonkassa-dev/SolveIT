@@ -7,7 +7,7 @@ const roleValidate = (UserAccount, userId) => {
     }).then((user) => {
       user = user.toJSON();
       let role = user.role.name;
-      if (role != "admin" && role != "solve-it-team") {
+      if (role != "admin" && role != "solve-it-team"  && role != "solve-it-mentor") {
         reject("Unauthorized");
       } else {
         resolve(user);

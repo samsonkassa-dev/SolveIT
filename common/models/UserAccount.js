@@ -561,6 +561,40 @@ module.exports = function (Useraccount) {
     return user;
   };
 
+   // register SolveIT mentor
+   Useraccount.registerSolveItMentor = async  (
+    firstName,
+    middleName,
+    lastName,
+    email,
+    password,
+    phoneNumber,
+    username
+  ) => {
+    let { IcogRole } = Useraccount.app.models;
+    let userRole = await IcogRole.findOne({
+      where: {
+        name: "solve-it-mentor",
+      },
+    });
+    let user = {
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      password: password,
+      email: email,
+      username: username,
+      roleId: userRole.id,
+      created: new Date().toISOString(),
+    };
+
+    user = await Useraccount.create(user);
+
+    return user;
+  };
+
+
   // register SolveIT investor
   Useraccount.registerInvestor = async (user) => {
     let { IcogRole, investorProfile } = Useraccount.app.models;
@@ -868,7 +902,8 @@ module.exports = function (Useraccount) {
           if (user.length > 0) {
             if (
               user[0].role().name === "admin" ||
-              user[0].role().name === "solve-it-mgt"
+              user[0].role().name === "solve-it-mgt" ||
+              user[0].role().name === "solve-it-mentor"
             ) {
               Useraccount.find(
                 {
@@ -1480,7 +1515,56 @@ module.exports = function (Useraccount) {
       root: true,
     },
   });
+  Useraccount.remoteMethod("registerSolveItMentor", {
+    desctiption: "Register SolveIT mentor users",
+    accepts: [
+      {
+        arg: "firstName",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "middleName",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "lastName",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "email",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "password",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "phoneNumber",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "username",
+        type: "string",
+        require: true,
+      },
+    ],
+    http: {
+      verb: "post",
+      path: "/register-solveit-mentor",
+    },
+    returns: {
+      type: "object",
+      root: true,
+    },
+  });
 
+  
   Useraccount.remoteMethod("registerSolveItTeam", {
     desctiption: "Register SolveIT teams.",
     accepts: [

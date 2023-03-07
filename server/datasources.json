@@ -14,15 +14,14 @@
   "mongo": {
     "host": "",
     "port": 27017,
-    "url": "mongodb+srv://root:P5CmaFOxBlyUamy2@icogacc.n1onyp0.mongodb.net/icog?retryWrites=true&w=majority",
+    "url": "",
     "database": "icog",
-    "protocol": "mongodb+srv",
-    "useNewUrlParser": true,
-    "password": "P5CmaFOxBlyUamy2",
-    "name": "Mongo",
-    "user": "root",
+    "password": "",
+    "name": "mongo",
+    "user": "",
     "connector": "mongodb"
   },
+
   "email": {
     "name": "email",
     "connector": "mail",
