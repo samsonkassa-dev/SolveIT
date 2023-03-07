@@ -68,6 +68,13 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "participant",
+      "permission": "ALLOW",
+      "property": "*"
     }
   ],
   "methods": {}

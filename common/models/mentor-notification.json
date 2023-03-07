@@ -49,6 +49,13 @@
       "property": "*"
     },
     {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "participant",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
       "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "team",

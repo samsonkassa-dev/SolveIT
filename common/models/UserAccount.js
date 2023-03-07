@@ -648,7 +648,7 @@ module.exports = function (Useraccount) {
       //   }
       // );
       // console.log("temp", temp);
-        emailConfirmationId.findOne(
+      emailConfirmationId.findOne(
         {
           where: {
             cId: cid,
@@ -661,7 +661,7 @@ module.exports = function (Useraccount) {
 
 
           // if (record !== null && userId === record.userId) {
-            if (record !== null) {
+          if (record !== null) {
             console.log("record ", record);
             Useraccount.updateAll(
               {
@@ -677,7 +677,7 @@ module.exports = function (Useraccount) {
                   return;
                 } else {
                   console.log("updated ", data);
-                  cb(null,true);
+                  cb(null, true);
                   return;
                 }
                 console.log("after updated");
@@ -984,8 +984,8 @@ module.exports = function (Useraccount) {
                   cb(null, users);
                 }
               );
-            } else {
-              console.log("Well Hello There");
+            } else if (user[0].role().name === "solve-it-team") {
+              console.log("Well Hello There Team");
               let { IcogRole } = Useraccount.app.models;
               IcogRole.findOne(
                 {
@@ -1060,6 +1060,84 @@ module.exports = function (Useraccount) {
                   );
                 }
               );
+            }
+            else {
+
+              console.log("Well Hello There Participant");
+              let { IcogRole } = Useraccount.app.models;
+              IcogRole.findOne(
+                {
+                  where: {
+                    or: [
+                      { name: "solve-it-participants" },
+                    ],
+                  },
+                },
+                function (err, role) {
+                  let city = user[0].toJSON().city;
+                  console.log(city.id);
+                  Useraccount.find(
+                    {
+                      where: {
+                        and: [
+                          {
+                            roleId: role.id,
+                          },
+                          {
+                            cityId: city.id,
+                          },
+                          {
+                            or: [
+                              {
+                                email: {
+                                  like: pattern,
+                                },
+                              },
+                              {
+                                firstName: {
+                                  like: pattern,
+                                },
+                              },
+                              {
+                                middleName: {
+                                  like: pattern,
+                                },
+                              },
+                              {
+                                lastName: {
+                                  like: pattern,
+                                },
+                              },
+                              {
+                                username: {
+                                  like: pattern,
+                                },
+                              },
+                              {
+                                phoneNumber: {
+                                  like: pattern,
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      include: "city",
+                    },
+                    function (err, users) {
+                      users = users.map((user) => ({
+                        id: user.id,
+                        firstName: user.firstName,
+                        middleName: user.middleName,
+                        lastName: user.lastName,
+                        username: user.username,
+                      }));
+                      cb(null, users);
+                    }
+                  );
+                }
+              );
+
             }
           }
         }
