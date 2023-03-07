@@ -56,6 +56,13 @@
       "property": "*"
     },
     {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "mentor",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
       "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "team",

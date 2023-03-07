@@ -117,6 +117,7 @@ module.exports = function (app) {
 		await createSolveItParticipantsRole();
 		await createSolveItInvestorRole();
 		await createSolveItJudgeRole();
+		await createSolveItMentorRole();
 		await createAdmin();
 	}
 
