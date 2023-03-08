@@ -44,6 +44,12 @@
           ">
           <span class="icon"><i class="fa fa-gavel"></i></span> Judges
         </li>
+        <li *ngIf="this.authService.isSolveitMentor" (click)="router.navigate(['dashboard/mentor'])"
+        class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
+          router.isActive('dashboard/mentor', true)
+        ">
+        <span class="icon"><i class="fa fa-gavel"></i></span> Judges
+      </li>
         <li *ngIf="!this.authService.isSolveitJudge()" (click)="router.navigate(['dashboard/categories'])"
           class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
             router.isActive('dashboard/categories', true)

@@ -36,9 +36,10 @@
             <option selected="selected" value="0"
               >Solve IT Management Team</option
             >
-            <option value="1">SolveIT Staffs & Mentors Team</option>
+            <option value="1">SolveIT Staffs </option>
             <option value="2">SolveIT Participants</option>
             <option value="3">SolveIT Investors</option>
+            <option value="3">SolveIT Mentor</option>
           </select>
         </div>
       </div>
@@ -156,6 +157,11 @@
               </li>
               <li>
                 <a *ngIf="this.selectedRole.name === 'investor' && user.profile.approved"
+                  >Approved</a
+                >
+              </li>
+              <li>
+                <a *ngIf="this.selectedRole.name === 'mentor' && user.profile.approved"
                   >Approved</a
                 >
               </li>

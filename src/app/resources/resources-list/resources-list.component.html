@@ -17,7 +17,8 @@
     <div class=" col-md-2" id="upload-btn-container" *ngIf="
           (authService.isSolveitTeam() ||
             authService.isSolveitManager() ||
-            authService.isAdmin()) &&
+            authService.isAdmin() ||
+            authService.isSolveitMentor()) &&
           resources.length > 0
         ">
       <button id="upload-btn" class="outline-btn" (click)="toggleArchive()">
@@ -29,7 +30,8 @@
     <div class=" col-md-2" id="upload-btn-container" *ngIf="
           (authService.isSolveitTeam() ||
             authService.isSolveitManager() ||
-            authService.isAdmin()) &&
+            authService.isAdmin() ||
+            authService.isSolveitMentor()) &&
           resources.length > 0
         ">
       <button id="upload-btn" class="outline-btn" (click)="uploadResource()">
@@ -49,7 +51,9 @@
     <div class="col-md-offset-1 col-md-2" id="upload-btn-container" *ngIf="
         (authService.isSolveitTeam() ||
           authService.isSolveitManager() ||
-          authService.isAdmin()) &&
+          authService.isAdmin() ||
+          authService.isSolveitMentor() ||
+          authService.isSolveitMentor()) &&
         resources.length > 0
       ">
 
@@ -78,7 +82,8 @@
           <i *ngIf="
                 (authService.isSolveitTeam() ||
                   authService.isSolveitManager() ||
-                  authService.isAdmin()) &&
+                  authService.isAdmin() ||
+                  authService.isSolveitMentor()) &&
                 resources.length === 0
               " class="link" (click)="uploadResource()">create here.</i>
         </div>
