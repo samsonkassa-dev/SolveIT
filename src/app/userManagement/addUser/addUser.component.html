@@ -184,6 +184,27 @@
     <div class="input-field">
       <input
         class="input"
+        type="text"
+        name="occupation"
+        formControlName="occupation"
+        placeholder="Occupation"
+        [(ngModel)]="user.occupation"
+        *ngIf="userForm.value.role === 'solve-it-judge'"
+
+      />
+      <!-- <div
+        class="error-message"
+        *ngIf="
+          userForm.controls.username.invalid &&
+          userForm.controls.username.touched
+        "
+      >
+        <p>* Occupation is required.</p>
+      </div> -->
+    </div>
+    <div class="input-field">
+      <input
+        class="input"
         type="password"
         name="password"
         formControlName="password"

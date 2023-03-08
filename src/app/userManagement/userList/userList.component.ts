@@ -24,7 +24,8 @@ export class UserListComponent implements OnInit {
     { name: 'solveitteam', id: '' },
     { name: 'participant', id: '' },
     { name: 'investor', id: '' },
-    { name: 'mentor' , id: ''}
+    { name: 'mentor' , id: ''},
+    { name: 'judge' , id: ''}
   ];
   public cities = [];
   public selectedRole = this.views[0];
@@ -73,6 +74,8 @@ export class UserListComponent implements OnInit {
           this.views[3].id = res[i].id;
         } else if (res[i].name === 'solve-it-mentor') {
           this.views[4].id = res[i].id;
+        }else if (res[i].name === 'solve-it-judge') {
+          this.views[5].id = res[i].id;
         }
       }
       this.getAllUsers();

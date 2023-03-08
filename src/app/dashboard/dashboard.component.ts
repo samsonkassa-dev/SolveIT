@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
         this.isModerator = res.isModerator;
       });
     this.selected =
-      this.authService.isAdmin() || this.authService.isSolveitManager() || this.authService.isSolveitMentor()
+      this.authService.isAdmin() || this.authService.isSolveitManager() 
         ? this.views[0]
         : this.views[1];
   }

@@ -64,11 +64,14 @@ export class LoginComponent implements OnInit {
             console.log(res1.name)
             if (res1.name === this.ICOG_ROLE[2]) {
               this.router.navigate(["/my-projects"]);
-            } else if (res1.name === this.ICOG_ROLE[4]) {
+            } else if (res1.name === this.ICOG_ROLE[5]) {
               this.router.navigate(["/my-projects/recommendations"]);
-            }  else if (res1.name === this.ICOG_ROLE[4]) {
-              this.router.navigate(["/dashbord/recommendations"]); 
-            }else if (res1.name == this.ICOG_ROLE[6]){
+            // }  else if (res1.name === this.ICOG_ROLE[4]) {
+            //   this.router.navigate(["/dashbord/recommendations"]); 
+            } else if (res1.name == this.ICOG_ROLE[6]){
+              this.router.navigate(["/dashboard/competitions"]);
+            }
+            else{
               this.router.navigate(["/dashboard"]);
             }
           });

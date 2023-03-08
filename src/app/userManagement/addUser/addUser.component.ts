@@ -20,6 +20,7 @@ export class AddUserComponent implements OnInit {
     email: '',
     username: '',
     phoneNumber: '',
+    occupation: '',
     password: '',
     rePassword: ''
   };
@@ -29,6 +30,7 @@ export class AddUserComponent implements OnInit {
     { id: 'solve-it-mgt', name: 'Management Team' },
     { id: 'solve-it-team', name: 'Staf Team' },
     { id: 'solve-it-mentor', name: 'Mentor' },
+    { id: 'solve-it-judge', name: 'Judge' },
   ];
   public role = '';
   public isPosting = false;
@@ -51,6 +53,7 @@ export class AddUserComponent implements OnInit {
         email: ['', Validators.required, this.isEmailUnique.bind(this)],
         gender: ['', Validators.required],
         phoneNumber: ['', Validators.required],
+        occupation: [''],
         role: ['', Validators.required],
         username: ['', Validators.required],
         password: ['', Validators.required],

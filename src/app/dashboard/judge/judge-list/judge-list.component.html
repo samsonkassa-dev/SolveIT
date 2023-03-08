@@ -41,15 +41,14 @@
                 (click)="viewDetails(judge)">
                 View Details
               </button>
-              <button *ngIf="!judge.approved" type="button" (click)="approveJudge(judge)" class="btn btn-danger">
+              <button *ngIf="!judge.approved" type="button" (click)="approveJudge(judge)" class="btn btn-success">
                 Approve
               </button>
               <button 
               type="button" 
-              class="btn btn-danger"
               data-toggle="modal"
               data-target="#editCategory"         
-              class="btn btn-warn"
+              class="btn btn-info"
               (click)="selectJudge(judge)"
               >
                 Assign Competition

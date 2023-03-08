@@ -7,14 +7,26 @@
         <!-- Logo -->
         <div class="navbar-brand">
           <a routerLink="">
-            <img style="padding: 0.1em" class="logo" src="../../assets/img/solveit-logo12.png" alt="logo" />
+            <img
+              style="padding: 0.1em"
+              class="logo"
+              src="../../assets/img/solveit-logo12.png"
+              alt="logo"
+            />
           </a>
         </div>
         <!-- /Logo -->
 
         <!-- Collapse nav button -->
-        <div class="navbar-toggler nav-collapse" type="button" data-toggle="collapse" data-target="#menus"
-          aria-controls="menus" aria-expanded="false" aria-label="Toggle navigation">
+        <div
+          class="navbar-toggler nav-collapse"
+          type="button"
+          data-toggle="collapse"
+          data-target="#menus"
+          aria-controls="menus"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon" style="color: #FFFFFF;"></span>
         </div>
 
@@ -23,57 +35,67 @@
 
       <!-- Main navigation -->
       <div class="collapse navbar-collapse" id="menus">
-
         <ul class="nav navbar-nav navbar-right">
           <li [class.active]="router.isActive('', true)">
             <a routerLink="">Home</a>
           </li>
           <li
-            [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)"
-            class="has-dropdown">
+            [class.active]="
+              router.isActive('about', false) ||
+              router.isActive('our-team', false) ||
+              router.isActive('/winners/list', false)
+            "
+            class="has-dropdown"
+          >
             <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
             <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-            <a routerLink="/my-projects">My Projects</a>
-          </li> -->
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                  <a routerLink="/my-projects">My Projects</a>
+                </li>
+              -->
               <li class="no-border"><a href="#service">Services</a></li>
-              <!-- <li ">
-            <a routerLink="/gallery">Gallery</a>
-          </li> -->
-              <li>
-                <a routerLink="/team/list">Our Team</a>
-              </li>
-              <li>
-                <a routerLink="/winners/list">Winners</a>
-              </li>
-
+              <!--
+                <li ">
+                  <a routerLink="/gallery">Gallery</a>
+                </li>
+              -->
+              <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
             <ul class="dropdown">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
                   <a routerLink="/my-projects">My Projects</a>
-                </li> -->
+                </li>
+              -->
               <li><a href="#service">Services</a></li>
-              <!-- <li ">
+              <!--
+                <li ">
                   <a routerLink="/gallery">Gallery</a>
-                </li> -->
-              <li>
-                <a routerLink="/team/list">Our Team</a>
-              </li>
-              <li>
-                <a routerLink="/winners/list">Winners</a>
-              </li>
-
+                </li>
+              -->
+              <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
           </li>
 
-          <li [class.active]="router.isActive('dashboard', false)" *ngIf="
+          <li
+            [class.active]="router.isActive('dashboard', false)"
+            *ngIf="
               authService.isSolveitTeam() ||
               authService.isSolveitManager() ||
               authService.isSolveitJudge() ||
-              authService.isAdmin() ||
-              authService.isSolveitMentor()
-            ">
+              authService.isAdmin()
+            "
+          >
             <a routerLink="/dashboard">Dashboard</a>
+          </li>
+          <li
+            [class.active]="router.isActive('dashboard', false)"
+            *ngIf="authService.isSolveitMentor()"
+          >
+            <a routerLink="/dashboard/competitions">Dashboard</a>
           </li>
 
           <li [class.active]="router.isActive('events', false)">
@@ -82,74 +104,133 @@
           <li [class.active]="router.isActive('forums', false)">
             <a routerLink="/forums">Forums</a>
           </li>
-          <!-- <li [class.active]="router.isActive('news', false)">
-            <a routerLink="/news">News</a>
-          </li> -->
+          <!--
+            <li [class.active]="router.isActive('news', false)">
+              <a routerLink="/news">News</a>
+            </li>
+          -->
           <li [class.active]="router.isActive('resources', false)">
-            <a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a>
+            <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
+              >Resources</a
+            >
           </li>
 
           <li [class.active]="router.isActive('sponsors', false)">
             <a routerLink="/sponsors">Sponsors</a>
           </li>
 
-
-          <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('my-projects', false)">
+          <li
+            *ngIf="authService.isSolveitParticipant()"
+            [class.active]="router.isActive('my-projects', false)"
+          >
             <a routerLink="/my-projects">My Projects</a>
           </li>
           <li [class.active]="router.isActive('help', false)">
             <a routerLink="/help">Help</a>
           </li>
-          <li *ngIf="!authService.isAuthenticated()" [class.active]="router.isActive('login', false)">
+          <li
+            *ngIf="!authService.isAuthenticated()"
+            [class.active]="router.isActive('login', false)"
+          >
             <a routerLink="/login"> SignIn / SignUp</a>
-
           </li>
 
-          <li *ngIf="authService.isAuthenticated() && !authService.isSolveitParticipant()" class="has-dropdown">
-            <a><span style="margin-right: .5em;"><i class="fa fa-bell"></i><span
-                  *ngIf="notificationList == undefined || notificationList.length > 0"
-                  class="badge badge-light">{{notificationList.length}} </span></span>{{ "" }}</a>
+          <li
+            *ngIf="
+              authService.isAuthenticated() &&
+              !authService.isSolveitParticipant()
+            "
+            class="has-dropdown"
+          >
+            <a
+              ><span style="margin-right: .5em;"
+                ><i class="fa fa-bell"></i
+                ><span
+                  *ngIf="
+                    notificationList == undefined || notificationList.length > 0
+                  "
+                  class="badge badge-light"
+                  >{{ notificationList.length }}
+                </span></span
+              >{{ "" }}</a
+            >
             <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-                <a routerLink="/my-projects">My Projects</a>
-              </li> -->
-              <li *ngIf="notificationList == undefined || notificationList.length <= 0">
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                  <a routerLink="/my-projects">My Projects</a>
+                </li>
+              -->
+              <li
+                *ngIf="
+                  notificationList == undefined || notificationList.length <= 0
+                "
+              >
                 <a>No New Notification</a>
               </li>
               <li *ngFor="let notification of notificationList">
-                <a (click)="deleteNotification(notification)">{{notification.notificationMessage}}</a>
+                <a (click)="deleteNotification(notification)">{{
+                  notification.notificationMessage
+                }}</a>
               </li>
             </ul>
           </li>
 
-
-          <li [class.active]="router.isActive('userProfile', false)" *ngIf="authService.isAuthenticated()"
-            class="has-dropdown">
-            <a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{ "" }}</a>
+          <li
+            [class.active]="router.isActive('userProfile', false)"
+            *ngIf="authService.isAuthenticated()"
+            class="has-dropdown"
+          >
+            <a
+              ><span style="margin-right: .5em;"
+                ><i class="fa fa-user"></i></span
+              >{{ "" }}</a
+            >
             <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-                <a routerLink="/my-projects">My Projects</a>
-              </li> -->
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()  || authService.isSolveitMentor()">
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                  <a routerLink="/my-projects">My Projects</a>
+                </li>
+              -->
+              <li
+                *ngIf="
+                  authService.isSolveitParticipant() ||
+                  authService.isSolveitTeam() ||
+                  authService.isSolveitMentor()
+                "
+              >
                 <a (click)="getUserProfile()">Profile</a>
               </li>
               <li>
-                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+                <a
+                  routerLink=""
+                  (click)="authService.signOut()"
+                  style="cursor: pointer;"
+                  >Logout</a
+                >
               </li>
             </ul>
 
             <ul class="dropdown">
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam() || authService.isSolveitMentor() ">
+              <li
+                *ngIf="
+                  authService.isSolveitParticipant() ||
+                  authService.isSolveitTeam() ||
+                  authService.isSolveitMentor()
+                "
+              >
                 <a (click)="getUserProfile()">Profile</a>
               </li>
               <li>
-                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+                <a
+                  routerLink=""
+                  (click)="authService.signOut()"
+                  style="cursor: pointer;"
+                  >Logout</a
+                >
               </li>
-
             </ul>
           </li>
         </ul>
-
       </div>
 
       <!-- /Main navigation -->
