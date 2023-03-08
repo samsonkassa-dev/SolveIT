@@ -15,7 +15,8 @@
       "default": false
     },
     "competitions": {
-      "type": ["string"]
+      "type": ["string"],
+      "default": []
     }
   },
   "validations": [],

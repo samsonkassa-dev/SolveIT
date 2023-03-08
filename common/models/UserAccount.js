@@ -519,21 +519,43 @@ module.exports = function (Useraccount) {
   };
 
   // register SolveIT Judge
-  Useraccount.registerSolveItJudge = async (user) => {
+  Useraccount.registerSolveItJudge = async (firstName,
+    middleName,
+    lastName,
+    email,
+    occupation,
+    password,
+    phoneNumber,
+    username) => {
     let { IcogRole, judge } = Useraccount.app.models;
     let userRole = await IcogRole.findOne({
       where: {
         name: "solve-it-judge",
       },
     });
+    let user = {
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      phoneNumber: phoneNumber + "",
+      password: password + "",
+      email: email,
+      username: username,
+      roleId: userRole.id,
+      created: new Date().toISOString(),
+    };
 
-    user["roleId"] = userRole.id;
-    user["created"] = new Date().toISOString();
-    user["password"] = user.password + "";
-    user["phoneNumber"] = user.phoneNumber + "";
+    // user = await Useraccount.create(user);
+
+    // return user;
+
+    // user["roleId"] = userRole.id;
+    // user["created"] = new Date().toISOString();
+    // user["password"] = user.password + "";
+    // user["phoneNumber"] = user.phoneNumber + "";
 
     let newUser = await Useraccount.create(user);
-    let profile = judge.create({ judgeId: newUser.id, ...newUser });
+    let profile = await judge.create({ judgeId: newUser.id, fullName: firstName + " " + middleName + " " + lastName, occupation: occupation, email: email });
 
     return newUser;
   };
@@ -562,8 +584,8 @@ module.exports = function (Useraccount) {
     return user;
   };
 
-   // register SolveIT mentor
-   Useraccount.registerSolveItMentor = async  (
+  // register SolveIT mentor
+  Useraccount.registerSolveItMentor = async (
     firstName,
     middleName,
     lastName,
@@ -1669,7 +1691,7 @@ module.exports = function (Useraccount) {
     },
   });
 
-  
+
   Useraccount.remoteMethod("registerSolveItTeam", {
     desctiption: "Register SolveIT teams.",
     accepts: [
@@ -1760,9 +1782,43 @@ module.exports = function (Useraccount) {
     description: "Register SolveIT Judge.",
     accepts: [
       {
-        arg: "user",
-        type: "object",
+        arg: "firstName",
+        type: "string",
         required: true,
+      },
+      {
+        arg: "middleName",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "lastName",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "email",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "occupation",
+        type: "string",
+      },
+      {
+        arg: "password",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "phoneNumber",
+        type: "string",
+        required: true,
+      },
+      {
+        arg: "username",
+        type: "string",
+        require: true,
       },
     ],
     http: {
