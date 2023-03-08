@@ -16,6 +16,7 @@ import {AuthGuardService} from '../Auth/services/auth-guard.service';
 import {MomentModule} from 'angular2-moment';
 import { RouterModule } from '@angular/router';
 import { RESOURCES_ROUTES } from './resources.routes';
+import { SolveitMentorGuardService } from '../Auth/services/solveit-mentor-guard.service';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { RESOURCES_ROUTES } from './resources.routes';
     NgxPaginationModule,
     MomentModule
   ],
-  providers: [ResourcesService, SolveitTeamGuardService, AuthGuardService],
+  providers: [ResourcesService, SolveitTeamGuardService, AuthGuardService , SolveitMentorGuardService],
   exports: [],
 })
 export class ResourcesModule { }

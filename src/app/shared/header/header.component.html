@@ -70,7 +70,8 @@
               authService.isSolveitTeam() ||
               authService.isSolveitManager() ||
               authService.isSolveitJudge() ||
-              authService.isAdmin()
+              authService.isAdmin() ||
+              authService.isSolveitMentor()
             ">
             <a routerLink="/dashboard">Dashboard</a>
           </li>
@@ -129,7 +130,7 @@
               <!-- <li *ngIf="authService.isSolveitParticipant()">
                 <a routerLink="/my-projects">My Projects</a>
               </li> -->
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
+              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()  || authService.isSolveitMentor()">
                 <a (click)="getUserProfile()">Profile</a>
               </li>
               <li>
@@ -138,7 +139,7 @@
             </ul>
 
             <ul class="dropdown">
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
+              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam() || authService.isSolveitMentor() ">
                 <a (click)="getUserProfile()">Profile</a>
               </li>
               <li>

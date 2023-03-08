@@ -47,7 +47,7 @@ import { AttendanceModule } from "./attendance/attendance.module";
     JudgeModule,
     NgxPaginationModule
   ],
-  providers: [ApiService, ToastyService, SharedService, AdminGuardService],
+  providers: [ApiService, ToastyService, SharedService, AdminGuardService , SolveitMentorGuardService],
   exports: [HeaderComponent]
 })
 export class DashboardModule {}
