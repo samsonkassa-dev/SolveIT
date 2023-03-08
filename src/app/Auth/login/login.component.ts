@@ -65,6 +65,8 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["/my-projects"]);
             } else if (res1.name === this.ICOG_ROLE[4]) {
               this.router.navigate(["/my-projects/recommendations"]);
+            } else if (res1.name === this.ICOG_ROLE[5]) {
+              this.router.navigate(["/dashboard/judges"]);
             } else {
               this.router.navigate(["/dashboard"]);
             }

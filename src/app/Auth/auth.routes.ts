@@ -7,6 +7,7 @@ import { NotSignedinGuardService } from "./services/not-signedin-guard.service";
 import { ForgetPasswordComponent } from "./forget-password/forget-password.component";
 import { NewPasswordComponent } from "./new-password/new-password.component";
 import { RegisterInvestorComponent } from "./registerInvestor/registerInvestor.component";
+import { RegisterJudgeComponent } from "./registerJudge/registerJudge.component";
 
 export const AUTH_ROUTES: Routes = [
   {
@@ -15,10 +16,20 @@ export const AUTH_ROUTES: Routes = [
     canActivate: [NotSignedinGuardService]
   },
   {
+    path: "register/judges",
+    component: RegisterJudgeComponent,
+    canActivate: [NotSignedinGuardService]
+  },
+  {
     path: "register/investor",
     component: RegisterInvestorComponent,
     canActivate: [NotSignedinGuardService]
   },
+  // {
+  //   path: "register/judge",
+  //   component: RegisterJudgeComponent,
+  //   canActivate: [NotSignedinGuardService]
+  // },
   {
     path: "login",
     component: LoginComponent,

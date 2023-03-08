@@ -25,7 +25,8 @@ export class WaitingListComponent implements OnInit {
     { name: "solveitmgmt", id: "" },
     { name: "solveitteam", id: "" },
     { name: "participant", id: "" },
-    { name: "investor", id: "" }
+    { name: "investor", id: "" },
+    { name: "judge", id: "" }
   ];
   public cities = [];
   public selectedYear = "2020";
@@ -73,6 +74,8 @@ export class WaitingListComponent implements OnInit {
           this.views[2].id = res[i].id;
         } else if (res[i].name === "solve-it-investor") {
           this.views[3].id = res[i].id;
+        } else if (res[i].name === "solve-it-judge") {
+          this.views[4].id = res[i].id;
         }
       }
       this.getAllUsers();
