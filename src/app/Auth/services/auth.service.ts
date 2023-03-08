@@ -13,7 +13,7 @@ export class AuthService {
   public register_path_participant = "UserAccounts/register-participants";
   public register_path_investor = "UserAccounts/register-investor";
   public register_path_judge = "UserAccounts/register-judge";
-  public register_mentor_path = "UserAccounts/register-mentor";
+  public register_mentor_path = "UserAccounts/register-solveit-mentor";
   public register_mgt_path = "UserAccounts/register-solveit-mgt";
   public register_team_path = "UserAccounts/register-solveit-team";
 
@@ -118,6 +118,9 @@ export class AuthService {
   registerInvestor(user) {
     return this.apiService.post(`${this.register_path_investor}`, user);
   }
+  registerMentor(user) {
+    return this.apiService.post(`${this.registerMentor}`, user);
+  }
   registerJudge(user) {
     return this.apiService.post(`${this.register_path_judge}`, user);
   }
@@ -156,7 +159,7 @@ export class AuthService {
   isSolveitMentor() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
-      return data.role === this.ICOG_ROLE[6];
+      return data.role === this.ICOG_ROLE[4];
     } catch (e) {
       return false;
     }
@@ -165,7 +168,7 @@ export class AuthService {
   isSolveitJudge() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
-      return data.role === this.ICOG_ROLE[5];
+      return data.role === this.ICOG_ROLE[6];
     } catch (e) {
       return false;
     }
@@ -191,7 +194,7 @@ export class AuthService {
   isInvestor() {
     try {
       const data = JSON.parse(window.localStorage.getItem(this.TOKEN));
-      return data.role === this.ICOG_ROLE[4];
+      return data.role === this.ICOG_ROLE[5];
     } catch (e) {
       return false;
     }
@@ -205,11 +208,11 @@ export class AuthService {
     } else if (role === this.ICOG_ROLE[2]) {
       return this.apiService.post(this.register_path_participant, user);
     } else if (role === this.ICOG_ROLE[4]) {
-      return this.apiService.post(this.register_path_investor, user);
-    } else if (role === this.ICOG_ROLE[5]) {
-      return this.apiService.post(this.register_path_judge, user);
-    } else if (role === this.ICOG_ROLE[6]) {
       return this.apiService.post(this.register_mentor_path, user);
+    } else if (role === this.ICOG_ROLE[5]) {
+      return this.apiService.post(this.register_path_investor, user);
+    } else if (role === this.ICOG_ROLE[6]) {
+      return this.apiService.post(this.register_path_judge, user);
     }
   }
 
