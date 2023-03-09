@@ -110,7 +110,7 @@
             </li>
           -->
           <li [class.active]="router.isActive('resources', false)">
-            <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
+            <a routerLink="/resources" *ngIf="authService.isAuthenticated() && (authService.isSolveitMentor() || authService.isAdmin())"
               >Resources</a
             >
           </li>

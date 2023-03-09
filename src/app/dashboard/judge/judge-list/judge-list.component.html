@@ -22,8 +22,9 @@
             <th>#</th>
             <th> Full Name</th>
             <th>Email</th>
-            <th> Occupation</th>
-            <th> Actions</th>
+            <th>Occupation</th>
+            <th>Competitions</th>
+            <th>Actions</th>
 
           </tr>
         </thead>
@@ -34,6 +35,7 @@
             <td>{{ judge.fullName }}</td>
             <td>{{ judge.email }}</td>
             <td>{{ judge.occupation }}</td>
+            <td>{{ judge.competitionNames }}</td>
 
 
             <td>
@@ -92,13 +94,12 @@
         <h4 class="modal-title">Assign Competition</h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="assignCompetition" *ngIf="authService.isAuthenticated()">
+        <form [formGroup]="assignCompetition"  *ngIf="authService.isAuthenticated()">
           <div id="resource-form">
             <div class="form-group">
               <label>Select Competitions:</label>
-              <ng-select formControlName="competitions"  placeholder="Select Competition?"
-               [multiple]="true" [searchable]="false" [clearable]="false" [items]="competitions" bindLabel="name"
-                bindValue="id">
+              <ng-select [items]="competitions" formControlName="competitions"  placeholder="Select Competition?"
+               [multiple]="true" [searchable]="false" [clearable]="false"  bindLabel="name"  [(ngModel)]="selectedCompetitions">
               </ng-select>
             </div>
 

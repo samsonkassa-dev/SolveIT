@@ -44,7 +44,7 @@ export class JudgeService {
   }
 
   assignCompetitions(judge, comp) {
-    return this.apiService.patch(`${this.endpoint}/${judge.id}`, {competitions: comp.competitions});
+    return this.apiService.patch(`${this.endpoint}/${judge.id}`, {competitions: comp});
   }
   getRegions() {
     return this.apiService.get(`Regions/`);
