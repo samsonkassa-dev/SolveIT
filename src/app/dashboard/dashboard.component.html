@@ -56,13 +56,13 @@
           ">
           <span class="icon"><i class="fa fa-table"></i></span> Categories
         </li>
-        <li *ngIf="!this.authService.isSolveitJudge() && !this.authService.isAdmin() && !this.authService.isSolveitMentor() " (click)="router.navigate(['dashboard/attendance'])"
+        <li *ngIf="!this.authService.isSolveitJudge() || !this.authService.isAdmin() || !this.authService.isSolveitMentor() " (click)="router.navigate(['dashboard/attendance'])"
           class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
             router.isActive('dashboard/attendance', true)
           ">
           <span class="icon"><i class="fa fa-calendar"></i></span> Attendance
         </li>
-        <li *ngIf="!this.authService.isSolveitJudge() && this.authService.isAdmin() " (click)="router.navigate(['dashboard/tags'])"
+        <li *ngIf="!this.authService.isSolveitJudge() && this.authService.isAdmin() && this.authService.isSolveitMentor()" (click)="router.navigate(['dashboard/tags'])"
           class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
             router.isActive('dashboard/tags', true)
           ">
