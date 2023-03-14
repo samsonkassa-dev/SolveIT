@@ -100,7 +100,7 @@
           <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Birth Date (M / D / YYYY)" id="age"
             name="age" id="age" [(ngModel)]="user.birthDate" formControlName="age" />
           <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
-          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+          <owl-date-time [pickerType]="'calendar'" #dt2  max='new Date()'></owl-date-time>
           <div class="error-message" *ngIf="
               registerForm.controls.age.invalid &&
               registerForm.controls.age.touched
@@ -235,6 +235,12 @@
             ">
             <p>* Password must be at least 8 characters.</p>
           </div>
+          <div class="error-message" *ngIf="
+          registerForm.controls.password.errors?.pattern &&
+          registerForm.controls.password.touched
+        ">
+        <p>* Password must have a character.</p>
+      </div>
         </div>
         <div class="input-field">
           <input class="form-control" type="password" name="rePassword" formControlName="rePassword"

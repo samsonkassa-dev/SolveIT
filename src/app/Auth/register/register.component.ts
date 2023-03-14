@@ -113,7 +113,10 @@ export class RegisterComponent implements OnInit {
         username: ["", Validators.required],
         email: ["", Validators.required, this.isEmailUnique.bind(this)],
         phoneNumber: ["", Validators.required],
-        password: ["", Validators.required],
+        password: ["", [
+                Validators.required, 
+                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+            ]],
         rePassword: ["", Validators.required],
         sex: ["", Validators.required],
         age: ["", Validators.required],
