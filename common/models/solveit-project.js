@@ -27,7 +27,7 @@ module.exports = function (Solveitproject) {
     const user = await UserAccount.findOne({ where: { id: userId }, include: "role" })
 
     if (!user) next(getUnAuthorizedError());
-    const allowedRoles = ["admin", "solve-it-mgt", "solve-it-team", "solve-it-mentor"];
+    const allowedRoles = ["admin", "solve-it-mgt", "solve-it-team", "solve-it-mentor", "solve-it-judge"];
     if (!allowedRoles.includes(user.toJSON().role.name)) {
       const membership = await ProjectMember.findOne({ where: { projectId, userId: user.id } });
       console.log(Boolean(membership));
