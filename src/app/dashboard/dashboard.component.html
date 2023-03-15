@@ -24,7 +24,7 @@
           <span class="icon"><i class="fa fa-certificate"></i></span> Activities
         </li>
 
-        <li *ngIf="!this.authService.isSolveitJudge() && !this.authService.isAdmin() && this.authService.isSolveitMentor()" (click)="router.navigate(['dashboard/projects'])"
+        <li *ngIf="this.authService.isSolveitJudge() || this.authService.isSolveitMentor()" (click)="router.navigate(['dashboard/projects'])"
           class="dashboard-menu-item" [class.dashboard-menu-item-selected]="
           router.isActive('dashboard/projects', true)
         ">
