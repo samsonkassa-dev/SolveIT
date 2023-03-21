@@ -49,9 +49,9 @@
       "property": "*"
     },
     {
-      "accessType": "WRITE",
+      "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "participant",
       "permission": "ALLOW",
       "property": "*"
     }
