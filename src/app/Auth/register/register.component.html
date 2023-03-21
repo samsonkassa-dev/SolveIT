@@ -97,7 +97,7 @@
           <p>* e.g 9xxxxxxxx</p>
         </div>
         <div class="input-field">
-          <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Birth Date (M / D / YYYY)" id="age"
+          <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [max]="maxDate" placeholder="Birth Date (M / D / YYYY)" id="age"
             name="age" id="age" [(ngModel)]="user.birthDate" formControlName="age" />
           <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
           <owl-date-time [pickerType]="'calendar'" #dt2  max='new Date()'></owl-date-time>

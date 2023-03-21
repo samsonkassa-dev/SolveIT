@@ -21,6 +21,7 @@ declare var $: any;
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
+  maxDate = new Date();
   agreeTos: any;
   public educationLevels = [
     "Elementary",
