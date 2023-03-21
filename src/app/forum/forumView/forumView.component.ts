@@ -13,8 +13,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class ForumViewComponent implements OnInit {
   public selected = "discussion-list";
+  public selectedFilter = "All";
   public discussions = [];
   public pinnedDiscussions = [];
+  public blacklistedDiscussions = [];
   public allDiscussions = [];
   public forum = { private: false, description: null, id: "" };
   public discussionPage = 1;
@@ -24,6 +26,7 @@ export class ForumViewComponent implements OnInit {
   public slung = null;
   public allDiscussionCommentCount = {};
   public pinnedDiscussionCommentCount = {};
+  public blacklistedDiscussionCommentCount = {};
   public tags = [];
   public selectedTag = "";
   public editedDiscussion: any = {
@@ -64,7 +67,7 @@ export class ForumViewComponent implements OnInit {
       } else {
         this.slung = this.route.snapshot.paramMap.get("slung");
       }
-      this.getForum(this.slung);
+      this.getForum(this.slung, "All");
       this.service.getTags().subscribe(res => {
         this.tags = res;
       });
@@ -72,13 +75,19 @@ export class ForumViewComponent implements OnInit {
   }
 
   toggleView(view) {
-    if (this.selected !== "discussion-list" && view === "discussion-list") {
-      this.getForum(this.slung);
+    console.log("zview is", view);
+    if (
+      view === "All" ||
+      view === "Blacklisted" ||
+      view === "Favourited" ||
+      view === "discussion-list"
+    ) {
+      this.getForum(this.slung, view);
     }
     this.selected = view;
   }
 
-  getForum(slung) {
+  getForum(slung, view) {
     this.spinner.show();
     this.service.getForum(slung).subscribe(
       res => {
@@ -87,7 +96,7 @@ export class ForumViewComponent implements OnInit {
           this.router.navigate(["/404"]);
         } else {
           this.forum = res.Result[0];
-          this.getDiscussions(this.forum);
+          this.getDiscussions(this.forum, view);
         }
       },
       err => {
@@ -100,38 +109,89 @@ export class ForumViewComponent implements OnInit {
     this.router.navigate(["/forums/discussion", discussion.slung]);
   }
 
-  getDiscussions(forum) {
+  getDiscussions(forum, view) {
     // fetch favorite discussions
-    this.getFavouriteDiscussions();
-
-    this.service.getDiscussions(forum.id).subscribe(
-      res => {
-        this.allDiscussionCommentCount = [];
-        this.allDiscussions = res;
-        this.allDiscussions.forEach(item => {
-          this.countComments(item, this.allDiscussionCommentCount);
-        });
-        this.discussions = res;
-        this.spinner.hide();
-      },
-      error => {
-        this.spinner.hide();
-      }
-    );
+    // this.getFavouriteDiscussions();
+    console.log("in hreres");
+    if (view === "Blacklisted") {
+      this.getBlacklistedDiscussions();
+      this.spinner.hide();
+      console.log("in black");
+    } else if (view === "Favourited") {
+      this.getFavouriteDiscussions();
+      this.spinner.hide();
+    } else {
+      this.service.getDiscussions(forum.id).subscribe(
+        res => {
+          this.allDiscussionCommentCount = [];
+          this.allDiscussions = res;
+          this.allDiscussions.forEach(item => {
+            this.countComments(item, this.allDiscussionCommentCount);
+          });
+          this.discussions = res;
+          this.spinner.hide();
+        },
+        error => {
+          this.spinner.hide();
+        }
+      );
+    }
   }
 
   getFavouriteDiscussions() {
     const userId = this.authService.getUserId();
     if (userId) {
+      console.log("in favs");
       this.service.getFavouriteDiscussions(userId).subscribe(res => {
-        this.pinnedDiscussions = res;
-        if (this.pinnedDiscussions.length > 0) {
-          this.pinnedDiscussions = this.pinnedDiscussions.filter(d => {
-            return d.forumId === this.forum.id;
+        this.service.getDiscussions(this.forum.id).subscribe(des => {
+          console.log("in favs");
+          for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            console.log(element);
+
+            this.pinnedDiscussions = des.filter(d => {
+              // console.log(d);
+              return d.id === element.id;
+            });
+            console.log(this.pinnedDiscussions);
+          }
+          this.discussions = this.pinnedDiscussions;
+          if (this.discussions.length > 0) {
+            this.discussions = this.discussions.filter(d => {
+              return d.forumId === this.forum.id;
+            });
+          }
+          this.discussions.forEach(item => {
+            this.countComments(item, this.allDiscussionCommentCount);
           });
-        }
-        this.pinnedDiscussions.forEach(item => {
-          this.countComments(item, this.pinnedDiscussionCommentCount);
+        });
+      });
+    }
+  }
+
+  getBlacklistedDiscussions() {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.service.getBlacklistedDiscussions().subscribe(res => {
+        this.service.getDiscussions(this.forum.id).subscribe(des => {
+          for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            console.log(element);
+            this.blacklistedDiscussions = des.filter(d => {
+              return d.id === element.discussionId;
+            });
+          }
+          console.log(this.blacklistedDiscussions);
+
+          this.discussions = this.blacklistedDiscussions;
+          if (this.discussions.length > 0) {
+            this.discussions = this.discussions.filter(d => {
+              return d.forumId === this.forum.id;
+            });
+          }
+          this.discussions.forEach(item => {
+            this.countComments(item, this.allDiscussionCommentCount);
+          });
         });
       });
     }

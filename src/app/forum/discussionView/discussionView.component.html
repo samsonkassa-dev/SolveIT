@@ -3,7 +3,7 @@
   <div id="blog" class="section">
     <!-- Main -->
     <main id="main" *ngIf="discussion.id !== 0">
-      <div class="blog">
+      <div class="blog" *ngIf="!isBlackListedByAdmin">
         <div class="blog-content">
           <h5>{{ discussion.title }}</h5>
           <div class="pin" *ngIf="authService.isAuthenticated()">
@@ -61,7 +61,11 @@
             <li><i class="fa fa-comments"></i>{{ numberOfComments }}</li>
           </ul>
           <hr />
-          <div class="content just" style="font-weight: 700;" [innerHTML]="discussion.content"></div>
+          <div
+            class="content just"
+            style="font-weight: 700;"
+            [innerHTML]="discussion.content"
+          ></div>
           <div class="content" *ngIf="discussion.imgContent.name">
             <img
               class="discussionImg"
@@ -115,7 +119,27 @@
         </div>
         <!-- /reply form -->
       </div>
+      <!-- <div class="no-discussion">
+        <div *ngIf="isBlackListedByAdmin">
+          <app-not-found
+            message="You can not access this discussion.
+               It has been blacklisted by Admins. 
+               Please contact them for more information!"
+            type="fetch"
+          ></app-not-found>
+        </div>
+      </div> -->
+      <div class="no-discussion" *ngIf="isBlackListedByAdmin">
+        <app-not-found
+          message="You can not access this discussion.
+          It has been blacklisted by Admins. 
+          Please contact them for more information!"
+          type="fetch"
+        ></app-not-found>
+        
+      </div>
     </main>
+
     <!-- /Main -->
   </div>
 </div>

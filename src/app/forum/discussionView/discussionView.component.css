@@ -56,3 +56,18 @@ i {
   margin-left: .5em;
   color: #ffffff;
 }
+
+
+.no-discussion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  padding: 1.5em;
+}
+
+.no-discussion p {
+  font-size: 1.5em;
+  width: 60%;
+}

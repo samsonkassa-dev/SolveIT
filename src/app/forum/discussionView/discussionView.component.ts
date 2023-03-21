@@ -39,6 +39,14 @@ export class DiscussionViewComponent implements OnInit, OnChanges {
   public comments = [];
   public postedBy = null;
   public isBlackListed = false;
+  public adminBlacklistedDiscussion = {
+    id: 0,
+    discussioId: "",
+    userId: "",
+    forumId: "",
+    blacklistedByAdmin: false
+  };
+  public isBlackListedByAdmin = false;
   public favoriteDiscussions = [];
   // @Input() slung = '';
   public slung = "";
@@ -176,17 +184,46 @@ export class DiscussionViewComponent implements OnInit, OnChanges {
   isUserBlackListedDiscussion(discussionId) {
     const userId = this.authService.getUserId();
     if (userId) {
-      this.service.isUserBlackListedDiscussion(userId, discussionId).subscribe(
-        res => {
-          this.isBlackListed = true;
-        },
-        error => {
-          this.isBlackListed = false;
+      this.service.getBlacklistedDiscussions().subscribe(des => {
+        console.log("abt to");
+        this.adminBlacklistedDiscussion = des.filter(d => {
+          return this.discussion.id === d.discussionId;
+        });
+        console.log(this.adminBlacklistedDiscussion);
+
+        if (this.adminBlacklistedDiscussion) {
+        console.log("in to");
+        console.log(this.adminBlacklistedDiscussion[0].blacklistedByAdmin);
+        console.log(this.authService.isAdmin());
+          
+          if (
+            this.adminBlacklistedDiscussion[0].blacklistedByAdmin &&
+            !this.authService.isAdmin()
+          ) {
+            this.isBlackListedByAdmin = true;
+            console.log(this.adminBlacklistedDiscussion[0].blacklistedByAdmin);
+          }
+          console.log(this.isBlackListedByAdmin);
+          return;
         }
-      );
+        this.service
+          .isUserBlackListedDiscussion(userId, discussionId)
+          .subscribe(
+            res => {
+              this.isBlackListed = true;
+            },
+            error => {
+              this.isBlackListed = false;
+              this.isBlackListedByAdmin = false;
+            }
+          );
+      });
+
       this.isBlackListed = false;
+      this.isBlackListedByAdmin = false;
     }
     this.isBlackListed = false;
+    this.isBlackListedByAdmin = false;
   }
 
   addToFavorites() {
@@ -268,7 +305,11 @@ export class DiscussionViewComponent implements OnInit, OnChanges {
   blackList() {
     const userId = this.authService.getUserId();
     if (userId) {
-      const content = { userId: userId, discussionId: this.discussion.id };
+      const content = {
+        userId: userId,
+        discussionId: this.discussion.id,
+        forumId: this.discussion.forumId
+      };
       this.service.blackList(content).subscribe(
         res => {
           this.sharedService.addToast("Reported", "Black Listed!.", "error");

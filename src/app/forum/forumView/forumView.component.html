@@ -7,7 +7,7 @@
         <ul id="detail-menu">
           <li
             class="forum-detail-menu"
-            [class.forum-detail-menu-selected]="selected == 'discussion-list'"
+            [class.forum-detail-menu-selected]="selected == 'discussion-list' || selected == 'All' || selected == 'Favourited' || selected == 'Blacklisted'"
           >
             <p (click)="toggleView('discussion-list')">
               <i class="fa fa-envelope"
@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="col-md-8">
-        <div *ngIf="selected == 'discussion-list'">
+        <div *ngIf="selected == 'discussion-list' || selected == 'All' || selected == 'Favourited' || selected == 'Blacklisted'">
           <div class="row"><br /></div>
           <div class="row" *ngIf="allDiscussions.length > 0">
             <div
@@ -107,61 +107,34 @@
               : "Post discussions that have related topics to this forum."
           }}
         </div>
-        <div>
-          <div *ngIf="selected == 'discussion-list'" class="row content">
-            <div
-              class="pinned-discussions"
-              *ngIf="pinnedDiscussions.length > 0"
-            >
-              <h4 class="title">Favorite Discussions</h4>
-              <div *ngIf="pinnedDiscussions.length > 0">
-                <div
-                  class="discussion-container"
-                  *ngFor="
-                    let discussion of (pinnedDiscussions
-                      | paginate: { itemsPerPage: 5, currentPage: pinnedPage });
-                    let i = index
-                  "
-                  (click)="discussionDetail(discussion)"
+        <div class="row filter-container">
+          <div class="filter">
+            <div class="widget">
+              <div class="widget-search">
+                <label for="user-fillter">Filter By: </label>
+                <select
+                  name="view"
+                  id="user-fillter"
+                  class="form-control"
+                  [(ngModel)]="selected"
+                  (change)="toggleView(selected)"
                 >
-                  <div class="discussion-header">
-                    <h4>
-                      <i class="fa fa-comment-o"></i> &nbsp;
-                      {{ discussion.title.trim() }}
-                    </h4>
-                    <p *ngIf="discussion.user">
-                      <i class="fa fa-user"></i> &nbsp;{{
-                        discussion.user.username
-                      }}
-                    </p>
-                  </div>
-                  <div class="discussion-footer">
-                    <ul>
-                      <li>
-                        <i class="fa fa-clock-o"></i> &nbsp;
-                        {{ discussion.createdAt | amTimeAgo }}
-                      </li>
-                      <li>
-                        <span class="badge badge-primary">
-                          {{
-                            pinnedDiscussionCommentCount[discussion.id]
-                          }}
-                          &nbsp;<i class="fa fa-comments"></i
-                        ></span>
-                        Comments
-                      </li>
-                    </ul>
-                  </div>
-                  <br />
-                </div>
-              </div>
-              <div class="row discussion-pagination">
-                <pagination-controls
-                  *ngIf="pinnedDiscussions.length > 5"
-                  (pageChange)="pinnedPage = $event"
-                ></pagination-controls>
+                  <option selected="selected" value="All"
+                    >All</option
+                  >
+                  <option value="Favourited">Favourited</option>
+                  <option value="Blacklisted">Blacklisted</option>
+                  
+                </select>
               </div>
             </div>
+          </div>
+          
+          
+        </div>
+        <div>
+          <div *ngIf="selected == 'discussion-list' || selected == 'All' || selected == 'Favourited' || selected == 'Blacklisted'" class="row content">
+            
             <div class="discussions">
               <h4 class="title">Discussions</h4>
               <div class="no-discussion">
@@ -227,6 +200,112 @@
                 ></pagination-controls>
               </div>
             </div>
+            <!-- <div
+              class="pinned-discussions"
+              *ngIf="pinnedDiscussions.length > 0"
+            >
+              <h4 class="title">Favorite Discussions</h4>
+              <div *ngIf="pinnedDiscussions.length > 0">
+                <div
+                  class="discussion-container"
+                  *ngFor="
+                    let discussion of (pinnedDiscussions
+                      | paginate: { itemsPerPage: 5, currentPage: pinnedPage });
+                    let i = index
+                  "
+                  (click)="discussionDetail(discussion)"
+                >
+                  <div class="discussion-header">
+                    <h4>
+                      <i class="fa fa-comment-o"></i> &nbsp;
+                      {{ discussion.title.trim() }}
+                    </h4>
+                    <p *ngIf="discussion.user">
+                      <i class="fa fa-user"></i> &nbsp;{{
+                        discussion.user.username
+                      }}
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <ul>
+                      <li>
+                        <i class="fa fa-clock-o"></i> &nbsp;
+                        {{ discussion.createdAt | amTimeAgo }}
+                      </li>
+                      <li>
+                        <span class="badge badge-primary">
+                          {{
+                            pinnedDiscussionCommentCount[discussion.id]
+                          }}
+                          &nbsp;<i class="fa fa-comments"></i
+                        ></span>
+                        Comments
+                      </li>
+                    </ul>
+                  </div>
+                  <br />
+                </div>
+              </div>
+              <div class="row discussion-pagination">
+                <pagination-controls
+                  *ngIf="pinnedDiscussions.length > 5"
+                  (pageChange)="pinnedPage = $event"
+                ></pagination-controls>
+              </div>
+            </div>
+            <div
+              class="pinned-discussions"
+              *ngIf="blacklistedDiscussions.length > 0"
+            >
+              <h4 class="title">Favorite Discussions</h4>
+              <div *ngIf="blacklistedDiscussions.length > 0">
+                <div
+                  class="discussion-container"
+                  *ngFor="
+                    let discussion of (blacklistedDiscussions
+                      | paginate: { itemsPerPage: 5, currentPage: pinnedPage });
+                    let i = index
+                  "
+                  (click)="discussionDetail(discussion)"
+                >
+                  <div class="discussion-header">
+                    <h4>
+                      <i class="fa fa-comment-o"></i> &nbsp;
+                      {{ discussion.title.trim() }}
+                    </h4>
+                    <p *ngIf="discussion.user">
+                      <i class="fa fa-user"></i> &nbsp;{{
+                        discussion.user.username
+                      }}
+                    </p>
+                  </div>
+                  <div class="discussion-footer">
+                    <ul>
+                      <li>
+                        <i class="fa fa-clock-o"></i> &nbsp;
+                        {{ discussion.createdAt | amTimeAgo }}
+                      </li>
+                      <li>
+                        <span class="badge badge-primary">
+                          {{
+                            blacklistedDiscussionsCommentCount[discussion.id]
+                          }}
+                          &nbsp;<i class="fa fa-comments"></i
+                        ></span>
+                        Comments
+                      </li>
+                    </ul>
+                  </div>
+                  <br />
+                </div>
+              </div>
+              <div class="row discussion-pagination">
+                <pagination-controls
+                  *ngIf="blacklistedDiscussions.length > 5"
+                  (pageChange)="pinnedPage = $event"
+                ></pagination-controls>
+              </div>
+            </div> -->
           </div>
           <div *ngIf="selected == 'discussion-create'" class="row content">
             <app-discussion-create

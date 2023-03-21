@@ -71,12 +71,15 @@
        
       </div>
       <div class="col-md-6">
-        <h3> Additional Information</h3>
+        <h3>Educational Institute Information</h3>
 
         <div class="input-field" style="margin-top: 1em">
           <input type="text" class="form-control" name="educationalInstitute"
             placeholder="What Educational Institute are you currently attending? "
             formControlName="educationalInstitute" />
+            <div class="error-message" *ngIf="addressForm.controls.educationalInstitute.touched">
+              <p> * Educational Institute Information is required. </p>
+            </div>
         </div>
 
         <h3 class="title">Emergency Contact</h3>
