@@ -69,7 +69,7 @@
           <div id="progress-report-heading">
             <h3 id="progress-report-title">Progress reports</h3>
             <button class="main-btn" (click)="toggleUploadReport(true)"
-              *ngIf="!uploadReport && !authService.isSolveitJudge()" id="upload-progress-report">
+              *ngIf="!uploadReport && !authService.isSolveitJudge() && !authService.isSolveitMentor()" id="upload-progress-report">
               Upload
             </button>
             <div
