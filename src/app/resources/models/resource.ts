@@ -7,4 +7,5 @@ export interface Resource {
   id?: string;
   description?: string;
   createdAt?: Date;
+  expDate?: string | Date;
 }

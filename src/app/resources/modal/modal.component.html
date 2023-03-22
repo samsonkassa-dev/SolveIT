@@ -6,20 +6,21 @@
         <button (click)="resetResource()" type="button" class="close" data-dismiss="modal">
           &times;
         </button>
-        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitMentor" class="close trash">
+        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitMentor()" class="close trash">
           <i style="color: red" (click)="confirm()" class="fa fa-trash"></i>
         </div>
-        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam() || authService.isSolveitMentor"
+        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam() || authService.isSolveitMentor()"
           class="close edit-pencil">
           <i (click)="onEdit(resource)" class="fa fa-pencil"></i>
         </div>
 
-        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam() || authService.isSolveitMentor"
+        <div *ngIf="authService.isAdmin() || authService.isSolveitManager() || authService.isSolveitTeam() || authService.isSolveitMentor()"
           class="close archive">
           <i (click)="onArchive(resource)" class="fa fa-archive"></i>
         </div>
         <h4 class="modal-title">{{ resource.title }}</h4>
-        <p id="time">{{ resource.createdAt | amTimeAgo }}</p>
+        <p id="time">Created: {{ resource.createdAt | amTimeAgo }}</p>
+        <p id="time">Expires: {{ resource.expDate | amTimeAgo }}</p>
       </div>
       <div class="modal-body">
         <div class="iframe">

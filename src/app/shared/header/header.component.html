@@ -42,8 +42,10 @@
           <li
             [class.active]="
               router.isActive('about', false) ||
-              router.isActive('our-team', false) ||
-              router.isActive('/winners/list', false)
+              router.isActive('/team/list', false) ||
+              router.isActive('#service', false) ||
+              router.isActive('/winners/list', false) ||
+              router.isActive('/sponsors', false)
             "
             class="has-dropdown"
           >
@@ -61,6 +63,7 @@
                 </li>
               -->
               <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/sponsors">Sponsors</a></li>
               <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
             <ul class="dropdown">
@@ -69,13 +72,14 @@
                   <a routerLink="/my-projects">My Projects</a>
                 </li>
               -->
-              <li><a href="#service">Services</a></li>
+              <li class="no-border"><a href="#service">Services</a></li>
               <!--
                 <li ">
                   <a routerLink="/gallery">Gallery</a>
                 </li>
               -->
               <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/sponsors">Sponsors</a></li>
               <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
           </li>
@@ -110,13 +114,16 @@
             </li>
           -->
           <li [class.active]="router.isActive('resources', false)">
-            <a routerLink="/resources" *ngIf="authService.isAuthenticated() && (authService.isSolveitMentor() || authService.isAdmin())"
+            <a
+              routerLink="/resources"
+              *ngIf="
+                authService.isAuthenticated() &&
+                (authService.isSolveitMentor() ||
+                  authService.isAdmin() ||
+                  authService.isSolveitParticipant())
+              "
               >Resources</a
             >
-          </li>
-
-          <li [class.active]="router.isActive('sponsors', false)">
-            <a routerLink="/sponsors">Sponsors</a>
           </li>
 
           <li

@@ -57,6 +57,7 @@ export class ModalComponent implements OnInit {
         url.length
       );
     }
+    console.log(videoId);
     return videoId;
   }
 

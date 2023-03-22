@@ -29,6 +29,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { GalleryComponent } from './gallery/gallery.component';
 import {CarouselModule} from "ngx-carousel-lib";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,7 @@ import {CarouselModule} from "ngx-carousel-lib";
     JudgeModule,
     BrowserAnimationsModule,
     FacebookModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
   ],
   providers: [
     ApiService,

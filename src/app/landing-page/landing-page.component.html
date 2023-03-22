@@ -1,57 +1,75 @@
 <div class="wrapper">
-  <a (click)='goTo("https://www.facebook.com/SolveITbyiCog")' href="https://www.facebook.com/SolveITbyiCog"
-    target="_blank">
+  <a
+    (click)="goTo('https://www.facebook.com/SolveITbyiCog')"
+    href="https://www.facebook.com/SolveITbyiCog"
+    target="_blank"
+  >
     <div class="share facebook">
       <i class="fa fa-facebook" aria-hidden="true"></i>
     </div>
   </a>
-  <a (click)='goTo("https://twitter.com/icogsolveit")' href="https://twitter.com/icogsolveit" target="_blank">
+  <a
+    (click)="goTo('https://twitter.com/icogsolveit')"
+    href="https://twitter.com/icogsolveit"
+    target="_blank"
+  >
     <div class="share twitter">
       <i class="fa fa-twitter" aria-hidden="true"></i>
     </div>
   </a>
-  <a (click)='goTo("https://www.instagram.com/icog_solveit/")' href="https://www.instagram.com/icog_solveit/"
-    target="_blank">
+  <a
+    (click)="goTo('https://www.instagram.com/icog_solveit/')"
+    href="https://www.instagram.com/icog_solveit/"
+    target="_blank"
+  >
     <div class="share instagram">
       <i class="fa fa-instagram" aria-hidden="true"></i>
     </div>
   </a>
-  <a (click)='goTo("https://telegram.me/iCogSolveit")' href="https://telegram.me/iCogSolveit" target="_blank">
+  <a
+    (click)="goTo('https://telegram.me/iCogSolveit')"
+    href="https://telegram.me/iCogSolveit"
+    target="_blank"
+  >
     <div class="share telegram">
       <i class="fa fa-telegram" aria-hidden="true"></i>
     </div>
   </a>
-  <a (click)='goTo("https://www.linkedin.com/company/icog-labs")' target="_blank">
+  <a
+    (click)="goTo('https://www.linkedin.com/company/icog-labs')"
+    target="_blank"
+  >
     <div class="share linkedin">
       <i class="fa fa-linkedin" aria-hidden="true"></i>
     </div>
   </a>
-
-
-
 </div>
 <!-- Header -->
 
 <header id="home">
   <!-- Background Video -->
   <!-- Background Image -->
-  <div class="bg-img" style="background-image: url('../../assets/img/solve-IT-2020-landing-page.jpg');">
+  <div
+    class="bg-img"
+    style="background-image: url('../../assets/img/solve-IT-2020-landing-page.jpg');"
+  >
     <div class="overlay"></div>
   </div>
 
   <!-- /Background Image -->
-  <!-- <div class="leftside">
-    <ul class="social-container">
-      <li><a href="https://www.facebook.com/SolveITbyiCog/?ref=br_rs"><i class="fa fa-facebook social-icons"></i></a>
-      </li>
-      <li><i class="fa fa-twitter social-icons"></i></li>
-      <li><i class="fa fa-instagram social-icons"></i></li>
-      <li><i class="fa fa-telegram social-icons"></i></li>
-      <li><i class="fa fa-linkedin social-icons"></i></li>
+  <!--
+    <div class="leftside">
+      <ul class="social-container">
+        <li><a href="https://www.facebook.com/SolveITbyiCog/?ref=br_rs"><i class="fa fa-facebook social-icons"></i></a>
+        </li>
+        <li><i class="fa fa-twitter social-icons"></i></li>
+        <li><i class="fa fa-instagram social-icons"></i></li>
+        <li><i class="fa fa-telegram social-icons"></i></li>
+        <li><i class="fa fa-linkedin social-icons"></i></li>
 
-    </ul>
-  </div> -->
-
+      </ul>
+    </div>
+  -->
 
   <!-- Nav -->
   <nav id="nav" class="navbar nav-transparent">
@@ -60,17 +78,34 @@
         <!-- Logo -->
         <div class="navbar-brand">
           <a routerLink="">
-            <img style="padding: 0.1em; border:solid 2px white" class="logo draw"
-              src="../../assets/img/solveit-logo12.png" alt="logo" />
-            <button class="draw logo-alt " style="padding: 0.1em;"><img style="padding: 0.1em;" class="logo-alt "
-                src="../../assets/img/solveit-logo12.png" alt="logo" /></button>
+            <img
+              style="padding: 0.1em; border:solid 2px white"
+              class="logo draw"
+              src="../../assets/img/solveit-logo12.png"
+              alt="logo"
+            />
+            <button class="draw logo-alt " style="padding: 0.1em;">
+              <img
+                style="padding: 0.1em;"
+                class="logo-alt "
+                src="../../assets/img/solveit-logo12.png"
+                alt="logo"
+              />
+            </button>
           </a>
-
-        </div> <!-- /Logo -->
+        </div>
+        <!-- /Logo -->
 
         <!-- Collapse nav button -->
-        <div class="navbar-toggler nav-collapse" type="button" data-toggle="collapse" data-target="#menus"
-          aria-controls="menus" aria-expanded="false" aria-label="Toggle navigation">
+        <div
+          class="navbar-toggler nav-collapse"
+          type="button"
+          data-toggle="collapse"
+          data-target="#menus"
+          aria-controls="menus"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon" style="color: #FFFFFF;"></span>
         </div>
 
@@ -84,55 +119,62 @@
             <a routerLink="">Home</a>
           </li>
           <li
-            [class.active]="router.isActive('about', false) || router.isActive('our-team', false) || router.isActive('/winners/list', false)"
-            class="has-dropdown">
+            [class.active]="
+              router.isActive('about', false) ||
+              router.isActive('/team/list', false) ||
+              router.isActive('/winners/list', false) ||
+              router.isActive('#service', false) ||
+              router.isActive('/sponsors', false)
+            "
+            class="has-dropdown"
+          >
             <a><span style="margin-right: .5em;">About</span>{{ "" }}</a>
             <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-                    <a routerLink="/my-projects">My Projects</a>
-                  </li> -->
-              <li><a href="#service">Services</a></li>
-              <!-- <li ">
-                    <a routerLink="/gallery">Gallery</a>
-                  </li> -->
-              <li>
-                <a routerLink="/team/list">Our Team</a>
-              </li>
-              <li>
-                <a routerLink="/winners/list">Winners</a>
-              </li>
-
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                  <a routerLink="/my-projects">My Projects</a>
+                </li>
+              -->
+              <li class="no-border"><a href="#service">Services</a></li>
+              <!--
+                <li ">
+                  <a routerLink="/gallery">Gallery</a>
+                </li>
+              -->
+              <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/sponsors">Sponsors</a></li>
+              <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
             <ul class="dropdown">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-                    <a routerLink="/my-projects">My Projects</a>
-                  </li> -->
-              <li><a href="#service">Services</a></li>
-              <!-- <li ">
-                    <a routerLink="/gallery">Gallery</a>
-                  </li> -->
-              <li>
-                <a routerLink="/team/list">Our Team</a>
-              </li>
-              <li>
-                <a routerLink="/winners/list">Winners</a>
-              </li>
-
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                  <a routerLink="/my-projects">My Projects</a>
+                </li>
+              -->
+              <li class="no-border"><a href="#service">Services</a></li>
+              <!--
+                <li ">
+                  <a routerLink="/gallery">Gallery</a>
+                </li>
+              -->
+              <li><a routerLink="/team/list">Our Team</a></li>
+              <li><a routerLink="/sponsors">Sponsors</a></li>
+              <li><a routerLink="/winners/list">Winners</a></li>
             </ul>
           </li>
 
-
-          <li [class.active]="router.isActive('dashboard', false)" *ngIf="
-                    authService.isSolveitTeam() ||
-                    authService.isSolveitManager() ||
-                    authService.isSolveitJudge() ||
-                    authService.isSolveitMentor() ||
-                    authService.isAdmin() 
-                  ">
+          <li
+            [class.active]="router.isActive('dashboard', false)"
+            *ngIf="
+              authService.isSolveitTeam() ||
+              authService.isSolveitManager() ||
+              authService.isSolveitJudge() ||
+              authService.isSolveitMentor() ||
+              authService.isAdmin()
+            "
+          >
             <a routerLink="/dashboard">Dashboard</a>
           </li>
-
-
 
           <li [class.active]="router.isActive('events', false)">
             <a routerLink="/events">Events</a>
@@ -141,53 +183,88 @@
             <a routerLink="/forums">Forums</a>
           </li>
           <!--
-                  <li [class.active]="router.isActive('news', false)">
-                    <a routerLink="/news">News</a>
-                  </li>
-                -->
+            <li [class.active]="router.isActive('news', false)">
+              <a routerLink="/news">News</a>
+            </li>
+          -->
           <li [class.active]="router.isActive('resources', false)">
-            <a routerLink="/resources" *ngIf="authService.isAuthenticated()">Resources</a>
+            <a routerLink="/resources" *ngIf="authService.isAuthenticated()"
+              >Resources</a
+            >
           </li>
 
-          <li [class.active]="router.isActive('sponsors', false)">
-            <a routerLink="/sponsors">Sponsors</a>
-          </li>
-
-          <li *ngIf="authService.isSolveitParticipant()" [class.active]="router.isActive('my-projects', false)">
+          <li
+            *ngIf="authService.isSolveitParticipant()"
+            [class.active]="router.isActive('my-projects', false)"
+          >
             <a routerLink="/my-projects">My Projects</a>
           </li>
 
           <li [class.active]="router.isActive('help', false)">
             <a routerLink="/help">Help</a>
           </li>
-          <li [class.active]="router.isActive('login', false)" *ngIf="!authService.isAuthenticated()">
+          <li
+            [class.active]="router.isActive('login', false)"
+            *ngIf="!authService.isAuthenticated()"
+          >
             <a routerLink="/login">SignIn / SignUp</a>
           </li>
-          <li [class.active]="router.isActive('my-projects', false)" *ngIf="authService.isAuthenticated()"
-            class="has-dropdown">
-            <a><span style="margin-right: .5em;"><i class="fa fa-user"></i></span>{{ "" }}</a>
+          <li
+            [class.active]="router.isActive('my-projects', false)"
+            *ngIf="authService.isAuthenticated()"
+            class="has-dropdown"
+          >
+            <a
+              ><span style="margin-right: .5em;"
+                ><i class="fa fa-user"></i></span
+              >{{ "" }}</a
+            >
             <ul class="dropdown1">
-              <!-- <li *ngIf="authService.isSolveitParticipant()">
-                      <a routerLink="/my-projects">My Projects</a>
-                    </li> -->
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
-                <a [routerLink]="[
-                          'dashboard/userProfile',
-                          authService.getUserId()
-                        ]">Profile</a>
+              <!--
+                <li *ngIf="authService.isSolveitParticipant()">
+                   <a routerLink="/my-projects">My Projects</a>
+                 </li>
+              -->
+              <li
+                *ngIf="
+                  authService.isSolveitParticipant() ||
+                  authService.isSolveitTeam()
+                "
+              >
+                <a
+                  [routerLink]="[
+                    'dashboard/userProfile',
+                    authService.getUserId()
+                  ]"
+                  >Profile</a
+                >
               </li>
               <li>
-                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+                <a
+                  routerLink=""
+                  (click)="authService.signOut()"
+                  style="cursor: pointer;"
+                  >Logout</a
+                >
               </li>
             </ul>
             <ul class="dropdown">
-              <li *ngIf="authService.isSolveitParticipant() || authService.isSolveitTeam()">
+              <li
+                *ngIf="
+                  authService.isSolveitParticipant() ||
+                  authService.isSolveitTeam()
+                "
+              >
                 <a (click)="getUserProfile()">Profile</a>
               </li>
               <li>
-                <a routerLink="" (click)="authService.signOut()" style="cursor: pointer;">Logout</a>
+                <a
+                  routerLink=""
+                  (click)="authService.signOut()"
+                  style="cursor: pointer;"
+                  >Logout</a
+                >
               </li>
-
             </ul>
           </li>
         </ul>
@@ -206,8 +283,8 @@
           <div class="home-content">
             <!-- <h1 class="black-text">We Are Creative Agency</h1> -->
             <!--
-                    <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
-                  -->
+              <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
+            -->
             <!-- </p> -->
             <!-- <button class="white-btn">Be A Part & Compete</button> -->
             <!-- <button class="main-btn">Winner Projects</button> -->
@@ -221,7 +298,10 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 banner-text text-center">
-          <h2>Solve IT 2020 <a routerLink="/register/participant"><u> Register</u></a> now</h2>
+          <h2>
+            Solve IT 2020
+            <a routerLink="/register/participant"><u> Register</u></a> now
+          </h2>
         </div>
       </div>
     </div>
@@ -266,10 +346,14 @@
 
       <!-- About slider -->
       <div class="col-md-6">
-        <div id="about-slider" style="display: flex;
+        <div
+          id="about-slider"
+          style="display: flex;
           align-items: center;
           margin: 8em 0 0 1em;
-         ;" class="">
+         ;"
+          class=""
+        >
           <img class="img-responsive" src="../../assets/img/about.jpg" alt="" />
         </div>
       </div>
@@ -282,10 +366,9 @@
 <!-- /Why Choose Us -->
 
 <!-- Service -->
-<div id="service" class="section">
+<div id="service" class="section md-padding">
   <!-- Container -->
   <div class="container">
-
     <!-- Section header -->
     <div class="section-header text-center">
       <h2 class="title">What we offer</h2>
@@ -297,15 +380,17 @@
 
       <div class="service">
         <i class="fa fa-cogs"></i>
-        <!-- <img src="../../assets/icons/training.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/training.png" width="80px" height="80px" class="service-icons">
+        -->
 
         <h3>Trainings</h3>
         <p>
-          Hard work pays off. Contestants get extensive soft skill, business and technical trainings in order to
-          ameliorate their projects. In addition, they are trained to deliver effective strategic pitch to funders or
-          partners.
+          Hard work pays off. Contestants get extensive soft skill, business and
+          technical trainings in order to ameliorate their projects. In
+          addition, they are trained to deliver effective strategic pitch to
+          funders or partners.
         </p>
-
       </div>
       <!-- /service -->
 
@@ -313,13 +398,16 @@
 
       <div class="service">
         <i class="fa fa-handshake-o"></i>
-        <!-- <img src="../../assets/icons/mentorship.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/mentorship.png" width="80px" height="80px" class="service-icons">
+        -->
 
         <h3>Mentorships</h3>
         <p>
-          A unique and highly regarded component of Solve IT is our mentoring service. Each contestant has the
-          opportunity to work with a mentor that provides one-on-one, and in-depth guidance throughout the competition
-          and follow-up on the growth of their projects.
+          A unique and highly regarded component of Solve IT is our mentoring
+          service. Each contestant has the opportunity to work with a mentor
+          that provides one-on-one, and in-depth guidance throughout the
+          competition and follow-up on the growth of their projects.
         </p>
       </div>
       <!-- /service -->
@@ -328,13 +416,15 @@
 
       <div class="service">
         <i class="fa fa-users"></i>
-        <!-- <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons">
+        -->
 
         <h3>Exposure</h3>
         <p>
           Get new friends and make new memories. Our competitors get to meet
-          people from all over the country, in different fields, each with
-          their own dreams.
+          people from all over the country, in different fields, each with their
+          own dreams.
         </p>
       </div>
       <!-- /service -->
@@ -343,12 +433,15 @@
 
       <div class="service">
         <i class="fa fa-cubes"></i>
-        <!-- <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/incubation.png" width="80px" height="80px" class="service-icons">
+        -->
         <h3>Incubation</h3>
         <p>
-          Think Big, Start Small, Scale Fast! To help them create successful startups, contestants are provided with a
-          systemized and comprehensive range of support, including expertise assistance, business support services,
-          and vast networking opportunities.
+          Think Big, Start Small, Scale Fast! To help them create successful
+          startups, contestants are provided with a systemized and comprehensive
+          range of support, including expertise assistance, business support
+          services, and vast networking opportunities.
         </p>
       </div>
       <!-- /service -->
@@ -357,12 +450,15 @@
 
       <div class="service">
         <i class="fa fa-usd"></i>
-        <!-- <img src="../../assets/icons/investor.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/investor.png" width="80px" height="80px" class="service-icons">
+        -->
 
         <h3>Investor connections</h3>
         <p>
-          Grow your connections, Our platform enables contestants to meet and present their projects to investors both
-          on national and international grounds.
+          Grow your connections, Our platform enables contestants to meet and
+          present their projects to investors both on national and international
+          grounds.
         </p>
       </div>
       <!-- /service -->
@@ -371,13 +467,18 @@
 
       <div class="service">
         <i class="fa fa-bandcamp"></i>
-        <!-- <img src="../../assets/icons/bootcamp.png" width="80px" height="80px" class="service-icons"> -->
+        <!--
+          <img src="../../assets/icons/bootcamp.png" width="80px" height="80px" class="service-icons">
+        -->
 
-        <!-- <img src="../../assets/img/icons/bootcamp.png" style="width:40px; height:40px; position:absolute; left:5px"/> -->
+        <!--
+          <img src="../../assets/img/icons/bootcamp.png" style="width:40px; height:40px; position:absolute; left:5px"/>
+        -->
         <h3>Boot camp</h3>
         <p>
-          Brush ups before the big day! Aside from Intensive trainings, contestants get effective assistance on their
-          week spots and work on their projects to make it the best it could possibly be.
+          Brush ups before the big day! Aside from Intensive trainings,
+          contestants get effective assistance on their week spots and work on
+          their projects to make it the best it could possibly be.
         </p>
       </div>
     </div>
@@ -389,7 +490,11 @@
 <!-- /Service -->
 
 <!-- Testimonial -->
-<div id="testimonial" class="section md-padding" *ngIf="!authService.isAuthenticated() && false">
+<div
+  id="testimonial"
+  class="section md-padding"
+  *ngIf="!authService.isAuthenticated() && false"
+>
   <!-- Container -->
   <div class="container">
     <!-- Row -->
@@ -407,7 +512,10 @@
 <!-- Numbers -->
 <div id="numbers" class="section sm-padding">
   <!-- Background Image -->
-  <div class="bg-img" style="background-image: url('../../assets/img/background2.jpg');">
+  <div
+    class="bg-img"
+    style="background-image: url('../../assets/img/background2.jpg');"
+  >
     <div class="overlay"></div>
   </div>
   <!-- /Background Image -->
@@ -478,24 +586,45 @@
       </div>
       <!-- /Section header -->
       <div class="our-team">
-        <div *ngFor="let member of solveItTeam ;let i=index;" class="team-member">
-
-          <div class="team" style=" height: 100% !important;width:100% !important;text-align: center;">
+        <div
+          *ngFor="let member of solveItTeam; let i = index"
+          class="team-member"
+        >
+          <div
+            class="team"
+            style=" height: 100% !important;width:100% !important;text-align: center;"
+          >
             <div class="team-img">
-              <img class="img-responsive" [src]="getImageUrl(member.picture)" style="width:210px; height:200px;"
-                alt="" />
+              <img
+                class="img-responsive"
+                [src]="getImageUrl(member.picture)"
+                style="width:210px; height:200px;"
+                alt=""
+              />
               <div class="overlay">
                 <div class="team-social">
-                  <a *ngIf="member.linkedln_link != undefined && member.linkedln_link.length > 5"
-                    href="{{member.linkedln_link}}"><i class="fa fa-linkedin"></i></a>
-                  <a *ngIf="member.twitter_link != undefined && member.twitter_link.length > 5"
-                    href="{{member.twitter_link}}"><i class="fa fa-twitter"></i></a>
+                  <a
+                    *ngIf="
+                      member.linkedln_link != undefined &&
+                      member.linkedln_link.length > 5
+                    "
+                    href="{{member.linkedln_link}}"
+                    ><i class="fa fa-linkedin"></i
+                  ></a>
+                  <a
+                    *ngIf="
+                      member.twitter_link != undefined &&
+                      member.twitter_link.length > 5
+                    "
+                    href="{{member.twitter_link}}"
+                    ><i class="fa fa-twitter"></i
+                  ></a>
                 </div>
               </div>
             </div>
             <div class="team-content">
-              <h3>{{member.fullName}}</h3>
-              <span>{{member.position}}</span>
+              <h3>{{ member.fullName }}</h3>
+              <span>{{ member.position }}</span>
             </div>
           </div>
         </div>
@@ -504,13 +633,18 @@
       <!-- /team -->
 
       <!-- team -->
-      <div *ngIf="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
+      <div
+        *ngIf="solveItTeam == undefined || solveItTeam.length <= 1"
+        class="col-sm-3 col-md-push-1"
+      >
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/bezawit.jpg" alt="" />
-            <div class="overlay">
-              <div class="team-social"></div>
-            </div>
+            <img
+              class="img-responsive"
+              src="../../assets/img/bezawit.jpg"
+              alt=""
+            />
+            <div class="overlay"><div class="team-social"></div></div>
           </div>
           <div class="team-content">
             <h3>Bezawit Kassaye</h3>
@@ -521,10 +655,17 @@
       <!-- /team -->
 
       <!-- team -->
-      <div *ngIf="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
+      <div
+        *ngIf="solveItTeam == undefined || solveItTeam.length <= 1"
+        class="col-sm-3 col-md-push-1"
+      >
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/hruy.jpg" alt="" />
+            <img
+              class="img-responsive"
+              src="../../assets/img/hruy.jpg"
+              alt=""
+            />
             <div class="overlay">
               <div class="team-social">
                 <!-- <a href="#"><i class="fa fa-facebook"></i></a> -->
@@ -541,13 +682,22 @@
       </div>
 
       <!-- team -->
-      <div *ngIf="solveItTeam == undefined|| solveItTeam.length <= 1" class="col-sm-3 col-md-push-1">
+      <div
+        *ngIf="solveItTeam == undefined || solveItTeam.length <= 1"
+        class="col-sm-3 col-md-push-1"
+      >
         <div class="team">
           <div class="team-img">
-            <img class="img-responsive" src="../../assets/img/Betelhem%20Dessie.jpg" alt="" />
+            <img
+              class="img-responsive"
+              src="../../assets/img/Betelhem%20Dessie.jpg"
+              alt=""
+            />
             <div class="overlay">
               <div class="team-social">
-                <a href="https://www.linkedin.com/in/betelhemdessie/"><i class="fa fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/betelhemdessie/"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
               </div>
             </div>
           </div>
@@ -564,23 +714,37 @@
   <!-- /Container -->
 </div>
 <!-- /Team -->
-<!-- testimonial Start
-              ============================================================= -->
+<!--
+  testimonial Start
+           =============================================================
+-->
 
-<!---
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="block">
-                    <div class="section-header" style="text-align: center;">
-                            <h2  >What People say About Us</h2>
-                    </div>
-                <div class="testimonial-area">
+<!--
+  -
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+                  <div class="section-header" style="text-align: center;">
+                          <h2  >What People say About Us</h2>
+                  </div>
+              <div class="testimonial-area">
 
-                  <div class="tm-contant">
-                    <div class="tm-contant-items" id="slide-testimonial">
-                      <carousel-component>
-                        <div class="item-carousel">
+                <div class="tm-contant">
+                  <div class="tm-contant-items" id="slide-testimonial">
+                    <carousel-component>
+                      <div class="item-carousel">
+                        <div class="tm-contant-list item">
+                          <div class="tm-img">
+                            <img src="../../assets/img/Betelhem%20Dessie.jpg" alt="img">
+                          </div>
+                          <div class="tm-text">
+                            <p>" It’s official – I love this competition." <span>- Bethlehem Dessie</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item-carousel">
                           <div class="tm-contant-list item">
                             <div class="tm-img">
                               <img src="../../assets/img/Betelhem%20Dessie.jpg" alt="img">
@@ -602,30 +766,20 @@
                               </div>
                             </div>
                           </div>
-                          <div class="item-carousel">
-                              <div class="tm-contant-list item">
-                                <div class="tm-img">
-                                  <img src="../../assets/img/Betelhem%20Dessie.jpg" alt="img">
-                                </div>
-                                <div class="tm-text">
-                                  <p>" It’s official – I love this competition." <span>- Bethlehem Dessie</span>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
 
 
-                      </carousel-component>
+                    </carousel-component>
 
 
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>-->
+      </div>
+    </section>
+-->
 <!-- Contact -->
 <div id="contact" class="section md-padding">
   <!-- Container -->
@@ -678,17 +832,36 @@
 </div>
 <div class="app-get-zmall" id="section2" style="font-size: 16px;">
   <h3 class="get-text">
-    Get Solve IT on mobile. Head on to the <strong
-      (click)="goTo('https://play.google.com/store/apps/details?id=com.icog.solveit')"
-      style="cursor: pointer;">Playstore</strong>
+    Get Solve IT on mobile. Head on to the
+    <strong
+      (click)="
+        goTo('https://play.google.com/store/apps/details?id=com.icog.solveit')
+      "
+      style="cursor: pointer;"
+      >Playstore</strong
+    >
   </h3>
   <div>
-    <!-- <a href="#" class="social-link">
-      <img src="assets/svg/app-store.svg" alt="App Store" id="app_store" height="30" width="30" />
-    </a> -->
-    <a (click)="goTo('https://play.google.com/store/apps/details?id=com.icog.solveit')" style="cursor: pointer;"
-      target="_blank" class="social-link">
-      <img src="assets/svg/play-store.svg" alt="Play Store" id="play_store" height="30" width="30" />
+    <!--
+      <a href="#" class="social-link">
+        <img src="assets/svg/app-store.svg" alt="App Store" id="app_store" height="30" width="30" />
+      </a>
+    -->
+    <a
+      (click)="
+        goTo('https://play.google.com/store/apps/details?id=com.icog.solveit')
+      "
+      style="cursor: pointer;"
+      target="_blank"
+      class="social-link"
+    >
+      <img
+        src="assets/svg/play-store.svg"
+        alt="Play Store"
+        id="play_store"
+        height="30"
+        width="30"
+      />
     </a>
   </div>
 </div>

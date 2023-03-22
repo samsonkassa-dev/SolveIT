@@ -63,7 +63,7 @@
 
 <div class="content">
   <!-- Videos -->
-  <div id="videos" class="section md-padding">
+  <div id="videos" class="section">
     <!-- Container -->
     <div class="container">
       <!-- Row -->
@@ -120,7 +120,7 @@
     <!-- /Container -->
   </div>
   <!-- /Videos -->
-  <div id="about" class="section md-padding">
+  <div id="about" class="section">
     <!-- Documents -->
     <div class="container">
       <!-- Row -->
@@ -194,7 +194,8 @@
                 authService.isSolveitTeam()
               " (click)="archiveResource(selectedResource)" class="fa fa-archive close"></i>
               <img class="resource-detail-img" src="../../../assets/img/pdfCover.jpg" alt="book cover" />
-              <p>{{ selectedResource.createdAt | amTimeAgo }}</p>
+              <p>Created: {{ selectedResource.createdAt | amTimeAgo }}</p>
+              <p>Expires: {{ selectedResource.expDate | amTimeAgo }}</p>
               <h4 class="title">{{ selectedResource.title }}</h4>
               <p>{{ selectedResource.description }}</p>
               <div class="row">

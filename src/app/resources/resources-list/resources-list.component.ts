@@ -48,16 +48,42 @@ export class ResourcesListComponent implements OnInit {
         this.backUpDocResources = [];
         this.backUpVidResources = [];
         res.filter(item => {
+          console.log(new Date(item.expDate));
+          console.log(new Date());
+          console.log(new Date(item.expDate)<new Date() || !item.expDate);
+          // console.log(item.is_archived);
+          if(!item.is_archived && (new Date(item.expDate)<new Date() || !item.expDate)){
+            item.is_archived = !item.is_archived;
+            if (item.id) {
+              this.resourceService.updateResource(item.id, item).subscribe(
+                res => {
+                  // this.ngOnInit();
+                  // this.sharedService.addToast(
+                  //   "Success",
+                  //   "Resource Archived Successfuly!",
+                  //   "success"
+                  // );
+                },
+                err => {
+                  // if ((err.status = 422)) {
+                  //   this.sharedService.addToast("", "Error occured!", "error");
+                  // }
+                }
+              );
+            }
+          }
           if (
             item.type === "document" &&
-            item.is_archived == this.is_archived
+            item.is_archived === this.is_archived
           ) {
+            
             this.doc_resources.push(item);
             this.backUpDocResources.push(item);
           } else if (
             item.type === "video" &&
-            item.is_archived == this.is_archived
+            item.is_archived === this.is_archived
           ) {
+            
             this.vid_resources.push(item);
             this.backUpVidResources.push(item);
           }

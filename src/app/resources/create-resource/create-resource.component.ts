@@ -17,6 +17,7 @@ export class CreateResourceComponent implements OnInit {
   public URL = `${configs.rootUrl}storages/resources/upload`;
   public uploader: FileUploader = new FileUploader({ url: this.URL });
   public resourceForm: FormGroup;
+  minDate = new Date();
   public progress = 0;
   public isUploading = false;
   public isFileSelected = false;
@@ -27,7 +28,8 @@ export class CreateResourceComponent implements OnInit {
     content: {},
     url: "",
     category: "",
-    description: ""
+    description: "",
+    expDate: ""
   };
 
   constructor(
@@ -44,7 +46,8 @@ export class CreateResourceComponent implements OnInit {
       url: new FormControl(""),
       title: new FormControl("", Validators.required),
       category: new FormControl("", Validators.required),
-      description: new FormControl("", Validators.required)
+      description: new FormControl("", Validators.required),
+      expDate: new FormControl("", Validators.required)
     });
 
     this.service.getCategories().subscribe(res => {
@@ -59,6 +62,7 @@ export class CreateResourceComponent implements OnInit {
         this.resource["type"] = params["type"];
         this.resource["url"] = params["url"];
         this.resource["title"] = params["title"];
+        this.resource["expDate"] = new Date(params["expDate"]);
         this.isFileSelected = true;
       }
     });

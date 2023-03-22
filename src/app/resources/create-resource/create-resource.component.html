@@ -112,6 +112,7 @@
         * Type is required.
       </p>
     </div>
+    
     <div class="form-group">
       <input
         *ngIf="resource.type === 'video'"
@@ -132,6 +133,35 @@
         *ngIf="resource.type === 'document'"
         class=""
       />
+    </div>
+    <div class="form-group">
+      <input
+        style="width: 95%; border: 0.025rem solid grey;"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        [min]="minDate"
+        placeholder="Expiration Date (M / D / YYYY)"
+        id="expDate"
+        name="expDate"
+        id="expDate"
+        [(ngModel)]="resource.expDate"
+        formControlName="expDate"
+      />
+      <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+      <owl-date-time
+        [pickerType]="'calendar'"
+        #dt2
+        min="new Date()"
+      ></owl-date-time>
+      <div
+        class="error-message"
+        *ngIf="
+          resourceForm.controls.expDate.invalid &&
+          resourceForm.controls.expDate.touched
+        "
+      >
+        <p>* Expiration date is required.</p>
+      </div>
     </div>
     <div id="progress" *ngIf="isUploading">
       <circle-progress
