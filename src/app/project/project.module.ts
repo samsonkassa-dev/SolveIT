@@ -31,6 +31,7 @@ import { ProjectInvestorViewComponent } from "./projectInvestorView/projectInves
 import { ProjectReviewListComponent } from "./projectReviewList/projectReviewList.component";
 import { SingleReviewComponent } from "./singleReview/singleReview.component";
 import { InvestorProfileModalComponent } from "./investorProfileModal/investorProfileModal.component";
+import { ActivityViewComponent } from "./activityView/activity-view.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { InvestorProfileModalComponent } from "./investorProfileModal/investorPr
     AddProjectMemberComponent,
     ProjectMemberList,
     CreateProgressReportComponent,
+    ActivityViewComponent,
     ReportViewComponent,
     JoinCompetitionComponent,
     RecommendationsComponent,

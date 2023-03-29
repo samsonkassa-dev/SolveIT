@@ -29,6 +29,14 @@
   padding: 1em;
 }
 
+.btn-danger{
+  padding: 11px 25px !important;
+}
+
+.btn-success{
+  padding: 11px 25px !important;
+}
+
 .service:hover .title {
   color: #2ba692;
 }

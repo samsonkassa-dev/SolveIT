@@ -1,0 +1,202 @@
+<div class="reportView">
+  <div class="report" *ngIf="activity">
+    <div class="service">
+      <i class="fa fa-file-text"></i>
+      <h3>{{ activity.title }}</h3>
+      <h3>Activity : {{ activity.activity_name }}</h3>
+      <p>
+        {{
+          activity.description ||
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum ipsum obcaecati id consectetur commodi doloremque officiis impedit itaque autem, quia quo consequuntur neque at suscipit voluptatem veniam reprehenderit dolor aspernatur."
+        }}
+      </p>
+
+      <h3>
+        Score : {{ activity.activity_score || "TBA" }}
+      </h3>
+
+      <form *ngIf="authService.isSolveitMentor()" [formGroup]="reportScoreForm">
+        <input
+          type="number"
+          placeholder="Add Score"
+          formControlName="activity_score"
+        />
+        <button
+          [disabled]="!reportScoreForm.valid"
+          type="submit"
+          class="main-btn"
+          (click)="addScore()"
+        >
+          Add Score
+        </button>
+      </form>
+      <p>{{ activity.createdAt | amTimeAgo }}</p>
+      
+        <!-- <button
+          class="btn btn-danger"
+          *ngIf="this.authService.isSolveitMentor()"
+          (click)="remove()"
+        >
+          Remove
+        </button> -->
+        <button
+          class="btn btn-success"
+          *ngIf="this.authService.isSolveitParticipant() && !this.activity.isSubmitted"
+          (click)="toggleIsSubmitting()"
+        >
+          Submit
+        </button>
+     
+      <!--
+        <button
+          class="btn main-btn"
+          *ngIf="report.type === types[0].id || report.type === types[3].id"
+          (click)="showDocument(report.content.name)"
+        >
+          Download Report
+        </button>
+        <button
+          class="btn main-btn"
+          *ngIf="report.type === types[1].id || report.type === types[2].id"
+          type="button"
+          data-toggle="collapse"
+          data-target="#report-content"
+          aria-expanded="false"
+          aria-controls="report-content"
+        >
+          Read Report
+        </button>
+      -->
+      <div>
+        <button class="btn outline-btn" (click)="backToProgressReportList()">
+          Back
+        </button>
+      </div>
+
+      <div class="collapse">
+        <!--
+          <div class="card card-body">
+            <h5 class="title">Report Content</h5>
+            {{ report?.report }}
+            <p>Date : {{ report?.meetingDate | date }}</p>
+            <p>Mode of Communication : {{ report?.modeOfCommunication }}</p>
+            <p>Meeting Was About : {{ report?.communicationAbout }}</p>
+            <p>Project Status : {{ report?.progress }}</p>
+          </div>
+        -->
+      </div>
+    </div>
+  </div>
+  <div id="createProjectModal" class="modal fade" role="dialog" *ngIf="this.isSubmitting" >
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" (click)="reset()" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" *ngIf="!isEdit">Submit Activity</h4>
+          <h4 class="modal-title" *ngIf="isEdit">Edit Submission</h4>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="reportForm" *ngIf="activity">
+            <div class="error-message" *ngIf="error">
+              <p>
+                Error while uploading the file. please check if your file is not corrupted and try again.
+              </p>
+            </div>
+            <div id="resource-form">
+              <div class="form-group">
+                <input type="text" class="input" name="title" placeholder="Name" formControlName="title"
+                  [(ngModel)]="activity.activity_name">
+                <!-- <div class="error-message"
+                  *ngIf="activity.controls.title.invalid && activity.controls.title.touched">
+                  <p>* Project title is required.</p>
+                </div> -->
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Some description about the project" class="input " formControlName="description"
+                  [(ngModel)]="activity.description">
+              </textarea>
+                <!-- <div class="error-message"
+                  *ngIf="activity.controls.description.invalid && activity.controls.description.touched"
+                  >
+                  <p>* Project description is required.</p>
+                </div> -->
+              </div>
+  
+              <div class="form-group">
+                <label id="proposal-label" for="proposal">Attach Document</label>
+                <input id="proposal" type="file" ng2FileSelect [uploader]="uploader" (change)="handleFileSelection($event)" />
+                <div class="error-message" *ngIf="isFileSelected && errorType">
+                  <p>* wrong file type, only pdf/doc allowed.</p>
+                </div>
+              </div>
+              <div id="progress" *ngIf="isUploading">
+                <circle-progress [percent]="progress" [radius]="40" [outerStrokeWidth]="8" [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                  [animationDuration]="300" [titleFontSize]="20"></circle-progress>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" *ngIf="!isEdit" (click)="onFormSubmit()" class="btn main-btn">Submit</button>
+          <button type="button" *ngIf="isEdit" (click)="onFormSubmit()" class="btn main-btn">Update</button>
+          <button type="button" class="btn outline-btn" data-dismiss="modal" (click)="reset()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+    <h5 class="title" *ngIf="">Comments</h5>
+    <div class="report-comment-container">
+      <div
+        class="media"
+        *ngFor="let comment of reportComments"
+        [class.my-comment]="userId === comment.user.id"
+        [class.other-comment]="userId !== comment.user.id"
+      >
+        <div class="media-left">
+          <img
+            class="media-object"
+            id="commenter-avatar"
+            src="../../../assets/img/User_Circle.png"
+            alt=""
+          />
+        </div>
+        <div class="media-body">
+          <h6 class="media-heading">
+            {{ comment.user.username }}<span class="time"> a minute ago</span>
+          </h6>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+
+      <div class="media" *ngIf="reportComments.length === 0">
+        <div class="media-left"><i class="media-object fa fa-frown-o"></i></div>
+        <div class="media-body">
+          <h6 class="media-heading">No comments found.</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="reply-form">
+      <form [formGroup]="reportCommentForm">
+        <textarea
+          placeholder="Add Your Commment"
+          formControlName="content"
+          [(ngModel)]="reportComment.content"
+        ></textarea>
+        <button
+          [disabled]="!reportCommentForm.valid"
+          type="submit"
+          class="main-btn"
+          (click)="addComment()"
+        >
+          Reply
+        </button>
+      </form>
+    </div>
+  -->
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

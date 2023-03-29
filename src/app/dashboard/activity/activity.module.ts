@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ActivityService } from "./activity.service";
 import { ToastyModule } from "ng2-toasty";
 import { NgxPaginationModule } from "ngx-pagination";
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 
 @NgModule({
   imports: [
@@ -14,7 +15,9 @@ import { NgxPaginationModule } from "ngx-pagination";
     FormsModule,
     ReactiveFormsModule,
     ToastyModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   declarations: [ActivitiesListComponent],
   exports: [ActivitiesListComponent],

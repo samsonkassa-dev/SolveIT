@@ -69,6 +69,19 @@ export class ReportViewComponent implements OnInit, OnChanges {
       this.back.emit();
     });
   }
+  approve() {
+    const user = this.authService.getUserId();
+    const temp = { ...this.report, isApproved: true, approvedBy: user, approvedAt: new Date() };
+    this.service.addPogressReportScore(temp).subscribe(res => {
+      this.report = temp;
+      this.ngOnInit();
+      this.sharedService.addToast(
+        "Success",
+        "Report Approved!",
+        "success"
+      );
+    });
+  }
   getProjectReportComments() {
     this.service.fetchProjectReportComments(this.report.id).subscribe(res => {
       this.reportComments = res;

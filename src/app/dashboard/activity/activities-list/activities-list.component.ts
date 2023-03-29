@@ -31,14 +31,16 @@ export class ActivitiesListComponent implements OnInit {
       activity_name: ["", Validators.required],
       passing_grade: ["", Validators.required],
       level: ["", [Validators.required]],
-      description: ["", Validators.required]
+      description: ["", Validators.required],
+      expDate: ["", Validators.required],
     });
     this.editActivityForm = this.fb.group({
       id: ["", Validators.required],
       activity_name: ["", Validators.required],
       passing_grade: ["", Validators.required],
       level: ["", [Validators.required]],
-      description: ["", Validators.required]
+      description: ["", Validators.required],
+      expDate: ["", Validators.required]
     });
   }
 

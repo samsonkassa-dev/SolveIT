@@ -15,13 +15,18 @@ declare var $: any;
   styleUrls: ["projectView.component.css"]
 })
 export class ProjectViewComponent implements OnInit {
-  public views = ["report", "members", "add-member", "score"];
+  public views = ["report", "activities", "members", "add-member", "score"];
   public selected = this.views[0];
   public uploadReport = false;
   public project: any = null;
   public progressReports: any = [];
+  public approvedProgressReports: any = [];
+  public backupApprovedProgressReports: any = [];
   public backupProgress: any = [];
+  public activities: any = [];
+  public backupActivities: any = [];
   public selectedProgressReport = null;
+  public selectedActivity = null;
   public isEnrolled = false;
   public count = 0;
   public members = [];
@@ -116,6 +121,8 @@ export class ProjectViewComponent implements OnInit {
   }
   toggleView(view) {
     this.selected = view;
+    this.selectedProgressReport = null;
+    this.selectedActivity = null;
   }
   setupScore() {
     if (this.authService.isSolveitJudge()) {
@@ -184,6 +191,7 @@ export class ProjectViewComponent implements OnInit {
         this.project = res;
         this.getProgressReports();
         this.isProjectRegisteredToCompetition();
+        this.getActivities(res);
       },
       error1 => {
         this.router.navigate(["/404"]);
@@ -191,9 +199,22 @@ export class ProjectViewComponent implements OnInit {
     );
   }
 
+  getActivities(project) {
+    this.service.getActivities(project.level).subscribe(res => {
+      this.activities = res;
+      this.backupActivities = res;
+    });
+  }
+
   public getProgressReports() {
     this.service.getAllProgressReport(this.project.id).subscribe(res1 => {
-      this.progressReports = res1;
+      this.progressReports = res1.filter(p => {
+        return p.isApproved === false || p.isApproved === undefined;
+      });
+      this.approvedProgressReports = res1.filter(p => {
+        return p.isApproved === true;
+      });
+      this.backupApprovedProgressReports = this.approvedProgressReports;
       this.backupProgress = res1;
     });
   }
@@ -245,10 +266,16 @@ export class ProjectViewComponent implements OnInit {
 
   viewProgressReport(report) {
     this.selectedProgressReport = report;
+    this.selectedActivity = null;
+  }
+  viewActivity(activity) {
+    this.selectedActivity = activity;
+    this.selectedProgressReport = null;
   }
 
   back() {
     this.selectedProgressReport = null;
+    this.selectedActivity = null;
     this.getProgressReports();
   }
 

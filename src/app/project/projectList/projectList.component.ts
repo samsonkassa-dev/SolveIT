@@ -37,7 +37,7 @@ export class ProjectListComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.currentUser = this.authService.getUserSession().user;
     window.FB.XFBML.parse();
-    $("#likeUsOnFB").modal("show");
+    // $("#likeUsOnFB").modal("show");
   }
 
   ngOnChanges(changes: SimpleChanges): void {

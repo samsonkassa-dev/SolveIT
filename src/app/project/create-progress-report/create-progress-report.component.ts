@@ -165,7 +165,7 @@ export class CreateProgressReportComponent implements OnInit {
           res => {
             this.sharedService.addToast(
               "Success",
-              "Project Created!.",
+              "Progress Created!.",
               "success"
             );
             this.isUploading = false;

@@ -85,7 +85,7 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="activityForm" *ngIf="authService.isAuthenticated()">
-          <div id="resource-form">
+          <div >
             <div class="form-group">
               <input type="text" class="input" name="title" placeholder="Activity Name"
                 formControlName="activity_name" />
@@ -107,7 +107,34 @@
               <textarea type="text" class="input" name="title" placeholder="Description"
                 formControlName="description"></textarea>
             </div>
-            <div class="form-group" id="resource-upload-btn">
+            <div class="form-group">
+              <input
+                style="width: 95%; border: 0.025rem solid grey;"
+                [owlDateTime]="dt2"
+                [owlDateTimeTrigger]="dt2"
+                [min]="minDate"
+                placeholder="Deadline (M / D / YYYY)"
+                id="expDate"
+                name="expDate"
+                formControlName="expDate"
+              />
+              <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+              <owl-date-time
+                [pickerType]="'calendar'"
+                #dt2
+                min="new Date()"
+              ></owl-date-time>
+              <!-- <div
+                class="error-message"
+                *ngIf="
+                  activityForm.controls.expDate.invalid &&
+                  activityForm.controls.expDate.touched
+                "
+              >
+                <p>* Expiration date is required.</p>
+              </div> -->
+            </div>
+            <div class="form-group">
               <input type="button" [disabled]="!activityForm.valid" (click)="oncreateActivity()" data-dismiss="modal"
                 class="main-btn" value="Create" />
             </div>

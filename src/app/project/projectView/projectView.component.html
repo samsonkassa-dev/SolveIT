@@ -4,31 +4,56 @@
   <div class="row main-container">
     <div class="col-md-4 menu-container">
       <ul class="project-menu">
-        <li [class.selected]="selected === views[0]" (click)="toggleView('report')">
+        <li
+          [class.selected]="selected === views[0]"
+          (click)="toggleView('report')"
+        >
           <span class="icon"><i class="fa fa-line-chart"></i></span> Progress
           Reports
         </li>
-        <li [class.selected]="selected === views[1]" (click)="toggleView('members')">
+        <li
+          [class.selected]="selected === views[1]"
+          (click)="toggleView('activities')"
+        >
+          <span class="icon"><i class="fa fa-certificate"></i></span> Activities
+        </li>
+        <li
+          [class.selected]="selected === views[2]"
+          (click)="toggleView('members')"
+        >
           <span class="icon"><i class="fa fa-users"></i></span> Members
         </li>
-        <li [class.selected]="selected === views[2]" (click)="toggleView('add-member')"
-          *ngIf="isMember(authService.getUserId())">
+        <li
+          [class.selected]="selected === views[3]"
+          (click)="toggleView('add-member')"
+          *ngIf="isMember(authService.getUserId())"
+        >
           <span class="icon"><i class="fa fa-user-plus"></i></span> Add Member
         </li>
-        <li data-toggle="modal" data-target="#createProjectModal" data-backdrop="static"
-          *ngIf="isMember(authService.getUserId())">
+        <li
+          data-toggle="modal"
+          data-target="#createProjectModal"
+          data-backdrop="static"
+          *ngIf="isMember(authService.getUserId())"
+        >
           <span class="icon"><i class="fa fa-pencil-square"></i></span> Edit
           Project
         </li>
 
-        <li [class.selected]="selected === views[3]" (click)="toggleView('score')">
+        <li
+          [class.selected]="selected === views[4]"
+          (click)="toggleView('score')"
+        >
           <span class="icon"><i class="fa fa-star "></i></span> Project Score
         </li>
-        <li (click)="backToCompetitionProjects()" *ngIf="
+        <li
+          (click)="backToCompetitionProjects()"
+          *ngIf="
             authService.isAdmin() ||
             authService.isSolveitManager() ||
             authService.isSolveitTeam()
-          ">
+          "
+        >
           <span class="icon"><i class="fa fa-arrow-left"></i></span> Back
         </li>
       </ul>
@@ -40,54 +65,106 @@
 
         <h4 id="label">Description</h4>
         <p id="description">{{ project.description }}</p>
-        <h4 *ngIf="!authService.isSolveitParticipant()" id="proposal-label">Score</h4>
-        <p *ngIf="!authService.isSolveitParticipant()" id="proposal-description">
-          <span id="download" (click)="addScore()" data-toggle="modal" data-target="#editCategory" class="btn btn-warn"
-            (click)="setupScore()">
-            <i style="margin-right: 1em" class="fa fa-file"></i>Score</span>
+        <h4 *ngIf="!authService.isSolveitParticipant()" id="proposal-label">
+          Score
+        </h4>
+        <p
+          *ngIf="!authService.isSolveitParticipant()"
+          id="proposal-description"
+        >
+          <span
+            id="download"
+            (click)="addScore()"
+            data-toggle="modal"
+            data-target="#editCategory"
+            class="btn btn-warn"
+            (click)="setupScore()"
+          >
+            <i style="margin-right: 1em" class="fa fa-file"></i>Score</span
+          >
         </p>
         <h4 id="proposal-label">Proposal</h4>
         <p id="proposal-description">
-          <span *ngIf="project.proposal" id="download" (click)="downloadProposal(project.proposal)">
-            <i style="margin-right: 1em" class="fa fa-file"></i>Download</span>
-          <a *ngIf="!project.proposal" id="download" data-toggle="modal" data-target="#createProjectModal"
-            data-backdrop="static">
-            <i style="margin-right: 1em" class="fa fa-file"></i>Upload</a>
+          <span
+            *ngIf="project.proposal"
+            id="download"
+            (click)="downloadProposal(project.proposal)"
+          >
+            <i style="margin-right: 1em" class="fa fa-file"></i>Download</span
+          >
+          <a
+            *ngIf="!project.proposal"
+            id="download"
+            data-toggle="modal"
+            data-target="#createProjectModal"
+            data-backdrop="static"
+          >
+            <i style="margin-right: 1em" class="fa fa-file"></i>Upload</a
+          >
         </p>
         <h4 id="status-label">Status</h4>
-        <p id="status-description" *ngIf="!isEnrolled" data-toggle="modal" data-target="#myModal"
-          data-backdrop="static">
+        <p
+          id="status-description"
+          *ngIf="!isEnrolled"
+          data-toggle="modal"
+          data-target="#myModal"
+          data-backdrop="static"
+        >
           Not registered in any competitions yet.
           <span id="enroll">Enroll</span>
         </p>
-        <p id="status-description" *ngIf="isEnrolled">
-          <span id="enroll">Enrolled to a competition.</span>
-        </p>
+        <p id="status-description" *ngIf="isEnrolled"><span>Enrolled.</span></p>
       </div>
-      <div class="row progress-reports" *ngIf="selected == views[0] && !selectedProgressReport">
+      <div
+        class="row progress-reports"
+        *ngIf="selected == views[0] && !selectedProgressReport && !selectedActivity"
+      >
         <div class="panel panel-default">
           <div id="progress-report-heading">
-            <h3 id="progress-report-title">Progress reports</h3>
-            <button class="main-btn" (click)="toggleUploadReport(true)"
-              *ngIf="!uploadReport && !authService.isSolveitJudge() && !authService.isSolveitMentor()" id="upload-progress-report">
+            <h3 id="progress-report-title">Pending Progress reports</h3>
+            <button
+              class="main-btn"
+              (click)="toggleUploadReport(true)"
+              *ngIf="
+                !uploadReport &&
+                !authService.isSolveitJudge() &&
+                !authService.isSolveitMentor()
+              "
+              id="upload-progress-report"
+            >
               Upload
             </button>
             <div
-              style=" display: inline-block; margin-left:20px;z-index:999;width:300px;background-color: none !important;background: none !important;">
-              <ng-select placeholder="filter category" [items]="types" bindLabel="name" bindValue="id"
-                [(ngModel)]="report.type" [searchable]="false" (change)="onfilterChange()">
+              style=" display: inline-block; margin-left:20px;z-index:999;width:300px;background-color: none !important;background: none !important;"
+            >
+              <ng-select
+                placeholder="filter category"
+                [items]="types"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="report.type"
+                [searchable]="false"
+                (change)="onfilterChange()"
+              >
               </ng-select>
             </div>
-            <button class="main-btn" (click)="toggleUploadReport(false)"
-              *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
+            <button
+              class="main-btn"
+              (click)="toggleUploadReport(false)"
+              *ngIf="uploadReport && !authService.isSolveitJudge()"
+              id="show-progress-report"
+            >
               Back
             </button>
           </div>
           <div class="panel-body" id="progress-report-content">
             <div class="reports" *ngIf="!uploadReport">
               <div *ngIf="progressReports.length > 0">
-                <div class="col-md-4 col-sm-6" *ngFor="let report of progressReports"
-                  (click)="viewProgressReport(report)">
+                <div
+                  class="col-md-4 col-sm-6"
+                  *ngFor="let report of progressReports"
+                  (click)="viewProgressReport(report)"
+                >
                   <div class="service">
                     <i class="fa fa-file-text"></i>
                     <h4>{{ limitProjectProposalTitle(report.title, 7) }}</h4>
@@ -103,79 +180,285 @@
               <div *ngIf="progressReports.length == 0">
                 <div class="not-found">
                   <div class="no-resource-found">
-                    <app-not-found message="You haven't uploaded any
-                    report, yet."></app-not-found>
-                    <button class="outline-btn" (click)="toggleUploadReport(true)">
+                    <app-not-found
+                      message="You haven't uploaded any
+                    report, yet."
+                    ></app-not-found>
+                    <button
+                      class="outline-btn"
+                      (click)="toggleUploadReport(true)"
+                    >
                       create Here
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            <app-create-progress-report (created)="reportCreated()" [project]="project" *ngIf="uploadReport">
+            <app-create-progress-report
+              (created)="reportCreated()"
+              [project]="project"
+              *ngIf="uploadReport"
+            >
             </app-create-progress-report>
           </div>
         </div>
       </div>
-      <div class="row progress-reports" *ngIf="selected == views[3]">
+      <div
+        class="row progress-reports"
+        *ngIf="selected == views[0] && !selectedProgressReport && !selectedActivity"
+      >
+        <div class="panel panel-default">
+          <div id="progress-report-heading">
+            <h3 id="progress-report-title">Approved Progress reports</h3>
+
+            <!--
+              <div
+                style=" display: inline-block; margin-left:20px;z-index:999;width:300px;background-color: none !important;background: none !important;">
+                <ng-select placeholder="filter category" [items]="types" bindLabel="name" bindValue="id"
+                  [(ngModel)]="report.type" [searchable]="false" (change)="onfilterChange()">
+                </ng-select>
+              </div>
+              <button class="main-btn" (click)="toggleUploadReport(false)"
+                *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
+                Back
+              </button>
+            -->
+          </div>
+          <div class="panel-body" id="progress-report-content">
+            <div class="reports" >
+              <div *ngIf="approvedProgressReports.length > 0">
+                <div
+                  class="col-md-4 col-sm-6"
+                  *ngFor="let report of approvedProgressReports"
+                  (click)="viewProgressReport(report)"
+                >
+                  <div class="service">
+                    <i class="fa fa-file-text"></i>
+                    <h4>{{ limitProjectProposalTitle(report.title, 7) }}</h4>
+                    <p>
+                      Created: <br />
+                      {{ report.createdAt | amTimeAgo }}
+                    </p>
+                    <p>
+                      Approved:<br />
+                      {{ report.approvedAt | amTimeAgo }}
+                    </p>
+                    <!-- <p>
+                      By <br />
+                      {{ report.user ? report.user.username : "Unknown" }}
+                    </p> -->
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="approvedProgressReports.length == 0">
+                <div class="not-found">
+                  <div class="no-resource-found">
+                    <app-not-found
+                      message="You don't have any approved projects, yet."
+                    ></app-not-found>
+                    <!-- <button
+                      class="outline-btn"
+                      (click)="toggleUploadReport(true)"
+                    >
+                      create Here
+                    </button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <app-create-progress-report
+              (created)="reportCreated()"
+              [project]="project"
+              *ngIf="uploadReport"
+            >
+            </app-create-progress-report> -->
+          </div>
+        </div>
+      </div>
+      <div class="row progress-reports" *ngIf="selected == views[4]">
         <div class="panel panel-default">
           <div id="progress-report-heading">
             <h3 id="progress-report-title">Project Score</h3>
-
           </div>
           <div class="panel-body" id="progress-report-content">
-            <div *ngFor="let score of project.score ; let i= index">
-              <span style="font-weight: 600;">Judge {{i+1}} : </span>{{score.score}}
+            <div *ngFor="let score of project.score; let i = index">
+              <span style="font-weight: 600;">Judge {{ i + 1 }} : </span
+              >{{ score.score }}
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row progress-reports"
+        *ngIf="selected == views[1] && !selectedProgressReport && !selectedActivity"
+      >
+        <div class="panel panel-default">
+          <div id="progress-report-heading">
+            <h3 id="progress-report-title">Activities</h3>
+            <!--
+              <button class="main-btn" (click)="toggleUploadReport(true)"
+                *ngIf="!uploadReport && !authService.isSolveitJudge() && !authService.isSolveitMentor()" id="upload-progress-report">
+                Upload
+              </button>
+              <div
+                style=" display: inline-block; margin-left:20px;z-index:999;width:300px;background-color: none !important;background: none !important;">
+                <ng-select placeholder="filter category" [items]="types" bindLabel="name" bindValue="id"
+                  [(ngModel)]="report.type" [searchable]="false" (change)="onfilterChange()">
+                </ng-select>
+              </div>
+              <button class="main-btn" (click)="toggleUploadReport(false)"
+                *ngIf="uploadReport && !authService.isSolveitJudge()" id="show-progress-report">
+                Back
+              </button>
+            -->
+          </div>
+          <div class="panel-body" id="progress-report-content">
+            <div class="reports" *ngIf="!uploadReport">
+              <div *ngIf="activities.length > 0">
+                <div
+                  class="col-md-4 col-sm-6"
+                  *ngFor="let activity of activities"
+                  (click)="viewActivity(activity)"
+                >
+                  <div class="service">
+                    <i class="fa fa-file-text"></i>
+                    <h4>
+                      {{ limitProjectProposalTitle(activity.activity_name, 7) }}
+                    </h4>
+                    <p>Pass Mark: {{ activity.passing_grade }}</p>
+                    <p>{{ activity.expDate | amTimeAgo }}</p>
 
+                    <!--
+                      <p>
+                        {{
+                          "By " + (report.user ? report.user.username : "Unknown")
+                        }}
+                      </p>
+                    -->
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="activities.length == 0">
+                <div class="not-found">
+                  <div class="no-resource-found">
+                    <app-not-found
+                      message="You haven't uploaded any
+                    report, yet."
+                    ></app-not-found>
+                    <button
+                      class="outline-btn"
+                      (click)="toggleUploadReport(true)"
+                    >
+                      create Here
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <app-create-progress-report
+              (created)="reportCreated()"
+              [project]="project"
+              *ngIf="uploadReport"
+            >
+            </app-create-progress-report>
           </div>
         </div>
       </div>
 
+      <app-add-project-member
+        *ngIf="selected == views[3]"
+        [project]="project"
+      ></app-add-project-member>
+      <project-member-list
+        *ngIf="selected == views[2]"
+        [project]="project"
+      ></project-member-list>
+      <app-activity-view
+        *ngIf="selectedActivity"
+        (back)="back()"
+        [activity]="selectedActivity"
+      >
+      </app-activity-view>
+      <app-report-view
+        *ngIf="selectedProgressReport"
+        (back)="back()"
+        [report]="selectedProgressReport"
+      >
+        <app-join-competition
+          [activeCompetitions]="activeCompetitions"
+          [isJoinCompetitionSuccessfull]="isJoinCompetitionSuccessfull"
+          (join)="onJoinCompetition($event)"
+          (checkIfJoined)="isProjectRegisteredToCompetition()"
+        ></app-join-competition>
 
-      <app-add-project-member *ngIf="selected == views[2]" [project]="project"></app-add-project-member>
-      <project-member-list *ngIf="selected == views[1]" [project]="project"></project-member-list>
-      <app-report-view *ngIf="selectedProgressReport" (back)="back()" [report]="selectedProgressReport">
-      </app-report-view>
-    </div>
-  </div>
-</div>
+        <app-project-create
+          [project]="project"
+          [isEdit]="true"
+          (created)="onProjectUpdated()"
+        ></app-project-create>
 
-<app-join-competition [activeCompetitions]="activeCompetitions"
-  [isJoinCompetitionSuccessfull]="isJoinCompetitionSuccessfull" (join)="onJoinCompetition($event)"
-  (checkIfJoined)="isProjectRegisteredToCompetition()"></app-join-competition>
-
-<app-project-create [project]="project" [isEdit]="true" (created)="onProjectUpdated()"></app-project-create>
-
-<div id="editCategory" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-        <h4 class="modal-title">Add Score</h4>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="addScoreForm" *ngIf="authService.isAuthenticated() && !authService.isSolveitParticipant()">
-          <div id="resource-form">
-            <div *ngIf="!authService.isSolveitJudge()" class="form-group">
-              <label>Judge: </label>
-              <ng-select (change)="selectJudge()" [(ngModel)]="projects.judge" formControlName="judge"
-                [searchable]="false" [clearable]="false" [items]="judges" bindLabel="fullName" bindValue="judgeId">
-              </ng-select>
-            </div>
-            <div class="form-group">
-              <label>Score:</label>
-              <input type="text" class="form-control" name="title" placeholder="Score" formControlName="score" />
-            </div>
-            <div class="form-group" id="resource-upload-btn">
-              <input type="submit" (click)="addScore()" data-dismiss="modal" class="main-btn" value="Add Score" />
+        <div id="editCategory" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 class="modal-title">Add Score</h4>
+              </div>
+              <div class="modal-body">
+                <form
+                  [formGroup]="addScoreForm"
+                  *ngIf="
+                    authService.isAuthenticated() &&
+                    !authService.isSolveitParticipant()
+                  "
+                >
+                  <div id="resource-form">
+                    <div
+                      *ngIf="!authService.isSolveitJudge()"
+                      class="form-group"
+                    >
+                      <label>Judge: </label>
+                      <ng-select
+                        (change)="selectJudge()"
+                        [(ngModel)]="projects.judge"
+                        formControlName="judge"
+                        [searchable]="false"
+                        [clearable]="false"
+                        [items]="judges"
+                        bindLabel="fullName"
+                        bindValue="judgeId"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="form-group">
+                      <label>Score:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="title"
+                        placeholder="Score"
+                        formControlName="score"
+                      />
+                    </div>
+                    <div class="form-group" id="resource-upload-btn">
+                      <input
+                        type="submit"
+                        (click)="addScore()"
+                        data-dismiss="modal"
+                        class="main-btn"
+                        value="Add Score"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </app-report-view>
     </div>
   </div>
 </div>

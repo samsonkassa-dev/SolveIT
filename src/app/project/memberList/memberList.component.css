@@ -14,6 +14,14 @@
   cursor: default;
 }
 
+.panel-heading{
+  display: flex;
+  align-items: center;
+}
+.panel-heading h3{
+  margin-right: 15px;
+}
+
 a:hover {
   cursor: pointer;
 }
