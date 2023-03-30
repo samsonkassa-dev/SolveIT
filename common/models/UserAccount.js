@@ -21,8 +21,8 @@ module.exports = function (Useraccount) {
     if (ctx.instance !== undefined && !ctx.instance.emailVerified) {
       let { emailConfirmationId } = Useraccount.app.models;
       let { Email } = Useraccount.app.models;
-      // let cId = uniqueid();
-      let cId = "1234";
+      let cId = uniqueid();
+      // let cId = "1234";
       let email = ctx.instance.email;
       let userId = ctx.instance.id;
       // let html = `<p>Hello <b>${ctx.instance.firstName}</b>, Welcome to SolveIT competition. Pleace confirm your email address by following the link below. </p>
